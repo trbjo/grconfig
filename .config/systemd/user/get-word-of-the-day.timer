@@ -1,0 +1,10 @@
+[Unit]
+Description=Word of the day timer
+
+[Timer]
+Persistent=true
+OnStartupSec=5
+OnCalendar=*-*-* 08:00:00
+
+[Install]
+WantedBy=timers.target

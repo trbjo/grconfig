@@ -1,0 +1,1 @@
+/usr/lib/mpv/mpv-acestream.lua

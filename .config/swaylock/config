@@ -1,0 +1,56 @@
+# screenshots
+# effect-blur=5x5
+image="$HOME/pics/storebælt.jpg"
+effect-compose=/home/tb/.faceLock.png
+
+
+ignore-empty-password
+color=000000
+# image=eDP-1:.facelock.jpg
+# image=DP-2:.facelock-DP.jpg
+scaling=center
+line-uses-inside
+
+indicator-radius=71
+indicator-thickness=4
+
+key-hl-color=15539E
+bs-hl-color=15539E
+separator-color=00ff0000
+
+# do not hide my face when typing
+inside-color=00ff0000
+# # only color the ring blue
+ring-color=FFFFFF00
+line-color=ff0000
+
+# but clear by making a white overlay
+# inside-clear-color=ffffff99
+inside-clear-color=ffffff00
+line-clear-color=808080
+ring-clear-color=808080
+
+# who are we kidding? ver and wrong should look the same
+inside-ver-color=FFFFFF00
+ring-ver-color=15539E
+line-ver-color=15539E
+inside-wrong-color=F97583DD
+ring-wrong-color=F97583DD
+line-wrong-color=F97583DD
+
+# we do not want to look at the text
+text-clear-color=FBFAFA00
+text-ver-color=FBFAFA00
+text-wrong-color=FBFAFA00
+
+
+fade-in=0.2
+
+# clock
+# timestr=%H:%M
+# datestr=%A %-d %h
+indicator
+# font-size=250
+# text-color=FFFFFF
+# font=Operator Mono SSm Lig Medium
+# font=Swaylock

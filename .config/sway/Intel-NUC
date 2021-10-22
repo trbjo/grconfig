@@ -1,0 +1,89 @@
+# colors
+set $BGA #D5DDE9
+set $BGTIILEBAR #F5F7FA
+set $BGFI #506070
+set $BGU #DFDFDFC8
+set $FG #505050
+set $accent #3584E4
+
+
+
+output 'Goldstar Company Ltd LG UltraFine 909NTWG7R817' max_render_time 8 resolution 3840x2160 pos 0 0 scale 2 subpixel rgb bg /home/h/Pictures/abstract/`ls /home/h/Pictures/abstract | sort -R | head -1` fill
+output 'Goldstar Company Ltd LG UltraFine 907NTUWBA398' max_render_time 8 resolution 3840x2160 pos 1922 0 scale 2 subpixel rgb bg /home/h/Pictures/abstract/`ls /home/h/Pictures/abstract | sort -R | head -1` fill
+
+# bindsym --no-repeat ctrl+space [app_id="^PopUp$"] scratchpad show, fullscreen disable, move position center, resize set width 1920 height 1058, resize shrink up 1000px, resize grow width 2px
+bindsym --no-repeat ctrl+space [app_id="^PopUp$"] scratchpad show, fullscreen disable, move position center, resize set width 100ppt height 100ppt, resize shrink up 2000px
+
+
+workspace 1 output DP-1
+workspace 2 output DP-1
+workspace 3 output DP-1
+
+workspace 4 output DP-2
+workspace 5 output DP-2
+workspace 6 output DP-2
+
+bindsym --no-repeat ctrl+2 workspace 1
+bindsym --no-repeat ctrl+3 workspace 2
+bindsym --no-repeat ctrl+4 workspace 3
+
+bindsym --no-repeat ctrl+7 workspace 4
+bindsym --no-repeat ctrl+8 workspace 5
+bindsym --no-repeat ctrl+9 workspace 6
+
+bindsym --no-repeat ctrl+Shift+2 move container to workspace 1; workspace 1
+bindsym --no-repeat ctrl+Shift+3 move container to workspace 2; workspace 2
+bindsym --no-repeat ctrl+Shift+4 move container to workspace 3; workspace 3
+
+bindsym --no-repeat ctrl+Shift+7 move container to workspace 4; workspace 4
+bindsym --no-repeat ctrl+Shift+8 move container to workspace 5; workspace 5
+bindsym --no-repeat ctrl+Shift+9 move container to workspace 6; workspace 6
+
+bindsym --no-repeat $mod+l exec pkill -SIGUSR1 swayidle
+
+# For the Plantronic headset
+bindsym --locked XF86AudioPlay exec [ -S /tmp/mpvsocket ] && echo 'cycle pause' | socat - /tmp/mpvsocket > /dev/null 2>&1 || mpc toggle
+bindsym --locked XF86AudioNext exec mpc next
+bindsym --locked XF86AudioPrev exec mpc prev
+
+
+
+
+set $FG2 #EFE8E0
+set $BG2 #000000E4
+set $BG #FFFFFF
+set $FGINACTIVE #908880
+
+
+
+#bar {
+#    Swaybar_command waybar
+#}
+
+
+bar {
+    position top
+    font SF Pro Display Medium 12
+    pango_markup enabled
+    status_command i3blocks
+    mode hide
+    workspace_min_width 44
+    height 27
+    modifier Mod4
+    status_edge_padding 16
+    separator_symbol "   "
+    strip_workspace_numbers yes
+    colors {
+        statusline $FG2
+        background $BG2
+        binding_mode $BG2 $BG2 $FG2
+        focused_workspace $BG2 $BG2 $BG
+        active_workspace $BG2 $BG2 $FG2
+        inactive_workspace $BG2 $BG2 $FGINACTIVE
+        }
+}
+
+
+
+default_border pixel 8
+gaps inner 12

@@ -1,0 +1,31 @@
+{
+    "workbench.colorTheme": "GitHub Light Default",
+    "editor.fontSize": 12,
+    "editor.fontFamily": "monospace",
+    "omnisharp.enableAsyncCompletion": true,
+    "omnisharp.enableImportCompletion": true,
+    "omnisharp.enableRoslynAnalyzers": true,
+    "omnisharp.organizeImportsOnFormat": true,
+    "razor.devmode": true,
+    "workbench.statusBar.visible": false,
+    "workbench.activityBar.visible": false,
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter-notebook"
+    },
+    "notebook.cellToolbarLocation": {
+        "default": "right",
+        "jupyter-notebook": "left"
+    },
+    "extensions.ignoreRecommendations": true,
+    "editor.minimap.enabled": false,
+    "workbench.list.mouseWheelScrollSensitivity": 0.3,
+    "editor.lineHeight": 1.6,
+    "breadcrumbs.enabled": false,
+    "terminal.integrated.fontSize": 12,
+    "workbench.editor.showTabs": false,
+    "workbench.editor.tabCloseButton": "off",
+    "terminal.integrated.tabs.enableAnimation": false,
+    "terminal.integrated.tabs.enabled": false,
+    "window.enableMenuBarMnemonics": false,
+    "window.menuBarVisibility": "hidden"
+}

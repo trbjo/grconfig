@@ -1,0 +1,6 @@
+<snippet>
+    <content><![CDATA[breakpoint()]]></content>
+    <tabTrigger>pdb</tabTrigger>
+    <scope>source.python</scope>
+    <description>Insert a breakpoint</description>
+</snippet>

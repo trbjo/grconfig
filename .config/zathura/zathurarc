@@ -1,0 +1,88 @@
+set guioptions v
+set scroll-step 100
+set selection-clipboard clipboard
+set scroll-page-aware true
+set window-title-basename true
+set window-title-page true
+set font "SF Pro Display Regular 10"
+set adjust-open "best-fit"
+
+#set render-loading false
+
+map [normal] o scroll left
+map [index] o navigate_index collapse
+
+map [normal] u scroll right
+map [index] u navigate_index expand
+
+map [normal] t scroll down
+map [index] t navigate_index down
+
+map [normal] c scroll up
+map [index] c navigate_index up
+
+map [normal] m focus_inputbar "/"
+
+map [normal] <Return> search forward
+map [normal] <S-Return> search backward
+
+map <C-Tab> exec 'swaymsg focus next'
+
+
+#map [normal] f toggle_fullscreen
+#map [fullscreen] f toggle_fullscreen
+
+
+set recolor false
+set recolor-keephue true
+set recolor-lightcolor "#F4ECD9"
+set recolor-darkcolor "#000000"
+
+
+
+set scrollbar-bg "#D0D0D0"
+
+
+set default-bg "#EEEEEE" #00
+set default-fg "#E6E6E4" #01
+
+set statusbar-fg "#E6E6E4" #04
+set statusbar-bg "#EEEEEE" #01
+
+set inputbar-bg  "#FBFCFD" # base01
+set inputbar-fg  "#E6E6E4" # base2
+
+set notification-error-bg "#e06c75" #08
+set notification-error-fg "#E6E6E4" #00
+
+set notification-warning-bg "#e06c75" #08
+set notification-warning-fg "#2D3031" #00
+
+set notification-bg "#586e75" # base01
+set notification-fg "#b58900" # yellow
+
+set highlight-color "#ECBE7B" #0A
+set highlight-active-color "#61afef" #0D
+
+set completion-group-fg "#151515"
+set completion-group-bg "#5288E2"
+
+set completion-highlight-fg "#151515"
+set completion-highlight-bg "#5288E2"
+
+set completion-bg "#F2F2F2"
+set completion-fg "#E6E6E4"
+
+set notification-bg "#202429" #0B
+set notification-fg "#fafbfc" #00
+
+# Define the color in index mode
+set index-bg                   "#EEEEEE" # base02
+set index-fg                   "#E6E6E4" # base1
+set index-active-bg             "#3584E4" # base01
+set index-active-fg             "#ffffff" # base2
+
+#map <C-BackSpace> exec 'mv "%" /home/tb/.local/share/Trash/files/'
+map <C-BackSpace> exec '/home/tb/.local/bin/killZathura.py "%"'
+#map <C-BackSpace> exec 'notify-send "Image viewer" "Moved file to Trash" --icon=camera-photo'
+#map <C-BackSpace> feedkeys ":exec 'mv "%" /home/tb/.local/share/Trash/files/'<Return> :exec 'notify-send "Image viewer" "Moved file to Trash" --icon=camera-photo<Return>'"

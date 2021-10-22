@@ -1,0 +1,7 @@
+// These settings override both User and Default settings for the Git Commit syntax
+{
+    "mini_diff": false,
+    "rulers": [72, 50],
+    "block_caret": false,
+    "command_mode": false,
+}

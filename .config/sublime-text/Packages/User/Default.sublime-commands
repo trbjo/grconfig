@@ -1,0 +1,103 @@
+[
+    { "caption": "Project: Quick Switch", "command": "prompt_select_workspace" },
+    { "caption": "Project: Open Additional", "command": "prompt_open_project_or_workspace" },
+    { "caption": "Project: Switch", "command": "prompt_switch_project_or_workspace" },
+
+    {
+      "caption": "Sort Lines",
+      "command": "run_macro_file",
+      "args":
+      {
+        "file": "res://Packages/User/macros/sort4real.sublime-macro"
+      }
+    },
+
+    {
+      "caption": "Sort Lines (Case Sensitive)",
+      "command": "run_macro_file",
+      "args":
+      {
+        "file": "res://Packages/User/macros/sort4realcase.sublime-macro"
+      }
+    },
+
+  { "caption": "View: Toggle Menu", "command": "toggle_menu" },
+
+  {
+      "caption": "Git...",
+      "command": "prompt_git"
+  },
+
+
+  {
+    "caption": "File: Save",
+    "command": "save_nicely",
+  },
+
+  {
+    "caption": "Goto: End of File",
+    "command": "move_to", "args": {"to": "eof", "extend": false}
+  },
+
+  {
+    "caption": "Show Overlay",
+    "command": "show_overlay", "args": {"overlay": "goto", "text": "@"}
+  },
+
+  {
+    "caption": "Goto: End of File (extend)",
+    "command": "move_to", "args": {"to": "eof", "extend": true}
+  },
+
+  {
+    "caption": "Goto: Beginning of File",
+    "command": "move_to", "args": {"to": "bof", "extend": false}
+  },
+
+  {
+    "caption": "Goto: Beginning of File (extend)",
+    "command": "move_to", "args": {"to": "bof", "extend": true}
+  },
+
+  {
+    "caption": "Show diagnostics nicely",
+    "command": "show_diagnostics_nicely"
+  },
+
+
+  {
+    "caption": "Set Danish dictionary",
+    "command": "danish"
+  },
+
+  {
+    "caption": "Show diagnostics nicely",
+    "command": "show_diagnostics_nicely"
+  },
+
+  {
+    "caption": "Set English dictionary",
+    "command": "english"
+  },
+
+  {
+    "caption": "Set German dictionary",
+    "command": "german"
+  },
+
+  // {
+  //   "caption": "Set Unix on this file",
+  //   "command": "run_dos_to_unix",
+  // },
+
+  // {
+  //   "caption": "Make file executable",
+  //   "command": "set_chmod",
+  // },
+
+  // {
+  //   "caption": "Remove executable bit",
+  //   "command": "remove_chmod",
+  // },
+
+]

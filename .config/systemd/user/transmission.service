@@ -1,0 +1,14 @@
+[Unit]
+Description=Transmission BitTorrent Daemon
+After=network.target
+
+[Service]
+Type=notify
+Restart=always
+ExecStart=/usr/bin/transmission-daemon -f --log-error
+#ExecStartPost=notify-send.sh "Transmission" "Transmission started" --icon="com.github.davidmhewitt.torrential"
+ExecReload=/bin/kill -s HUP $MAINPID
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target

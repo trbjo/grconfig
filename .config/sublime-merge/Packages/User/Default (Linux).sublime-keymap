@@ -1,0 +1,77 @@
+[
+
+
+{ "keys": ["."], "command": "move", "args": {"by": "lines", "forward": false}, "context":
+[
+  { "key": "setting.block_caret", "operator": "equal", "operand": true }
+
+] },
+
+{ "keys": ["e"], "command": "move", "args": {"by": "lines", "forward": true}, "context":
+[
+  { "key": "setting.block_caret", "operator": "equal", "operand": true }
+
+] },
+
+
+
+
+{"keys": ["j"], "command": "copy" , "context":
+  [
+    {"key": "setting.block_caret"},
+  ]
+},
+
+
+
+{"keys": ["ctrl+j"], "command": "copy" },
+
+{ "keys": ["ctrl+`"], "command": "toggle_side_bar", "context":
+  [
+    { "key": "overlay_visible", "operator": "equal", "operand": false },
+  ]
+},
+
+
+{ "keys": ["ctrl+tab"], "command": "next_file_tab" },
+{ "keys": ["ctrl+shift+tab"], "command": "prev_file_tab" },
+
+
+
+  //    {
+  //       "keys": ["escape"],
+  //       "command": "exit_file_view",
+  //       "context":
+  //       [
+  //           { "key": "viewing_file" },
+  //           { "key": "blame_mode", "operator": "not_equal" },
+  //           { "key": "merge_mode", "operator": "not_equal" },
+  //       ]
+  //    },
+
+
+    { "keys": ["ctrl+w"], "command": "close" },
+
+
+     { "keys": ["alt"], "command": "noop"},
+
+
+
+     { "keys": ["ctrl+o"], "command": "navigate_back" },
+     { "keys": ["ctrl+u"], "command": "navigate_forward" },
+     { "keys": ["ctrl+t"], "command": "navigate_to_parent" },
+     { "keys": ["ctrl+c"], "command": "navigate_to_child" },
+
+
+     { "keys": ["alt+1"], "command": "focus_left", "context": [{"key": "merge_mode"}] },
+     { "keys": ["alt+2"], "command": "focus_middle", "context": [{"key": "merge_mode"}] },
+     { "keys": ["alt+3"], "command": "focus_right", "context": [{"key": "merge_mode"}] },
+
+     // { "keys": ["ctrl+enter"], "command": "edit_commit",
+     //    "context": [{ "key": "setting.commit_message" }, { "key": "read_only" }]
+     // },
+
+
+
+
+]

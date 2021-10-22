@@ -1,0 +1,30 @@
+/* for synapse selected widget */
+/*window box widget {*/
+    /*border-radius: 0;*/
+/*}*/
+
+window.popup,
+menubar {
+    color: mix(@theme_text_color, @theme_base_color, 0.25);
+    font-weight: 500;
+}
+
+menubar {
+    background: @theme_base_color;
+    border: none;
+}
+
+
+tooltip {
+    background: @theme_base_color;
+    background-clip: padding-box;
+    border-color: alpha(@unfocused_borders, 0.8);
+    border-radius: 2px;
+    box-shadow: 0 1px 2px 1px alpha(mix(@theme_base_color, #000000, 0.5), 0.25);
+}
+
+tooltip label {
+    color: mix(@theme_text_color, #ffffff, 0.25);
+    padding: 4px;
+    text-shadow: none;
+}

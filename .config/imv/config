@@ -1,0 +1,83 @@
+# Default config for imv
+
+[options]
+overlay = true
+overlay_font = Imvfont:11
+overlay_background_alpha = ff
+overlay_text =\ ${imv_current_file##*/}, \($imv_width\x$imv_height\),\ $imv_scale%, \($imv_current_index/$imv_file_count\)
+title_text =${imv_current_file##*/}, \($imv_width\x$imv_height\),\ $imv_scale%, \($imv_current_index/$imv_file_count\)
+background = checks
+width = 3000
+height = 2000
+# scaling_mode = shrink
+
+
+# Suppress built-in key bindings, and specify them explicitly in this
+# config file.
+# suppress_default_binds = true
+
+[aliases]
+# Define aliases here. Any arguments passed to an alias are appended to the
+# command.
+# alias = command to run
+
+[binds]
+# Define some key bindings
+
+# Rotate the currently open image by 90 degrees by pressing 'R'
+r = exec mogrify -rotate 90 "${imv_current_file}"; next; prev
+l = exec mogrify -rotate 270 "${imv_current_file}"; next; prev
+<Delete> = exec mv "$imv_current_file" $HOME/.local/share/Trash/files && notify-send "Image viewer" "Moved ${imv_current_file##*/} to Trash" --icon=camera-photo; next
+
+q = quit
+c = exec convert "${imv_current_file}" -colorspace Gray "$HOME/ex/${imv_current_file##*/}" && notify-send "Image viewer" "Converted image to black and white" --icon=camera-photo
+
+# uses bash
+y = exec notify-send "Image viewer" "Yanked path of ${imv_current_file##*/}" --icon=camera-photo && wl-copy -- "${imv_current_file// /\\ }"
+
+# Image navigation
+<Left> = prev
+#; exec notify-send.sh --app-name=IMV "${imv_current_file##*/}" "\($imv_current_index/$imv_file_count\)"
+<Right> = next
+#; exec notify-send.sh --app-name=IMV "${imv_current_file##*/}" "\($imv_current_index/$imv_file_count\)"
+<bracketleft> = prev
+# <Right> = next
+<bracketright> = next
+gg = goto 1
+<Shift+G> = goto -1
+
+# Panning
+j = pan 0 -50
+k = pan 0 50
+h = pan 50 0
+# l = pan -50 0
+
+# Zooming
+<Up> = zoom 1
+<Shift+plus> = zoom 1
+i = zoom 1
+<Down> = zoom -1
+<minus> = zoom -1
+o = zoom -1
+
+# Rotate Clockwise by 90 degrees
+<Ctrl+r> = rotate by 90
+
+# Other commands
+x = close
+f = fullscreen
+d = overlay
+p = exec echo $imv_current_file
+# c = center
+s = scaling next
+<Shift+S> = upscaling next
+a = zoom actual
+# r = reset
+
+# Gif playback
+<period> = next_frame
+<space> = toggle_playing
+
+# Slideshow control
+t = slideshow +1
+<Shift+T> = slideshow -1

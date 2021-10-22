@@ -1,0 +1,22 @@
+[Warning]
+[Error]
+background=202020e0
+details-background=202020e0
+border=151617ee
+border-bottom=000000
+button-background=202020
+text=ffffff
+font=SF Pro Display Medium 11
+
+dismiss-button=
+button-gap=10
+button-dismiss-gap=0
+button-margin-right=2
+button-padding=3
+message-padding=3
+
+button-border-size=1
+details-border-size=1
+border-bottom-size=1
+
+

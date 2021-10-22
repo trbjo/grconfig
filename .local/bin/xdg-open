@@ -1,0 +1,199 @@
+#!/usr/bin/env zsh
+IFS=$'\n'
+
+# browser_function () {
+#     _url="$1"
+#     _qb_version='1.0.4'
+#     _proto_version=1
+#     _ipc_socket="${XDG_RUNTIME_DIR}/qutebrowser/ipc-$(echo -n "$USER" | md5sum | cut -d' ' -f1)"
+#     _qute_bin="/usr/bin/qutebrowser --qt-flag ignore-gpu-blacklist --qt-flag enable-gpu-rasterization --qt-flag enable-native-gpu-memory-buffers --qt-flag num-raster-threads=8"
+#     printf '{"args": ["%s"], "target_arg": null, "version": "%s", "protocol_version": %d, "cwd": "%s"}\n' \
+#            "${_url}" \
+#            "${_qb_version}" \
+#            "${_proto_version}" \
+#            "${PWD}" | socat - UNIX-CONNECT:"${_ipc_socket}" 2>/dev/null || "$_qute_bin" "$@" &
+#     swaymsg "[app_id=^org.qutebrowser.qutebrowser$] focus"
+#     # swaymsg workspace 3 > /dev/null 2>&1
+# }
+
+browser_function() {
+    pkill -CONT $FIREFOXPROCESSES
+    swaymsg -q exec -- "/usr/bin/firefox --new-tab '${@}' ; [app_id=^firefox$] focus"
+}
+
+mpv_function () {
+    # comingfrom=$(swaymsg -t get_tree | jq '.. | (.nodes? // empty)[] | select(.focused==true) | {app_id}[]')
+    # echo $comingfrom
+    myargs="$@"
+    notify-send "MPV" "$myargs" --icon=multimedia-video-player
+    # grep -q 'enabled' /sys/class/drm/card0-DP-1/enabled && output="--audio-device=alsa/iec958:CARD=Audio,DEV=0"
+    readlink -q /sys/bus/hid/devices/0003:047F:02F7* > /dev/null 2>&1 && output="--audio-device=alsa/iec958:CARD=BT600,DEV=0"
+    # /usr/bin/mpv $output ${@} > /dev/null 2>&1 &
+    /usr/bin/mpv $output $myargs > /dev/null 2>&1
+    # if [[ $comingfrom == "firefox" ]]
+    # then
+    #     pkill -CONT "$FIREFOXPROCESSES"
+    # fi
+    return 0
+}
+
+if [[ "${1}" == '--mpv' ]]; then
+    shift
+    mpv_function "${@}"
+    exit 0
+fi
+
+pdf_function () {
+    if [[ $HOST == "MateBookXPro" ]]
+    then
+        grep -q 0 /sys/class/power_supply/AC0/online && pkill -STOP $FIREFOXPROCESSES
+    fi
+    # (swaymsg "[title=\"^${${1##*/}@Q}\"] focus" || /usr/bin/zathura "$@" &) > /dev/null 2>&1
+    (swaymsg "[app_id=\"^org.pwmt.zathura$\" title=\"^${(q)1##*/}\ \[\"] focus" || /usr/bin/zathura "$1" &) > /dev/null 2>&1
+    exit 0
+}
+
+getNameOfTorrent() {
+    # stringified=$(sed -e 's/%20/ /g' <<< $1)
+    stringified="${1:gs/%20/ }"
+    local IFS='='
+    while read -r prot hash name tracker
+    do
+        printf %s "${name: 0:-3}"
+    done <<< "$stringified"
+}
+
+transmission_function () {
+
+    if [[ ${#@} -gt 1 ]]; then
+        mess="${#@} torrents"
+    elif [[ ${1: 0:6} == "magnet" ]]; then
+        mess=$(getNameOfTorrent $1)
+    else
+        mess="Torrent"
+    fi
+
+    notify-send.sh "Transmission" "${mess} added" --icon="com.github.davidmhewitt.torrential" --default-action="pkill -CONT \"$FIREFOXPROCESSES\" ; swaymsg '[title=\"^Transmission Web Interface — Firefox Nightly$\"] focus' || xdg-open 'http://127.0.0.1:9091/transmission/web/'"
+
+    # if /usr/bin/ssh tb@51.154.197.131 "transmission-remote -a '"${@}"'"; then
+    # /usr/bin/ssh tb@51.154.197.131 "transmission-remote -a '"${@}"'" && message $added
+    systemctl --user start transmission.service
+    for file in "${@}"
+    do
+        transmission-remote -a "${file}"
+    done
+    exit 0
+}
+
+fileopener() {
+
+    # ignore any flags that are sent to the app
+    while [[ "${1:0:1}" == '-' ]]; do
+        shift
+    done
+
+    case "${1##*.}" in
+        pdf|epub|djvu)
+            pdf_function ${@}
+            ;;
+        mkv|mp4|mov|mp3|avi|mpg|m4v|oga)
+            mpv_function ${@}
+            ;;
+        otf|ttf|iso|mobi)
+            ;;
+        html|mhtml)
+            browser_function ${@}
+            ;;
+        jpg|png|svg|gif|bmp|tif|tiff|psd)
+            # swaymsg workspace number 4
+            dirname=$(dirname "$@")
+            # readarray -t -d '' imagearray < <(printf '%s\0' "$dirname"/* | sort -z --sort=version)
+            imagearray=("$dirname"/*.(jpeg|jpg|png|webp|svg|gif|bmp|tif|tiff|psd))
+
+            (cd "$dirname" ; /usr/bin/imv-wayland $(sort --ignore-case --sort=version <<< "${imagearray[@]##*/}") -n "${1##*/}" & ) > /dev/null 2>&1
+
+            # imv ${@}
+            ;;
+        torrent)
+            transmission_function ${@}
+            ;;
+        *)
+            # if the pdf is downloaded without accompanying file name
+            type=$(file $@)
+            var=${type##*:}
+            if [[ ${var:1:3} = "PDF" ]]
+            then
+                mv $(readlink -f $@) $(readlink -f $@).pdf
+                pdf_function ${@}.pdf
+            else
+                /usr/bin/subl ${@}
+            fi
+            ;;
+     esac
+}
+
+downloadwithwget() {
+    local IFS=$'\n'
+    cd $HOME/Downloads
+    # we check if file exists and rename accordingly
+    file="${1##*/}"
+    basename="${file%.*}"
+    ext=${file##*.}
+    if [[ -f  "$file" ]]; then
+        files=($(ls -v $basename\(*  > /dev/null 2>&1))
+        if [[ "${#files}" -gt 1 ]]; then
+            strippedback="${files[-1]%%).*}"
+            strippedfront="${strippedback##*\(}"
+            # correct escaping? otherwise the sublime syntax looks broken
+            # strippedfront="${strippedback##*\(}"
+            newnumber=$(( ${strippedfront} + 1))
+            newfilename=${basename}\(${newnumber}\).${ext}
+        else
+            newfilename=${basename}\(1\).${ext}
+        fi
+    else
+        newfilename=${file}
+    fi
+    notify-send "Download Manager" "Downloading ${1##*/}" --icon=application-${1##*.}
+    wget --quiet "${1}" -O "${newfilename}" && notify-send "Download Manager" "Opening ${newfilename}" --icon=application-${1##*.}
+    fileopener "${newfilename}"
+}
+
+while [[ "${1:0:1}" == '-' ]]; do
+    shift
+done
+
+if [[ ${#@} -eq 1 ]] && [[ -d "$1" ]]; then
+    swaymsg -- exec /usr/bin/alacritty --working-directory "${1:a:q}"
+    return 0
+fi
+
+case "${1%%:*}" in
+    tg)
+        telegram-desktop "${@}"
+        ;;
+    magnet)
+        transmission_function "${@}"
+        ;;
+        # msteams)
+        # /usr/bin/microsoft-edge-dev --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://teams.microsoft.com/'
+# ;;
+    gemini)
+        lagrange "${@}"
+        ;;
+    http|https|mailto)
+        if [[ "${1}" =~ ^https://(www\.)?(youtu\.be/|youtube\.com/watch).*$ ]]; then
+            mpv_function "${@}"
+        elif [[ "${1##*.}" =~ "pdf|torrent" ]]; then
+            downloadwithwget "${@}"
+        elif [[ "${1}" == https://login.microsoftonline.com* ]]; then
+            pkill -CONT $FIREFOXPROCESSES
+            swaymsg -q exec -- "/usr/bin/firefox --new-tab '${@}'"
+        else
+            browser_function "${@}"
+        fi
+        ;;
+    *)
+        fileopener "${@}"
+        ;;
+esac

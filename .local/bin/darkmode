@@ -1,0 +1,157 @@
+#!/usr/bin/env sh
+
+set_values() {
+
+    ## LIGHT VALUES
+
+    # gnome
+    export GTKTHEME_$LIGHT="Adwaita"
+
+    # sublime, alacritty
+    export THEME_$LIGHT="Light"
+
+    # 0.9 in hex
+    export OPACITY="D6"
+
+    # sway
+    export BGTITLEBARA_$LIGHT="#FFFFFF"
+    export BGTITLEBARI_$LIGHT="#FFFFFF"
+    export BGTITLEBARU_$LIGHT="#E8E8E8${OPACITY}"
+
+    export TITLEBARBORDERA_$LIGHT="#FFFFFF"
+    export TITLEBARBORDERI_$LIGHT="#FFFFFF"
+    export TITLEBARBORDERU_$LIGHT="#D4D4D4${OPACITY}"
+
+    # sway, zathura, mako
+    export FGA_$LIGHT="#404040"
+    export FGU_$LIGHT="#506070"
+
+    # sway
+    export BORDERA_$LIGHT="#4C91DF"
+    export BORDERI_$LIGHT="#4C91DF"
+    export BORDERU_$LIGHT="#4C91DF"
+
+    # mako
+    export MAKOBG_$LIGHT="#F6F5F4"
+    export MAKOBORDER_$LIGHT="#DEDDDA"
+
+    # Zathura
+    export ZATHURABG_$LIGHT="EEEEEE"
+    export ZATHURA_SCROLLBAR_$LIGHT="D0D0D0"
+    export ZATHURA_COMPLETION_$LIGHT="F2F2F2"
+    export ZATHURASEARCH_$LIGHT="FBFCFD"
+    export ACCENT_$LIGHT="#3584E4"
+    export RECOLOR_$LIGHT="false"
+
+    ## DARK VALUES
+
+    # gnome
+    export GTKTHEME_$DARK="Adwaita-dark"
+
+    # sublime, alacritty
+    export THEME_$DARK="Dark"
+
+    # sway
+    export BGTITLEBARA_$DARK="#14181F"
+    export BGTITLEBARI_$DARK="#14181F"
+    export BGTITLEBARU_$DARK="#000408${OPACITY}"
+
+    export TITLEBARBORDERA_$DARK="#14181F"
+    export TITLEBARBORDERI_$DARK="#14181F"
+    export TITLEBARBORDERU_$DARK="#000000"
+
+    # sway, zathura, mako
+    # FGA_$DARK="#EBDBB2"
+    export FGA_$DARK="#EEEEEE"
+    export FGU_$DARK="#A0A0A0"
+
+    # sway
+    # export BORDERA_$DARK="#4040BB10"
+    export BORDERA_$DARK="#4C91DF"
+    export BORDERI_$DARK="#4C91DF"
+    export BORDERU_$DARK="#4C91DF"
+
+    # mako
+    export MAKOBG_$DARK="#2A2A2A"
+    export MAKOBORDER_$DARK="#181818"
+
+    # Zathura
+    export ZATHURABG_$DARK="2A2A2A"
+    export ZATHURA_SCROLLBAR_$DARK="303030"
+    export ZATHURA_COMPLETION_$DARK="303030"
+    export ZATHURASEARCH_$DARK="353535"
+    export ACCENT_$DARK="#15539E"
+    export RECOLOR_$DARK="true"
+}
+
+execute() {
+
+    # gnome
+    gsettings set org.gnome.desktop.interface gtk-theme "${GTKTHEME_NEW}"
+
+    # # sublime
+    # sed -r -i -e\
+    # "/color_scheme/s/${THEME_OLD}/${THEME_NEW}/" \
+    # $HOME/.config/sublime-text/Packages/User/Preferences.sublime-settings
+
+    # vscode
+    sed -r -i -e\
+    "/workbench.colorTheme/s/${THEME_OLD}/${THEME_NEW}/" \
+    $HOME/.config/Code/User/settings.json
+
+    # sway
+    (sleep 0.2 && swaymsg -q -- \
+     client.focused          "${TITLEBARBORDERA_NEW}" "${BGTITLEBARA_NEW}" "${FGA_NEW}" "${BORDERA_NEW}" "${BORDERA_NEW}",\
+     client.focused_inactive "${TITLEBARBORDERI_NEW}" "${BGTITLEBARI_NEW}" "${FGA_NEW}" "${BORDERI_NEW}" "${BORDERI_NEW}",\
+     client.unfocused        "${TITLEBARBORDERU_NEW}" "${BGTITLEBARU_NEW}" "${FGU_NEW}" "${BORDERU_NEW}" "${BORDERU_NEW}" &)
+
+    # mako
+    sed -r -i\
+    -e "/^background-color/s/${MAKOBG_OLD}/${MAKOBG_NEW}/"\
+    -e "/^text-color/s/${FGA_OLD}/${FGA_NEW}/"\
+    -e "/^border-color/s/${MAKOBORDER_OLD}/${MAKOBORDER_NEW}/" $HOME/.config/mako/config
+
+    sed -r -i -e\
+    "/colors:/s/$THEME_OLD/$THEME_NEW/" "$HOME/.config/alacritty/alacritty.yml"
+    # zathura
+    sed -r -i\
+    -e "s/$FGA_OLD/$FGA_NEW/"\
+    -e "s/$ZATHURABG_OLD/$ZATHURABG_NEW/"\
+    -e "/set recolor $RECOLOR_OLD/s/$RECOLOR_OLD/$RECOLOR_NEW/"\
+    -e "/set completion-bg /s/$ZATHURA_COMPLETION_OLD/$ZATHURA_COMPLETION_NEW/"\
+    -e "/set scrollbar-bg /s/$ZATHURA_SCROLLBAR_OLD/$ZATHURA_SCROLLBAR_NEW/"\
+    -e "/set inputbar-bg /s/$ZATHURASEARCH_OLD/$ZATHURASEARCH_NEW/"\
+    -e "s/$ACCENT_OLD/$ACCENT_NEW/" $HOME/.config/zathura/zathurarc
+
+    systemctl -q --user restart mako.service
+
+}
+
+toggle_mode() {
+    local theme="$(gsettings get org.gnome.desktop.interface gtk-theme)"
+    if [ $theme  == "'Adwaita'" ]; then
+        export LIGHT=OLD
+        export DARK=NEW
+    else
+        export DARK=OLD
+        export LIGHT=NEW
+    fi
+}
+
+main() {
+    if [[ "$1" == 'light' ]]
+    then
+        export DARK=OLD
+        export LIGHT=NEW
+    elif [[ "$1" == 'dark' ]]
+    then
+        export LIGHT=OLD
+        export DARK=NEW
+    else
+        toggle_mode
+    fi
+    set_values
+    execute
+}
+
+main "$@"

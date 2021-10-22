@@ -1,0 +1,18 @@
+{
+	"animation_enabled": false,
+	"expand_merge_commits_by_default": true,
+	"font_size": 9,
+	"hide_menu": true,
+	"ignore_diff_white_space": false,
+	"hardware_acceleration": "opengl",
+	"overlay_scroll_bars": "enabled",
+	"translate_tabs_to_spaces": true,
+	"trim_trailing_white_space_on_save": "all",
+	"render_commit_dialog_message_at_top": true,
+	"show_tab_close_buttons": false,
+	"side_bar_layout": "tabs",
+	"time_format": "24h",
+	"image_diff_style": "side-by-side",
+	"theme": "auto",
+	"diff_style": "auto",
+}

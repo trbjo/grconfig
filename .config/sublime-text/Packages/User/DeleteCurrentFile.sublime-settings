@@ -1,0 +1,6 @@
+// DeleteCurrentFile Settings - User
+{
+  "move_to_trash": false,
+  "prompt_before_delete": true
+
+}

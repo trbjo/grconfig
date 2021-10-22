@@ -1,0 +1,5 @@
+// These settings override both User and Default settings for the Find Results syntax
+{
+    "scroll_context_lines": 70,
+
+}

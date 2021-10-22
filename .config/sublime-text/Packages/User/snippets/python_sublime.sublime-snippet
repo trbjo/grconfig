@@ -1,0 +1,9 @@
+<snippet>
+    <content><![CDATA[import sublime
+import sublime_plugin
+
+class ]]></content>
+    <tabTrigger>subl</tabTrigger>
+    <scope>source.python</scope>
+    <description>Insert a breakpoint</description>
+</snippet>

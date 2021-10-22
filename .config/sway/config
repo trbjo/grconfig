@@ -1,0 +1,374 @@
+exec "dbus-update-activation-environment --systemd --all"
+exec "systemctl --user import-environment"
+exec python ~/.local/bin/inactive-windows-transparency.py --opacity 0.9
+## exec_always /usr/bin/wl-paste --type text --watch sh -c "if [[ -f /tmp/clipman_ignore ]]; then /usr/bin/clipman store --max-items=2000; rm /tmp/clipman_ignore; fi"
+
+#
+### Input
+#
+
+# Disable touch screen
+input "1739:6572:SYNA2393:00_06CB:19AC" {
+    events disabled
+}
+
+input type:keyboard {
+    repeat_delay 200
+    repeat_rate 60
+    xkb_options compose:ralt
+}
+
+input type:pointer {
+    pointer_accel 0.4
+}
+
+input "1:1:AT_Translated_Set_2_keyboard" {
+    xkb_layout us(dvorak)
+    xkb_options ctrl:swap_lalt_lctl_lwin,compose:ralt
+}
+
+input "1739:52552:SYNA1D31:00_06CB:CD48_Touchpad" {
+    dwt enabled
+    tap enabled
+    natural_scroll enabled
+    middle_emulation enabled
+    pointer_accel 0.3
+    accel_profile adaptive
+    scroll_factor 1.1
+}
+
+seat seat0 xcursor_theme Adwaita 24
+seat seat0 hide_cursor 15000
+seat seat0 hide_cursor when-typing enable
+
+#
+## Output
+#
+
+output * bg "$HOME/pics/storebælt.jpg" fill
+output 'Unknown 0x422A 0x00000000' resolution 3000x2000 pos 0 0 scale 2 subpixel rgb
+#output 'Panasonic Industry Company Panasonic-TV 0x00000101' resolution 1920x1080@60Hz pos 1501 0 scale 1 subpixel rgb
+#output 'Goldstar Company Ltd LG UltraFine 907NTUWBA398' resolution 3840x2160 pos 1501 0 scale 2 subpixel rgb
+output 'Goldstar Company Ltd LG UltraFine 909NTWG7R817' resolution 3840x2160 pos 1501 0 scale 2 subpixel rgb
+
+bindswitch --reload lid:on exec '! grep -q "enabled" /sys/class/drm/{card0-DP-1,card0-DP-2,card0-HDMI-A-1}/enabled && systemctl suspend || swaymsg output eDP-1 disable'
+bindswitch --locked --reload lid:off output eDP-1 enable
+
+set $ws1 workspace "1"
+set $ws2 workspace "2"
+set $ws3 workspace "3"
+set $ws4 workspace "4"
+set $ws5 workspace "5"
+
+$ws1 output eDP-1
+$ws2 output DP-1
+$ws3 output DP-1
+$ws4 output eDP-1
+$ws5 output DP-1
+
+#
+## Keybindings
+#
+
+set $alt Mod1
+
+bindsym ctrl+alt+F1 nop
+bindsym ctrl+alt+F2 nop
+bindsym ctrl+alt+F3 nop
+bindsym ctrl+alt+F4 nop
+bindsym ctrl+alt+F5 nop
+bindsym ctrl+alt+F6 nop
+bindsym ctrl+alt+F8 nop
+bindsym ctrl+alt+F7 nop
+bindsym ctrl+alt+F9 nop
+bindsym ctrl+alt+F10 nop
+bindsym ctrl+alt+F11 nop
+bindsym ctrl+alt+F12 nop
+
+# For the Plantronic headset
+bindsym --locked XF86AudioPlay exec playerctl play-pause
+bindsym --locked XF86AudioNext exec playerctl next
+bindsym --locked XF86AudioPrev exec playerctl previous
+
+bindsym --locked XF86WLAN exec wifiToggle.sh
+bindsym --locked F9 exec toggle
+
+bindsym --no-repeat ctrl+space [app_id="^PopUp$"] scratchpad show, move position center, resize set width 100ppt height 100ppt, resize shrink up 1100px, resize grow up 337px
+
+bindsym --no-repeat $alt+l exec loginctl lock-session
+bindsym --no-repeat $alt+shift+slash output eDP-1 disable
+bindsym --no-repeat $alt+slash output eDP-1 enable
+
+
+set $startFirefox exec pkill -CONT "$FIREFOXPROCESSES"
+set $stopFirefox exec grep -q 0 /sys/class/power_supply/AC0/online && pkill -STOP "$FIREFOXPROCESSES"
+
+bindsym --no-repeat ctrl+1 $ws1; $stopFirefox
+bindsym --no-repeat ctrl+2 [app_id="^sublime_text$"] focus; [app_id="^PopUp$"] move scratchpad; $stopFirefox
+bindsym --no-repeat ctrl+3 [app_id="^firefox$"] focus; [app_id="^PopUp$"] move scratchpad; $startFirefox
+bindsym --no-repeat ctrl+4 $ws4; $stopFirefox
+bindsym --no-repeat ctrl+5 $ws5; $stopFirefox
+
+
+# bindsym --no-repeat $alt+s splitv
+# bindsym --no-repeat $alt+d splith
+
+# move focused container to workspace
+bindsym --no-repeat ctrl+Shift+1 move container to $ws1; $ws1; fullscreen disable; [app_id="^(?!(firefox)$)" workspace=__focused__ con_id=__focused__ ] $stopFirefox ; [app_id="^firefox$" workspace=__focused__ ] $startFirefox
+bindsym --no-repeat ctrl+Shift+2 move container to $ws2; $ws2; fullscreen disable; [app_id="^(?!(firefox)$)" workspace=__focused__ con_id=__focused__ ] $stopFirefox ; [app_id="^firefox$" workspace=__focused__ ] $startFirefox
+bindsym --no-repeat ctrl+Shift+3 move container to $ws3; $ws3; fullscreen disable; [app_id="^(?!(firefox)$)" workspace=__focused__ con_id=__focused__ ] $stopFirefox ; [app_id="^firefox$" workspace=__focused__ ] $startFirefox
+bindsym --no-repeat ctrl+Shift+4 move container to $ws4; $ws4; fullscreen disable; [app_id="^(?!(firefox)$)" workspace=__focused__ con_id=__focused__ ] $stopFirefox ; [app_id="^firefox$" workspace=__focused__ ] $startFirefox
+bindsym --no-repeat ctrl+Shift+5 move container to $ws5; $ws5; fullscreen disable; [app_id="^(?!(firefox)$)" workspace=__focused__ con_id=__focused__ ] $stopFirefox ; [app_id="^firefox$" workspace=__focused__ ] $startFirefox
+
+bindsym $alt+shift+r reload
+
+bindsym --no-repeat $alt+return exec /usr/bin/alacritty
+bindsym --no-repeat $alt+space [app_id="^PopUp$"] focus, fullscreen enable
+
+# kill focused window
+bindsym --no-repeat $alt+apostrophe [app_id="^(?!(PopUp)$)" con_id=__focused__ title=__focused__] kill
+
+# kill with middle mouse click
+bindsym button2 kill
+
+# toggle focus
+bindsym --no-repeat ctrl+shift+space focus mode_toggle
+
+# Toggle the current focus between tiling and floating mode
+bindsym --no-repeat $alt+shift+space floating toggle
+
+floating_modifier ctrl normal
+
+# Switch the current container between different layout styles
+bindsym --no-repeat $alt+shift+e layout toggle tabbed split
+
+#
+# Moving around:
+#
+
+bindsym --no-repeat f11 fullscreen toggle
+
+bindsym --no-repeat $alt+s splith
+bindsym --no-repeat $alt+w splitv
+
+# Move your focus around
+
+
+bindsym ctrl+h        exec focus_tab_parent 'focus left'
+bindsym ctrl+s        exec focus_tab_parent 'focus right'
+
+bindsym --no-repeat $alt+n focus right
+bindsym --no-repeat $alt+h focus left
+bindsym --no-repeat $alt+t focus down
+bindsym --no-repeat $alt+c focus up
+
+# bindsym --no-repeat $alt+up focus up
+# bindsym --no-repeat $alt+down focus down
+# bindsym --no-repeat $alt+left focus left
+# bindsym --no-repeat $alt+right focus right
+
+# move the focused window with the same, but add Shift
+bindsym $alt+Shift+h move left
+bindsym $alt+Shift+n move right
+bindsym $alt+Shift+c move up
+bindsym $alt+Shift+t move down
+
+bindsym $alt+m mode ""
+mode "" {
+    bindsym h resize shrink width 80px
+    bindsym c resize grow height 80px
+    bindsym t resize shrink height 80px
+    bindsym n resize grow width 80px
+
+    # return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $alt+u [app_id="^PopUp$"] move scratchpad ; mode ""
+mode "" {
+    bindsym t mode "default" ; exec telegram-desktop
+    bindsym i mode "default" ; exec signal-desktop --enable-features=UseOzonePlatform --ozone-platform=wayland
+    bindsym j mode "default" ; exec /opt/visual-studio-code/code --enable-features=UseOzonePlatform --ozone-platform=wayland
+    bindsym e mode "default" ; exec grep --fixed-strings -q 'TOR' /vpn/name && electrum
+    bindsym g mode "default" ; exec /usr/bin/chromium -enable-features=UseOzonePlatform -ozone-platform=wayland --app='https://teams.microsoft.com/'
+    bindsym l mode "default" ; exec /usr/bin/pavucontrol
+    bindsym h mode "default" ; [app_id="^firefox$"] focus; exec pgrep firefox || firefox
+    bindsym b mode "default" ; exec baobab 
+    bindsym s mode "default" ; $ws2; [app_id="^sublime_text$"] focus; exec /opt/sublime_text/sublime_text
+    bindsym m mode "default" ; exec sh -c 'subl --command goto_sublime_current_dir; smerge $(cat /tmp/sublfile) || smerge'
+
+    # return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym --locked XF86AudioMute exec echo 'cycle pause' | socat - /tmp/mpvsocket > /dev/null 2>&1 || /usr/bin/ssh music@Intel-NUC "tmux send-keys -t main:1.1 ' '"
+bindsym --locked XF86MonBrightnessDown exec light -U 0.5 && light -S $(echo "$(light -G) /1.3" | bc -l)
+bindsym --locked XF86MonBrightnessUp exec light -S $(echo "$(light -G) * 1.3" | bc -l) && light -A 0.5
+
+# bindsym XF86AudioLowerVolume exec \
+    # pactl set-sink-volume @DEFAULT_SINK@ -5%
+
+# bindsym XF86AudioRaiseVolume exec \
+    # pactl set-sink-volume @DEFAULT_SINK@ +5%
+
+bindsym XF86AudioLowerVolume exec \
+    amixer set Master 3%-
+
+bindsym XF86AudioRaiseVolume exec \
+    amixer set Master 3%+
+
+bindsym --locked $alt+F4 exec [ -S /tmp/mpvsocket ] && echo 'cycle pause' | socat - /tmp/mpvsocket > /dev/null 2>&1 || /usr/bin/ssh music@Intel-NUC "tmux send-keys -t main:1.1 ' '"
+
+bindsym --no-repeat ctrl+f10 exec xdg-open --mpv $(wl-paste)
+bindsym --no-repeat ctrl+XF86Tools exec xdg-open --mpv $(wl-paste)
+
+# open most recent download
+# bindsym --no-repeat $alt+d exec xdg-open "$(ls -ctgd $HOME/dl/* | awk '$1=="-rw-r--r--" { $1=$2=$3=$4=$5=$6=$7=""; gsub("^[ \t]*","",$0); print $0; exit}')"
+bindsym --no-repeat $alt+d exec xdg-open "$(ls -ctd1 $HOME/dl/* | head -1)"
+
+bindsym $alt+f [app_id=^firefox$] focus ; exec $startFirefox; exec 'set -o noglob ; clipboard=$(wl-paste -n); grep "^https\\?://.\+\.\w\{2,3\}" <<< $clipboard && /usr/bin/firefox --new-tab "$clipboard" || /usr/bin/firefox --new-tab "https://duckduckgo.com/?t=ffab&q=${clipboard}"'
+bindsym $alt+i [app_id=^firefox$] focus ; exec $startFirefox; exec 'set -o noglob ; clipboard=$(wl-paste --primary -n); grep "^https\\?://.\+\.\w\{2,3\}" <<< $clipboard && /usr/bin/firefox --new-tab "$clipboard" || /usr/bin/firefox --new-tab "https://duckduckgo.com/?t=ffab&q=${clipboard}"'
+
+bindsym $alt+o exec quicknotes.py
+bindsym $alt+e [app_id=^sublime_text$] focus, exec /opt/sublime_text/sublime_text $HOME/quicknotes.md
+
+bindsym --no-repeat $alt+shift+p exec 'set -o noglob ; tmpfile=$(mktemp /tmp/pastedata-XXXX) ; wl-paste --primary >> $tmpfile ; curl -s --data-binary "@$tmpfile" "https://paste.c-net.org/" | wl-copy -n && notify-send.sh "Uploaded paste" "Uploaded to Pastebin" --default-action="xdg-open $(wl-paste)" --icon=gtk-network'
+
+bindsym --no-repeat Print exec 'pgrep slurp || (curdate=$(date +"Screenshot_%Y-%m-%d_%H:%M:%S.png"); grim $HOME/screenshots/$curdate && notify-send.sh "Screenshot taken" "$curdate" --icon=camera-photo --default-action="xdg-open $HOME/screenshots/$curdate" && wl-copy < "$HOME/screenshots/$curdate")'
+bindsym --no-repeat $alt+Print exec 'pgrep slurp || (curdate=$(date +"Screenshot_%Y-%m-%d_%H:%M:%S.png"); swaymsg -t get_tree | jq -r ".. | select(.pid? and .visible?) | .rect | \\"\\\(.x),\\\(.y) \\\(.width)x\\\(.height)\\"" | env XCURSOR_SIZE=48 slurp -w 1 -c A5BAD1 -s C3DFFE94 | grim -g - $HOME/screenshots/$curdate && notify-send.sh "Screenshot taken" "$curdate" --icon=camera-photo --default-action="xdg-open $HOME/screenshots/$curdate" && wl-copy < $HOME/screenshots/$curdate)'
+
+
+#
+## Appearance
+#
+
+font pango:SF Pro Display Medium 10
+
+default_border pixel 0
+gaps inner 12
+smart_gaps on
+default_floating_border pixel 4
+hide_edge_borders --i3 smart_no_gaps
+
+titlebar_border_thickness 1
+titlebar_padding 15 5
+title_align center
+
+floating_maximum_size 2050 x 1100
+floating_minimum_size 10 x 10
+
+# colors
+set $TITLEBARBORDER #D0D4D8
+set $BGTITLEBARA #F5F7FA
+set $BGTITLEBARI #F7F9FC
+set $BGTITLEBARU #E6E8EA
+
+set $FGA #404040
+set $FGU #506070
+
+set $BORDERA #E6E6E6
+set $BORDERI #FFFFFF40
+set $BORDERU #FFFFFF00
+
+client.focused           $TITLEBARBORDER  $BGTITLEBARA   $FGA   $BORDERA   $BORDERA
+client.focused_inactive  $TITLEBARBORDER  $BGTITLEBARI   $FGA   $BORDERI   $BORDERI
+client.unfocused         $TITLEBARBORDER  $BGTITLEBARU   $FGU   $BORDERU   $BORDERU
+
+set $BARFG #EFE8E0
+set $BARBLACK #000000
+set $BARWHITE #FFFFFF
+set $BARFGINACTIVE #908880
+set $BARACCENT #3584E4
+set $OPACITY C0
+
+bar {
+    id one
+    position top
+    font SF Pro Display Medium 11
+    pango_markup enabled
+    status_command i3blocks
+    mode hide
+    workspace_min_width 50
+    height 26
+    modifier Mod4
+    status_edge_padding 10
+    separator_symbol "   "
+    strip_workspace_numbers yes
+    colors {
+        statusline $BARFG
+        background $BARBLACK
+        binding_mode $BARBLACK $BARBLACK $BARACCENT
+        focused_workspace $BARBLACK $BARBLACK $BARWHITE
+        active_workspace $BARBLACK $BARBLACK $BARFG
+        inactive_workspace $BARBLACK $BARBLACK $BARFGINACTIVE
+        }
+}
+
+bar {
+    id two
+    position top
+    font SF Pro Display Medium 11
+    pango_markup enabled
+    status_command i3blocks
+    mode dock
+    output DP-1
+    output DP-2
+    modifier none
+    workspace_min_width 50
+    height 26
+    status_edge_padding 10
+    separator_symbol "   "
+    strip_workspace_numbers yes
+    colors {
+        statusline $BARFG
+        background $BARBLACK$OPACITY
+        binding_mode $BARBLACK$OPACITY $BARBLACK$OPACITY $BARACCENT
+        focused_workspace $BARBLACK$OPACITY $BARBLACK$OPACITY $BARWHITE
+        active_workspace $BARBLACK$OPACITY $BARBLACK$OPACITY $BARFG
+        inactive_workspace $BARBLACK$OPACITY $BARBLACK$OPACITY $BARFGINACTIVE
+        }
+}
+
+#
+## Window rules
+#
+
+assign [app_id="^telegramdesktop$"] $ws1
+# we want dialogues and file openers to be exempt from this rule
+assign [app_id="^sublime_text$" title="^(?!Open File|Save File)$" title="."] $ws2
+assign [app_id="^firefox$" title="^(?!Open File)$" title="."] $ws3
+assign [app_id="^(mpv|imv|org.pwmt.zathura|evince)$"] $ws5
+assign [app_id="^(sublime_merge|Google-chrome-unstable)$"] $ws4
+
+# all new windows except the PopUp should receive focus.
+for_window [app_id=^(?!(PopUp)$).*$] focus
+for_window [workspace="^(?!3)$" app_id="^(?!(firefoxdeveloperedition|PopUp|telegramdesktop)$)"] $stopFirefox
+for_window [app_id="^Chromium$" title="^teams.microsoft.com is sharing your screen.$"] border pixel 0
+
+for_window [app_id="^(subl|sublime_text)$" title="^(Open File|Save File|)$"] fullscreen disable
+for_window [app_id="^(subl|sublime_text)$" title="^Changelog - Sublime Tex$"] fullscreen disable, floating enable
+for_window [title="^(Switch Project - Sublime Text|Select Application)$"] fullscreen disable, floating enable, move up 283px, resize set 580 388, border pixel 2
+
+for_window [app_id="^gcr-prompter$"] fullscreen disable, floating enable
+# for_window [title="(?!(Telegram)$)" app_id="^appimagekit_.*-Telegram_Desktop$"] floating enable, resize set 636 916
+
+for_window [app_id="^PopUp$"] floating enable, border pixel 0, move scratchpad
+for_window [app_id="^pavucontrol$"] floating enable, resize set 727 600
+for_window [app_id="^firefox$" title="^Library$"] floating enable, border pixel 1, move position center, resize set width 100ppt height 100ppt, resize shrink down 450px, resize set width 1000, move down 35px
+
+for_window [title="^Firefox Developer Edition — Sharing Indicator$"] floating enable, move position 0 0
+for_window [title="^Firefox — Sharing Indicator$"] floating enable, sticky enable, resize set 57 30, move position 0 0
+
+for_window [title="^(Save File|python3|Open File|Select Folder|Choose Files|Choose an image|Preferences - Sublime Merge)$"] floating enable, resize set 1000 800
+for_window [app_id="^python3$"] floating enable, resize set 1000 800
+for_window [app_id="^signal-desktop$" title=""] floating enable, resize set 1000 800
+
+# custom logos.
+for_window [app_id="^(org.pwmt.zathura)$"] layout tabbed, title_format "<span weight='100' foreground='#d73a49'></span>  %title"
+for_window [app_id="^imv$"] title_format "<span weight='100' foreground='#3874C7'></span>  %title"
+for_window [app_id="^mpv$"] title_format "<span weight='100' foreground='#FF0000'></span>  %title"
+for_window [app_id="^Google-chrome-unstable$" title="^Microsoft Teams$"] title_format "<span weight='100' foreground='#6264A7'></span>  Microsoft Teams"
+for_window [app_id="-Telegram_Desktop$" title="^Telegram$"] title_format "<span weight='100' foreground='#2FA5D8'></span>  %title"
+for_window [app_id="Signal$" title="^Signal$"] title_format "<span weight='100' foreground='#3A76F0'></span>  %title"

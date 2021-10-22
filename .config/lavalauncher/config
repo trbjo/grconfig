@@ -1,0 +1,33 @@
+global-settings
+           {
+                watch-config-file = true;
+           }
+
+           bar
+           {
+                output            = eDP-1;
+                layer = top;
+                exclusive-zone = off;
+                position          = bottom;
+                background-colour = "#202020";
+
+                # Condition for the default configuration set.
+                condition-resolution = wider-than-high;
+
+                config
+                {
+                     # Condition for this configuration set.
+                     condition-resolution = higher-than-wide;
+
+                     # Additional configuration sets copy the default configuration set,
+                     # but settings can be overwritten.
+                     position = left;
+                }
+
+                button
+                {
+                     image-path = /usr/share/icons/hicolor/256x256/apps/firefox.png;
+                     command    = firefox;
+                }
+
+           }

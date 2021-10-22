@@ -1,0 +1,17 @@
+[Unit]
+Description=update word of the day
+
+[Service]
+Type=oneshot
+RemainAfterExit=false
+ExecStartPre=/usr/lib/systemd/systemd-networkd-wait-online --interface=wlan0 --timeout=86400 --operational-state=routable
+#ExecStartPre=/usr/lib/systemd/systemd-networkd-wait-online --interface=tun0 --timeout=86400 --operational-state=routable
+ExecStart=/usr/bin/sh -c '/usr/bin/curl -o - -s http://www.germaneveryday.com/feed/ | rg --no-config --color never -o "^<p><em>(.*)</em></p>|(?:<content:encoded><!\[CDATA\[)?<p>(.*)</p>$" --max-count 3 -r \'$1$2\' | sed -r -e "/:/s/$/ –/" -e "s/&#8217;/’/" | xargs | sed -r -e "s/^(.{105})..+$/\1…/"'
+ExecStartPost=/usr/bin/sleep 3
+ExecStartPost=/usr/bin/pkill -RTMIN+14 i3blocks
+
+StandardOutput=%h/.wordoftheday
+StandardError=null
+
+[Install]
+WantedBy=default.target

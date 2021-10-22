@@ -1,0 +1,57 @@
+font=SF Pro Display Medium 10
+margin=28,10,0,0
+padding=12,0,10,10
+border-size=1
+border-radius=8
+anchor=top-right
+
+background-color=#F6F5F4
+text-color=#404040
+border-color=#DEDDDA
+
+width=320
+layer=overlay
+icons=1
+
+default-timeout=15000
+
+output=*
+max-icon-size=42
+icon-path=/usr/share/icons/elementary
+
+format=<span size='11000' weight='bold'>%s</span>\n%b
+
+[summary="WARNING WARNING"]
+format=<span size='20000' foreground='#D02020' weight='bold'>%s</span>\n%b
+max-icon-size=92
+
+[summary="Download Manager"]
+format=<span size='11000' weight='bold'>%s</span>\n%b
+default-timeout=5000
+group-by=app-icon
+
+[summary="Transmission"]
+format=<span size='11000' weight='bold'>%s</span>\n%b
+default-timeout=5000
+group-by=summary
+
+[app-icon=preferences-system-power]
+format=<span size='11000' weight='bold'>%s</span>\n%b
+default-timeout=1500
+group-by=app-icon
+
+[app-icon="preferences-system-network"]
+format=<span size='11000' weight='bold'>%s</span>\n%b
+default-timeout=3000
+group-by=app-icon
+
+[app-icon=camera-photo]
+format=<span size='11000' weight='bold'>%s</span>\n%b
+group-by=app-icon
+
+[app-name=IMV]
+format=<span size='11000' weight='bold'>%s</span> %b
+group-by=app-name
+
+[hidden]
+format=(and %h more)

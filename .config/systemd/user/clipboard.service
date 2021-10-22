@@ -1,0 +1,12 @@
+[Unit]
+Description=Clipboard manager for Wayland
+
+[Service]
+ExecStartPre=/usr/bin/clipman restore
+ExecStart=/usr/bin/wl-paste --type text --watch /usr/bin/clipman store --max-items=2000
+Restart=always
+RestartSec=1
+TimeoutStopSec=10
+
+[Install]
+WantedBy=default.target

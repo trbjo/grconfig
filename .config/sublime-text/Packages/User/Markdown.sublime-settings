@@ -1,0 +1,22 @@
+// These settings override both User and Default settings for the Find Results syntax
+
+{
+    "auto_complete": false,
+    // "draw_centered": true,
+    "draw_indent_guides": false,
+    // "draw_white_space": [],
+    // "font_size": 10,
+    // "font_face": "SF Pro Display",
+    "margin": -4,
+    // "gutter": false,
+    // "line_numbers": false,
+    // "line_padding_bottom": 4,
+    // "line_padding_top": 4,
+    "scroll_past_end": true,
+    // "spell_check": false,
+    "trim_trailing_white_space_on_save": "none",
+    "auto_match_enabled": true,
+    "word_wrap": true,
+    // "wrap_width": 54,
+    // "wrap_width": 92,
+}
