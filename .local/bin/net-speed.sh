@@ -17,12 +17,14 @@ readable() {
         if [ "$mib_dec" -lt 10 ]; then
             mib_dec="0${mib_dec}"
         fi
-        printf "${mib_int}.${mib_dec}<span size='7000'> Mb/s</span>"
+
+        printf "%-69s" "<span weight=\"600\" size=\"10000\">$(printf "%2s" ${mib_int}.${mib_dec})</span><span size=\"6000\">M</span>"
     else
-        printf "${kib}<span size='7000'> Kb/s</span>"
-        # printf "%.2f<span size='7400'> Kb/s</span>" ${kib}
+        printf "%-69s" "<span weight=\"600\" size=\"10000\">$(printf "%2s" ${kib})</span><span size=\"6000\">K</span>"
     fi
 }
+
+
 
 while true; do
     read last_rx < "${interface}/statistics/rx_bytes"
@@ -30,6 +32,6 @@ while true; do
     sleep 1
     read rx < "${interface}/statistics/rx_bytes"
     read tx < "${interface}/statistics/tx_bytes"
-    printf "↓$(readable $((rx - last_rx)))   ↑$(readable $((tx - last_tx)))\n" || exit 1
+    printf "↓<tt>$(readable $((rx - last_rx)))</tt> ↑<tt>$(readable $((tx - last_tx)))</tt>\n" || exit 1
 done
 

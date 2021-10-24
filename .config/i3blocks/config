@@ -2,10 +2,13 @@
 markup=pango
 command=$HOME/.local/bin/net-speed.sh
 interval=persist
+min_width=108
+align=left
 
 # [transmission]
 # command=transmission-remote -l | tail -n +2 | sed '/Unknown/d' | awk 'FNR == 1 {print " " $5 " " $6}'
 # interval=20
+
 
 [wordoftheday]
 command=cat $HOME/.wordoftheday
@@ -20,21 +23,31 @@ interval=once
 
 [net]
 markup=pango
-command=grep --fixed-strings -q "TOR" /vpn/name && printf "<span foreground=\"#9A54B5\"" || printf "<span " ; [ -L /sys/class/net/enp* ] && printf "></span>\n" || awk 'FNR==NR{if ($1 == "down") { print "></span><span foreground=\"#908880\" size=\"11500\" weight=\"100\"></span>" } else { printf "size=\"11500\" weight=\"100\"></span>"}} /wlan0/{print "<span size=\"7000\">"int($3 * 100 / 70)"%</span>" }' /sys/class/net/wlan0/operstate /proc/net/wireless
+command=grep --fixed-strings -q "TOR" /vpn/name && printf "<span foreground=\"#9A54B5\"" || printf "<span " ; [ -L /sys/class/net/enp* ] && printf "></span>\n" || awk 'FNR==NR{if ($1 == "down") { print "></span><span foreground=\"#908880\" size=\"11000\" weight=\"100\"></span>" } else { printf "size=\"11000\" weight=\"100\"> </span>"}} /wlan0/{print "<span rise=\"700\" size=\"10000\" >"int($3 * 100 / 70)"%</span>" }' /sys/class/net/wlan0/operstate /proc/net/wireless
 signal=13
 interval=10
+min_width=60
+
+[cpu]
+markup=pango
+command=/home/tb/.local/bin/cpu_usage2 -l "<span size=\"10000\"></span>" -d "0" -t "5"
+interval=persist
+min_width=60
+
+[coffee]
+command=[ -f /tmp/inhibitScreen ] && echo "" || [ -f /tmp/inhibitSuspend ] && echo ""
+signal=12
+min_width=30
 
 [battery]
 markup=pango
-command=/usr/bin/awk 'FNR==NR{if ($1 != "Discharging") {printf "<span foreground=\"#3584E4\">"} else {printf "<span>"}}; NR>1 {if ($1 > 99) {printf "</span>"; exit }else{if($1>79){printf""}else{if($1 > 59){printf ""}else{if($1 > 39){printf ""}else{if($1 > 19){printf ""}else{printf ""}}}}}; {print "</span> " $0 "%" }}' /sys/class/power_supply/BAT0/{status,capacity}
+command=/usr/bin/awk 'FNR==NR{if ($1 != "Discharging") {printf "<span foreground=\"#3584E4\">"} else {printf "<span>"}}; NR>1 {if ($1 > 99) {printf "</span>"; exit }else{if($1>79){printf""}else{if($1 > 59){printf ""}else{if($1 > 39){printf ""}else{if($1 > 19){printf ""}else{printf ""}}}}}; {print "</span><span rise=\"700\" size=\"10000\"> " $0 "%</span>" }}' /sys/class/power_supply/BAT0/{status,capacity}
 interval=120
+min_width=60
 signal=12
 
 [time]
 command=date "+%a %-d %h %H.%M"
 signal=12
 interval=10
-
-[coffee]
-command=[ -f /tmp/inhibitScreen ] && echo "" || [ -f /tmp/inhibitSuspend ] && echo ""
-signal=12
+min_width=126

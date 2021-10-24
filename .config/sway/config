@@ -293,8 +293,8 @@ bar {
     workspace_min_width 50
     height 26
     modifier Mod4
-    status_edge_padding 10
-    separator_symbol "   "
+    status_edge_padding 0
+    separator_symbol " "
     strip_workspace_numbers yes
     colors {
         statusline $BARFG
@@ -318,8 +318,8 @@ bar {
     modifier none
     workspace_min_width 50
     height 26
-    status_edge_padding 10
-    separator_symbol "   "
+    status_edge_padding 0
+    separator_symbol " "
     strip_workspace_numbers yes
     colors {
         statusline $BARFG
