@@ -26,9 +26,8 @@ mpv_function () {
     # echo $comingfrom
     myargs="$@"
     notify-send "MPV" "$myargs" --icon=multimedia-video-player
-    # grep -q 'enabled' /sys/class/drm/card0-DP-1/enabled && output="--audio-device=alsa/iec958:CARD=Audio,DEV=0"
+    grep -q 'enabled' /sys/class/drm/card0-DP-1/enabled && output="--audio-device=alsa/iec958:CARD=Audio,DEV=0"
     readlink -q /sys/bus/hid/devices/0003:047F:02F7* > /dev/null 2>&1 && output="--audio-device=alsa/iec958:CARD=BT600,DEV=0"
-    # /usr/bin/mpv $output ${@} > /dev/null 2>&1 &
     /usr/bin/mpv $output $myargs > /dev/null 2>&1
     # if [[ $comingfrom == "firefox" ]]
     # then

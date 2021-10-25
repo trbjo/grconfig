@@ -11,7 +11,7 @@ set_values() {
     export THEME_$LIGHT="Light"
 
     # 0.9 in hex
-    export OPACITY="D6"
+    export OPACITY="D0"
 
     # sway
     export BGTITLEBARA_$LIGHT="#FFFFFF"
