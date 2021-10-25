@@ -28,9 +28,9 @@ readable() {
         fi
 
 
-        printf "%-68s" "<span size=\"10000\">${mib_int}.${mib_dec}</span><span weight=\"800\" foreground=\"#3584FF\" size=\"6000\">M</span>"
+        printf "%-69s" "<span size=\"10000\">${mib_int}.${mib_dec}</span><span weight=\"800\" foreground=\"#3584FF\" size=\"6000\">M</span>"
     else
-        printf "%-68s" "<span size=\"10000\">$(printf "%2s" ${kib})</span><span weight=\"800\" size=\"6000\">K</span>"
+        printf "%-69s" "<span size=\"10000\">$(printf "%3s" ${kib})</span><span weight=\"800\" size=\"6000\">K</span>"
     fi
 }
 
