@@ -18,9 +18,19 @@ readable() {
             mib_dec="0${mib_dec}"
         fi
 
-        printf "%-69s" "<span weight=\"600\" size=\"10000\">$(printf "%2s" ${mib_int}.${mib_dec})</span><span size=\"6000\">M</span>"
+        if [ "${mib_dec:1:2}" -ge 9 ]; then
+            mib_dec="0"
+            mib_int=$(( mib_int + 1))
+        elif [ "${mib_dec:1:2}" -ge 5 ]; then
+            mib_dec=$(( ${mib_dec:0:1} + 1 ))
+        else
+            mib_dec=$(( ${mib_dec:0:1} ))
+        fi
+
+
+        printf "%-68s" "<span size=\"10000\">${mib_int}.${mib_dec}</span><span weight=\"800\" foreground=\"#3584FF\" size=\"6000\">M</span>"
     else
-        printf "%-69s" "<span weight=\"600\" size=\"10000\">$(printf "%2s" ${kib})</span><span size=\"6000\">K</span>"
+        printf "%-68s" "<span size=\"10000\">$(printf "%2s" ${kib})</span><span weight=\"800\" size=\"6000\">K</span>"
     fi
 }
 
@@ -32,6 +42,6 @@ while true; do
     sleep 1
     read rx < "${interface}/statistics/rx_bytes"
     read tx < "${interface}/statistics/tx_bytes"
-    printf "↓<tt>$(readable $((rx - last_rx)))</tt> ↑<tt>$(readable $((tx - last_tx)))</tt>\n" || exit 1
+    printf "↓$(readable $((rx - last_rx))) ↑$(readable $((tx - last_tx)))\n" || exit 1
 done
 
