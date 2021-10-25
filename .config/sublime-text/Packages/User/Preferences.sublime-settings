@@ -23,7 +23,6 @@
 		"*.cache",
 		"*.gcloudignore",
 		"*.gitattributes",
-		"*.gitignore",
 		"*.sigdata",
 		"*.signature.p7s",
 		"*.nupkg",
