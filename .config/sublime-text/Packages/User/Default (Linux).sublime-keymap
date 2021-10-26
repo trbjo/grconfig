@@ -64,6 +64,30 @@
          ]
     },
 
+{ "keys": ["backspace"], "command": "chain",
+        "args": {
+            "commands": [
+                {"command": "left_delete"},
+                {"command": "wrap_lines", "args": {"width": 72}},
+            ]},
+            "context": [
+            {"key": "setting.command_mode", "operator": "equal", "operand": false },
+            {"key": "selector", "operator": "equal", "operand": "text.git.commit meta.message.git.commit", "match_all": true },
+         ]
+    },
+
+{ "keys": ["."], "command": "chain",
+        "args": {
+            "commands": [
+                {"command": "insert", "args": {"characters": "."}},
+                {"command": "wrap_lines", "args": {"width": 72}},
+            ]},
+            "context": [
+            {"key": "setting.command_mode", "operator": "equal", "operand": false },
+            {"key": "selector", "operator": "equal", "operand": "text.git.commit meta.message.git.commit", "match_all": true },
+         ]
+    },
+
 { "keys": [";"], "command": "chain",
         "args": {
             "commands": [
