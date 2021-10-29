@@ -23,6 +23,33 @@
 },
 
 
+{ "keys": [" "], "command": "chain",
+        "args": {
+            "commands": [
+                {"command": "insert", "args": {"characters": " "}},
+                {"command": "wrap_lines", "args": {"width": 72}},
+            ]},
+    },
+
+{ "keys": ["backspace"], "command": "chain",
+        "args": {
+            "commands": [
+                {"command": "left_delete"},
+                {"command": "wrap_lines", "args": {"width": 72}},
+            ]},
+    },
+
+{ "keys": ["."], "command": "chain",
+        "args": {
+            "commands": [
+                {"command": "insert", "args": {"characters": "."}},
+                {"command": "wrap_lines", "args": {"width": 72}},
+            ]},
+    },
+
+
+
+
 
 {"keys": ["ctrl+j"], "command": "copy" },
 

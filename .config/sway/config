@@ -191,7 +191,8 @@ mode "" {
     bindsym i mode "default" ; exec signal-desktop --enable-features=UseOzonePlatform --ozone-platform=wayland
     bindsym j mode "default" ; exec /opt/visual-studio-code/code --enable-features=UseOzonePlatform --ozone-platform=wayland
     bindsym e mode "default" ; exec grep --fixed-strings -q 'TOR' /vpn/name && electrum
-    bindsym g mode "default" ; exec /usr/bin/chromium -enable-features=UseOzonePlatform -ozone-platform=wayland --app='https://teams.microsoft.com/'
+    bindsym f mode "default" ; exec /usr/bin/chromium-snapshot-bin  --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://app.slack.com/client/T03PATMPV/D02D6BJLB5Z' &!
+    bindsym g mode "default" ; exec /usr/bin/chromium-snapshot-bin  --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://teams.microsoft.com/'
     bindsym l mode "default" ; exec /usr/bin/pavucontrol
     bindsym h mode "default" ; [app_id="^firefox$"] focus; exec pgrep firefox || firefox
     bindsym b mode "default" ; exec baobab 
