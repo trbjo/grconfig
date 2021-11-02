@@ -58,7 +58,7 @@ set $ws1 workspace "1"
 set $ws2 workspace "2"
 set $ws3 workspace "3"
 set $ws4 workspace "4"
-set $ws5 workspace "5"
+set $ws5 workspace "5"
 
 $ws1 output eDP-1
 $ws2 output DP-1
@@ -93,7 +93,9 @@ bindsym --locked XF86AudioPrev exec playerctl previous
 bindsym --locked XF86WLAN exec wifiToggle.sh
 bindsym --locked F9 exec toggle
 
-bindsym --no-repeat ctrl+space [app_id="^PopUp$"] scratchpad show, move position center, resize set width 100ppt height 100ppt, resize shrink up 1100px, resize grow up 337px
+# bindsym --no-repeat ctrl+space [app_id="^PopUp$"] scratchpad show, move position center, resize set width 100ppt height 100ppt, resize shrink up 1100px, resize grow up 337px
+
+bindsym --no-repeat ctrl+space focus tiling; [app_id="^(subl|sublime_text|firefox|mpv)$" app_id=__focused__ workspace="^(2|3)$" title="^(?!(Firefox — Sharing Indicator)$)"] fullscreen enable; [app_id="^PopUp$"] scratchpad show, fullscreen disable, move position center, resize set width 100ppt height 100ppt, resize shrink up 1100px, move left 1px, move down 1px, resize grow right 2px, resize grow up 337px
 
 bindsym --no-repeat $alt+l exec loginctl lock-session
 bindsym --no-repeat $alt+shift+slash output eDP-1 disable
@@ -104,8 +106,8 @@ set $startFirefox exec pkill -CONT "$FIREFOXPROCESSES"
 set $stopFirefox exec grep -q 0 /sys/class/power_supply/AC0/online && pkill -STOP "$FIREFOXPROCESSES"
 
 bindsym --no-repeat ctrl+1 $ws1; $stopFirefox
-bindsym --no-repeat ctrl+2 [app_id="^sublime_text$"] focus; [app_id="^PopUp$"] move scratchpad; $stopFirefox
-bindsym --no-repeat ctrl+3 [app_id="^firefox$" title="^(?!(Firefox — Sharing Indicator)$)"] focus; [app_id="^PopUp$"] move scratchpad; $startFirefox
+bindsym --no-repeat ctrl+2 [app_id="^sublime_text$"] focus; [con_id=__focused__ workspace="^(2|3)$" app_id="^sublime_text$"] fullscreen enable; [app_id="^PopUp$"] move scratchpad; $stopFirefox
+bindsym --no-repeat ctrl+3 [app_id="^firefox$" title="^(?!(Firefox — Sharing Indicator)$)"] focus; [workspace="^(2|3)$" con_id=__focused__ app_id="^firefox$" title="^(?!(Firefox — Sharing Indicator)$)"] fullscreen enable; [app_id="^PopUp$"] move scratchpad; $startFirefox
 bindsym --no-repeat ctrl+4 $ws4; $stopFirefox
 bindsym --no-repeat ctrl+5 $ws5; $stopFirefox
 
@@ -154,8 +156,8 @@ bindsym --no-repeat $alt+w splitv
 # Move your focus around
 
 
-bindsym ctrl+h        exec focus_tab_parent 'focus left'
-bindsym ctrl+s        exec focus_tab_parent 'focus right'
+# bindsym ctrl+h        exec focus_tab_parent 'focus left'
+# bindsym ctrl+s        exec focus_tab_parent 'focus right'
 
 bindsym --no-repeat $alt+n focus right
 bindsym --no-repeat $alt+h focus left
@@ -247,8 +249,8 @@ bindsym --no-repeat $alt+Print exec 'pgrep slurp || (curdate=$(date +"Screenshot
 
 font pango:SF Pro Display Medium 10
 
-default_border pixel 0
-gaps inner 12
+default_border pixel 7
+gaps inner 7
 smart_gaps on
 default_floating_border pixel 4
 hide_edge_borders --i3 smart_no_gaps
@@ -282,7 +284,6 @@ set $BARBLACK #000000
 set $BARWHITE #FFFFFF
 set $BARFGINACTIVE #908880
 set $BARACCENT #3584E4
-set $OPACITY C0
 
 bar {
     id one
@@ -304,31 +305,6 @@ bar {
         focused_workspace $BARBLACK $BARBLACK $BARWHITE
         active_workspace $BARBLACK $BARBLACK $BARFG
         inactive_workspace $BARBLACK $BARBLACK $BARFGINACTIVE
-        }
-}
-
-bar {
-    id two
-    position top
-    font SF Pro Display Medium 11
-    pango_markup enabled
-    status_command i3blocks
-    mode dock
-    output DP-1
-    output DP-2
-    modifier none
-    workspace_min_width 50
-    height 26
-    status_edge_padding 0
-    separator_symbol " "
-    strip_workspace_numbers yes
-    colors {
-        statusline $BARFG
-        background $BARBLACK$OPACITY
-        binding_mode $BARBLACK$OPACITY $BARBLACK$OPACITY $BARACCENT
-        focused_workspace $BARBLACK$OPACITY $BARBLACK$OPACITY $BARWHITE
-        active_workspace $BARBLACK$OPACITY $BARBLACK$OPACITY $BARFG
-        inactive_workspace $BARBLACK$OPACITY $BARBLACK$OPACITY $BARFGINACTIVE
         }
 }
 
@@ -355,7 +331,7 @@ for_window [title="^(Switch Project - Sublime Text|Select Application)$"] fullsc
 for_window [app_id="^gcr-prompter$"] fullscreen disable, floating enable
 # for_window [title="(?!(Telegram)$)" app_id="^appimagekit_.*-Telegram_Desktop$"] floating enable, resize set 636 916
 
-for_window [app_id="^PopUp$"] floating enable, border pixel 0, move scratchpad
+for_window [app_id="^PopUp$"] floating enable, border pixel 1, move scratchpad
 for_window [app_id="^pavucontrol$"] floating enable, resize set 727 600
 for_window [app_id="^firefox$" title="^Library$"] floating enable, border pixel 1, move position center, resize set width 100ppt height 100ppt, resize shrink down 450px, resize set width 1000, move down 35px
 

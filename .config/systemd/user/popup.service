@@ -3,9 +3,9 @@ Description=PopUp Terminal
 
 [Service]
 Environment=PopUp=True
-ExecStart=/usr/bin/alacritty --class PopUp --title PopUp
+ExecStart=/usr/bin/alacritty --class PopUp --title PopUp --command /usr/bin/zsh
 Restart=always
-RestartSec=1
+RestartSec=0
 TimeoutStopSec=10
 
 [Install]

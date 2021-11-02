@@ -2,7 +2,7 @@
 
 {
     "settings": {
-        "python.venvPath": "/user/.pyenv/versions/",
+        "python.venvPath": "/home/tb/.pyenv/versions/",
         "python.analysis.typeCheckingMode": "basic",
         // a special predefined setup for developing ST plugins
         "pyright.dev_environment": "sublime_text",
