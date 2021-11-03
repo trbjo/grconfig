@@ -299,8 +299,8 @@ schemes:
     indexed_colors:
       # accent
       - { index: 16, color: "#1F76D9" }
-      # line hl and selection, and executable files
-      - { index: 17, color: "#DAE9F9" }
+      # line hl and selection, AFD7FF if no alacritty override
+      - { index: 153, color: "#DAE9F9" }
       # gutter fg and dimmed e.g. log, out
       - { index: 18, color: "#8090A0" }
       - { index: 243, color: "#8090A0" }
@@ -338,6 +338,11 @@ schemes:
       - { index: 24, color: "#C6F0C2" }
       # ripgrep foreground match
       - { index: 226, color: "#FFFFFF" }
+
+      # tmux inactive fg
+      - { index: 221, color: "#5C6979" }
+      # very dim
+      - { index: 220, color: "#3C4959" }
 
       # tmux border
       - { index: 240, color: "#E9E9E9" }
@@ -407,7 +412,7 @@ schemes:
   Dark: &Dark
     cursor:
       text: "0xFFFFFF"
-      cursor: "#dfe3e8"
+      cursor: "#80c0ef"
     selection:
       text: "0xEAEFF3"
       background: "#2C4A67"
@@ -445,8 +450,8 @@ schemes:
     indexed_colors:
       # accent
       - { index: 16, color: "#eff3f8" }
-      # line hl and selection
-      - { index: 17, color: "#2C4A67" }
+      # line hl and selection, AFD7FF if no alacritty override
+      - { index: 153, color: "#2C4A67" }
 
       # arch linux pacman upgrade versions
       - { index: 243, color: "#72838D" }
@@ -457,7 +462,7 @@ schemes:
       # bg
       - { index: 20, color: "#0A0E14" }
 
-      - { index: 20, color: "0x3C3836" }
+      - { index: 20, color: "#3C3836" }
 
       # snowsql green hl
       - { index: 28, color: "#AAAAAA" }
@@ -480,6 +485,11 @@ schemes:
       - { index: 194, color: "0x293C42" }
       # green emph bg
       - { index: 157, color: "0x315A5F" }
+
+      # tmux inactive fg
+      - { index: 220, color: "#5C6979" }
+      # very dim
+      - { index: 221, color: "#3C4959" }
 
       # tmux border
       - { index: 240, color: "#1C2129" }
@@ -638,8 +648,8 @@ cursor:
 #   - (Windows) powershell
 shell:
   program: /usr/bin/tmux
-  # args:
-  # - --login
+  args:
+    - attach
 
 # Startup directory
 #
@@ -953,17 +963,15 @@ key_bindings:
 
   # sends UP
   # - { key: 0x12,      mods: Control,             chars: "\x1b[A",                                   mode: ~AppCursor }
-  # - { key: C, mods: Control, chars: "\x1b[A", mode: ~AppCursor }
-  # - { key: C, mods: Control, chars: "\x1bOA", mode: AppCursor }
+  - { key: C, mods: Control, chars: "\x1b[A", mode: ~AppCursor }
+  - { key: C, mods: Control, chars: "\x1bOA", mode: AppCursor }
   # - { key: A,      mods: Control,             chars: "\x1b[A",                                   mode: ~AppCursor }
   # - { key: A,      mods: Control,             chars: "\x1bOA",                                   mode: AppCursor  }
   # - { key: C,      mods: Control,             chars: "\x19",                                   }
 
   # sends DOWN
-  # - { key: T,         mods: Control,             chars: "\x1b[B",                                   mode: ~AppCursor }
-  # - { key: T,         mods: Control,             chars: "\x1bOB",                                   mode: AppCursor  }
-  # - { key: T, mods: Control, chars: "\x1b[B", mode: ~AppCursor }
-  # - { key: T, mods: Control, chars: "\x1bOB", mode: AppCursor }
+  - { key: T, mods: Control, chars: "\x1b[B", mode: ~AppCursor }
+  - { key: T, mods: Control, chars: "\x1bOB", mode: AppCursor }
 
   # sends LEFT
   # - { key: H,         mods: Control,             chars: "\x1b[D",                                   mode: ~AppCursor }

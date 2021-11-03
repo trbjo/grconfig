@@ -95,7 +95,7 @@ bindsym --locked F9 exec toggle
 
 # bindsym --no-repeat ctrl+space [app_id="^PopUp$"] scratchpad show, move position center, resize set width 100ppt height 100ppt, resize shrink up 1100px, resize grow up 337px
 
-bindsym --no-repeat ctrl+space focus tiling; [app_id="^(subl|sublime_text|firefox|mpv)$" app_id=__focused__ workspace="^(2|3)$" title="^(?!(Firefox — Sharing Indicator)$)"] fullscreen enable; [app_id="^PopUp$"] scratchpad show, fullscreen disable, move position center, resize set width 100ppt height 100ppt, resize shrink up 1100px, move left 1px, move down 1px, resize grow right 2px, resize grow up 337px
+bindsym --no-repeat ctrl+space focus tiling; [app_id="^(subl|sublime_text|firefox|mpv)$" con_id=__focused__ workspace="^(2|3)$" title="^(?!(Firefox — Sharing Indicator)$)"] fullscreen enable; [app_id="^PopUp$"] scratchpad show, fullscreen disable, move position center, resize set width 100ppt height 100ppt, resize shrink up 1100px, move left 1px, move down 1px, resize grow right 2px, resize grow up 337px
 
 bindsym --no-repeat $alt+l exec loginctl lock-session
 bindsym --no-repeat $alt+shift+slash output eDP-1 disable
