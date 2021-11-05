@@ -87,7 +87,7 @@ window:
 scrolling:
   # Maximum number of lines in the scrollback buffer.
   # Specifying '0' will disable scrolling.
-  history: 10000
+  history: 0
 
   # Scrolling distance multiplier.
   multiplier: 10
@@ -494,7 +494,7 @@ schemes:
       # tmux border
       - { index: 240, color: "#1C2129" }
 
-      # tmux active windows
+      # tmux active windows fg
       - { index: 231, color: "#14181F" }
       # tmux inactive windows
       - { index: 255, color: "#11151B" }

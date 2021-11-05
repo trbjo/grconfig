@@ -104,8 +104,7 @@
 		"target/rls"
 	],
 	"file_tab_style": "square",
-	"font_size": 9,
-	"font_options": ["gray_antialias"],
+	"font_size": 8.9,
 	"hardware_acceleration": "opengl",
 	"ignored_packages": [
 		"ActionScript",
