@@ -106,7 +106,7 @@ bindsym --locked F9 exec toggle
 
 # bindsym --no-repeat ctrl+space [app_id="^PopUp$"] scratchpad show, move position center, resize set width 100ppt height 100ppt, resize shrink up 1100px, resize grow up 337px
 
-bindsym --no-repeat ctrl+space focus tiling; [app_id="^(subl|sublime_text|firefox|mpv)$" con_id=__focused__ workspace="^(2|3)$" title="^(?!(Firefox — Sharing Indicator)$)"] fullscreen enable; [app_id="^PopUp$"] scratchpad show, fullscreen disable, move position center, resize set width 100ppt height 100ppt, resize shrink up 1100px, move left 1px, move down 1px, resize grow right 2px, resize grow up 337px
+bindsym --no-repeat ctrl+space focus tiling; [app_id="^(subl|sublime_text|firefox|mpv|Alacritty)$" con_id=__focused__ workspace="^(1|2|3)$" title="^(?!(Firefox — Sharing Indicator)$)"] fullscreen enable; [app_id="^PopUp$"] scratchpad show, fullscreen disable, move position center, resize set width 100ppt height 100ppt, resize shrink up 1100px, move left 1px, move down 1px, resize grow right 2px, resize grow up 337px
 
 bindsym --no-repeat $alt+l exec loginctl lock-session
 bindsym --no-repeat $alt+shift+slash output eDP-1 disable
@@ -116,7 +116,7 @@ bindsym --no-repeat $alt+slash output eDP-1 enable
 set $startFirefox exec pkill -CONT "$FIREFOXPROCESSES"
 set $stopFirefox exec grep -q 0 /sys/class/power_supply/AC0/online && pkill -STOP "$FIREFOXPROCESSES"
 
-bindsym --no-repeat ctrl+1 $ws1; $stopFirefox
+bindsym --no-repeat ctrl+1 $ws1; [con_id=__focused__ workspace="^1$" app_id="^Alacritty$"] fullscreen enable; [app_id="^PopUp$"] move scratchpad; $stopFirefox
 bindsym --no-repeat ctrl+2 [app_id="^sublime_text$"] focus; [con_id=__focused__ workspace="^(2|3)$" app_id="^sublime_text$"] fullscreen enable; [app_id="^PopUp$"] move scratchpad; $stopFirefox
 bindsym --no-repeat ctrl+3 [app_id="^firefox$" title="^(?!(Firefox — Sharing Indicator)$)"] focus; [workspace="^(2|3)$" con_id=__focused__ app_id="^firefox$" title="^(?!(Firefox — Sharing Indicator)$)"] fullscreen enable; [app_id="^PopUp$"] move scratchpad; $startFirefox
 bindsym --no-repeat ctrl+4 $ws4; $stopFirefox
