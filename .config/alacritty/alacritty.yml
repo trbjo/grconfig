@@ -461,8 +461,8 @@ schemes:
       - { index: 19, color: "#4B5563" }
       # bg
       - { index: 20, color: "#0A0E14" }
-
-      - { index: 20, color: "#3C3836" }
+      # git delta bg
+      - { index: 21, color: "#3C3836" }
 
       # snowsql green hl
       - { index: 28, color: "#AAAAAA" }
@@ -502,56 +502,111 @@ schemes:
       # ripgrep foreground match
       - { index: 226, color: "#000000" }
 
-# # Colors (Gruvbox Dark)
-# schemes:
-#   # Cursor colors
-#   Dark: &Gruvbox_dark # Default colors
-#     primary:
-#       background: "#191C1D"
-#       # background: "#25292B"
-#       foreground: "#EBDBB2"
-#     cursor:
-#       text: "0xFFFFFF"
-#       cursor: "#F49800"
-#     selection:
-#       text: "#EBDBB2"
-#       background: "#504945"
-#     # Normal colors
-#     normal:
-#       black: "#504945"
-#       red: "#FB4934"
-#       # this is light blue instead. for strings
-#       green: "#B8BB26"
-#       yellow: "#FABD2F"
-#       blue: "#83A598"
-#       cyan: "#8EC07C"
-#       magenta: "#D3869B"
-#       # same as base color in sublime
-#       white: "#EBDBB2"
-#     # Bright colors
-#     bright:
-#       #same as comment in sublime
-#       black: "#EBDBB2"
-#       red: "#FF343D"
-#       green: "#98971A"
-#       blue: "#458588"
-#       yellow: "#D79921"
-#       magenta: "#B16286"
-#       cyan: "#689D6A"
-#       white: "#EBDBB2"
-#     indexed_colors:
-#       # accent
-#       - { index: 16, color: "#F49800" }
-#       # line hl and selection
-#       - { index: 17, color: "#504945" }
-#       # gutter fg
-#       - { index: 18, color: "#6A6C6D" }
-#       # border
-#       - { index: 19, color: "#111314" }
-#       # ripgrep find highlight bg
-#       - { index: 20, color: "#000000" }
+# Colors (Gruvbox Dark)
+schemes:
+ # Cursor colors
+ Dark: &Gruvbox_dark # Default colors
+   primary:
+     background: "#191C1D"
+     # background: "#25292B"
+     foreground: "#EBDBB2"
+   cursor:
+     text: "0xFFFFFF"
+     cursor: "#F49800"
+   selection:
+     text: "#EBDBB2"
+     background: "#504945"
+   # Normal colors
+   normal:
+     black: "#000000"
+     red: "#FB4934"
+     # this is light blue instead. for strings
+     green: "#B8BB26"
+     yellow: "#FABD2F"
+     blue: "#83A598"
+     cyan: "#8EC07C"
+     magenta: "#D3869B"
+     # same as base color in sublime
+     white: "#EBDBB2"
+   # Bright colors
+   bright:
+     #same as comment in sublime
+     black: "#EBDBB2"
+     red: "#FF343D"
+     green: "#98971A"
+     blue: "#458588"
+     yellow: "#D79921"
+     magenta: "#B16286"
+     cyan: "#689D6A"
+     white: "#EBDBB2"
+   indexed_colors:
+     # accent
+     - { index: 16, color: "#F49800" }
+     # line hl and selection
+     - { index: 17, color: "#504945" }
+     # gutter fg
+     - { index: 18, color: "#6A6C6D" }
+     # border
+     - { index: 19, color: "#111314" }
+     # ripgrep find highlight bg
+     - { index: 20, color: "#000000" }
 
-colors: *Light
+
+     # arch linux pacman upgrade versions
+     - { index: 243, color: "#72838D" }
+     # gutter fg
+     - { index: 18, color: "#72838D" }
+     # border
+     - { index: 19, color: "#4B5563" }
+     # bg
+     - { index: 20, color: "#0A0E14" }
+     # git delta
+     - { index: 21, color: "#3C3836" }
+
+     # snowsql green hl
+     - { index: 28, color: "#AAAAAA" }
+     # snowsql autocomplete bg color:
+     - { index: 30, color: "#232A32" }
+     # snowsql autocomplete selected color:
+     - { index: 37, color: "#1F76D9" }
+     # snowsql autocomplete scrollbar fg/handle:
+     - { index: 238, color: "#434A52" }
+     # snowsql autocomplete scrollbar bg:
+     - { index: 102, color: "#333A42" }
+     # snowsql prompt
+     - { index: 61, color: "#B392F0" }
+
+     # for git delta
+     # red bg
+     - { index: 224, color: "0x372F35" }
+     # red emph bg
+     - { index: 217, color: "0x56353C" }
+     # green bg
+     - { index: 194, color: "0x293C42" }
+     # green emph bg
+     - { index: 157, color: "0x315A5F" }
+
+     # tmux inactive fg
+     - { index: 220, color: "#5C6979" }
+     # very dim
+     - { index: 221, color: "#3C4959" }
+
+     # tmux border
+     - { index: 240, color: "#25292B" }
+
+     # tmux active windows bg
+     - { index: 231, color: "#1D2021" }
+     # tmux inactive windows
+     - { index: 255, color: "#191C1D" }
+
+     # ripgrep foreground match
+     - { index: 226, color: "#000000" }
+
+
+
+
+
+colors: *Gruvbox_dark
 
 # Bell
 #
