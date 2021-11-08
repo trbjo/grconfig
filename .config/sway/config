@@ -168,8 +168,8 @@ bindsym --no-repeat $alt+w splitv
 
 # Move your focus around
 
-bindsym $alt+h        exec focus_tab_parent 'focus left'
-bindsym $alt+s        exec focus_tab_parent 'focus right'
+bindsym ctrl+h focus left
+bindsym ctrl+s focus right
 
 bindsym --no-repeat $alt+t focus down
 bindsym --no-repeat $alt+c focus up
@@ -261,7 +261,7 @@ default_floating_border pixel 4
 hide_edge_borders --i3 smart_no_gaps
 
 titlebar_border_thickness 1
-titlebar_padding 15 0
+titlebar_padding 15 5
 title_align center
 
 floating_maximum_size 2050 x 1154
