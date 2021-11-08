@@ -42,11 +42,11 @@ window:
   # Blank space added around the window in pixels. This padding is scaled
   # by DPI and the specified value is always added at both opposing sides.
   padding:
-    x: 1
+    x: 0
     y: 0
 
   # Spread additional padding evenly around the terminal content.
-  dynamic_padding: false
+  dynamic_padding: true
 
   # Window decorations
   #
@@ -87,7 +87,7 @@ window:
 scrolling:
   # Maximum number of lines in the scrollback buffer.
   # Specifying '0' will disable scrolling.
-  history: 0
+  history: 10000
 
   # Scrolling distance multiplier.
   multiplier: 10
@@ -141,7 +141,7 @@ font:
   #style: Bold Italic
 
   # Point size
-  size: 9
+  size: 10
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -507,7 +507,7 @@ schemes:
  # Cursor colors
  Dark: &Gruvbox_dark # Default colors
    primary:
-     background: "#191C1D"
+     background: "#1D2021"
      # background: "#25292B"
      foreground: "#EBDBB2"
    cursor:
@@ -542,8 +542,8 @@ schemes:
    indexed_colors:
      # accent
      - { index: 16, color: "#F49800" }
-     # line hl and selection
-     - { index: 17, color: "#504945" }
+     # line hl and selection, AFD7FF if no alacritty override
+     - { index: 153, color: "#504945" }
      # gutter fg
      - { index: 18, color: "#6A6C6D" }
      # border
@@ -560,8 +560,7 @@ schemes:
      - { index: 19, color: "#4B5563" }
      # bg
      - { index: 20, color: "#0A0E14" }
-     # git delta
-     - { index: 21, color: "#3C3836" }
+
 
      # snowsql green hl
      - { index: 28, color: "#AAAAAA" }
@@ -577,14 +576,16 @@ schemes:
      - { index: 61, color: "#B392F0" }
 
      # for git delta
+     # git delta bg
+     - { index: 21, color: "#362B2D" }
      # red bg
-     - { index: 224, color: "0x372F35" }
+     - { index: 224, color: "#372F35" }
      # red emph bg
-     - { index: 217, color: "0x56353C" }
+     - { index: 217, color: "#56353C" }
      # green bg
-     - { index: 194, color: "0x293C42" }
+     - { index: 194, color: "#293C42" }
      # green emph bg
-     - { index: 157, color: "0x315A5F" }
+     - { index: 157, color: "#315A5F" }
 
      # tmux inactive fg
      - { index: 220, color: "#5C6979" }
@@ -606,7 +607,7 @@ schemes:
 
 
 
-colors: *Gruvbox_dark
+colors: *Light
 
 # Bell
 #
@@ -701,10 +702,10 @@ cursor:
 #   - (macOS) /bin/bash --login
 #   - (Linux/BSD) user login shell
 #   - (Windows) powershell
-shell:
-  program: /usr/bin/tmux
-  args:
-    - attach
+# shell:
+  # program: /usr/bin/tmux
+  # args:
+    # - attach
 
 # Startup directory
 #
@@ -971,17 +972,17 @@ key_bindings:
 
   # - { key: C, mods: Control, command: { program: "swaymsg", args: ["focus", "up"] } }
   # - { key: T, mods: Control, command: { program: "swaymsg", args: ["focus", "down"] } }
-  # - { key: Tab, mods: Control, command: { program: "next_tab" } }
-  # - { key: Tab, mods: Control|Shift, command: { program: "next_tab", args: ["--prev"] } }
-  # - { key: Key1, mods: Alt, command: { program: "next_tab", args: ["--absolute=0"] } }
-  # - { key: Key2, mods: Alt, command: { program: "next_tab", args: ["--absolute=1"] } }
-  # - { key: Key3, mods: Alt, command: { program: "next_tab", args: ["--absolute=2"] } }
-  # - { key: Key4, mods: Alt, command: { program: "next_tab", args: ["--absolute=3"] } }
-  # - { key: Key5, mods: Alt, command: { program: "next_tab", args: ["--absolute=4"] } }
-  # - { key: Key6, mods: Alt, command: { program: "next_tab", args: ["--absolute=5"] } }
-  # - { key: Key7, mods: Alt, command: { program: "next_tab", args: ["--absolute=6"] } }
-  # - { key: Key8, mods: Alt, command: { program: "next_tab", args: ["--absolute=7"] } }
-  # - { key: Key9, mods: Alt, command: { program: "next_tab", args: ["--absolute=8"] } }
+  - { key: Tab, mods: Control, command: { program: "next_tab" } }
+  - { key: Tab, mods: Control|Shift, command: { program: "next_tab", args: ["--prev"] } }
+  - { key: Key1, mods: Alt, command: { program: "next_tab", args: ["--absolute=0"] } }
+  - { key: Key2, mods: Alt, command: { program: "next_tab", args: ["--absolute=1"] } }
+  - { key: Key3, mods: Alt, command: { program: "next_tab", args: ["--absolute=2"] } }
+  - { key: Key4, mods: Alt, command: { program: "next_tab", args: ["--absolute=3"] } }
+  - { key: Key5, mods: Alt, command: { program: "next_tab", args: ["--absolute=4"] } }
+  - { key: Key6, mods: Alt, command: { program: "next_tab", args: ["--absolute=5"] } }
+  - { key: Key7, mods: Alt, command: { program: "next_tab", args: ["--absolute=6"] } }
+  - { key: Key8, mods: Alt, command: { program: "next_tab", args: ["--absolute=7"] } }
+  - { key: Key9, mods: Alt, command: { program: "next_tab", args: ["--absolute=8"] } }
 
   # - { key: Space, mods: Alt, action: SpawnNewInstance }
 

@@ -1,5 +1,5 @@
 {
-    "workbench.colorTheme": "GitHub Light Default",
+    "workbench.colorTheme": "GitHub Dark Default",
     "editor.fontSize": 12,
     "editor.fontFamily": "monospace",
     "omnisharp.enableAsyncCompletion": true,
