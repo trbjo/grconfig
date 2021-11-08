@@ -55,9 +55,10 @@ seat seat0 hide_cursor when-typing enable
 ## Output
 #
 
-output * bg "$HOME/pics/storebælt.jpg" fill
+# output * bg "$HOME/pics/storebælt.jpg" fill
 output 'Unknown 0x422A 0x00000000' resolution 3000x2000 pos 0 0 scale 2 subpixel rgb
 output 'Chimei Innolux Corporation 0x1515 0x00000000' resolution 1920x1080 pos 0 0 scale 1 subpixel rgb
+output 'Goldstar Company Ltd LG UltraFine 611NTCZ8V987' resolution 4096x2304 pos 1921 0 scale 2 subpixel rgb
 #output 'Panasonic Industry Company Panasonic-TV 0x00000101' resolution 1920x1080@60Hz pos 1501 0 scale 1 subpixel rgb
 #output 'Goldstar Company Ltd LG UltraFine 907NTUWBA398' resolution 3840x2160 pos 1501 0 scale 2 subpixel rgb
 output 'Goldstar Company Ltd LG UltraFine 909NTWG7R817' resolution 3840x2160 pos 1921 0 scale 2 subpixel rgb
@@ -105,8 +106,9 @@ bindsym --locked XF86WLAN exec wifiToggle.sh
 bindsym --locked F9 exec toggle
 
 # bindsym --no-repeat ctrl+space [app_id="^PopUp$"] scratchpad show, move position center, resize set width 100ppt height 100ppt, resize shrink up 1100px, resize grow up 337px
+bindsym --no-repeat ctrl+space [app_id="^PopUp$"] scratchpad show, move position center, resize set width 100ppt height 100ppt, resize shrink up 1100px, resize grow up 337px
 
-bindsym --no-repeat ctrl+space focus tiling; [app_id="^(subl|sublime_text|firefox|mpv|Alacritty)$" con_id=__focused__ workspace="^(1|2|3)$" title="^(?!(Firefox — Sharing Indicator)$)"] fullscreen enable; [app_id="^PopUp$"] scratchpad show, fullscreen disable, move position center, resize set width 100ppt height 100ppt, resize shrink up 1100px, move left 1px, move down 1px, resize grow right 2px, resize grow up 337px
+# bindsym --no-repeat ctrl+space focus tiling; [app_id="^(subl|sublime_text|firefox|mpv)$" con_id=__focused__ workspace="^(2|3)$" title="^(?!(Firefox — Sharing Indicator)$)"] fullscreen enable; [app_id="^PopUp$"] scratchpad show, fullscreen disable, move position center, resize set width 100ppt height 100ppt, resize shrink up 1100px, move left 1px, move down 1px, resize grow right 2px, resize grow up 337px
 
 bindsym --no-repeat $alt+l exec loginctl lock-session
 bindsym --no-repeat $alt+shift+slash output eDP-1 disable
@@ -116,8 +118,8 @@ bindsym --no-repeat $alt+slash output eDP-1 enable
 set $startFirefox exec pkill -CONT "$FIREFOXPROCESSES"
 set $stopFirefox exec grep -q 0 /sys/class/power_supply/AC0/online && pkill -STOP "$FIREFOXPROCESSES"
 
-bindsym --no-repeat ctrl+1 $ws1; [con_id=__focused__ workspace="^1$" app_id="^Alacritty$"] fullscreen enable; [app_id="^PopUp$"] move scratchpad; $stopFirefox
-bindsym --no-repeat ctrl+2 [app_id="^sublime_text$"] focus; [con_id=__focused__ workspace="^(2|3)$" app_id="^sublime_text$"] fullscreen enable; [app_id="^PopUp$"] move scratchpad; $stopFirefox
+bindsym --no-repeat ctrl+1 $ws1
+bindsym --no-repeat ctrl+2 [app_id="^sublime_text$"] focus; [con_id=__focused__ workspace="^2$" app_id="^sublime_text$"] fullscreen enable; [app_id="^PopUp$"] move scratchpad; $stopFirefox
 bindsym --no-repeat ctrl+3 [app_id="^firefox$" title="^(?!(Firefox — Sharing Indicator)$)"] focus; [workspace="^(2|3)$" con_id=__focused__ app_id="^firefox$" title="^(?!(Firefox — Sharing Indicator)$)"] fullscreen enable; [app_id="^PopUp$"] move scratchpad; $startFirefox
 bindsym --no-repeat ctrl+4 $ws4; $stopFirefox
 bindsym --no-repeat ctrl+5 $ws5; $stopFirefox
@@ -161,24 +163,16 @@ bindsym --no-repeat $alt+shift+e layout toggle tabbed split
 
 bindsym --no-repeat f11 fullscreen toggle
 
-bindsym --no-repeat $alt+s splith
+bindsym --no-repeat $alt+v splith
 bindsym --no-repeat $alt+w splitv
 
 # Move your focus around
 
+bindsym $alt+h        exec focus_tab_parent 'focus left'
+bindsym $alt+s        exec focus_tab_parent 'focus right'
 
-# bindsym ctrl+h        exec focus_tab_parent 'focus left'
-# bindsym ctrl+s        exec focus_tab_parent 'focus right'
-
-bindsym --no-repeat $alt+n focus right
-bindsym --no-repeat $alt+h focus left
 bindsym --no-repeat $alt+t focus down
 bindsym --no-repeat $alt+c focus up
-
-# bindsym --no-repeat $alt+up focus up
-# bindsym --no-repeat $alt+down focus down
-# bindsym --no-repeat $alt+left focus left
-# bindsym --no-repeat $alt+right focus right
 
 # move the focused window with the same, but add Shift
 bindsym $alt+Shift+h move left
@@ -191,7 +185,7 @@ mode "" {
     bindsym h resize shrink width 80px
     bindsym c resize grow height 80px
     bindsym t resize shrink height 80px
-    bindsym n resize grow width 80px
+    bindsym s resize grow width 80px
 
     # return to default mode
     bindsym Return mode "default"
@@ -260,17 +254,17 @@ bindsym --no-repeat $alt+Print exec 'pgrep slurp || (curdate=$(date +"Screenshot
 
 font pango:SF Pro Display Medium 10
 
-default_border pixel 7
-gaps inner 7
+default_border pixel 2
+gaps inner 0
 smart_gaps on
 default_floating_border pixel 4
 hide_edge_borders --i3 smart_no_gaps
 
 titlebar_border_thickness 1
-titlebar_padding 15 5
+titlebar_padding 15 0
 title_align center
 
-floating_maximum_size 2050 x 1100
+floating_maximum_size 2050 x 1154
 floating_minimum_size 10 x 10
 
 # colors
@@ -356,6 +350,7 @@ for_window [app_id="^signal-desktop$" title=""] floating enable, resize set 1000
 # custom logos.
 for_window [app_id="^(org.pwmt.zathura)$"] layout tabbed, title_format "<span weight='100' foreground='#d73a49'></span>  %title"
 for_window [app_id="^imv$"] title_format "<span weight='100' foreground='#3874C7'></span>  %title"
+for_window [app_id="^Alacritty$"] title_format "<span weight='600'>%title</span>"
 for_window [app_id="^mpv$"] title_format "<span weight='100' foreground='#FF0000'></span>  %title"
 for_window [app_id="^Google-chrome-unstable$" title="^Microsoft Teams$"] title_format "<span weight='100' foreground='#6264A7'></span>  Microsoft Teams"
 for_window [app_id="-Telegram_Desktop$" title="^Telegram$"] title_format "<span weight='100' foreground='#2FA5D8'></span>  %title"

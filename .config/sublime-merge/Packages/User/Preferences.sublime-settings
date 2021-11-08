@@ -1,7 +1,7 @@
 {
 	"animation_enabled": false,
 	"expand_merge_commits_by_default": true,
-	"font_size": 9,
+	"font_size": 8.9,
 	"hide_menu": true,
 	"ignore_diff_white_space": false,
 	"hardware_acceleration": "opengl",
