@@ -2,5 +2,6 @@
 --sub-lang da,en
 --convert-subs 'vtt'
 -o ~/vid/%(title)s.%(ext)s
+--external-downloader aria2c
 #--embed-subs
 --format 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'
