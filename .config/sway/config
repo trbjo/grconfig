@@ -119,8 +119,10 @@ set $startFirefox exec pkill -CONT "$FIREFOXPROCESSES"
 set $stopFirefox exec grep -q 0 /sys/class/power_supply/AC0/online && pkill -STOP "$FIREFOXPROCESSES"
 
 bindsym --no-repeat ctrl+1 $ws1
-bindsym --no-repeat ctrl+2 [app_id="^sublime_text$"] focus; [con_id=__focused__ workspace="^2$" app_id="^sublime_text$"] fullscreen enable; [app_id="^PopUp$"] move scratchpad; $stopFirefox
-bindsym --no-repeat ctrl+3 [app_id="^firefox$" title="^(?!(Firefox — Sharing Indicator)$)"] focus; [workspace="^(2|3)$" con_id=__focused__ app_id="^firefox$" title="^(?!(Firefox — Sharing Indicator)$)"] fullscreen enable; [app_id="^PopUp$"] move scratchpad; $startFirefox
+bindsym --no-repeat ctrl+2 [app_id="^sublime_text$"] focus
+#; [con_id=__focused__ workspace="^2$" app_id="^sublime_text$"] fullscreen enable; [app_id="^PopUp$"] move scratchpad; $stopFirefox
+bindsym --no-repeat ctrl+3 [app_id="^firefox$" title="^(?!(Firefox — Sharing Indicator)$)"] focus
+#; [workspace="^(2|3)$" con_id=__focused__ app_id="^firefox$" title="^(?!(Firefox — Sharing Indicator)$)"] fullscreen enable; [app_id="^PopUp$"] move scratchpad; $startFirefox
 bindsym --no-repeat ctrl+4 $ws4; $stopFirefox
 bindsym --no-repeat ctrl+5 $ws5; $stopFirefox
 
@@ -336,12 +338,12 @@ for_window [title="^(Switch Project - Sublime Text|Select Application)$"] fullsc
 for_window [app_id="^gcr-prompter$"] fullscreen disable, floating enable
 # for_window [title="(?!(Telegram)$)" app_id="^appimagekit_.*-Telegram_Desktop$"] floating enable, resize set 636 916
 
-for_window [app_id="^PopUp$"] floating enable, border pixel 1, move scratchpad
+for_window [app_id="^PopUp$"] floating enable, border pixel 0, move scratchpad
 for_window [app_id="^pavucontrol$"] floating enable, resize set 727 600
 for_window [app_id="^firefox$" title="^Library$"] floating enable, border pixel 1, move position center, resize set width 100ppt height 100ppt, resize shrink down 450px, resize set width 1000, move down 35px
 
 for_window [title="^Firefox Developer Edition — Sharing Indicator$"] floating enable, move position 0 0
-for_window [title="^Firefox — Sharing Indicator$"] floating enable, sticky enable, resize set 57 30, move position 0 0
+for_window [title="^Firefox — Sharing Indicator$"] floating enable, border pixel 0, sticky enable, resize set 57 30, move position 0 0
 
 for_window [title="^(Save File|python3|Open File|Select Folder|Choose Files|Choose an image|Preferences - Sublime Merge)$"] floating enable, resize set 1000 800
 for_window [app_id="^python3$"] floating enable, resize set 1000 800
