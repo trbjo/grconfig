@@ -172,6 +172,7 @@ bindsym --no-repeat $alt+w splitv
 
 bindsym ctrl+h focus left
 bindsym ctrl+s focus right
+bindsym ctrl+n focus down
 
 bindsym --no-repeat $alt+t focus down
 bindsym --no-repeat $alt+c focus up
