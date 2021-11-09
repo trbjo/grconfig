@@ -141,7 +141,7 @@ font:
   #style: Bold Italic
 
   # Point size
-  size: 10
+  size: 9
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -1009,7 +1009,7 @@ key_bindings:
   - { key: F12, action: PasteSelection }
   - { key: Insert, action: PasteSelection }
 
-  - { key: Escape, mods: Control, action: ClearHistory }
+  # - { key: Escape, mods: Control, action: ClearHistory }
   # sends c-e to go to EOL
   - { key: I, mods: Control, chars: "\x05" }
   - { key: I, mods: Control|Shift, chars: "\x00\x05" }
@@ -1037,18 +1037,18 @@ key_bindings:
   # - { key: N,         mods: Control,             chars: "\x1b[C",                                   mode: ~AppCursor }
   # - { key: N,         mods: Control,             chars: "\x1bOC",                                   mode: AppCursor  }
 
-  # sends alt-b
-  - { key: G, mods: Control, chars: "\x1bb" }
 
   # inserts newline without enter
   # - { key: Return, mods: Shift, chars: "\x16\x0A" }
   - { key: Return, mods: Control, chars: "\x16\x0A" }
 
+  # sends alt-b
+  - { key: G, mods: Alt, chars: "\x1bb" }
   # sends alt-f
-  - { key: R, mods: Control, chars: "\x1bf" }
+  - { key: R, mods: Alt, chars: "\x1bf" }
   # subwords:
-  - { key: G, mods: Alt, chars: "\x1bs" }
-  - { key: R, mods: Alt, chars: "\x1bt" }
+  - { key: G, mods: Control, chars: "\x1bs" }
+  - { key: R, mods: Control, chars: "\x1bt" }
   # wth?
   - { key: Semicolon, mods: Control, chars: "\x1b[1;3A" }
 
@@ -1108,7 +1108,7 @@ key_bindings:
   # - { key: A,      mods: Control,             chars: "\x18\x18" }
 
   # Ctrl-tab - sends ctrl-i
-  - { key: Tab, mods: Control, chars: "\x19" }
+  # - { key: Tab, mods: Control, chars: "\x19" }
 
   # Ctrl-O - sends left
   - { key: O, mods: Control, chars: "\x1b[D", mode: ~AppCursor }
@@ -1158,9 +1158,9 @@ key_bindings:
 
   # - { key: Tab, mods: Control, mode: ~Vi, chars: "\x01" }
 
-  # - { key: Tab, mods: Control, action: ToggleViMode }
+  - { key: Escape, mods: Control, action: ToggleViMode }
   - { key: Tab, mode: Vi, action: First }
-  # - { key: Tab, mode: Vi, action: SemanticRight }
+  - { key: Tab, mode: Vi, action: SemanticRight }
   - { key: Tab, mode: Vi, action: ToggleSemanticSelection }
   - { key: Tab, mode: Vi, action: Last }
   - { key: Tab, mode: Vi, action: Copy }

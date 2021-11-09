@@ -418,6 +418,52 @@
             "foreground_adjust": "l(- 30%)"
         },
         {
+            "name": "dotnet.blue0",
+            "font_style": "bold",
+            "scope": "dotnet.blue0",
+            "foreground": "var(blue0)"
+        },
+        {
+            "name": "dotnet.green",
+            "font_style": "bold",
+            "scope": "dotnet.green",
+            "foreground": "var(green0)"
+        },
+        {
+            "name": "dotnet.red",
+            "font_style": "bold",
+            "scope": "dotnet.red",
+            "foreground": "var(red0)"
+        },
+        {
+            "name": "dotnet.yellow0",
+            "font_style": "bold",
+            "scope": "dotnet.yellow0",
+            "foreground": "var(yellow)"
+        },
+        {
+            "name": "dotnet.filename",
+            "scope": "dotnet.filename",
+            "foreground": "var(green0)"
+        },
+        {
+            "name": "dotnet.line_number",
+            "scope": "dotnet.line_number",
+            "foreground": "var(magenta0)"
+        },
+        {
+            "name": "dotnet.orange",
+            "font_style": "bold",
+            "scope": "dotnet.orange",
+            "foreground": "var(orange)"
+        },
+        {
+            "name": "dotnet.link_blue",
+            "scope": "dotnet.link_blue",
+            "foreground": "var(blue0)"
+        },
+
+        {
             "name": "dotnet.blue",
             "font_style": "bold",
             "scope": "dotnet.blue",

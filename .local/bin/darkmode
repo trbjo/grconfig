@@ -56,14 +56,19 @@ set_values() {
     export BGTITLEBARI_$DARK="#1D2021"
     export BGTITLEBARU_$DARK="#111314"
 
+    # this is equal to 0.85
+    export DARK_OPACITY="D9"
+
     export TITLEBARBORDERA_$DARK="#1D2021"
     export TITLEBARBORDERI_$DARK="#1D2021"
-    export TITLEBARBORDERU_$DARK="#25292B"
+    export TITLEBARBORDERU_$DARK="#25292B${DARK_OPACITY}"
 
     # sway, zathura, mako
     # FGA_$DARK="#EBDBB2"
     export FGA_$DARK="#EEEEEE"
     export FGU_$DARK="#A0A0A0"
+
+
 
     # sway
     # export BORDERA_$DARK="#4040BB10"
