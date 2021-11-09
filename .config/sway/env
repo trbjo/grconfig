@@ -1,7 +1,7 @@
 LANG=en_US.UTF-8
 LC_ALL=en_US.UTF-8
 
-PATH=/home/tb/.local/bin:/home/tb/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin:/home/tb/.npm/bin:/usr/local/bin:/usr/bin
+PATH=/home/tb/.local/bin:/usr/local/bin:/usr/bin
 XDG_CURRENT_DESKTOP=sway
 XDG_DOWNLOAD_DIR=/home/tb/dl
 GDK_BACKEND=wayland
