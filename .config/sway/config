@@ -333,7 +333,8 @@ for_window [app_id="^gcr-prompter$"] fullscreen disable, floating enable
 # for_window [title="(?!(Telegram)$)" app_id="^appimagekit_.*-Telegram_Desktop$"] floating enable, resize set 636 916
 
 for_window [app_id="^PopUp$"] floating enable, border pixel 0, move scratchpad
-for_window [app_id="^pavucontrol$"] floating enable, resize set 727 600
+for_window [app_id="^pavucontrol$"] floating enable, move position center, resize set width 100ppt height 100ppt, resize shrink down 1100px, resize set 727 0, resize grow down 500px
+
 for_window [app_id="^firefox$" title="^Library$"] floating enable, border pixel 1, move position center, resize set width 100ppt height 100ppt, resize shrink down 450px, resize set width 1000, move down 35px
 
 for_window [title="^Firefox Developer Edition — Sharing Indicator$"] floating enable, move position 0 0
