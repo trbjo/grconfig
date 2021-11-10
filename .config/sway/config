@@ -313,12 +313,12 @@ bar {
 ## Window rules
 #
 
-assign [app_id="^telegramdesktop$"] $ws1
+# assign [app_id="^telegramdesktop$"] $ws1
 # we want dialogues and file openers to be exempt from this rule
-assign [app_id="^sublime_text$" title="^(?!Open File|Save File)$" title="."] $ws2
-assign [app_id="^firefox$" title="^(?!Open File)$" title="."] $ws3
+# assign [app_id="^sublime_text$" title="^(?!Open File|Save File)$" title="."] $ws2
+# assign [app_id="^firefox$" title="^(?!Open File)$" title="."] $ws3
 assign [app_id="^(mpv|imv|org.pwmt.zathura|evince)$"] $ws5
-assign [app_id="^(sublime_merge|Google-chrome-unstable)$"] $ws4
+# assign [app_id="^(sublime_merge|Google-chrome-unstable)$"] $ws4
 
 # all new windows except the PopUp should receive focus.
 for_window [app_id=^(?!(PopUp)$).*$] focus
