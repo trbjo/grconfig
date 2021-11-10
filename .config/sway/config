@@ -58,10 +58,11 @@ seat seat0 hide_cursor when-typing enable
 # output * bg "$HOME/pics/storebælt.jpg" fill
 output 'Unknown 0x422A 0x00000000' resolution 3000x2000 pos 0 0 scale 2 subpixel rgb
 output 'Chimei Innolux Corporation 0x1515 0x00000000' resolution 1920x1080 pos 0 0 scale 1 subpixel rgb
+output 'Panasonic Industry Company Panasonic-TV 0x00000101' resolution 1920x1080@60Hz pos 1921 0 scale 1 subpixel rgb
+
 output 'Goldstar Company Ltd LG UltraFine 611NTCZ8V987' resolution 4096x2304 pos 1921 0 scale 2 subpixel rgb
-#output 'Panasonic Industry Company Panasonic-TV 0x00000101' resolution 1920x1080@60Hz pos 1501 0 scale 1 subpixel rgb
-#output 'Goldstar Company Ltd LG UltraFine 907NTUWBA398' resolution 3840x2160 pos 1501 0 scale 2 subpixel rgb
 output 'Goldstar Company Ltd LG UltraFine 909NTWG7R817' resolution 3840x2160 pos 1921 0 scale 2 subpixel rgb
+output 'Goldstar Company Ltd LG UltraFine 907NTUWBA398' resolution 3840x2160 pos 1921 0 scale 2 subpixel rgb
 
 bindswitch --reload lid:on exec '! grep -q "enabled" /sys/class/drm/{card0-DP-1,card0-DP-2,card0-HDMI-A-1}/enabled && systemctl suspend || swaymsg output eDP-1 disable'
 bindswitch --locked --reload lid:off output eDP-1 enable
