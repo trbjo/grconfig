@@ -87,7 +87,7 @@ window:
 scrolling:
   # Maximum number of lines in the scrollback buffer.
   # Specifying '0' will disable scrolling.
-  history: 10000
+  history: 30000
 
   # Scrolling distance multiplier.
   multiplier: 10
@@ -295,6 +295,26 @@ schemes:
       magenta: "#6F42C1"
       green: "#82A63a"
       white: "#000000"
+
+
+    # Search colors
+    #
+    # Colors used for the search bar and match highlighting.
+    search:
+      # Allowed values are CellForeground/CellBackground, which reference the
+      # affected cell, or hexadecimal colors like #ff00ff.
+      matches:
+       foreground: '#000000'
+       background: '#DAE9F9'
+      focused_match:
+       foreground: '#ffffff'
+       background: '#4c91df'
+
+      bar:
+       background: '#F0F4F8'
+       foreground: '#1d1f21'
+
+
 
     indexed_colors:
       # accent
@@ -539,6 +559,25 @@ schemes:
      magenta: "#B16286"
      cyan: "#689D6A"
      white: "#EBDBB2"
+
+   # Search colors
+   #
+   # Colors used for the search bar and match highlighting.
+   search:
+     # Allowed values are CellForeground/CellBackground, which reference the
+     # affected cell, or hexadecimal colors like #ff00ff.
+     matches:
+      foreground: '#EBDBB2'
+      background: '#504945'
+     focused_match:
+      foreground: '#000000'
+      background: '#FE8019'
+
+     bar:
+      background: '#25292B'
+      foreground: '#EBDBB2'
+
+
    indexed_colors:
      # accent
      - { index: 16, color: "#F49800" }
@@ -656,7 +695,7 @@ colors: *Light
 #
 # Window opacity as a floating point number from `1.0` to `0.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 1.0
+window.opacity: 1.0
 
 # selection:
 # This string contains all characters that are used as separators for "semantic words" in Alacritty.
@@ -987,7 +1026,7 @@ key_bindings:
   # - { key: Space, mods: Alt, action: SpawnNewInstance }
 
   - { key: M, mods: Alt, action: SearchForward }
-  - { key: Apostrophe, mods: Control, chars: "\x10" }
+  - { key: Apostrophe, mods: Control, chars: "\x10" , mode: ~Vi|~Search }
   # - { key: Apostrophe, mods: Control,             chars: "\x04",                         }
 
   - { key: C, mods: Alt, mode: ~Alt, action: ScrollPageUp }
@@ -1001,7 +1040,7 @@ key_bindings:
   - { key: J, mods: Control, action: Copy }
 
   # currently unbound. Can be used to enhance alacritty
-  - { key: K, mods: Control, chars: "\x1be" }
+  # - { key: K, mods: Control, chars: "\x1be" , mode: ~Vi|~Search }
   - { key: K, mods: Control, action: Paste }
 
   # sends ctrl+y
@@ -1011,7 +1050,7 @@ key_bindings:
 
   # - { key: Escape, mods: Control, action: ClearHistory }
   # sends c-e to go to EOL
-  - { key: I, mods: Control, chars: "\x05" }
+  - { key: I, mods: Control, chars: "\x05" , mode: ~Vi|~Search }
   - { key: I, mods: Control|Shift, chars: "\x00\x05" }
 
   # sends c-A to go to EOL
@@ -1019,109 +1058,112 @@ key_bindings:
 
   # sends UP
   # - { key: 0x12,      mods: Control,             chars: "\x1b[A",                                   mode: ~AppCursor }
-  - { key: C, mods: Control, chars: "\x1b[A", mode: ~AppCursor }
-  - { key: C, mods: Control, chars: "\x1bOA", mode: AppCursor }
-  # - { key: A,      mods: Control,             chars: "\x1b[A",                                   mode: ~AppCursor }
-  # - { key: A,      mods: Control,             chars: "\x1bOA",                                   mode: AppCursor  }
-  # - { key: C,      mods: Control,             chars: "\x19",                                   }
+  - { key: C, mods: Control, chars: "\x1b[A", mode: ~AppCursor|~Vi|~Search  }
+  - { key: C, mods: Control, chars: "\x1bOA", mode: AppCursor|~Vi|~Search  }
+
+  - { key: C, mods: Control,     mode: Search,     action: SearchHistoryPrevious }
+  - { key: C,      mods: Control,       mode: Vi, action: ScrollHalfPageUp        }
 
   # sends DOWN
-  - { key: T, mods: Control, chars: "\x1b[B", mode: ~AppCursor }
-  - { key: T, mods: Control, chars: "\x1bOB", mode: AppCursor }
-
-  # sends LEFT
-  # - { key: H,         mods: Control,             chars: "\x1b[D",                                   mode: ~AppCursor }
-  # - { key: H,         mods: Control,             chars: "\x1bOD",                                   mode: AppCursor  }
-
-  # sends RIGHT
-  # - { key: N,         mods: Control,             chars: "\x1b[C",                                   mode: ~AppCursor }
-  # - { key: N,         mods: Control,             chars: "\x1bOC",                                   mode: AppCursor  }
-
+  - { key: T, mods: Control, chars: "\x1b[B", mode: ~AppCursor|~Vi|~Search  }
+  - { key: T, mods: Control, chars: "\x1bOB", mode: AppCursor|~Vi|~Search  }
+  - { key: T, mods: Control,     mode: Search,     action: SearchHistoryNext }
+  - { key: T,      mods: Control,       mode: Vi, action: ScrollHalfPageDown      }
 
   # inserts newline without enter
   # - { key: Return, mods: Shift, chars: "\x16\x0A" }
-  - { key: Return, mods: Control, chars: "\x16\x0A" }
+  - { key: Return, mods: Control, chars: "\x16\x0A", mode: ~Vi|~Search  }
+
+   # Search Mode
+  - { key: Escape,                mode: Search,     action: SearchCancel          }
+  - { key: Q,      mods: Control, mode: Search,     action: SearchClear           }
+  - { key: Comma,      mods: Control, mode: Search,     action: SearchDeleteWord      }
+  - { key: N,      mods: Control, mode: Search,     action: SearchHistoryNext     }
+  - { key: Up,                    mode: Search,     action: SearchHistoryPrevious }
+  - { key: Down,                  mode: Search,     action: SearchHistoryNext     }
+  - { key: Return,                mode: Search|Vi, action: SearchFocusNext       }
+  - { key: Return, mods: Shift,   mode: Search|Vi, action: SearchFocusPrevious   }
 
   # sends alt-b
   - { key: G, mods: Alt, chars: "\x1bb" }
   # sends alt-f
   - { key: R, mods: Alt, chars: "\x1bf" }
   # subwords:
-  - { key: G, mods: Control, chars: "\x1bs" }
-  - { key: R, mods: Control, chars: "\x1bt" }
+  - { key: G, mods: Control, chars: "\x1bs" , mode: ~Vi|~Search }
+  - { key: R, mods: Control, chars: "\x1bt" , mode: ~Vi|~Search }
   # wth?
-  - { key: Semicolon, mods: Control, chars: "\x1b[1;3A" }
+  - { key: Semicolon, mods: Control, chars: "\x1b[1;3A" , mode: ~Vi|~Search }
 
   # Delete word <- ->
   # sends c-w, kill word backwards
-  - { key: Comma, mods: Control, chars: "\x17" }
-  - { key: Back, mods: Control, chars: "\x17" }
+  - { key: Comma, mods: Control, chars: "\x17" , mode: ~Vi|~Search }
+  - { key: Back, mods: Control, chars: "\x17" , mode: ~Vi|~Search }
   # sends alt-d kill word forward
-  - { key: P, mods: Control, chars: "\x1bd" }
+  - { key: P, mods: Control, chars: "\x1bd" , mode: ~Vi|~Search }
 
   # unused keybind control w: we bind it to c-s
-  - { key: W, mods: Control, chars: "\x13" }
+  - { key: W, mods: Control, chars: "\x13" , mode: ~Vi|~Search }
 
   # sends ctrl-p -- why?
   # - { key: H,      mods: Control,              chars: "\x10",         }
 
   # sends ctrl-z
-  - { key: S, mods: Control, chars: "\x1A" }
+  - { key: S, mods: Control, chars: "\x1A" , mode: ~Vi|~Search }
 
   # Kill to EOL -- sends c-k
-  - { key: X, mods: Control, chars: "\x0B" }
+  - { key: X, mods: Control, chars: "\x0B" , mode: ~Vi|~Search }
 
   # sends Ctrl-C
-  - { key: Period, mods: Control, chars: "\x03" }
+  - { key: Period, mods: Control, chars: "\x03" , mode: ~Vi|~Search }
 
   # sends Ctrl-_ / undo
-  - { key: Y, mods: Control, chars: "\x1F" }
+  - { key: Y, mods: Control, chars: "\x1F" , mode: ~Vi|~Search }
 
   # Ctrl-@ / set mark
   # - { key: N,         mods: Control,       chars: "\x00"                        }
 
   # this send alt+dot
-  - { key: F, mods: Control, chars: "\x1b." }
+  - { key: F, mods: Control, chars: "\x1b." , mode: ~Vi|~Search }
 
   # this sends C-U, deletes beginning of line to cursor
-  - { key: Q, mods: Control, chars: "\x15" }
+  - { key: Q, mods: Control, chars: "\x15" , mode: ~Vi|~Search }
 
   # Copy, sends alt+w
-  - { key: J, mods: Control, chars: "\x1bw" }
+  - { key: J, mods: Control, chars: "\x1bw" , mode: ~Vi|~Search }
 
   ### FZF key_bindings
 
   # Ctrl-R / history search
-  - { key: M, mods: Control, chars: "\x12" }
+  - { key: M, mods: Control, chars: "\x12" , mode: ~Vi|~Search }
 
   # Ctrl-U - sends ctrl-F "Acknowledge"
-  - { key: U, mods: Control, chars: "\x06" }
+  - { key: U, mods: Control, chars: "\x06" , mode: ~Vi|~Search }
   # Ctrl-shift-U - begins selection
   - { key: U, mods: Control|Shift, chars: "\x00\x06" }
 
   # Ctrl-D - sends ctrl- because we need something random
-  - { key: D, mods: Control, chars: "\x11" }
+  - { key: D, mods: Control, chars: "\x11" , mode: ~Vi|~Search }
 
   # Ctrl-E - sends ctrl-d
   # - { key: E,         mods: Control,       chars: "\x10"                        }
-  - { key: E, mods: Control, chars: "\x04" }
+  - { key: E, mods: Control, chars: "\x04" , mode: ~Vi|~Search }
   # - { key: A,      mods: Control,             chars: "\x18\x18" }
 
   # Ctrl-tab - sends ctrl-i
-  # - { key: Tab, mods: Control, chars: "\x19" }
+  # - { key: Tab, mods: Control, chars: "\x19" , mode: ~Vi|~Search }
 
   # Ctrl-O - sends left
-  - { key: O, mods: Control, chars: "\x1b[D", mode: ~AppCursor }
-  - { key: O, mods: Control, chars: "\x1bOD", mode: AppCursor }
+  - { key: O, mods: Control, chars: "\x1b[D", mode: ~AppCursor , mode: ~Vi|~Search }
+  - { key: O, mods: Control, chars: "\x1bOD", mode: AppCursor , mode: ~Vi|~Search }
   # Ctrl-shift-O - begins selection
   - { key: O, mods: Control|Shift, chars: "\x00\x1b[D", mode: ~AppCursor }
   - { key: O, mods: Control|Shift, chars: "\x00\x1bOD", mode: AppCursor }
 
   # Ctrl-N - sends ctrl-O
-  - { key: N, mods: Control, chars: "\x0F" }
+  - { key: N, mods: Control, chars: "\x0F" , mode: ~Vi|~Search }
 
   #fakes ctrl-enter -- check tmux.conf
-  # - { key: Return, mods: Control, chars: "\x16" }
+  # - { key: Return, mods: Control, chars: "\x16" , mode: ~Vi|~Search }
   # - { key: Apostrophe,         mods: Control,       chars: "\x18"                        }
 
   # start selecting text backward by word - super handy
@@ -1132,33 +1174,22 @@ key_bindings:
   - { key: Escape, mods: Control, mode: Vi, action: ToggleSemanticSelection }
   - { key: Escape, mods: Control, mode: Vi, action: Last }
   # Vi Mode
-  #- { key: Space,  mods: Shift|Control, mode: Vi, action: ScrollToBottom          }
 
-  #- { key: Escape,                      mode: Vi, action: ClearSelection          }
-  #- { key: I,                           mode: Vi, action: ScrollToBottom          }
-  #- { key: I,                           mode: Vi, action: ToggleViMode            }
-  #- { key: C,      mods: Control,       mode: Vi, action: ToggleViMode            }
-  # - { key: Y,      mods: Control,       mode: Vi, action: ScrollLineUp            }
-  # - { key: E,      mods: Control,       mode: Vi, action: ScrollLineDown          }
-  #- { key: G,                           mode: Vi, action: ScrollToTop             }
-  - { key: Return, mode: Vi, action: SearchNext }
-  - { key: M, mode: Vi, action: SearchForward }
-  #- { key: G,      mods: Shift,         mode: Vi, action: ScrollToBottom          }
-  - { key: PageUp, mods: Control, action: ScrollPageUp }
-  - { key: PageDown, mods: Control, action: ScrollPageDown }
-  #- { key: U,      mods: Control,       mode: Vi, action: ScrollHalfPageUp        }
-  #- { key: D,      mods: Control,       mode: Vi, action: ScrollHalfPageDown      }
+  - { key: M, mode: Vi|~Search, action: SearchForward }
+
+
+
   - { key: J, mode: Vi, action: Copy }
-  # - { key: J, mode: Vi, action: ClearSelection }
+  - { key: J, mode: Vi, action: ClearSelection }
+  - { key: J, mode: Vi, action: ScrollToBottom          }
   - { key: J, mode: Vi, action: ToggleViMode }
-  #- { key: Y,                           mode: Vi, action: ClearSelection          }
-  #- { key: Copy,                        mode: Vi, action: ClearSelection          }
-  # - { key: V,                           mode: Vi, action: ToggleNormalSelection   }
-  - { key: N, mode: Vi, action: ToggleSemanticSelection }
+
+  - { key: N, mode: Vi|~Search, action: ToggleSemanticSelection }
 
   # - { key: Tab, mods: Control, mode: ~Vi, chars: "\x01" }
 
   - { key: Escape, mods: Control, action: ToggleViMode }
+  - { key: Escape, mods: Control,    mode: Vi, action: ScrollToBottom          }
   - { key: Tab, mode: Vi, action: First }
   - { key: Tab, mode: Vi, action: SemanticRight }
   - { key: Tab, mode: Vi, action: ToggleSemanticSelection }
@@ -1171,16 +1202,16 @@ key_bindings:
   # - { key: V,      mods: Control,       mode: Vi, action: ToggleBlockSelection    }
   #- { key: V,      mods: Alt,           mode: Vi, action: ToggleSemanticSelection }
   #- { key: Return,                      mode: Vi, action: Open                    }
-  - { key: C, mode: Vi, action: Up }
-  - { key: T, mode: Vi, action: Down }
-  - { key: O, mode: Vi, action: Left }
-  - { key: U, mode: Vi, action: Right }
+  - { key: C, mode: Vi|~Search, action: Up }
+  - { key: T, mode: Vi|~Search, action: Down }
+  - { key: O, mode: Vi|~Search, action: Left }
+  - { key: U, mode: Vi|~Search, action: Right }
   #- { key: Up,                          mode: Vi, action: Up                      }
   #- { key: Down,                        mode: Vi, action: Down                    }
   #- { key: Left,                        mode: Vi, action: Left                    }
   #- { key: Right,                       mode: Vi, action: Right                   }
-  - { key: A, mode: Vi, action: First }
-  - { key: S, mode: Vi, action: Last }
+  - { key: A, mode: Vi|~Search, action: First }
+  - { key: S, mode: Vi|~Search, action: Last }
   #- { key: Key4,   mods: Shift,         mode: Vi, action: Last                    }
   #- { key: Key6,   mods: Shift,         mode: Vi, action: FirstOccupied           }
   #- { key: H,      mods: Shift,         mode: Vi, action: High                    }
@@ -1189,8 +1220,8 @@ key_bindings:
   #- { key: B,                           mode: Vi, action: SemanticLeft            }
   #- { key: W,                           mode: Vi, action: SemanticRight           }
   #- { key: E,                           mode: Vi, action: SemanticRightEnd        }
-  - { key: G, mode: Vi, action: SemanticLeft }
-  - { key: R, mode: Vi, action: SemanticRightEnd }
+  - { key: G, mode: Vi|~Search, action: SemanticLeft }
+  - { key: R, mode: Vi|~Search, action: SemanticRightEnd }
   #- { key: E,      mods: Shift,         mode: Vi, action: WordRightEnd            }
   #- { key: Key5,   mods: Shift,         mode: Vi, action: Bracket                 }
   #- { key: Slash,                       mode: Vi, action: SearchForward           }

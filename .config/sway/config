@@ -106,7 +106,7 @@ bindsym --locked XF86AudioPrev exec playerctl previous
 bindsym --locked XF86WLAN exec wifiToggle.sh
 bindsym --locked F9 exec toggle
 
-bindsym --no-repeat ctrl+space [app_id="^PopUp$"] scratchpad show, move position center, resize set width 100ppt height 100ppt, resize shrink up 1100px, resize grow up 337px
+bindsym --no-repeat ctrl+space [title="^PopUp$"] scratchpad show, move position center, resize set width 100ppt height 100ppt, resize shrink up 1100px, resize grow up 337px
 
 bindsym --no-repeat $alt+l exec loginctl lock-session
 bindsym --no-repeat $alt+shift+slash output eDP-1 disable
@@ -321,7 +321,7 @@ assign [app_id="^(mpv|imv|org.pwmt.zathura|evince)$"] $ws5
 # assign [app_id="^(sublime_merge|Google-chrome-unstable)$"] $ws4
 
 # all new windows except the PopUp should receive focus.
-for_window [app_id=^(?!(PopUp)$).*$] focus
+for_window [title=^(?!(PopUp)$).*$] focus
 for_window [workspace="^(?!3)$" app_id="^(?!(firefoxdeveloperedition|PopUp|telegramdesktop)$)"] $stopFirefox
 for_window [app_id="^Chromium$" title="^teams.microsoft.com is sharing your screen.$"] border pixel 0
 
