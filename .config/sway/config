@@ -180,7 +180,7 @@ bindsym $alt+shift+c move up
 bindsym $alt+shift+h move left
 bindsym $alt+shift+n move right
 
-bindsym --no-repeat f11 fullscreen toggle
+bindsym --no-repeat $alt+f fullscreen toggle
 bindsym --no-repeat $alt+v splith
 bindsym --no-repeat $alt+w splitv
 
@@ -197,9 +197,9 @@ mode "" {
     bindsym f mode "default" ; exec /usr/bin/chromium-snapshot-bin  --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://app.slack.com/client/T03PATMPV/D02D6BJLB5Z' &!
     bindsym g mode "default" ; exec /usr/bin/chromium-snapshot-bin  --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://teams.microsoft.com/'
     bindsym l mode "default" ; exec /usr/bin/pavucontrol
-    bindsym h mode "default" ; [app_id="^firefox$"] focus; exec pgrep firefox || firefox
+    bindsym h mode "default" ; [app_id="^firefox$"] focus; exec pgrep WebExtensions || firefox
     bindsym b mode "default" ; exec baobab 
-    bindsym s mode "default" ; $ws2; [app_id="^sublime_text$"] focus; exec /opt/sublime_text/sublime_text
+    bindsym s mode "default" ; [app_id="^sublime_text$"] focus; exec /opt/sublime_text/sublime_text
     bindsym m mode "default" ; exec sh -c 'subl --command goto_sublime_current_dir; smerge $(cat /tmp/sublfile) || smerge'
 
     # return to default mode
@@ -232,7 +232,7 @@ bindsym --no-repeat ctrl+XF86Tools exec xdg-open --mpv $(wl-paste)
 # bindsym --no-repeat $alt+d exec xdg-open "$(ls -ctgd $HOME/dl/* | awk '$1=="-rw-r--r--" { $1=$2=$3=$4=$5=$6=$7=""; gsub("^[ \t]*","",$0); print $0; exit}')"
 bindsym --no-repeat $alt+d exec xdg-open "$(ls -ctd1 $HOME/dl/* | head -1)"
 
-bindsym $alt+f [app_id=^firefox$] focus ; exec $startFirefox; exec 'set -o noglob ; clipboard=$(wl-paste -n); grep "^https\\?://.\+\.\w\{2,3\}" <<< $clipboard && /usr/bin/firefox --new-tab "$clipboard" || /usr/bin/firefox --new-tab "https://duckduckgo.com/?t=ffab&q=${clipboard}"'
+bindsym $alt+y [app_id=^firefox$] focus ; exec $startFirefox; exec 'set -o noglob ; clipboard=$(wl-paste -n); grep "^https\\?://.\+\.\w\{2,3\}" <<< $clipboard && /usr/bin/firefox --new-tab "$clipboard" || /usr/bin/firefox --new-tab "https://duckduckgo.com/?t=ffab&q=${clipboard}"'
 bindsym $alt+i [app_id=^firefox$] focus ; exec $startFirefox; exec 'set -o noglob ; clipboard=$(wl-paste --primary -n); grep "^https\\?://.\+\.\w\{2,3\}" <<< $clipboard && /usr/bin/firefox --new-tab "$clipboard" || /usr/bin/firefox --new-tab "https://duckduckgo.com/?t=ffab&q=${clipboard}"'
 
 bindsym $alt+o exec quicknotes.py
