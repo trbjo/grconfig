@@ -110,6 +110,10 @@
         {
 			"enabled": false,
 		},
+        "rust-analyzer":
+        {
+			"enabled": true,
+		},
     },
     "diagnostics_gutter_marker": "Packages/User/circle.png",
     "document_highlight_style": "underline",

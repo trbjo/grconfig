@@ -347,7 +347,6 @@ for_window [app_id="^signal-desktop$" title=""] floating enable, resize set 1000
 # custom logos.
 for_window [app_id="^(org.pwmt.zathura)$"] layout tabbed, title_format "<span weight='100' foreground='#d73a49'></span>  %title"
 for_window [app_id="^imv$"] title_format "<span weight='100' foreground='#3874C7'></span>  %title"
-for_window [app_id="^Alacritty$"] title_format "<span weight='600'>%title</span>"
 for_window [app_id="^mpv$"] title_format "<span weight='100' foreground='#FF0000'></span>  %title"
 for_window [app_id="^Google-chrome-unstable$" title="^Microsoft Teams$"] title_format "<span weight='100' foreground='#6264A7'></span>  Microsoft Teams"
 for_window [app_id="-Telegram_Desktop$" title="^Telegram$"] title_format "<span weight='100' foreground='#2FA5D8'></span>  %title"

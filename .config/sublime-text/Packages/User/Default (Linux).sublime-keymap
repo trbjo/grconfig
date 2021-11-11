@@ -245,6 +245,12 @@
 ]
 },
 
+{"keys": ["T"], "command": "transpose", "context":
+[
+    {"key": "setting.command_mode", "operator": "equal", "operand": true }
+]
+},
+
 {"keys": ["!", "="], "command": "insert", "args": {"characters": "!= "}, "context":
 [
     {"key": "selector", "operator": "equal", "operand": "source.cs"},

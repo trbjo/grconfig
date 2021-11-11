@@ -16,7 +16,7 @@ set_values() {
     # sway
     export BGTITLEBARA_$LIGHT="#FFFFFF"
     export BGTITLEBARI_$LIGHT="#FFFFFF"
-    export BGTITLEBARU_$LIGHT="#E6E6E6"
+    export BGTITLEBARU_$LIGHT="#D8D8D8"
 
     export TITLEBARBORDERA_$LIGHT="#FFFFFF"
     export TITLEBARBORDERI_$LIGHT="#FFFFFF"
