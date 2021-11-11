@@ -1085,12 +1085,12 @@ key_bindings:
   - { key: Return, mods: Shift,   mode: Search|Vi, action: SearchFocusPrevious   }
 
   # sends alt-b
-  - { key: G, mods: Alt, chars: "\x1bb" }
+  - { key: G, mods: Control, chars: "\x1bb" }
   # sends alt-f
-  - { key: R, mods: Alt, chars: "\x1bf" }
-  # subwords:
-  - { key: G, mods: Control, chars: "\x1bs" , mode: ~Vi|~Search }
-  - { key: R, mods: Control, chars: "\x1bt" , mode: ~Vi|~Search }
+  - { key: R, mods: Control, chars: "\x1bf" }
+  # vi-backward-blank-word, vi-forward-blank-word:
+  - { key: G, mods: Alt, chars: "\x1bs" , mode: ~Vi|~Search }
+  - { key: R, mods: Alt, chars: "\x1bt" , mode: ~Vi|~Search }
   # wth?
   - { key: Semicolon, mods: Control, chars: "\x1b[1;3A" , mode: ~Vi|~Search }
 
