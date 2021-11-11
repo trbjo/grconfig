@@ -1075,7 +1075,8 @@ key_bindings:
   - { key: Return, mods: Control, chars: "\x16\x0A", mode: ~Vi|~Search  }
 
    # Search Mode
-  - { key: Escape,                mode: Search,     action: SearchCancel          }
+  - { key: Escape,                mode: Search,     action: SearchConfirm          }
+  - { key: Escape, mode: Vi, action: ClearSelection }
   - { key: Q,      mods: Control, mode: Search,     action: SearchClear           }
   - { key: Comma,      mods: Control, mode: Search,     action: SearchDeleteWord      }
   - { key: N,      mods: Control, mode: Search,     action: SearchHistoryNext     }
