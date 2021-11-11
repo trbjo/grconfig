@@ -5,6 +5,9 @@
 # It makes inactive windows transparent. Use `transparency_val` variable to control
 # transparency strength in range of 0…1 or use the command line argument -o.
 
+import sys
+sys.path.append('/home/tb/code/i3ipc-python')
+
 import argparse
 import i3ipc
 import signal
@@ -26,7 +29,6 @@ def on_window_move(inactive_opacity, ipc, event):
             else:
                 if not w.focused:
                     w.command("opacity 1")
-
 
     return
 
