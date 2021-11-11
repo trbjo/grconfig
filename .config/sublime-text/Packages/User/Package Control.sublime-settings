@@ -12,7 +12,6 @@
 	{
 	    "AdaptiveOverride": "AdaptiveOverride",
 	    "sublime-align-cursors": "Align Cursors",
-	    "sublime-fly-keys": "Sublime Fly Keys",
 	    "sublime-commands": "Default",
 	    "sublime-text-git": "Git Enhanced",
 	},
@@ -53,7 +52,7 @@
 		"Sass",
 		"Snowflake",
 		"SqlBeautifier",
-		"Sublime Fly Keys",
+		"sublime-fly-keys",
 		"SublimeLinter",
 		"TOML",
 	],

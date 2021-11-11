@@ -5,9 +5,6 @@
     {"keys": ["enter"], "command": "run_macro_file", "args": {"file": "res://Packages/sublime-fly-keys/macros/div-exp.sublime-macro"}, "context": [{"key": "preceding_text", "operator": "regex_match", "operand": "^\\s+<\\w+>\\s?$"},  ] },
 
 
-
-
-
 { "keys": ["ctrl+shift+w"], "command": "align_cursors" },
 
 {"keys": ["ctrl+alt+enter"], "command": "helium_execute_cell"},
@@ -242,12 +239,6 @@
     {"key": "preceding_text", "operator": "regex_contains", "operand": "if\\(.*\\S", "match_all": true },
     {"key": "selector", "operator": "equal", "operand": "source.cs"},
     {"key": "setting.command_mode", "operator": "equal", "operand": false }
-]
-},
-
-{"keys": ["T"], "command": "transpose", "context":
-[
-    {"key": "setting.command_mode", "operator": "equal", "operand": true }
 ]
 },
 
