@@ -132,16 +132,16 @@ case $(bemenu --ignorecase <<< $list) in
         doas /usr/bin/rfkill block wifi
         /usr/bin/pkill -RTMIN+13 i3blocks
         ;;
-    '   Suspend  ')
+    '   Suspend   ')
         /usr/bin/dbus-send --system --print-reply --dest=org.freedesktop.login1 /org/freedesktop/login1 "org.freedesktop.login1.Manager.Suspend" boolean:true
         ;;
     '   Hibernate  ')
         dbus-send --system --print-reply --dest=org.freedesktop.login1 /org/freedesktop/login1 "org.freedesktop.login1.Manager.Hibernate" boolean:true
         ;;
-    '   Reboot  ')
+    '   Reboot   ')
         /usr/bin/dbus-send --system --print-reply --dest=org.freedesktop.login1 /org/freedesktop/login1 "org.freedesktop.login1.Manager.Reboot" boolean:true
         ;;
-    '   Poweroff  ')
+    '   Poweroff   ')
         /usr/bin/dbus-send --system --print-reply --dest=org.freedesktop.login1 /org/freedesktop/login1 "org.freedesktop.login1.Manager.PowerOff" boolean:true
         ;;
     '   Sublime Merge  ')
@@ -149,13 +149,13 @@ case $(bemenu --ignorecase <<< $list) in
         /opt/sublime_text/sublime_text --fwdargv0 "$0" --command goto_sublime_current_dir
         /opt/sublime_merge/sublime_merge --fwdargv0 "$0" "$(cat /tmp/sublfile)" || /opt/sublime_merge/sublime_merge
         ;;
-    '   Screenshot (Whole Screen)  ')
+    '   Screenshot (Whole Screen)   ')
         /usr/bin/pgrep slurp || {
-            curdate=$(date +"Screenshot_%Y-%m-%d_%H:%M:%S.png");
+            curdate=$(date +"Screenshot_%Y-%m-%d_%H:%M:%S.png")
             grim $HOME/screenshots/$curdate && notify-send.sh "Screenshot taken" "$curdate" --icon=camera-photo --default-action="xdg-open $HOME/screenshots/$curdate" && wl-copy < "$HOME/screenshots/$curdate"
         }
         ;;
-    '   Screenshot (Subset)  ')
+    '   Screenshot (Subset)   ')
         /usr/bin/pgrep slurp || {
             curdate=$(date +"Screenshot_%Y-%m-%d_%H:%M:%S.png")
             export XCURSOR_SIZE=48
@@ -184,5 +184,12 @@ case $(bemenu --ignorecase <<< $list) in
     '   Add to Quicknotes   ')
         quicknotes.py
         ;;
+    *)
+        tree="$(swaymsg -t get_tree)"
+        elems=($(jq -r '.. | (.nodes? // empty)[] | select(.visible) | .app_id' <<< $tree))
+        focused=($(jq -r '.. | (.nodes? // empty)[] | select(.focused) | .app_id' <<< $tree))
+        (( ${#elems} == 1 && ${#focused} == 1 )) && swaymsg fullscreen enable
+        ;;
+
 
 esac
