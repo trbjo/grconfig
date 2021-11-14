@@ -14,10 +14,7 @@ import signal
 from functools import partial
 import os
 
-
-
-def get_firefox_pids():
-    ff_pids = []
+def stop_firefox(sig: signal.Signals):
     for dirname in os.listdir('/proc'):
         if dirname == 'curproc':
             continue
@@ -29,10 +26,7 @@ def get_firefox_pids():
             continue
 
         if "firefox" in content[0]:
-            ff_pids.append(dirname)
-
-    return ff_pids
-
+            os.kill(int(dirname), sig)
 
 
 
@@ -54,27 +48,29 @@ def on_window_move(inactive_opacity, ipc, event):
 
     return
 
-def on_window_focus(inactive_opacity, ipc, event):
-    global prev_focused
-    global prev_workspace
 
+def on_window_focus(inactive_opacity, ipc, event):
     focused_workspace = ipc.get_tree().find_focused()
 
     if focused_workspace == None:
         return
 
+    global prev_focused
+    global prev_workspace
+
     focused = event.container
     workspace = focused_workspace.workspace().num
 
     if focused.id != prev_focused.id:  # https://github.com/swaywm/sway/issues/2859
+        global firefox_con_id
 
-        if focused.app_id == 'firefox':
-            sig = signal.SIGCONT
-        else:
-            sig = signal.SIGSTOP
-
-        for pid in get_firefox_pids():
-                os.kill(int(pid), sig)
+        if firefox_con_id != -1:
+            if focused.app_id == 'firefox':
+                stop_firefox(signal.SIGCONT)
+            elif ipc.get_tree().find_by_id(firefox_con_id).visible:
+                stop_firefox(signal.SIGCONT)
+            else:
+                stop_firefox(signal.SIGSTOP)
 
         focused.command("opacity 1")
         if workspace == prev_workspace:
@@ -93,12 +89,26 @@ def on_window_focus(inactive_opacity, ipc, event):
         focused.command("fullscreen enable")
 
 
-def remove_opacity(ipc):
+def exit_handler(ipc):
     for workspace in ipc.get_tree().workspaces():
         for w in workspace:
+            if w.app_id == 'firefox':
+                stop_firefox(signal.SIGCONT)
             w.command("opacity 1")
+
     ipc.main_quit()
     sys.exit(0)
+
+
+def check_firefox_exists(ipc, event = None) -> None:
+    global firefox_con_id
+    for window in ipc.get_tree():
+        if window.app_id == 'firefox':
+            firefox_con_id = window.id
+            return
+
+    firefox_con_id = -1
+    return
 
 
 if __name__ == "__main__":
@@ -119,14 +129,29 @@ if __name__ == "__main__":
     ipc = i3ipc.Connection()
     prev_focused = None
     prev_workspace = ipc.get_tree().find_focused().workspace().num
+    check_firefox_exists(ipc)
 
+    firefox_visible_or_focused = False
     for window in ipc.get_tree():
         if window.focused:
             prev_focused = window
+            if window.app_id == 'firefox':
+                firefox_visible_or_focused = True
+
         elif window.visible:
             window.command("opacity " + args.opacity)
+            if window.app_id == 'firefox':
+                firefox_visible_or_focused = True
+
+    if firefox_visible_or_focused == False:
+        stop_firefox(signal.SIGSTOP)
+
     for sig in [signal.SIGINT, signal.SIGTERM]:
-        signal.signal(sig, lambda signal, frame: remove_opacity(ipc))
+        signal.signal(sig, lambda signal, frame: exit_handler(ipc))
+
     ipc.on("window::focus", partial(on_window_focus, args.opacity))
     ipc.on("window::move", partial(on_window_move, args.opacity))
+    ipc.on("window::new", partial(check_firefox_exists))
+    ipc.on("window::close", partial(check_firefox_exists))
+
     ipc.main()
