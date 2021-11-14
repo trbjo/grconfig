@@ -185,10 +185,9 @@ case $(bemenu --ignorecase <<< $list) in
         quicknotes.py
         ;;
     *)
-        tree="$(swaymsg -t get_tree)"
-        elems=($(jq -r '.. | (.nodes? // empty)[] | select(.visible) | .app_id' <<< $tree))
-        focused=($(jq -r '.. | (.nodes? // empty)[] | select(.focused) | .app_id' <<< $tree))
-        (( ${#elems} == 1 && ${#focused} == 1 )) && swaymsg fullscreen enable
+        elems=$(swaymsg -t get_tree | jq -r '[.nodes[] | .nodes[] | .floating_nodes[], .nodes[] | select(.visible)] | length')
+        print $elems
+        (( elems == 1 )) && swaymsg fullscreen enable
         ;;
 
 
