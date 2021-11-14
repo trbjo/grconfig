@@ -11,8 +11,30 @@ sys.path.append('/home/tb/code/i3ipc-python')
 import argparse
 import i3ipc
 import signal
-import sys
 from functools import partial
+import os
+
+
+
+def get_firefox_pids():
+    ff_pids = []
+    for dirname in os.listdir('/proc'):
+        if dirname == 'curproc':
+            continue
+
+        try:
+            with open('/proc/{}/cmdline'.format(dirname), mode='rb') as fd:
+                content = fd.read().decode().split('\x00')
+        except Exception:
+            continue
+
+        if "firefox" in content[0]:
+            ff_pids.append(dirname)
+
+    return ff_pids
+
+
+
 
 def on_window_move(inactive_opacity, ipc, event):
     focused_workspace = ipc.get_tree().find_focused()
@@ -32,7 +54,6 @@ def on_window_move(inactive_opacity, ipc, event):
 
     return
 
-
 def on_window_focus(inactive_opacity, ipc, event):
     global prev_focused
     global prev_workspace
@@ -46,17 +67,30 @@ def on_window_focus(inactive_opacity, ipc, event):
     workspace = focused_workspace.workspace().num
 
     if focused.id != prev_focused.id:  # https://github.com/swaywm/sway/issues/2859
+
+        if focused.app_id == 'firefox':
+            sig = signal.SIGCONT
+        else:
+            sig = signal.SIGSTOP
+
+        for pid in get_firefox_pids():
+                os.kill(int(pid), sig)
+
         focused.command("opacity 1")
         if workspace == prev_workspace:
             old = ipc.get_tree().find_by_id(prev_focused.id)
             if old is not None:
-                if old.visible:
+                if old.visible and prev_focused.type != 'floating_con':
                     prev_focused.command("opacity " + inactive_opacity)
         else:
-            prev_focused.command("opacity " + inactive_opacity)
+            if prev_focused.type != 'floating_con':
+                prev_focused.command("opacity " + inactive_opacity)
 
         prev_focused = focused
         prev_workspace = workspace
+
+    if len(focused_workspace.workspace().descendants()) == 1:
+        focused.command("fullscreen enable")
 
 
 def remove_opacity(ipc):
