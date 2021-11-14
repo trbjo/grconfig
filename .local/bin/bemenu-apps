@@ -1,0 +1,146 @@
+#!/usr/bin/env sh
+IFS=$'\n'
+
+/usr/bin/pgrep bemenu && exit
+
+#!/usr/bin/env bash
+export BEMENU_OPTS="--tb '#000000'\
+ --prompt 'Applications'
+ --grab\
+ --line-height 24\
+ --tf '#FFFFFF'\
+ --fb '#000000'\
+ --ff '#ffffff'\
+ --nb '#000000'\
+ --nf '#3584E4'\
+ --hb '#15539E'\
+ --hf '#ffffff'\
+ --sb '#ff0000'\
+ --sf '#ff0000'\
+ --scb '#ff0000'\
+ --fn 'font pango:SF Pro Display 10.5'\
+ --scf '#ff79c6'"
+
+
+
+list='
+   Firefox   
+   Sublime Text   
+   Slack   
+   Telegram   
+   Disk Usage   
+   VSCode   
+   Sublime Merge  
+   Teams   
+   Discord   
+   SoundControl   
+   Screenshot (Whole Screen)  
+   Screenshot (Subset)  
+   Suspend  
+   Reboot  
+   Poweroff  
+   Firefox (Private Window)   
+   Upload Clipboard   
+   Upload Clipboard (Primary)   
+   Open Quicknotes   
+   Add to Quicknotes   
+'
+
+case $(bemenu --ignorecase <<< $list) in
+    '   Firefox   ')
+        swaymsg -q --  '[app_id="^PopUp$"] move scratchpad'
+        swaymsg -q --  '[app_id="^firefox$"] focus' || /usr/bin/firefox
+        ;;
+    '   Firefox (Private Window)   ')
+        swaymsg -q --  '[app_id="^PopUp$"] move scratchpad'
+        swaymsg -q -- '[app_id="^firefox$" title="Mozilla\ Firefox\ \(Private\ Browsing\)$"] focus' || /usr/bin/firefox --private-window
+        ;;
+    '   Sublime Text   ')
+        swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^sublime_text$"] focus'
+        /opt/sublime_text/sublime_text
+        ;;
+    '   Disk Usage   ')
+        swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^baobab$"] focus'
+        /usr/bin/baobab
+        ;;
+    '   Telegram   ')
+        export DESKTOP_APP_I_KNOW_ABOUT_GTK_INCOMPATIBILITY=1
+        export DESKTOP_APP_DISABLE_TRAY_COUNTER=1
+        export TDESKTOP_I_KNOW_ABOUT_GTK_INCOMPATIBILITY=1
+        export TDESKTOP_DISABLE_TRAY_COUNTER=1
+        export TDESKTOP_USE_PORTAL=1
+        export TDESKTOP_USE_GTK_FILE_DIALOG=1
+        grep --color=auto -q 'enabled' /sys/class/drm/card0-DP-1/enabled && export ALSA_CARD=Audio
+        readlink -q /sys/bus/hid/devices/0003:047F:02F7* > /dev/null 2>&1 && export ALSA_CARD=BT600
+        swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="-Telegram_Desktop$"] focus'
+        /usr/bin/telegram-desktop
+        ;;
+    '   VSCode   ')
+        /opt/visual-studio-code/code --enable-features=UseOzonePlatform --ozone-platform=wayland
+        ;;
+    '   Slack   ')
+        /usr/bin/chromium-snapshot-bin  --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://app.slack.com/client/T03PATMPV/D02D6BJLB5Z' &!
+        ;;
+    '   Teams  ')
+        /usr/bin/chromium-snapshot-bin  --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://teams.microsoft.com/'
+        ;;
+    '   Discord   ')
+        /usr/bin/chromium-snapshot-bin --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://discord.com/channels/280102180189634562/280102180189634562'
+        ;;
+    '   SoundControl   ')
+        /usr/bin/pavucontrol
+        ;;
+    '   Suspend  ')
+        /usr/bin/dbus-send --system --print-reply --dest=org.freedesktop.login1 /org/freedesktop/login1 "org.freedesktop.login1.Manager.Suspend" boolean:true
+        ;;
+    '   Hibernate  ')
+        dbus-send --system --print-reply --dest=org.freedesktop.login1 /org/freedesktop/login1 "org.freedesktop.login1.Manager.Hibernate" boolean:true
+        ;;
+    '   Reboot  ')
+        /usr/bin/dbus-send --system --print-reply --dest=org.freedesktop.login1 /org/freedesktop/login1 "org.freedesktop.login1.Manager.Reboot" boolean:true
+        ;;
+    '   Poweroff  ')
+        /usr/bin/dbus-send --system --print-reply --dest=org.freedesktop.login1 /org/freedesktop/login1 "org.freedesktop.login1.Manager.PowerOff" boolean:true
+        ;;
+    '   Sublime Merge  ')
+        swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^sublime_merge$"] focus'
+        /opt/sublime_text/sublime_text --fwdargv0 "$0" --command goto_sublime_current_dir
+        /opt/sublime_merge/sublime_merge --fwdargv0 "$0" "$(cat /tmp/sublfile)" || /opt/sublime_merge/sublime_merge
+        ;;
+    '   Screenshot (Whole Screen)  ')
+        /usr/bin/pgrep slurp || {
+        curdate=$(date +"Screenshot_%Y-%m-%d_%H:%M:%S.png");
+        grim $HOME/screenshots/$curdate && notify-send.sh "Screenshot taken" "$curdate" --icon=camera-photo --default-action="xdg-open $HOME/screenshots/$curdate" && wl-copy < "$HOME/screenshots/$curdate"
+        }
+        ;;
+    '   Screenshot (Subset)  ')
+        /usr/bin/pgrep slurp || {
+            curdate=$(date +"Screenshot_%Y-%m-%d_%H:%M:%S.png")
+            export XCURSOR_SIZE=48
+            swaymsg -t get_tree | jq -r ".. | select(.pid? and .visible?) | .rect | \"\\(.x),\\(.y) \\(.width)x\\(.height)\"" | slurp -w 1 -c A5BAD1 -s C3DFFE94 | grim -g - $HOME/screenshots/$curdate && {
+                notify-send.sh "Screenshot taken" "$curdate" --icon=camera-photo --default-action="xdg-open $HOME/screenshots/$curdate" 
+                wl-copy < $HOME/screenshots/$curdate
+            }
+        }
+        ;;
+    '   Upload Clipboard   ')
+            set -o noglob
+            tmpfile=$(mktemp /tmp/pastedata-XXXX)
+            wl-paste >> $tmpfile
+            curl -s --data-binary "@$tmpfile" "https://paste.c-net.org/" | wl-copy -n && notify-send.sh "Uploaded paste" "Uploaded to Pastebin" --default-action="xdg-open $(wl-paste)" --icon=gtk-network
+        ;;
+    '   Upload Clipboard (Primary)   ')
+            set -o noglob
+            tmpfile=$(mktemp /tmp/pastedata-XXXX)
+            wl-paste --primary >> $tmpfile
+            curl -s --data-binary "@$tmpfile" "https://paste.c-net.org/" | wl-copy -n && notify-send.sh "Uploaded paste" "Uploaded to Pastebin" --default-action="xdg-open $(wl-paste)" --icon=gtk-network
+        ;;
+    '   Open Quicknotes   ')
+            swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^sublime_text$"] focus'
+            /opt/sublime_text/sublime_text $HOME/quicknotes.md
+        ;;
+    '   Add to Quicknotes   ')
+        quicknotes.py
+        ;;
+
+esac
