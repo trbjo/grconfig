@@ -29,6 +29,11 @@ def stop_firefox(sig: signal.Signals):
             os.kill(int(dirname), sig)
 
 
+def on_workspace_init(ipc, event):
+    # print(event)
+    print(event.change)
+    if firefox_con_id != -1 and is_on_battery:
+        stop_firefox(signal.SIGSTOP)
 
 def on_window_move(inactive_opacity, ipc, event):
     focused_workspace = ipc.get_tree().find_focused()
@@ -51,6 +56,17 @@ def on_window_move(inactive_opacity, ipc, event):
 
 def on_window_focus(inactive_opacity, ipc, event):
     focused_workspace = ipc.get_tree().find_focused()
+    focused = event.container
+
+    global firefox_con_id
+    global is_on_battery
+    if firefox_con_id != -1:
+        if focused.app_id == 'firefox':
+            stop_firefox(signal.SIGCONT)
+        elif ipc.get_tree().find_by_id(firefox_con_id).visible:
+            stop_firefox(signal.SIGCONT)
+        elif is_on_battery:
+            stop_firefox(signal.SIGSTOP)
 
     if focused_workspace == None:
         return
@@ -58,20 +74,9 @@ def on_window_focus(inactive_opacity, ipc, event):
     global prev_focused
     global prev_workspace
 
-    focused = event.container
     workspace = focused_workspace.workspace().num
 
     if focused.id != prev_focused.id:  # https://github.com/swaywm/sway/issues/2859
-        global firefox_con_id
-
-        if firefox_con_id != -1:
-            if focused.app_id == 'firefox':
-                stop_firefox(signal.SIGCONT)
-            elif ipc.get_tree().find_by_id(firefox_con_id).visible:
-                stop_firefox(signal.SIGCONT)
-            else:
-                stop_firefox(signal.SIGSTOP)
-
         focused.command("opacity 1")
         if workspace == prev_workspace:
             old = ipc.get_tree().find_by_id(prev_focused.id)
@@ -87,28 +92,70 @@ def on_window_focus(inactive_opacity, ipc, event):
 
     if len(focused_workspace.workspace().descendants()) == 1:
         focused.command("fullscreen enable")
+        
+
+def battery(ipc):
+    global is_on_battery
+    is_on_battery = True
+    if firefox_con_id != -1:
+        firefox = ipc.get_tree().find_by_id(firefox_con_id)
+        if not firefox.visible:
+            stop_firefox(signal.SIGSTOP)
+
+def power_supply(ipc):
+    global is_on_battery
+    is_on_battery = False
+    if firefox_con_id != -1:
+        firefox = ipc.get_tree().find_by_id(firefox_con_id)
+        stop_firefox(signal.SIGCONT)
+
 
 
 def exit_handler(ipc):
+    if firefox_con_id != -1:
+        stop_firefox(signal.SIGCONT)
     for workspace in ipc.get_tree().workspaces():
         for w in workspace:
-            if w.app_id == 'firefox':
-                stop_firefox(signal.SIGCONT)
             w.command("opacity 1")
 
     ipc.main_quit()
     sys.exit(0)
 
 
+def battery_check() -> bool:
+    try:
+        with open('/sys/class/power_supply/AC0/online', mode='rb') as fd:
+            res = fd.read().decode().split('\x0A')[0]
+            if res == '0':
+                return True
+            else:
+                return False
+    except Exception:
+        return False
+
+
 def check_firefox_exists(ipc, event = None) -> None:
     global firefox_con_id
-    for window in ipc.get_tree():
-        if window.app_id == 'firefox':
-            firefox_con_id = window.id
-            return
+    if event is not None:
+        cont = event.container
 
-    firefox_con_id = -1
-    return
+        if cont.app_id == 'firefox':
+            if event.change == 'new':
+                firefox_con_id = cont.id
+            elif event.change == 'close':
+                firefox_con_id = -1
+            else:
+                raise Exception(f'Unknown event: {event.change}')
+
+            return
+    else:
+        for window in ipc.get_tree():
+            if window.app_id == 'firefox':
+                firefox_con_id = window.id
+                return
+
+        firefox_con_id = -1
+        return
 
 
 if __name__ == "__main__":
@@ -129,7 +176,9 @@ if __name__ == "__main__":
     ipc = i3ipc.Connection()
     prev_focused = None
     prev_workspace = ipc.get_tree().find_focused().workspace().num
+    firefox_con_id = -1
     check_firefox_exists(ipc)
+    is_on_battery: bool = battery_check()
 
     firefox_visible_or_focused = False
     for window in ipc.get_tree():
@@ -149,8 +198,16 @@ if __name__ == "__main__":
     for sig in [signal.SIGINT, signal.SIGTERM]:
         signal.signal(sig, lambda signal, frame: exit_handler(ipc))
 
+    for sig in [signal.SIGUSR1]:
+        signal.signal(sig, lambda signal, frame: battery(ipc))
+
+    for sig in [signal.SIGUSR2]:
+        signal.signal(sig, lambda signal, frame: power_supply(ipc))
+
     ipc.on("window::focus", partial(on_window_focus, args.opacity))
     ipc.on("window::move", partial(on_window_move, args.opacity))
+    ipc.on("workspace::init", partial(on_workspace_init))
+
     ipc.on("window::new", partial(check_firefox_exists))
     ipc.on("window::close", partial(check_firefox_exists))
 

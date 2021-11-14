@@ -12,7 +12,7 @@ export BEMENU_OPTS="--tb '#000000'\
  --fb '#000000'\
  --ff '#ffffff'\
  --nb '#000000'\
- --nf '#3584E4'\
+ --nf '#15539E'\
  --hb '#15539E'\
  --hf '#ffffff'\
  --sb '#ff0000'\
@@ -36,9 +36,9 @@ list='
    SoundControl   
    Screenshot (Whole Screen)  
    Screenshot (Subset)  
-   Suspend  
-   Reboot  
-   Poweroff  
+   Suspend   
+   Reboot   
+   Poweroff   
    Firefox (Private Window)   
    Upload Clipboard   
    Upload Clipboard (Primary)   
@@ -52,8 +52,8 @@ case $(bemenu --ignorecase <<< $list) in
         swaymsg -q --  '[app_id="^firefox$"] focus' || /usr/bin/firefox
         ;;
     '   Firefox (Private Window)   ')
-        swaymsg -q --  '[app_id="^PopUp$"] move scratchpad'
-        swaymsg -q -- '[app_id="^firefox$" title="Mozilla\ Firefox\ \(Private\ Browsing\)$"] focus' || /usr/bin/firefox --private-window
+        swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^firefox$"] focus'
+        swaymsg -q -- '[title="Mozilla\ Firefox\ \(Private\ Browsing\)$"] focus' || /usr/bin/firefox --private-window
         ;;
     '   Sublime Text   ')
         swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^sublime_text$"] focus'
@@ -109,8 +109,8 @@ case $(bemenu --ignorecase <<< $list) in
         ;;
     '   Screenshot (Whole Screen)  ')
         /usr/bin/pgrep slurp || {
-        curdate=$(date +"Screenshot_%Y-%m-%d_%H:%M:%S.png");
-        grim $HOME/screenshots/$curdate && notify-send.sh "Screenshot taken" "$curdate" --icon=camera-photo --default-action="xdg-open $HOME/screenshots/$curdate" && wl-copy < "$HOME/screenshots/$curdate"
+            curdate=$(date +"Screenshot_%Y-%m-%d_%H:%M:%S.png");
+            grim $HOME/screenshots/$curdate && notify-send.sh "Screenshot taken" "$curdate" --icon=camera-photo --default-action="xdg-open $HOME/screenshots/$curdate" && wl-copy < "$HOME/screenshots/$curdate"
         }
         ;;
     '   Screenshot (Subset)  ')
@@ -118,22 +118,22 @@ case $(bemenu --ignorecase <<< $list) in
             curdate=$(date +"Screenshot_%Y-%m-%d_%H:%M:%S.png")
             export XCURSOR_SIZE=48
             swaymsg -t get_tree | jq -r ".. | select(.pid? and .visible?) | .rect | \"\\(.x),\\(.y) \\(.width)x\\(.height)\"" | slurp -w 1 -c A5BAD1 -s C3DFFE94 | grim -g - $HOME/screenshots/$curdate && {
-                notify-send.sh "Screenshot taken" "$curdate" --icon=camera-photo --default-action="xdg-open $HOME/screenshots/$curdate" 
-                wl-copy < $HOME/screenshots/$curdate
+            notify-send.sh "Screenshot taken" "$curdate" --icon=camera-photo --default-action="xdg-open $HOME/screenshots/$curdate"
+            wl-copy < $HOME/screenshots/$curdate
             }
         }
         ;;
     '   Upload Clipboard   ')
-            set -o noglob
-            tmpfile=$(mktemp /tmp/pastedata-XXXX)
-            wl-paste >> $tmpfile
-            curl -s --data-binary "@$tmpfile" "https://paste.c-net.org/" | wl-copy -n && notify-send.sh "Uploaded paste" "Uploaded to Pastebin" --default-action="xdg-open $(wl-paste)" --icon=gtk-network
+        set -o noglob
+        tmpfile=$(mktemp /tmp/pastedata-XXXX)
+        wl-paste >> $tmpfile
+        curl -s --data-binary "@$tmpfile" "https://paste.c-net.org/" | wl-copy -n && notify-send.sh "Uploaded paste" "Uploaded to Pastebin" --default-action="xdg-open $(wl-paste)" --icon=gtk-network
         ;;
     '   Upload Clipboard (Primary)   ')
-            set -o noglob
-            tmpfile=$(mktemp /tmp/pastedata-XXXX)
-            wl-paste --primary >> $tmpfile
-            curl -s --data-binary "@$tmpfile" "https://paste.c-net.org/" | wl-copy -n && notify-send.sh "Uploaded paste" "Uploaded to Pastebin" --default-action="xdg-open $(wl-paste)" --icon=gtk-network
+        set -o noglob
+        tmpfile=$(mktemp /tmp/pastedata-XXXX)
+        wl-paste --primary >> $tmpfile
+        curl -s --data-binary "@$tmpfile" "https://paste.c-net.org/" | wl-copy -n && notify-send.sh "Uploaded paste" "Uploaded to Pastebin" --default-action="xdg-open $(wl-paste)" --icon=gtk-network
         ;;
     '   Open Quicknotes   ')
             swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^sublime_text$"] focus'
