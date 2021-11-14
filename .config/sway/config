@@ -1,6 +1,8 @@
+exec python ~/.local/bin/inactive-windows-transparency.py --opacity 0.9
 exec "dbus-update-activation-environment --systemd --all"
 exec "systemctl --user import-environment"
-exec python ~/.local/bin/inactive-windows-transparency.py --opacity 0.9
+exec /usr/bin/mako
+exec /usr/bin/sh -c 'while true; do env PopUp=True /usr/bin/alacritty --class PopUp --title PopUp --command /usr/bin/zsh; done'
 ## exec_always /usr/bin/wl-paste --type text --watch sh -c "if [[ -f /tmp/clipman_ignore ]]; then /usr/bin/clipman store --max-items=2000; rm /tmp/clipman_ignore; fi"
 
 #
@@ -64,7 +66,8 @@ output 'Goldstar Company Ltd LG UltraFine 611NTCZ8V987' resolution 4096x2304 pos
 output 'Goldstar Company Ltd LG UltraFine 909NTWG7R817' resolution 3840x2160 pos 1921 0 scale 2 subpixel rgb
 output 'Goldstar Company Ltd LG UltraFine 907NTUWBA398' resolution 3840x2160 pos 1921 0 scale 2 subpixel rgb
 
-bindswitch --reload lid:on exec '! grep -q "enabled" /sys/class/drm/{card0-DP-1,card0-DP-2,card0-HDMI-A-1}/enabled && systemctl suspend || swaymsg output eDP-1 disable'
+# bindswitch --reload lid:on exec '! grep -q "enabled" /sys/class/drm/{card0-DP-1,card0-DP-2,card0-HDMI-A-1}/enabled && systemctl suspend || swaymsg output eDP-1 disable'
+bindswitch --locked --reload lid:on output eDP-1 disable
 bindswitch --locked --reload lid:off output eDP-1 enable
 
 set $ws1 workspace "1"
@@ -113,25 +116,22 @@ bindsym --no-repeat $alt+shift+slash output eDP-1 disable
 bindsym --no-repeat $alt+slash output eDP-1 enable
 
 
-set $startFirefox exec pkill -CONT "$FIREFOXPROCESSES"
-set $stopFirefox exec grep -q 0 /sys/class/power_supply/AC0/online && pkill -STOP "$FIREFOXPROCESSES"
-
 bindsym --no-repeat ctrl+1 $ws1
 bindsym --no-repeat ctrl+2 [app_id="^sublime_text$"] focus
-bindsym --no-repeat ctrl+3 [app_id="^firefox$" title="^(?!(Firefox — Sharing Indicator)$)"] focus; $startFirefox
-bindsym --no-repeat ctrl+4 $ws4; $stopFirefox
-bindsym --no-repeat ctrl+5 $ws5; $stopFirefox
+bindsym --no-repeat ctrl+3 [app_id="^firefox$" title="^(?!(Firefox — Sharing Indicator)$)"] focus
+bindsym --no-repeat ctrl+4 $ws4
+bindsym --no-repeat ctrl+5 $ws5
 
 
 # bindsym --no-repeat $alt+s splitv
 # bindsym --no-repeat $alt+d splith
 
 # move focused container to workspace
-bindsym --no-repeat ctrl+Shift+1 move container to $ws1; $ws1; fullscreen disable; [app_id="^(?!(firefox)$)" workspace=__focused__ con_id=__focused__ ] $stopFirefox ; [app_id="^firefox$" workspace=__focused__ ] $startFirefox
-bindsym --no-repeat ctrl+Shift+2 move container to $ws2; $ws2; fullscreen disable; [app_id="^(?!(firefox)$)" workspace=__focused__ con_id=__focused__ ] $stopFirefox ; [app_id="^firefox$" workspace=__focused__ ] $startFirefox
-bindsym --no-repeat ctrl+Shift+3 move container to $ws3; $ws3; fullscreen disable; [app_id="^(?!(firefox)$)" workspace=__focused__ con_id=__focused__ ] $stopFirefox ; [app_id="^firefox$" workspace=__focused__ ] $startFirefox
-bindsym --no-repeat ctrl+Shift+4 move container to $ws4; $ws4; fullscreen disable; [app_id="^(?!(firefox)$)" workspace=__focused__ con_id=__focused__ ] $stopFirefox ; [app_id="^firefox$" workspace=__focused__ ] $startFirefox
-bindsym --no-repeat ctrl+Shift+5 move container to $ws5; $ws5; fullscreen disable; [app_id="^(?!(firefox)$)" workspace=__focused__ con_id=__focused__ ] $stopFirefox ; [app_id="^firefox$" workspace=__focused__ ] $startFirefox
+bindsym --no-repeat ctrl+Shift+1 move container to $ws1; $ws1; fullscreen disable
+bindsym --no-repeat ctrl+Shift+2 move container to $ws2; $ws2; fullscreen disable
+bindsym --no-repeat ctrl+Shift+3 move container to $ws3; $ws3; fullscreen disable
+bindsym --no-repeat ctrl+Shift+4 move container to $ws4; $ws4; fullscreen disable
+bindsym --no-repeat ctrl+Shift+5 move container to $ws5; $ws5; fullscreen disable
 
 bindsym $alt+return exec /usr/bin/alacritty
 bindsym --no-repeat $alt+space [app_id="^PopUp$"] focus, fullscreen enable
@@ -189,24 +189,6 @@ bindsym ctrl+$alt+c resize grow height 80px
 bindsym ctrl+$alt+t resize shrink height 80px
 bindsym ctrl+$alt+n resize grow width 80px
 
-
-bindsym $alt+u [app_id="^PopUp$"] move scratchpad ; mode ""
-mode "" {
-    bindsym t mode "default" ; exec telegram-desktop
-    bindsym j mode "default" ; exec /opt/visual-studio-code/code --enable-features=UseOzonePlatform --ozone-platform=wayland
-    bindsym f mode "default" ; exec /usr/bin/chromium-snapshot-bin  --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://app.slack.com/client/T03PATMPV/D02D6BJLB5Z' &!
-    bindsym g mode "default" ; exec /usr/bin/chromium-snapshot-bin  --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://teams.microsoft.com/'
-    bindsym l mode "default" ; exec /usr/bin/pavucontrol
-    bindsym h mode "default" ; [app_id="^firefox$"] focus; exec pgrep WebExtensions || firefox
-    bindsym b mode "default" ; exec baobab 
-    bindsym s mode "default" ; [app_id="^sublime_text$"] focus; exec /opt/sublime_text/sublime_text
-    bindsym m mode "default" ; exec sh -c 'subl --command goto_sublime_current_dir; smerge $(cat /tmp/sublfile) || smerge'
-
-    # return to default mode
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-
 bindsym --locked XF86AudioMute exec echo 'cycle pause' | socat - /tmp/mpvsocket > /dev/null 2>&1
 bindsym --locked XF86MonBrightnessDown exec light -U 0.5 && light -S $(echo "$(light -G) /1.3" | bc -l)
 bindsym --locked XF86MonBrightnessUp exec light -S $(echo "$(light -G) * 1.3" | bc -l) && light -A 0.5
@@ -232,13 +214,12 @@ bindsym --no-repeat ctrl+XF86Tools exec xdg-open --mpv $(wl-paste)
 # bindsym --no-repeat $alt+d exec xdg-open "$(ls -ctgd $HOME/dl/* | awk '$1=="-rw-r--r--" { $1=$2=$3=$4=$5=$6=$7=""; gsub("^[ \t]*","",$0); print $0; exit}')"
 bindsym --no-repeat $alt+d exec xdg-open "$(ls -ctd1 $HOME/dl/* | head -1)"
 
-bindsym $alt+y [app_id=^firefox$] focus ; exec $startFirefox; exec 'set -o noglob ; clipboard=$(wl-paste -n); grep "^https\\?://.\+\.\w\{2,3\}" <<< $clipboard && /usr/bin/firefox --new-tab "$clipboard" || /usr/bin/firefox --new-tab "https://duckduckgo.com/?t=ffab&q=${clipboard}"'
-bindsym $alt+i [app_id=^firefox$] focus ; exec $startFirefox; exec 'set -o noglob ; clipboard=$(wl-paste --primary -n); grep "^https\\?://.\+\.\w\{2,3\}" <<< $clipboard && /usr/bin/firefox --new-tab "$clipboard" || /usr/bin/firefox --new-tab "https://duckduckgo.com/?t=ffab&q=${clipboard}"'
+bindsym $alt+y [app_id=^firefox$] focus; exec 'set -o noglob ; clipboard=$(wl-paste -n); grep "^https\\?://.\+\.\w\{2,3\}" <<< $clipboard && /usr/bin/firefox --new-tab "$clipboard" || /usr/bin/firefox --new-tab "https://duckduckgo.com/?t=ffab&q=${clipboard}"'
+bindsym $alt+i [app_id=^firefox$] focus; exec 'set -o noglob ; clipboard=$(wl-paste --primary -n); grep "^https\\?://.\+\.\w\{2,3\}" <<< $clipboard && /usr/bin/firefox --new-tab "$clipboard" || /usr/bin/firefox --new-tab "https://duckduckgo.com/?t=ffab&q=${clipboard}"'
+bindsym $alt+r fullscreen disable; exec bemenu-apps
 
 bindsym $alt+o exec quicknotes.py
 bindsym $alt+e [app_id=^sublime_text$] focus, exec /opt/sublime_text/sublime_text $HOME/quicknotes.md
-
-bindsym --no-repeat $alt+shift+p exec 'set -o noglob ; tmpfile=$(mktemp /tmp/pastedata-XXXX) ; wl-paste --primary >> $tmpfile ; curl -s --data-binary "@$tmpfile" "https://paste.c-net.org/" | wl-copy -n && notify-send.sh "Uploaded paste" "Uploaded to Pastebin" --default-action="xdg-open $(wl-paste)" --icon=gtk-network'
 
 bindsym --no-repeat Print exec 'pgrep slurp || (curdate=$(date +"Screenshot_%Y-%m-%d_%H:%M:%S.png"); grim $HOME/screenshots/$curdate && notify-send.sh "Screenshot taken" "$curdate" --icon=camera-photo --default-action="xdg-open $HOME/screenshots/$curdate" && wl-copy < "$HOME/screenshots/$curdate")'
 bindsym --no-repeat $alt+Print exec 'pgrep slurp || (curdate=$(date +"Screenshot_%Y-%m-%d_%H:%M:%S.png"); swaymsg -t get_tree | jq -r ".. | select(.pid? and .visible?) | .rect | \\"\\\(.x),\\\(.y) \\\(.width)x\\\(.height)\\"" | env XCURSOR_SIZE=48 slurp -w 1 -c A5BAD1 -s C3DFFE94 | grim -g - $HOME/screenshots/$curdate && notify-send.sh "Screenshot taken" "$curdate" --icon=camera-photo --default-action="xdg-open $HOME/screenshots/$curdate" && wl-copy < $HOME/screenshots/$curdate)'
@@ -313,16 +294,10 @@ bar {
 ## Window rules
 #
 
-# assign [app_id="^telegramdesktop$"] $ws1
-# we want dialogues and file openers to be exempt from this rule
-# assign [app_id="^sublime_text$" title="^(?!Open File|Save File)$" title="."] $ws2
-# assign [app_id="^firefox$" title="^(?!Open File)$" title="."] $ws3
 assign [app_id="^(mpv|imv|org.pwmt.zathura|evince)$"] $ws5
-# assign [app_id="^(sublime_merge|Google-chrome-unstable)$"] $ws4
 
 # all new windows except the PopUp should receive focus.
 for_window [title=^(?!(PopUp)$).*$] focus
-for_window [workspace="^(?!3)$" app_id="^(?!(firefoxdeveloperedition|PopUp|telegramdesktop)$)"] $stopFirefox
 for_window [app_id="^Chromium$" title="^teams.microsoft.com is sharing your screen.$"] border pixel 0
 
 for_window [app_id="^(subl|sublime_text)$" title="^(Open File|Save File|)$"] fullscreen disable
@@ -337,7 +312,6 @@ for_window [app_id="^pavucontrol$"] floating enable, move position center, resiz
 
 for_window [app_id="^firefox$" title="^Library$"] floating enable, border pixel 1, move position center, resize set width 100ppt height 100ppt, resize shrink down 450px, resize set width 1000, move down 35px
 
-for_window [title="^Firefox Developer Edition — Sharing Indicator$"] floating enable, move position 0 0
 for_window [title="^Firefox — Sharing Indicator$"] floating enable, border pixel 0, sticky enable, resize set 57 30, move position 0 0
 
 for_window [title="^(Save File|python3|Open File|Select Folder|Choose Files|Choose an image|Preferences - Sublime Merge)$"] floating enable, resize set 1000 800
