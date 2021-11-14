@@ -17,7 +17,6 @@ IFS=$'\n'
 # }
 
 browser_function() {
-    pkill -CONT $FIREFOXPROCESSES
     swaymsg -q exec -- "/usr/bin/firefox --new-tab '${@}' ; [app_id=^firefox$] focus"
 }
 
@@ -29,10 +28,6 @@ mpv_function () {
     grep -q 'enabled' /sys/class/drm/card0-DP-1/enabled && output="--audio-device=alsa/iec958:CARD=Audio,DEV=0"
     readlink -q /sys/bus/hid/devices/0003:047F:02F7* > /dev/null 2>&1 && output="--audio-device=alsa/iec958:CARD=BT600,DEV=0"
     /usr/bin/mpv $output $myargs > /dev/null 2>&1
-    # if [[ $comingfrom == "firefox" ]]
-    # then
-    #     pkill -CONT "$FIREFOXPROCESSES"
-    # fi
     return 0
 }
 
@@ -43,10 +38,6 @@ if [[ "${1}" == '--mpv' ]]; then
 fi
 
 pdf_function () {
-    if [[ $HOST == "MateBookXPro" ]]
-    then
-        grep -q 0 /sys/class/power_supply/AC0/online && pkill -STOP $FIREFOXPROCESSES
-    fi
     # (swaymsg "[title=\"^${${1##*/}@Q}\"] focus" || /usr/bin/zathura "$@" &) > /dev/null 2>&1
     (swaymsg "[app_id=\"^org.pwmt.zathura$\" title=\"^${(q)1##*/}\ \[\"] focus" || /usr/bin/zathura "$1" &) > /dev/null 2>&1
     exit 0
@@ -72,7 +63,7 @@ transmission_function () {
         mess="Torrent"
     fi
 
-    notify-send.sh "Transmission" "${mess} added" --icon="com.github.davidmhewitt.torrential" --default-action="pkill -CONT \"$FIREFOXPROCESSES\" ; swaymsg '[title=\"^Transmission Web Interface — Firefox Nightly$\"] focus' || xdg-open 'http://127.0.0.1:9091/transmission/web/'"
+    notify-send.sh "Transmission" "${mess} added" --icon="com.github.davidmhewitt.torrential" --default-action="swaymsg '[title=\"^Transmission Web Interface — Firefox Nightly$\"] focus' || xdg-open 'http://127.0.0.1:9091/transmission/web/'"
 
     # if /usr/bin/ssh tb@51.154.197.131 "transmission-remote -a '"${@}"'"; then
     # /usr/bin/ssh tb@51.154.197.131 "transmission-remote -a '"${@}"'" && message $added
@@ -186,7 +177,6 @@ case "${1%%:*}" in
         elif [[ "${1##*.}" =~ "pdf|torrent" ]]; then
             downloadwithwget "${@}"
         elif [[ "${1}" == https://login.microsoftonline.com* ]]; then
-            pkill -CONT $FIREFOXPROCESSES
             swaymsg -q exec -- "/usr/bin/firefox --new-tab '${@}'"
         else
             browser_function "${@}"

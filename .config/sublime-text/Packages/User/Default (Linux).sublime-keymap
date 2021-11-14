@@ -1,5 +1,8 @@
 [
 
+    { "keys": ["ctrl+k"], "command": "paste" },
+
+
     {"keys": ["enter"], "command": "run_macro_file", "args": {"file": "res://Packages/sublime-fly-keys/macros/div-exp.sublime-macro"}, "context": [{"key": "following_text", "operator": "regex_match", "operand": "^\">$"} ] },
 
     {"keys": ["enter"], "command": "run_macro_file", "args": {"file": "res://Packages/sublime-fly-keys/macros/div-exp.sublime-macro"}, "context": [{"key": "preceding_text", "operator": "regex_match", "operand": "^\\s+<\\w+>\\s?$"},  ] },
