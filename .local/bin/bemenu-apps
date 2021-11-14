@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env zsh
 IFS=$'\n'
 
 /usr/bin/pgrep bemenu && exit
@@ -12,39 +12,53 @@ export BEMENU_OPTS="--tb '#000000'\
  --fb '#000000'\
  --ff '#ffffff'\
  --nb '#000000'\
- --nf '#15539E'\
+ --nf '#ffffff'\
  --hb '#15539E'\
  --hf '#ffffff'\
  --sb '#ff0000'\
  --sf '#ff0000'\
  --scb '#ff0000'\
- --fn 'font pango:SF Pro Display 10.5'\
+ --fn 'font pango:SF Pro Display Medium 10.5'\
  --scf '#ff79c6'"
 
+if pgrep -x wf-recorder > /dev/null 2>&1; then
+    recorder="Stop Recording"
+else
+    recorder="Record Desktop"
+fi
+
+if rfkill list | grep -q 'Soft blocked: no'; then
+    wifi="OFF"
+else
+    wifi="ON"
+fi
 
 
-list='
-   Firefox   
-   Sublime Text   
-   Slack   
-   Telegram   
-   Disk Usage   
-   VSCode   
-   Sublime Merge  
-   Teams   
-   Discord   
-   SoundControl   
-   Screenshot (Whole Screen)  
-   Screenshot (Subset)  
-   Suspend   
-   Reboot   
-   Poweroff   
-   Firefox (Private Window)   
-   Upload Clipboard   
-   Upload Clipboard (Primary)   
-   Open Quicknotes   
-   Add to Quicknotes   
-'
+list=(
+"   Firefox   "
+"   Sublime Text   "
+"   Slack   "
+"   Telegram   "
+"   Disk Usage   "
+"   VSCode   "
+"   Sublime Merge  "
+"   Teams   "
+"   Discord   "
+"   SoundControl   "
+"   $recorder   "
+"   Screenshot (Whole Screen)   "
+"   Screenshot (Subset)   "
+"   Lock   "
+"   Suspend   "
+"   Reboot   "
+"   Poweroff   "
+"   Firefox (Private Window)   "
+"   Turn WiFi $wifi   "
+"   Upload Clipboard   "
+"   Upload Clipboard (Primary)   "
+"   Open Quicknotes   "
+"   Add to Quicknotes   "
+)
 
 case $(bemenu --ignorecase <<< $list) in
     '   Firefox   ')
@@ -62,6 +76,14 @@ case $(bemenu --ignorecase <<< $list) in
     '   Disk Usage   ')
         swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^baobab$"] focus'
         /usr/bin/baobab
+        ;;
+    '   Stop Recording   ')
+        pkill -SIGINT wf-recorder
+        notify-send.sh "Recording saved" "$curdate" --icon=camera-video --default-action="xdg-open $HOME/vid/"
+        ;;
+    '   Record Desktop   ')
+        print hej
+        wf-recorder -f ~/vid/$(date +"Recording_%Y-%m-%d_%H:%M:%S.mp4")
         ;;
     '   Telegram   ')
         export DESKTOP_APP_I_KNOW_ABOUT_GTK_INCOMPATIBILITY=1
@@ -89,6 +111,26 @@ case $(bemenu --ignorecase <<< $list) in
         ;;
     '   SoundControl   ')
         /usr/bin/pavucontrol
+        ;;
+    '   Lock   ')
+        /usr/bin/loginctl lock-session
+        ;;
+    '   Turn WiFi ON   ')
+        message() {
+            notify-send "Wi-Fi Manager" "$1" --icon=preferences-system-network
+        }
+        /usr/bin/pkill -RTMIN+13 i3blocks
+        doas /usr/bin/systemctl start iwd.service
+        doas /usr/bin/rfkill unblock wifi
+        message "Turning Wi-Fi on"
+        /usr/lib/systemd/systemd-networkd-wait-online --ignore=lo --timeout=30 --interface=wlan0 --operational-state=dormant && message "Connected to $( iw dev wlan0 link | grep -oP '(?<=SSID: ).+')"&& /usr/bin/pkill -RTMIN+13 i3blocks && /usr/bin/pkill -RTMIN+14 i3blocks
+        pkill -RTMIN+13 i3blocks
+        ;;
+    '   Turn WiFi OFF   ')
+        notify-send "Wi-Fi Manager" "Turning Wi-Fi off" --icon=preferences-system-network
+        doas /usr/bin/systemctl stop iwd.service
+        doas /usr/bin/rfkill block wifi
+        /usr/bin/pkill -RTMIN+13 i3blocks
         ;;
     '   Suspend  ')
         /usr/bin/dbus-send --system --print-reply --dest=org.freedesktop.login1 /org/freedesktop/login1 "org.freedesktop.login1.Manager.Suspend" boolean:true
