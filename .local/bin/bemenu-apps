@@ -27,6 +27,15 @@ else
     recorder="Record Desktop"
 fi
 
+
+theme="$(gsettings get org.gnome.desktop.interface gtk-theme)"
+if [[ $theme  == "'Adwaita'" ]]; then
+    mode=" Dark Mode"
+else
+    mode=" Light Mode"
+fi
+
+
 if rfkill list | grep -q 'Soft blocked: no'; then
     wifi="OFF"
 else
@@ -41,6 +50,7 @@ list=(
 "   Telegram   "
 "   Disk Usage   "
 "   VSCode   "
+"  $mode   "
 "   Sublime Merge  "
 "   Teams   "
 "   Discord   "
@@ -102,6 +112,12 @@ case $(bemenu --ignorecase <<< $list) in
         ;;
     '   Slack   ')
         /usr/bin/chromium-snapshot-bin  --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://app.slack.com/client/T03PATMPV/D02D6BJLB5Z' &!
+        ;;
+    '   Dark Mode   ')
+        /home/tb/.local/bin/darkmode dark
+        ;;
+    '   Light Mode   ')
+        /home/tb/.local/bin/darkmode light
         ;;
     '   Teams  ')
         /usr/bin/chromium-snapshot-bin  --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://teams.microsoft.com/'
