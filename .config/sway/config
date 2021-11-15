@@ -215,7 +215,7 @@ bindsym --no-repeat $alt+d exec xdg-open "$(ls -ctd1 $HOME/dl/* | head -1)"
 
 bindsym $alt+y [app_id=^firefox$] focus; exec 'set -o noglob ; clipboard=$(wl-paste -n); grep "^https\\?://.\+\.\w\{2,3\}" <<< $clipboard && /usr/bin/firefox --new-tab "$clipboard" || /usr/bin/firefox --new-tab "https://duckduckgo.com/?t=ffab&q=${clipboard}"'
 bindsym $alt+i [app_id=^firefox$] focus; exec 'set -o noglob ; clipboard=$(wl-paste --primary -n); grep "^https\\?://.\+\.\w\{2,3\}" <<< $clipboard && /usr/bin/firefox --new-tab "$clipboard" || /usr/bin/firefox --new-tab "https://duckduckgo.com/?t=ffab&q=${clipboard}"'
-bindsym $alt+c fullscreen disable; exec bemenu-apps
+bindsym $alt+r fullscreen disable; exec bemenu-apps
 
 bindsym $alt+o exec quicknotes.py
 bindsym $alt+e [app_id=^sublime_text$] focus, exec /opt/sublime_text/sublime_text $HOME/quicknotes.md
@@ -298,6 +298,7 @@ assign [app_id="^(mpv|imv|org.pwmt.zathura|evince)$"] $ws5
 # all new windows except the PopUp should receive focus.
 for_window [title=^(?!(PopUp)$).*$] focus
 for_window [app_id="^Chromium$" title="^teams.microsoft.com is sharing your screen.$"] border pixel 0
+for_window [app_id="^\/usr\/bin\/chromium-snapshot-bin$" title="^Discord$"] title_format "Discord"
 
 for_window [app_id="^(subl|sublime_text)$" title="^(Open File|Save File|)$"] fullscreen disable
 for_window [app_id="^(subl|sublime_text)$" title="^Changelog - Sublime Tex$"] fullscreen disable, floating enable

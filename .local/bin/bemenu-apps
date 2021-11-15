@@ -111,6 +111,8 @@ case $(bemenu --ignorecase <<< $list) in
         /opt/visual-studio-code/code --enable-features=UseOzonePlatform --ozone-platform=wayland
         ;;
     '   Slack   ')
+        swaymsg -q -- '[app_id="^PopUp$"] move scratchpad'
+        swaymsg -q -- '[app_id="^\/usr\/bin\/chromium-snapshot-bin$" title="^Slack"] focus' ||\
         /usr/bin/chromium-snapshot-bin  --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://app.slack.com/client/T03PATMPV/D02D6BJLB5Z' &!
         ;;
     '   Dark Mode   ')
@@ -119,10 +121,14 @@ case $(bemenu --ignorecase <<< $list) in
     '   Light Mode   ')
         /home/tb/.local/bin/darkmode light
         ;;
-    '   Teams  ')
+    '   Teams   ')
+        swaymsg -q -- '[app_id="^PopUp$"] move scratchpad'
+        swaymsg -q -- '[app_id="^\/usr\/bin\/chromium-snapshot-bin$" title="^Microsoft Teams$"] focus' ||\
         /usr/bin/chromium-snapshot-bin  --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://teams.microsoft.com/'
         ;;
     '   Discord   ')
+        swaymsg -q -- '[app_id="^PopUp$"] move scratchpad'
+        swaymsg -q -- '[app_id="\/usr\/bin\/chromium-snapshot-bin$" title=^(?!(Slack.*|.*Chromium|.*Microsoft.Teams)).*$] focus' ||\
         /usr/bin/chromium-snapshot-bin --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://discord.com/channels/280102180189634562/280102180189634562'
         ;;
     '   SoundControl   ')
