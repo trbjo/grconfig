@@ -45,6 +45,7 @@
 		"LSP-yaml",
 		"nginx",
 		"Package Control",
+		"Pandoc",
 		"Pretty JSON",
 		"rainbow_csv",
 		"Razor",
@@ -54,6 +55,7 @@
 		"SqlBeautifier",
 		"sublime-fly-keys",
 		"SublimeLinter",
+		"ToggleQuotes",
 		"TOML",
 	],
 	"in_process_packages":

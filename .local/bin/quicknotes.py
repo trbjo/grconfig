@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 
+
+import sys
+sys.path.append('/home/tb/code/i3ipc-python')
+
 from i3ipc import Connection
 import datetime
 import subprocess

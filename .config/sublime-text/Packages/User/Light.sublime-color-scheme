@@ -307,12 +307,12 @@
         {
             "name": "markup headings",
             "scope": "markup.heading punctuation.definition.heading",
-            "foreground": "var(strings2)"
+            "foreground": "var(blue)"
         },
         {
             "name": "markup h1",
             "scope": "markup.heading.1 punctuation.definition.heading",
-            "foreground": "var(blue)"
+            "foreground": "var(accent)"
         },
         {
             "name": "markup links",
@@ -347,7 +347,8 @@
         {
             "name": "markup blockquote",
             "scope": "markup.quote punctuation.definition.blockquote, markup.list punctuation.definition.list_item",
-            "foreground": "var(light_blue)"
+            "font_style": "bold",
+            "foreground": "var(blue)"
         },
         {
             "name": "markup code",
@@ -513,7 +514,7 @@
             "name": "Zorgmode Headline",
             "scope": "heading | markup.heading",
             "font_style": "bold",
-            "foreground": "var(strings2)"
+            "foreground": "var(grey3)"
         },
         {
             "name": "Zorgmode TODO",

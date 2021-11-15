@@ -5,10 +5,9 @@
         "-N",
         "$file",
         "-o",
-        "/user/ex/$file_base_name.pdf",
+        "/home/tb/ex/$file_base_name.pdf",
         "--template",
-        "/user/.config/sublime-text/Packages/User/latex_template.tex",
-        "--variable=Palatino"
+        "/home/tb/.config/sublime-text/Packages/User/latex_template.tex"
     ],
     "selector": "text.html.markdown",
 }

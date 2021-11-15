@@ -12,7 +12,7 @@
     // -  windows
     //    "pandoc-path": "C:/Users/[username]/AppData/Local/Pandoc/pandoc.exe",
     "pandoc-path": "/usr/bin/pandoc",
-    "export-path": "/user/ex/",
+    "export-path": "/home/tb/ex/",
 
     // transformations
     "transformations": {
@@ -31,8 +31,6 @@
         "scope": {
           "text.html": "html"
         },
-        // sublime syntax file of output format, will set output to this syntax
-        "syntax_file": "Packages/Markdown/Markdown.tmLanguage",
         // additional arguments passed to pandoc
         // -  --from is automatically set, see "scope" above
         // -  --to=FORMAT or one of its aliases is required
@@ -62,7 +60,7 @@
             "text.html.markdown": "markdown"
         },
         "pandoc-arguments": [
-            "-t", "revealjs", "-s", "-V", "revealjs-url=/user/.revealjs"
+            "-t", "revealjs", "-s", "-V", "revealjs-url=/home/tb/.revealjs"
         ]
       },
 
