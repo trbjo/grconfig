@@ -14,6 +14,7 @@ import signal
 from functools import partial
 import os
 from enum import Enum
+import glob
 
 class PowerStatus(Enum):
     NOT_A_LAPTOP = 1
@@ -124,16 +125,20 @@ def exit_handler(ipc):
     ipc.main_quit()
     sys.exit(0)
 
-
 def find_power_status() -> PowerStatus:
-    try:
-        with open('/sys/class/power_supply/AC0/online', mode='rb') as fd:
+    AC_ADAPTER = None
+    for f in glob.glob('/sys/class/power_supply/AC*', recursive=False):
+        AC_ADAPTER = f
+        break
+
+    if AC_ADAPTER is not None:
+        with open(f'{AC_ADAPTER}/online', mode='rb') as fd:
             res = fd.read().decode().split('\x0A')[0]
             if res == '0':
                 return PowerStatus.ON_BATTERY
             else:
                 return PowerStatus.ON_AC
-    except Exception:
+    else:
         return PowerStatus.NOT_A_LAPTOP
 
 
