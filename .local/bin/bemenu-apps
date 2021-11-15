@@ -89,11 +89,18 @@ case $(bemenu --ignorecase <<< $list) in
         ;;
     '   Stop Recording   ')
         pkill -SIGINT wf-recorder
-        notify-send.sh "Recording saved" "$curdate" --icon=camera-video --default-action="xdg-open $HOME/vid/"
+        notify-send.sh "Recording saved" "$curdate" --expire-time=5000 --icon=camera-video --default-action="xdg-open $HOME/vid/"
         ;;
     '   Record Desktop   ')
-        print hej
-        wf-recorder -f ~/vid/$(date +"Recording_%Y-%m-%d_%H:%M:%S.mp4")
+        curdate=$(date +"Recording_%Y-%m-%d_%H:%M:%S.mp4")
+        notify-send "Recording Desktop in 3 seconds" "Press ctrl+c to stop it" --icon=camera-video
+        sleep 1
+        notify-send "Recording Desktop in 2 seconds" "Press ctrl+c to stop it" --icon=camera-video
+        sleep 1
+        notify-send "Recording Desktop in 1 seconds" "Press ctrl+c to stop it" --icon=camera-video
+        sleep 1
+        swaymsg -- "bindsym ctrl+c exec pkill -SIGINT wf-recorder && swaymsg -- unbindsym ctrl+c && notify-send.sh 'Recording saved' '$curdate' --expire-time=5000 --icon=camera-video --default-action=\"xdg-open $HOME/vid/\""
+        wf-recorder -f ~/vid/$curdate
         ;;
     '   Telegram   ')
         export DESKTOP_APP_I_KNOW_ABOUT_GTK_INCOMPATIBILITY=1
