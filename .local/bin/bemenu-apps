@@ -202,7 +202,6 @@ case $(bemenu --ignorecase <<< $list) in
         ;;
     *)
         elems=$(swaymsg -t get_tree | jq -r '[.nodes[] | .nodes[] | .floating_nodes[], .nodes[] | select(.visible)] | length')
-        print $elems
         (( elems == 1 )) && swaymsg fullscreen enable
         ;;
 

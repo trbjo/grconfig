@@ -215,7 +215,7 @@ bindsym --no-repeat $alt+d exec xdg-open "$(ls -ctd1 $HOME/dl/* | head -1)"
 
 bindsym $alt+y [app_id=^firefox$] focus; exec 'set -o noglob ; clipboard=$(wl-paste -n); grep "^https\\?://.\+\.\w\{2,3\}" <<< $clipboard && /usr/bin/firefox --new-tab "$clipboard" || /usr/bin/firefox --new-tab "https://duckduckgo.com/?t=ffab&q=${clipboard}"'
 bindsym $alt+i [app_id=^firefox$] focus; exec 'set -o noglob ; clipboard=$(wl-paste --primary -n); grep "^https\\?://.\+\.\w\{2,3\}" <<< $clipboard && /usr/bin/firefox --new-tab "$clipboard" || /usr/bin/firefox --new-tab "https://duckduckgo.com/?t=ffab&q=${clipboard}"'
-bindsym $alt+r fullscreen disable; exec bemenu-apps
+bindsym $alt+c fullscreen disable; exec bemenu-apps
 
 bindsym $alt+o exec quicknotes.py
 bindsym $alt+e [app_id=^sublime_text$] focus, exec /opt/sublime_text/sublime_text $HOME/quicknotes.md
