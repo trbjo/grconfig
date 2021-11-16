@@ -214,7 +214,7 @@ case $(bemenu --ignorecase <<< $list) in
         quicknotes.py
         ;;
     *)
-        elems=$(swaymsg -t get_tree | jq -r '[.nodes[] | .nodes[] | .floating_nodes[], .nodes[] | select(.visible)] | length')
+        elems=$(swaymsg -t get_tree | jq -r '[.. | ((.floating_nodes,.nodes)? // empty)[] | select(.pid and .visible)] | length')
         (( elems == 1 )) && swaymsg fullscreen enable
         ;;
 
