@@ -3,24 +3,6 @@ IFS=$'\n'
 
 /usr/bin/pgrep bemenu && exit
 
-#!/usr/bin/env bash
-export BEMENU_OPTS="--tb '#000000'\
- --prompt 'Applications'
- --grab\
- --line-height 24\
- --tf '#FFFFFF'\
- --fb '#000000'\
- --ff '#ffffff'\
- --nb '#000000'\
- --nf '#ffffff'\
- --hb '#15539E'\
- --hf '#ffffff'\
- --sb '#ff0000'\
- --sf '#ff0000'\
- --scb '#ff0000'\
- --fn 'font pango:SF Pro Display Medium 10.5'\
- --scf '#ff79c6'"
-
 if pgrep -x wf-recorder > /dev/null 2>&1; then
     recorder="Stop Recording"
 else
@@ -70,7 +52,7 @@ list=(
 "   Add to Quicknotes   "
 )
 
-case $(bemenu --ignorecase <<< $list) in
+case $(bemenu --prompt 'Actions' <<< $list) in
     '   Firefox   ')
         swaymsg -q --  '[app_id="^PopUp$"] move scratchpad'
         swaymsg -q --  '[app_id="^firefox$"] focus' || /usr/bin/firefox

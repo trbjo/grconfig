@@ -1,0 +1,16 @@
+#!/usr/bin/env zsh
+
+/usr/bin/pgrep bemenu && exit
+
+candidate=$(/usr/bin/fd . --extension gpg --base-directory $HOME/.password-store |\
+sed -e 's/.gpg$//' |\
+sort |\
+bemenu --prompt 'Passwords')
+
+if [[ ! -z $candidate ]]; then
+    touch /tmp/clipman_ignore
+    wl-copy -n -- $(pass "$candidate")
+fi
+
+elems=$(swaymsg -t get_tree | jq -r '[.. | ((.floating_nodes,.nodes)? // empty)[] | select(.pid and .visible)] | length')
+(( elems == 1 )) && swaymsg fullscreen enable
