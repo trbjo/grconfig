@@ -8,40 +8,39 @@
 import sys
 sys.path.append('/home/tb/code/i3ipc-python')
 
+
+from gi.repository import Gio
+
 import argparse
 import i3ipc
 import signal
 from functools import partial
-import os
-from enum import Enum
+from enum import Enum, IntEnum
 import glob
+import psutil
 
 class PowerStatus(Enum):
     NOT_A_LAPTOP = 1
     ON_BATTERY = 2
     ON_AC = 3
 
+class MySignal(IntEnum):
+    SIGCONT = 18
+    SIGSTOP = 19
 
-def stop_firefox(sig: signal.Signals):
-    for dirname in os.listdir('/proc'):
-        if dirname == 'curproc':
-            continue
 
-        try:
-            with open('/proc/{}/cmdline'.format(dirname), mode='rb') as fd:
-                content = fd.read().decode().split('\x00')
-        except Exception:
-            continue
-
-        if "firefox" in content[0]:
-            os.kill(int(dirname), sig)
-
+def signal_firefox(firefox_pid, signal: MySignal):
+    parent = psutil.Process(firefox_pid)
+    for child in parent.children(recursive=True):  # or parent.children() for recursive=False
+        child.send_signal(signal)
+    # we leave the parent as it handles the clipboard
+    # parent.kill()
 
 def on_workspace_init(ipc, event):
-    if firefox_con_id != -1 and power_status == PowerStatus.ON_BATTERY:
-        stop_firefox(signal.SIGSTOP)
+    if FIREFOX_PID != -1 and POWER_STATUS == PowerStatus.ON_BATTERY:
+        signal_firefox(FIREFOX_PID, MySignal.SIGCONT)
 
-def on_window_move(inactive_opacity, ipc, event):
+def on_window_move(ipc, event):
     focused_workspace = ipc.get_tree().find_focused()
     if focused_workspace == None:
         return
@@ -50,7 +49,7 @@ def on_window_move(inactive_opacity, ipc, event):
         for w in workspace:
             if w.visible:
                 if not w.focused:
-                    w.command("opacity " + inactive_opacity)
+                    w.command("opacity " + OPACITY)
                 else:
                     w.command("opacity 1")
             else:
@@ -58,20 +57,21 @@ def on_window_move(inactive_opacity, ipc, event):
                     w.command("opacity 1")
 
 
-def on_window_focus(inactive_opacity, ipc, event):
+def on_window_focus(ipc, event):
+    global OPACITY
     focused_workspace = ipc.get_tree().find_focused()
     focused = event.container
 
-    global power_status
-    if power_status == PowerStatus.ON_BATTERY:
-        global firefox_con_id
-        if firefox_con_id != -1:
+    global POWER_STATUS
+    if POWER_STATUS == PowerStatus.ON_BATTERY:
+        global FIREFOX_PID
+        if FIREFOX_PID != -1:
             if focused.app_id == 'firefox':
-                stop_firefox(signal.SIGCONT)
-            elif ipc.get_tree().find_by_id(firefox_con_id).visible:
-                stop_firefox(signal.SIGCONT)
+                signal_firefox(FIREFOX_PID, MySignal.SIGCONT)
+            elif ipc.get_tree().find_by_pid(FIREFOX_PID)[0].visible:
+                signal_firefox(FIREFOX_PID, MySignal.SIGCONT)
             else:
-                stop_firefox(signal.SIGSTOP)
+                signal_firefox(FIREFOX_PID, MySignal.SIGSTOP)
 
     if focused_workspace == None:
         return
@@ -87,10 +87,10 @@ def on_window_focus(inactive_opacity, ipc, event):
             old = ipc.get_tree().find_by_id(prev_focused.id)
             if old is not None:
                 if old.visible and prev_focused.type != 'floating_con':
-                    prev_focused.command("opacity " + inactive_opacity)
+                    prev_focused.command("opacity " + OPACITY)
         else:
             if prev_focused.type != 'floating_con':
-                prev_focused.command("opacity " + inactive_opacity)
+                prev_focused.command("opacity " + OPACITY)
 
         prev_focused = focused
         prev_workspace = workspace
@@ -99,33 +99,19 @@ def on_window_focus(inactive_opacity, ipc, event):
         focused.command("fullscreen enable")
 
 
-def running_on_battery(ipc):
-    global power_status
-    power_status = PowerStatus.ON_BATTERY
-    if firefox_con_id != -1:
-        firefox = ipc.get_tree().find_by_id(firefox_con_id)
-        if not firefox.visible:
-            stop_firefox(signal.SIGSTOP)
-
-def running_on_ac(ipc):
-    global power_status
-    power_status = PowerStatus.ON_AC
-    if firefox_con_id != -1:
-        firefox = ipc.get_tree().find_by_id(firefox_con_id)
-        stop_firefox(signal.SIGCONT)
-
-
 def exit_handler(ipc):
-    global power_status
-    if power_status != PowerStatus.NOT_A_LAPTOP and firefox_con_id != -1:
-        stop_firefox(signal.SIGCONT)
+    global POWER_STATUS
+    if POWER_STATUS != PowerStatus.NOT_A_LAPTOP and FIREFOX_PID != -1:
+        signal_firefox(FIREFOX_PID, MySignal.SIGCONT)
     for workspace in ipc.get_tree().workspaces():
         for w in workspace:
             w.command("opacity 1")
     ipc.main_quit()
     sys.exit(0)
 
-def find_power_status() -> PowerStatus:
+
+def find_power_status(ipc):
+    global POWER_STATUS
     AC_ADAPTER = None
     for f in glob.glob('/sys/class/power_supply/AC*', recursive=False):
         AC_ADAPTER = f
@@ -135,24 +121,61 @@ def find_power_status() -> PowerStatus:
         with open(f'{AC_ADAPTER}/online', mode='rb') as fd:
             res = fd.read().decode().split('\x0A')[0]
             if res == '0':
-                return PowerStatus.ON_BATTERY
+                POWER_STATUS = PowerStatus.ON_BATTERY
             else:
-                return PowerStatus.ON_AC
+                POWER_STATUS = PowerStatus.ON_AC
     else:
-        return PowerStatus.NOT_A_LAPTOP
+        POWER_STATUS = PowerStatus.NOT_A_LAPTOP
 
-
-def check_firefox_exists(ipc, event) -> None:
-    global firefox_con_id
-    cont = event.container
-    if cont.app_id == 'firefox':
-        if event.change == 'new':
-            firefox_con_id = cont.id
-        elif event.change == 'close':
-            firefox_con_id = -1
+    if FIREFOX_PID != -1:
+        if POWER_STATUS == POWER_STATUS.ON_BATTERY and not ipc.get_tree().find_by_pid(FIREFOX_PID)[0].visible:
+            signal_firefox(FIREFOX_PID, MySignal.SIGSTOP)
         else:
-            raise Exception(f'Unknown event: {event.change}')
+            signal_firefox(FIREFOX_PID, MySignal.SIGCONT)
 
+
+def check_firefox_exists(ipc, event=None) -> None:
+    global FIREFOX_PID
+    try:
+        cont = event.container
+        if cont.app_id == 'firefox':
+            if event.change == 'new':
+                FIREFOX_PID = cont.pid
+            elif event.change == 'close':
+                FIREFOX_PID = -1
+            else:
+                raise Exception(f'Unknown event: {event.change}')
+    except AttributeError:
+        for window in ipc.get_tree():
+            if window.app_id == 'firefox':
+                FIREFOX_PID = window.pid
+                if window.visible:
+                    signal_firefox(FIREFOX_PID, MySignal.SIGSTOP)
+                break
+
+
+def signal_handler(ipc, inactive_opacities):
+    global prev_focused
+    global OPACITY
+    theme = str(gso.get_value("gtk-theme"))
+    # light theme, lower higher opacity
+    if theme == "'Adwaita'":
+        OPACITY = inactive_opacities[0]
+    else:
+        OPACITY = inactive_opacities[1]
+
+    for window in ipc.get_tree():
+        if window.focused:
+            prev_focused = window
+
+        elif window.visible:
+            window.command("opacity " + OPACITY)
+
+    ipc.on("window::focus", partial(on_window_focus))
+    ipc.on("window::move", partial(on_window_move))
+
+
+prev_focused = None
 
 if __name__ == "__main__":
     transparency_val = "0.80"
@@ -163,46 +186,34 @@ if __name__ == "__main__":
     parser.add_argument(
         "--opacity",
         "-o",
-        type=str,
+        type=lambda s: [item for item in s.split(',')],
         default=transparency_val,
         help="set opacity value in range 0...1",
     )
     args = parser.parse_args()
 
     ipc = i3ipc.Connection()
-    prev_focused = None
     prev_workspace = ipc.get_tree().find_focused().workspace().num
-    power_status: PowerStatus = find_power_status()
 
-    for window in ipc.get_tree():
-        if window.focused:
-            prev_focused = window
+    FIREFOX_PID = None
+    check_firefox_exists(ipc)
 
-        elif window.visible:
-            window.command("opacity " + args.opacity)
+    POWER_STATUS = None
+    find_power_status(ipc)
 
-    # If we are not on a laptop, we do not care about Firefox power saving:
-    if power_status != PowerStatus.NOT_A_LAPTOP:
-        firefox_con_id = -1
-        for window in ipc.get_tree():
-            if window.app_id == 'firefox':
-                firefox_con_id = window.id
-                if window.visible:
-                    stop_firefox(signal.SIGSTOP)
-                break
+    if POWER_STATUS != PowerStatus.NOT_A_LAPTOP:
+        signal.signal(signal.SIGUSR1, lambda signal, frame: find_power_status(ipc))
+        ipc.on("window::new", check_firefox_exists)
+        ipc.on("window::close", check_firefox_exists)
+        ipc.on("workspace::init", on_workspace_init)
 
-        signal.signal(signal.SIGUSR1, lambda signal, frame: running_on_battery(ipc))
-        signal.signal(signal.SIGUSR2, lambda signal, frame: running_on_ac(ipc))
+    OPACITY = None
+    gso=Gio.Settings.new("org.gnome.desktop.interface")
+    signal_handler(ipc, args.opacity)
 
-        ipc.on("window::new", partial(check_firefox_exists))
-        ipc.on("window::close", partial(check_firefox_exists))
-        ipc.on("workspace::init", partial(on_workspace_init))
+    signal.signal(signal.SIGUSR2, lambda signal, frame: signal_handler(ipc, args.opacity))
 
     for sig in [signal.SIGINT, signal.SIGTERM]:
         signal.signal(sig, lambda signal, frame: exit_handler(ipc))
-
-    ipc.on("window::focus", partial(on_window_focus, args.opacity))
-    ipc.on("window::move", partial(on_window_move, args.opacity))
-
 
     ipc.main()

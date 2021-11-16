@@ -1,4 +1,4 @@
-exec python ~/.local/bin/inactive-windows-transparency.py --opacity 0.9
+exec python ~/.local/bin/inactive-windows-transparency.py --opacity 0.92,0.7
 exec "dbus-update-activation-environment --systemd --all"
 exec "systemctl --user import-environment"
 exec /usr/bin/mako
