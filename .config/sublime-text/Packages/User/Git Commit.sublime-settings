@@ -2,6 +2,7 @@
 {
     "mini_diff": false,
     "rulers": [72, 50],
+    "spell_check": true,
     "block_caret": false,
     "command_mode": false,
 }
