@@ -80,6 +80,8 @@ $ws5 output DP-1
 #
 
 set $alt Mod1
+set $super Mod4
+bindsym $super+tab nop
 
 bindsym ctrl+alt+F1 nop
 bindsym ctrl+alt+F2 nop
