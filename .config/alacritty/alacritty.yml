@@ -147,7 +147,7 @@ font:
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
   offset:
     x: -1
-    y: 0
+    y: 1
     # y: 2
 
   # Glyph offset determines the locations of the glyphs within their cells with
@@ -1186,6 +1186,7 @@ key_bindings:
   - { key: J, mode: Vi, action: ToggleViMode }
 
   - { key: N, mode: Vi|~Search, action: ToggleSemanticSelection }
+  - { key: N, mods: Control, mode: Vi|~Search, action: ToggleNormalSelection }
 
   # - { key: Tab, mods: Control, mode: ~Vi, chars: "\x01" }
 
@@ -1213,6 +1214,9 @@ key_bindings:
   #- { key: Right,                       mode: Vi, action: Right                   }
   - { key: A, mode: Vi|~Search, action: First }
   - { key: S, mode: Vi|~Search, action: Last }
+
+  - { key: I, mode: Vi|~Search, action: ToggleNormalSelection }
+  - { key: I, mode: Vi|~Search, action: Last }
   #- { key: Key4,   mods: Shift,         mode: Vi, action: Last                    }
   #- { key: Key6,   mods: Shift,         mode: Vi, action: FirstOccupied           }
   #- { key: H,      mods: Shift,         mode: Vi, action: High                    }

@@ -109,8 +109,8 @@ bindsym --no-repeat $alt+shift+l output eDP-1 enable
 
 
 bindsym --no-repeat ctrl+1 $ws1
-bindsym --no-repeat ctrl+2 [app_id="^sublime_text$"] focus
-bindsym --no-repeat ctrl+3 [app_id="^firefox$" tiling] focus
+bindsym --no-repeat ctrl+2 [app_id="^PopUp$"] move scratchpad; [app_id="^sublime_text$"] focus
+bindsym --no-repeat ctrl+3 [app_id="^PopUp$"] move scratchpad; [app_id="^firefox$" tiling] focus
 bindsym --no-repeat ctrl+4 $ws4
 bindsym --no-repeat ctrl+5 $ws5
 
