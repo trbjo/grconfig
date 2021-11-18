@@ -55,7 +55,6 @@
 ]
 },
 
-
     { "keys": ["ctrl+k"], "command": "paste" },
 
 
