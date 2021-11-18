@@ -55,10 +55,10 @@ list=(
 case $(bemenu --prompt 'Actions' <<< $list) in
     '   Firefox   ')
         swaymsg -q --  '[app_id="^PopUp$"] move scratchpad'
-        swaymsg -q --  '[app_id="^firefox$"] focus' || /usr/bin/firefox
+        swaymsg -q --  '[app_id="^firefox$" tiling] focus' || /usr/bin/firefox
         ;;
     '   Firefox (Private Window)   ')
-        swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^firefox$"] focus'
+        swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^firefox$" tiling] focus'
         swaymsg -q -- '[title="Mozilla\ Firefox\ \(Private\ Browsing\)$"] focus' || /usr/bin/firefox --private-window
         ;;
     '   Sublime Text   ')

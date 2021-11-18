@@ -110,7 +110,7 @@ bindsym --no-repeat $alt+shift+l output eDP-1 enable
 
 bindsym --no-repeat ctrl+1 $ws1
 bindsym --no-repeat ctrl+2 [app_id="^sublime_text$"] focus
-bindsym --no-repeat ctrl+3 [app_id="^firefox$" title="^(?!(Firefox — Sharing Indicator)$)"] focus
+bindsym --no-repeat ctrl+3 [app_id="^firefox$" tiling] focus
 bindsym --no-repeat ctrl+4 $ws4
 bindsym --no-repeat ctrl+5 $ws5
 
@@ -319,6 +319,7 @@ for_window [app_id="^mpv$"] title_format "<span weight='100' foreground='#FF0000
 for_window [app_id="^Google-chrome-unstable$" title="^Microsoft Teams$"] title_format "<span weight='100' foreground='#6264A7'></span>  Microsoft Teams"
 for_window [app_id="-Telegram_Desktop$" title="^Telegram$"] title_format "<span weight='100' foreground='#2FA5D8'></span>  %title"
 for_window [app_id="Signal$" title="^Signal$"] title_format "<span weight='100' foreground='#3A76F0'></span>  %title"
+for_window [app_id="firefox$" title="^Picture-in-Picture$"] floating enable, sticky enable, resize set 300 170, move position 2 28
 
 
 exec "python ~/.local/bin/inactive-windows-transparency.py --opacity 0.9,0.7"
