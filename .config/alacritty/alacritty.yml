@@ -1180,10 +1180,10 @@ key_bindings:
 
 
 
-  - { key: J, mode: Vi, action: Copy }
-  - { key: J, mode: Vi, action: ClearSelection }
-  - { key: J, mode: Vi, action: ScrollToBottom          }
-  - { key: J, mode: Vi, action: ToggleViMode }
+  - { key: J, mode: Vi|~Search, action: Copy }
+  - { key: J, mode: Vi|~Search, action: ClearSelection }
+  - { key: J, mode: Vi|~Search, action: ScrollToBottom          }
+  - { key: J, mode: Vi|~Search, action: ToggleViMode }
 
   - { key: N, mode: Vi|~Search, action: ToggleSemanticSelection }
   - { key: N, mods: Control, mode: Vi|~Search, action: ToggleNormalSelection }
