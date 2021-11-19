@@ -1063,12 +1063,14 @@ key_bindings:
 
   - { key: C, mods: Control,     mode: Search,     action: SearchHistoryPrevious }
   - { key: C,      mods: Control,       mode: Vi, action: ScrollHalfPageUp        }
+  - { key: C,      mods: Control,       mode: Vi, action: Middle        }
 
   # sends DOWN
   - { key: T, mods: Control, chars: "\x1b[B", mode: ~AppCursor|~Vi|~Search  }
   - { key: T, mods: Control, chars: "\x1bOB", mode: AppCursor|~Vi|~Search  }
   - { key: T, mods: Control,     mode: Search,     action: SearchHistoryNext }
   - { key: T,      mods: Control,       mode: Vi, action: ScrollHalfPageDown      }
+  - { key: T,      mods: Control,       mode: Vi, action: Middle      }
 
   # inserts newline without enter
   # - { key: Return, mods: Shift, chars: "\x16\x0A" }
@@ -1185,6 +1187,7 @@ key_bindings:
   - { key: J, mode: Vi|~Search, action: ScrollToBottom          }
   - { key: J, mode: Vi|~Search, action: ToggleViMode }
 
+  # - { key: N, mode: Vi|~Search, action: SemanticLeft }
   - { key: N, mode: Vi|~Search, action: ToggleSemanticSelection }
   - { key: N, mods: Control, mode: Vi|~Search, action: ToggleNormalSelection }
 
@@ -1212,10 +1215,10 @@ key_bindings:
   #- { key: Down,                        mode: Vi, action: Down                    }
   #- { key: Left,                        mode: Vi, action: Left                    }
   #- { key: Right,                       mode: Vi, action: Right                   }
-  - { key: A, mode: Vi|~Search, action: First }
+  - { key: A, mode: Vi|~Search, action: FirstOccupied }
   - { key: S, mode: Vi|~Search, action: Last }
 
-  - { key: I, mode: Vi|~Search, action: ToggleNormalSelection }
+  # - { key: I, mode: Vi|~Search, action: ToggleNormalSelection }
   - { key: I, mode: Vi|~Search, action: Last }
   #- { key: Key4,   mods: Shift,         mode: Vi, action: Last                    }
   #- { key: Key6,   mods: Shift,         mode: Vi, action: FirstOccupied           }

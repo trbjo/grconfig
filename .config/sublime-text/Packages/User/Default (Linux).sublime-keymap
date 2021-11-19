@@ -1,5 +1,61 @@
 [
 
+
+{ "keys": ["N"], "command": "chain",
+        "args": {
+            "commands": [
+                {"command": "move", "args": {"by": "stops", "word_end": true, "empty_line": true, "separators": "", "forward": true, "extend": true }},
+            ]},
+            "context": [
+            {"key": "setting.command_mode", "operator": "equal", "operand": true },
+            {"key": "last_command", "operator": "not_equal", "operand": "find_under_expand" },
+
+         ]
+    },
+
+
+
+
+{ "keys": ["N"], "command": "chain",
+        "args": {
+            "commands": [
+                {"command": "move", "args": {"by": "stops", "word_begin": true, "empty_line": true, "separators": "", "forward": false, "extend": false }},
+                {"command": "move", "args": {"by": "stops", "word_end": true, "empty_line": true, "separators": "", "forward": true, "extend": true }},
+            ]},
+            "context": [
+            { "key": "preceding_text", "operator": "not_regex_match", "operand": ".* $|^$", "match_all": true },
+            {"key": "last_command", "operator": "not_equal", "operand": "find_under_expand" },
+            {"key": "setting.command_mode", "operator": "equal", "operand": true },
+         ]
+    },
+
+
+
+
+{ "keys": ["r"], "command": "move", "args": {"by": "stops", "word_begin": true, "empty_line": true, "separators": "", "forward": true, "extend": false }, "context": [
+    {"key": "setting.command_mode", "operator": "equal", "operand": true },
+]
+},
+
+{ "keys": ["r"], "command": "move", "args": {"by": "stops", "word_end": true, "empty_line": true, "separators": "", "forward": true, "extend": true }, "context": [
+    { "key": "selection_empty", "operator": "equal", "operand": false },
+    {"key": "setting.command_mode", "operator": "equal", "operand": true },
+]
+},
+
+{ "keys": ["g"], "command": "move", "args": {"by": "stops", "word_begin": true, "empty_line": true, "separators": "", "forward": false, "extend": false }, "context": [
+    {"key": "setting.command_mode", "operator": "equal", "operand": true },
+]
+},
+
+
+{ "keys": ["g"], "command": "move", "args": {"by": "stops", "word_end": true, "empty_line": true, "separators": "", "forward": false, "extend": true }, "context": [
+    { "key": "selection_empty", "operator": "equal", "operand": false },
+    {"key": "setting.command_mode", "operator": "equal", "operand": true },
+]
+},
+
+
     { "keys": ["ctrl+k"], "command": "paste" },
 
 
