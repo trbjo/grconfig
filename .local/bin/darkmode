@@ -20,7 +20,7 @@ set_values() {
 
     export TITLEBARBORDERA_$LIGHT="#FFFFFF"
     export TITLEBARBORDERI_$LIGHT="#FFFFFF"
-    export TITLEBARBORDERU_$LIGHT="#E6E6E6"
+    export TITLEBARBORDERU_$LIGHT="#c8c8c8"
 
     # sway, zathura, mako
     export FGA_$LIGHT="#404040"
