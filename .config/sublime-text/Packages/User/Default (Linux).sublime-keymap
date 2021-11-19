@@ -362,7 +362,7 @@
         {"key": "setting.is_widget", "operator": "equal", "operand": true}
     ]
 },
-{"keys": ["ctrl+l"], "command": "toggle_case_sensitive", "context":
+{"keys": ["ctrl+c"], "command": "toggle_case_sensitive", "context":
     [
         {"key": "panel_has_focus", "operator": "equal", "operand": true },
         {"key": "setting.is_widget", "operator": "equal", "operand": true}

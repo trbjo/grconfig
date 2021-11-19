@@ -183,7 +183,7 @@ bindsym ctrl+$alt+c resize grow height 80px
 bindsym ctrl+$alt+t resize shrink height 80px
 bindsym ctrl+$alt+n resize grow width 80px
 
-bindsym --locked XF86AudioMute exec echo 'cycle pause' | socat - /tmp/mpvsocket > /dev/null 2>&1
+bindsym --locked XF86AudioMute exec playerctl pause
 bindsym --locked XF86MonBrightnessDown exec light -U 0.5 && light -S $(echo "$(light -G) /1.3" | bc -l)
 bindsym --locked XF86MonBrightnessUp exec light -S $(echo "$(light -G) * 1.3" | bc -l) && light -A 0.5
 
@@ -346,5 +346,5 @@ exec /usr/bin/swayidle \
     timeout 362 'swaymsg "output * dpms off"'\
     before-sleep "! grep -q "enabled" /sys/class/drm/{card0-DP-1,card0-DP-2,card0-HDMI-A-1}/enabled && swaymsg output eDP-1 enable ; loginctl lock-session"\
     after-resume "if [[ \$(ps -o etimes= -p \$(pgrep --oldest swaylockd)) -lt 300 ]]; then pkill -9 swaylockd; fi; swaymsg 'output * enable, output * dpms on'"\
-    lock 'echo "set pause yes" | socat - /tmp/mpvsocket > /dev/null 2>&1; if ! pgrep -x swaylockd > /dev/null 2>&1; then swaymsg bar one workspace_buttons no, bar one mode overlay; swaylockd; loginctl unlock-session; fi' \
+    lock 'playerctl pause; if ! pgrep -x swaylockd > /dev/null 2>&1; then swaymsg bar one workspace_buttons no, bar one mode overlay; swaylockd; loginctl unlock-session; fi' \
     unlock 'swaymsg bar one mode hide, bar one workspace_buttons yes'
