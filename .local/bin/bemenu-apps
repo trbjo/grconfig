@@ -50,6 +50,7 @@ list=(
 "   Upload Clipboard (Primary)   "
 "   Open Quicknotes   "
 "   Add to Quicknotes   "
+"   Foot Terminal   "
 )
 
 case $(bemenu --prompt 'Actions' <<< $list) in
@@ -194,6 +195,9 @@ case $(bemenu --prompt 'Actions' <<< $list) in
         ;;
     '   Add to Quicknotes   ')
         quicknotes.py
+        ;;
+    '   Foot Terminal   ')
+        /usr/bin/foot
         ;;
     *)
         elems=$(swaymsg -t get_tree | jq -r '[.. | ((.floating_nodes,.nodes)? // empty)[] | select(.pid and .visible)] | length')
