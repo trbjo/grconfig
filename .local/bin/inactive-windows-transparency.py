@@ -179,7 +179,7 @@ def signal_handler(ipc, inactive_opacities):
 prev_focused = None
 
 if __name__ == "__main__":
-    transparency_val = [ "0.94", "0.7" ]
+    transparency_val = [ "0.94", "0.75" ]
 
     parser = argparse.ArgumentParser(
         description="This script allows you to set the transparency of unfocused windows in sway."
