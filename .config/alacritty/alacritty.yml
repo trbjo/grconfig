@@ -1087,6 +1087,9 @@ key_bindings:
   - { key: Escape, mode: Vi, action: ClearSelection }
   - { key: Q,      mods: Control, mode: Search,     action: SearchClear           }
   - { key: Comma,      mods: Control, mode: Search,     action: SearchDeleteWord      }
+  - { key: Comma,      mode: Vi|~Search,     action: High      }
+  - { key: P,      mode: Vi|~Search,     action: Low      }
+  - { key: Period,      mode: Vi|~Search,     action: Middle      }
   - { key: N,      mods: Control, mode: Search,     action: SearchHistoryNext     }
   - { key: Up,                    mode: Search,     action: SearchHistoryPrevious }
   - { key: Down,                  mode: Search,     action: SearchHistoryNext     }
