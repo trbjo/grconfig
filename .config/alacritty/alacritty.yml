@@ -1047,8 +1047,8 @@ key_bindings:
   - { key: K, mods: Control|Shift, chars: "\x19" }
   - { key: F12, action: PasteSelection }
   - { key: Insert, action: PasteSelection }
+  - { key: K, mods: Alt, action: PasteSelection }
 
-  # - { key: Escape, mods: Control, action: ClearHistory }
   # sends c-e to go to EOL
   - { key: I, mods: Control, chars: "\x05" , mode: ~Vi|~Search }
   - { key: I, mods: Control|Shift, chars: "\x00\x05" }
@@ -1174,34 +1174,18 @@ key_bindings:
   # start selecting text forward by word - super handy
   - { key: R, mods: Control|Shift, chars: "\x00\x1bf" }
 
-  - { key: Escape, mods: Control, mode: Vi, action: ToggleSemanticSelection }
-  - { key: Escape, mods: Control, mode: Vi, action: Last }
+  - { key: Escape, mods: Control, action: ToggleViMode }
+  - { key: Escape, mods: Control,    mode: Vi, action: ScrollToBottom          }
+
   # Vi Mode
-
   - { key: M, mode: Vi|~Search, action: SearchForward }
-
-
-
   - { key: J, mode: Vi|~Search, action: Copy }
   - { key: J, mode: Vi|~Search, action: ClearSelection }
   - { key: J, mode: Vi|~Search, action: ScrollToBottom          }
   - { key: J, mode: Vi|~Search, action: ToggleViMode }
 
-  # - { key: N, mode: Vi|~Search, action: SemanticLeft }
   - { key: N, mode: Vi|~Search, action: ToggleSemanticSelection }
   - { key: N, mods: Control, mode: Vi|~Search, action: ToggleNormalSelection }
-
-  # - { key: Tab, mods: Control, mode: ~Vi, chars: "\x01" }
-
-  - { key: Escape, mods: Control, action: ToggleViMode }
-  - { key: Escape, mods: Control,    mode: Vi, action: ScrollToBottom          }
-  - { key: Tab, mode: Vi, action: First }
-  - { key: Tab, mode: Vi, action: SemanticRight }
-  - { key: Tab, mode: Vi, action: ToggleSemanticSelection }
-  - { key: Tab, mode: Vi, action: Last }
-  - { key: Tab, mode: Vi, action: Copy }
-  - { key: Tab, mode: Vi, action: ToggleViMode }
-  # - { key: Tab, mode: Vi, action: ClearSelection          }
 
   #- { key: V,      mods: Shift,         mode: Vi, action: ToggleLineSelection     }
   # - { key: V,      mods: Control,       mode: Vi, action: ToggleBlockSelection    }
@@ -1218,7 +1202,7 @@ key_bindings:
   - { key: A, mode: Vi|~Search, action: FirstOccupied }
   - { key: S, mode: Vi|~Search, action: Last }
 
-  # - { key: I, mode: Vi|~Search, action: ToggleNormalSelection }
+  - { key: I, mode: Vi|~Search, action: ToggleNormalSelection }
   - { key: I, mode: Vi|~Search, action: Last }
   #- { key: Key4,   mods: Shift,         mode: Vi, action: Last                    }
   #- { key: Key6,   mods: Shift,         mode: Vi, action: FirstOccupied           }
