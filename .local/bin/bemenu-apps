@@ -194,13 +194,27 @@ case $(bemenu --prompt 'Actions' <<< $list) in
         set -o noglob
         tmpfile=$(mktemp /tmp/pastedata-XXXX)
         wl-paste >> $tmpfile
-        curl -s --data-binary "@$tmpfile" "https://paste.c-net.org/" | wl-copy -n && notify-send.sh "Uploaded paste" "Uploaded to Pastebin" --default-action="xdg-open $(wl-paste)" --icon=gtk-network
+        url=$(curl -s --data-binary "@$tmpfile" "https://paste.c-net.org/")
+        if [[ -z "$url" ]]; then
+            notify-send.sh "Upload failed" "Failed to upload clipboard" --icon=dialog-error
+            exit
+        fi
+        swaymsg -- "bindsym return exec xdg-open \"$url\" && swaymsg -- unbindsym return"
+        wl-copy -n "$url"
+        notify-send.sh "Uploaded paste" "Uploaded to Pastebin" --default-action="xdg-open $url" --icon=gtk-network
         ;;
     '   Upload Clipboard (Primary)   ')
         set -o noglob
         tmpfile=$(mktemp /tmp/pastedata-XXXX)
         wl-paste --primary >> $tmpfile
-        curl -s --data-binary "@$tmpfile" "https://paste.c-net.org/" | wl-copy -n && notify-send.sh "Uploaded paste" "Uploaded to Pastebin" --default-action="xdg-open $(wl-paste)" --icon=gtk-network
+        url=$(curl -s --data-binary "@$tmpfile" "https://paste.c-net.org/")
+        if [[ -z "$url" ]]; then
+            notify-send.sh "Upload failed" "Failed to upload clipboard" --icon=dialog-error
+            exit
+        fi
+        swaymsg -- "bindsym return exec xdg-open \"$url\" && swaymsg -- unbindsym return"
+        wl-copy -n "$url"
+        notify-send.sh "Uploaded paste" "Uploaded to Pastebin" --default-action="xdg-open $url" --icon=gtk-network
         ;;
     '   Open Quicknotes   ')
             swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^sublime_text$"] focus'
