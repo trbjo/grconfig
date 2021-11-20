@@ -538,7 +538,7 @@ schemes:
      cursor: "#F49800"
    vi_mode_cursor:
     text: "0x000000"
-    cursor: "#F49800"
+    cursor: "#FE8019"
    selection:
      text: "#EBDBB2"
      background: "#504945"
