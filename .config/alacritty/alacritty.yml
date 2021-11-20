@@ -1098,7 +1098,7 @@ key_bindings:
 
    # Search Mode
   - { key: Escape,                mode: Search,     action: SearchConfirm          }
-  - { key: Escape, mode: Vi, action: ClearSelection }
+  - { key: Escape, mods: Control, mode: Vi, action: ClearSelection }
   - { key: Q,      mods: Control, mode: Search,     action: SearchClear           }
   - { key: Comma,      mods: Control, mode: Search,     action: SearchDeleteWord      }
   - { key: Comma,      mode: Vi|~Search,     action: High      }
@@ -1140,7 +1140,7 @@ key_bindings:
   - { key: S, mods: Control, chars: "\x1A" , mode: ~Vi|~Search }
 
   # Kill to EOL -- sends c-k
-  - { key: X, mods: Control, chars: "\x0B" , mode: ~Vi|~Search }
+  # - { key: X, mods: Control, chars: "\x0B" , mode: ~Vi|~Search }
 
   # sends Ctrl-C
   - { key: Period, mods: Control, chars: "\x03" , mode: ~Vi|~Search }
@@ -1163,7 +1163,7 @@ key_bindings:
   ### FZF key_bindings
 
   # Ctrl-R / history search
-  - { key: M, mods: Control, chars: "\x12" , mode: ~Vi|~Search }
+  - { key: X, mods: Control, chars: "\x12" , mode: ~Vi|~Search }
 
   # Ctrl-U - sends ctrl-F "Acknowledge"
   - { key: U, mods: Control, chars: "\x06" , mode: ~Vi|~Search }
@@ -1200,8 +1200,13 @@ key_bindings:
   # start selecting text forward by word - super handy
   - { key: R, mods: Control|Shift, chars: "\x00\x1bf" }
 
-  - { key: Escape, mods: Control, action: ToggleViMode }
-  - { key: Escape, mods: Control,    mode: Vi, action: ScrollToBottom          }
+  - { key: Escape,    mods: Control, mode: ~Vi, action: ToggleViMode   }
+  - { key: Escape,    mode: Vi,      action: ToggleViMode   }
+  - { key: Escape,    mode: Vi,      action: ScrollToBottom }
+
+  # try and insert search mode directly
+  - { key: M, mods: Control, mode: ~Vi|~Search, action: ToggleViMode }
+  - { key: M, mods: Control, mode: ~Vi|~Search, action: SearchForward }
 
   # Vi Mode
   - { key: M, mode: Vi|~Search, action: SearchForward }
