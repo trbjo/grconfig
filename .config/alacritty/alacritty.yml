@@ -269,6 +269,9 @@ schemes:
     cursor:
       text: "0xFFFFFF"
       cursor: "#1F76D9"
+    vi_mode_cursor:
+     text: "#00ff00"
+     cursor: "#D73A49"
     selection:
       text: "#24292E"
       background: "#DAE9F9"
@@ -533,6 +536,9 @@ schemes:
    cursor:
      text: "0xFFFFFF"
      cursor: "#F49800"
+   vi_mode_cursor:
+    text: "#00ff00"
+    cursor: "#00ff00"
    selection:
      text: "#EBDBB2"
      background: "#504945"
