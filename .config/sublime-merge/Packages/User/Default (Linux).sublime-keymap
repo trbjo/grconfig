@@ -80,7 +80,7 @@
     { "keys": ["ctrl+w"], "command": "close" },
 
 
-     { "keys": ["alt"], "command": "noop"},
+     { "keys": ["alt"], "command": "navigate_back"},
 
 
 
