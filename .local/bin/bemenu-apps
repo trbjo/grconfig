@@ -75,6 +75,15 @@ case $(bemenu --prompt 'Actions' <<< $list) in
         notify-send.sh "Recording saved" "$curdate" --expire-time=5000 --icon=camera-video --default-action="xdg-open $HOME/vid/"
         ;;
     '   Record Desktop   ')
+        integer active_outputs
+        active_outputs=$(swaymsg -t get_tree | jq -r '[. | (.nodes? // empty)[] | select(.type=="output" and .name!="__i3") ] | length')
+        if (( active_outputs > 1)); then
+            export XCURSOR_SIZE=48
+            output="$(slurp -w 1 -c A5BAD1 -s C3DFFE94 -f "%l" -o)"
+            if [[ -z $output ]]; then
+                exit
+            fi
+        fi
         curdate=$(date +"Recording_%Y-%m-%d_%H:%M:%S.mp4")
         notify-send "Recording Desktop in 3 seconds" "Press ctrl+c to stop it" --icon=camera-video
         sleep 1
@@ -83,7 +92,11 @@ case $(bemenu --prompt 'Actions' <<< $list) in
         notify-send "Recording Desktop in 1 seconds" "Press ctrl+c to stop it" --icon=camera-video
         sleep 1
         swaymsg -- "bindsym ctrl+c exec pkill -SIGINT wf-recorder && swaymsg -- unbindsym ctrl+c && notify-send.sh 'Recording saved' '$curdate' --expire-time=5000 --icon=camera-video --default-action=\"xdg-open $HOME/vid/\""
-        wf-recorder -f ~/vid/$curdate
+        if (( active_outputs > 1)); then
+            wf-recorder -o "$output" -f ~/vid/$curdate
+        else
+            wf-recorder -f ~/vid/$curdate
+        fi
         ;;
     '   Telegram   ')
         export DESKTOP_APP_I_KNOW_ABOUT_GTK_INCOMPATIBILITY=1
