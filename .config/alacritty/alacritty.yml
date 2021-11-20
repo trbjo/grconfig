@@ -1201,8 +1201,8 @@ key_bindings:
   - { key: R, mods: Control|Shift, chars: "\x00\x1bf" }
 
   - { key: Escape,    mods: Control, mode: ~Vi, action: ToggleViMode   }
-  - { key: Escape,    mode: Vi,      action: ToggleViMode   }
-  - { key: Escape,    mode: Vi,      action: ScrollToBottom }
+  - { key: Escape,    mode: Vi|~Search,      action: ToggleViMode   }
+  - { key: Escape,    mode: Vi|~Search,      action: ScrollToBottom }
 
   # try and insert search mode directly
   - { key: M, mods: Control, mode: ~Vi|~Search, action: ToggleViMode }
