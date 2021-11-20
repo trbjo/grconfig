@@ -1,0 +1,32 @@
+set $ws2 workspace "2"
+set $ws3 workspace "3"
+set $ws7 workspace "7"
+set $ws8 workspace "8"
+set $ws9 workspace "9"
+
+$ws2 output DP-3
+$ws3 output DP-3
+$ws7 output DP-1
+$ws8 output DP-1
+$ws9 output DP-1
+
+bindsym --no-repeat ctrl+2 $ws2
+bindsym --no-repeat ctrl+3 [app_id="^PopUp$"] move scratchpad; [app_id="^firefox$" tiling] focus
+bindsym --no-repeat ctrl+7 $ws7
+bindsym --no-repeat ctrl+8 [app_id="^PopUp$"] move scratchpad; [app_id="^sublime_text$"] focus
+bindsym --no-repeat ctrl+9 $ws9
+
+# move focused container to workspace
+bindsym --no-repeat ctrl+Shift+2 move container to $ws2; $ws2; fullscreen disable
+bindsym --no-repeat ctrl+Shift+3 move container to $ws3; $ws3; fullscreen disable
+bindsym --no-repeat ctrl+Shift+7 move container to $ws7; $ws7; fullscreen disable
+bindsym --no-repeat ctrl+Shift+8 move container to $ws8; $ws8; fullscreen disable
+bindsym --no-repeat ctrl+Shift+9 move container to $ws9; $ws9; fullscreen disable
+
+#
+## Output
+#
+
+output 'Chimei Innolux Corporation 0x1515 0x00000000' resolution 1920x1080 pos 0 0 scale 1 subpixel rgb
+output 'Goldstar Company Ltd LG UltraFine 907NTUWBA398' resolution 3840x2160 pos 1921 0 scale 2 subpixel rgb
+output 'Goldstar Company Ltd LG UltraFine 909NTWG7R817' resolution 3840x2160 pos 3841 0 scale 2 subpixel rgb

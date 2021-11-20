@@ -1,3 +1,8 @@
+set $alt Mod1
+set $super Mod4
+
+include "~/.config/sway/`hostnamectl hostname`"
+
 #
 ### Input
 #
@@ -46,41 +51,14 @@ seat seat0 xcursor_theme Adwaita 24
 seat seat0 hide_cursor 15000
 seat seat0 hide_cursor when-typing enable
 
-#
-## Output
-#
-
-# output * bg "$HOME/pics/storebælt.jpg" fill
-output 'Unknown 0x422A 0x00000000' resolution 3000x2000 pos 0 0 scale 2 subpixel rgb
-output 'Chimei Innolux Corporation 0x1515 0x00000000' resolution 1920x1080 pos 0 0 scale 1 subpixel rgb
-output 'Panasonic Industry Company Panasonic-TV 0x00000101' resolution 1920x1080@60Hz pos 1921 0 scale 1 subpixel rgb
-
-output 'Goldstar Company Ltd LG UltraFine 611NTCZ8V987' resolution 4096x2304 pos 1921 0 scale 2 subpixel rgb
-output 'Goldstar Company Ltd LG UltraFine 909NTWG7R817' resolution 3840x2160 pos 1921 0 scale 2 subpixel rgb
-output 'Goldstar Company Ltd LG UltraFine 907NTUWBA398' resolution 3840x2160 pos 1921 0 scale 2 subpixel rgb
-
 # bindswitch --reload lid:on exec '! grep -q "enabled" /sys/class/drm/{card0-DP-1,card0-DP-2,card0-HDMI-A-1}/enabled && systemctl suspend || swaymsg output eDP-1 disable'
 bindswitch --locked --reload lid:on output eDP-1 disable
 bindswitch --locked --reload lid:off output eDP-1 enable
-
-set $ws1 workspace "1"
-set $ws2 workspace "2"
-set $ws3 workspace "3"
-set $ws4 workspace "4"
-set $ws5 workspace "5"
-
-$ws1 output eDP-1
-$ws2 output DP-1
-$ws3 output DP-1
-$ws4 output eDP-1
-$ws5 output DP-1
 
 #
 ## Keybindings
 #
 
-set $alt Mod1
-set $super Mod4
 bindsym $super+tab nop
 
 bindsym ctrl+alt+F1 nop
@@ -110,23 +88,6 @@ bindsym --no-repeat $alt+l output eDP-1 disable
 bindsym --no-repeat $alt+shift+l output eDP-1 enable
 
 
-bindsym --no-repeat ctrl+1 $ws1
-bindsym --no-repeat ctrl+2 [app_id="^PopUp$"] move scratchpad; [app_id="^sublime_text$"] focus
-bindsym --no-repeat ctrl+3 [app_id="^PopUp$"] move scratchpad; [app_id="^firefox$" tiling] focus
-bindsym --no-repeat ctrl+4 $ws4
-bindsym --no-repeat ctrl+5 $ws5
-
-
-# bindsym --no-repeat $alt+s splitv
-# bindsym --no-repeat $alt+d splith
-
-# move focused container to workspace
-bindsym --no-repeat ctrl+Shift+1 move container to $ws1; $ws1; fullscreen disable
-bindsym --no-repeat ctrl+Shift+2 move container to $ws2; $ws2; fullscreen disable
-bindsym --no-repeat ctrl+Shift+3 move container to $ws3; $ws3; fullscreen disable
-bindsym --no-repeat ctrl+Shift+4 move container to $ws4; $ws4; fullscreen disable
-bindsym --no-repeat ctrl+Shift+5 move container to $ws5; $ws5; fullscreen disable
-
 bindsym $alt+return exec /usr/bin/alacritty
 bindsym --no-repeat $alt+space [app_id="^PopUp$"] focus, fullscreen enable
 
@@ -153,21 +114,10 @@ bindsym --no-repeat $alt+shift+e layout toggle tabbed split
 
 # Move your focus around
 
-bindsym ctrl+down focus down
-bindsym ctrl+up focus up
-bindsym ctrl+left focus left
-bindsym ctrl+right focus right
-
 bindsym $alt+t focus down
 bindsym $alt+c focus up
 bindsym $alt+h focus left
 bindsym $alt+n focus right
-
-# move the focused window with the same, but add Shift
-bindsym ctrl+shift+down move down
-bindsym ctrl+shift+up move up
-bindsym ctrl+shift+left move left
-bindsym ctrl+shift+right move right
 
 bindsym $alt+shift+t move down
 bindsym $alt+shift+c move up
