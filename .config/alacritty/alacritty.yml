@@ -1211,6 +1211,7 @@ key_bindings:
   - { key: J, mode: Vi|~Search, action: ToggleViMode }
 
   - { key: N, mode: Vi|~Search, action: ToggleSemanticSelection }
+  - { key: N, mods: Shift, mode: Vi|~Search, action: ToggleLineSelection }
   - { key: N, mods: Control, mode: Vi|~Search, action: ToggleNormalSelection }
 
   #- { key: V,      mods: Shift,         mode: Vi, action: ToggleLineSelection     }
