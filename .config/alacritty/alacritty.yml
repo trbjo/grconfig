@@ -270,8 +270,8 @@ schemes:
       text: "0xFFFFFF"
       cursor: "#1F76D9"
     vi_mode_cursor:
-     text: "#00ff00"
-     cursor: "#D73A49"
+      text: "0xFFFFFF"
+      cursor: "#1F76D9"
     selection:
       text: "#24292E"
       background: "#DAE9F9"
@@ -537,8 +537,8 @@ schemes:
      text: "0xFFFFFF"
      cursor: "#F49800"
    vi_mode_cursor:
-    text: "#00ff00"
-    cursor: "#00ff00"
+    text: "0x000000"
+    cursor: "#F49800"
    selection:
      text: "#EBDBB2"
      background: "#504945"
@@ -712,12 +712,23 @@ window.opacity: 1.0
 
 cursor:
   # Cursor style
-  #
-  # Values for `style`:
-  #   - ▇ Block
-  #   - _ Underline
-  #   - | Beam
-  style: Beam
+  style:
+    # Cursor shape
+    #
+    # Values for `shape`:
+    #   - ▇ Block
+    #   - _ Underline
+      # - | Beam
+    shape: Beam
+
+    # Cursor blinking state
+    #
+    # Values for `blinking`:
+    #   - Never: Prevent the cursor from ever blinking
+    #   - Off: Disable blinking by default
+    #   - On: Enable blinking by default
+    #   - Always: Force the cursor to always blink
+    #blinking: Off
 
   # Vi mode cursor style
   #
@@ -725,7 +736,10 @@ cursor:
   # the style of the active value of the normal cursor.
   #
   # See `cursor.style` for available options.
-  #vi_mode_style: None
+  vi_mode_style: Block
+
+  # Cursor blinking interval in milliseconds.
+  #blink_interval: 750
 
   # If this is `true`, the cursor will be rendered as a hollow box when the
   # window is not focused.
