@@ -1084,8 +1084,11 @@ key_bindings:
   - { key: N,      mods: Control, mode: Search,     action: SearchHistoryNext     }
   - { key: Up,                    mode: Search,     action: SearchHistoryPrevious }
   - { key: Down,                  mode: Search,     action: SearchHistoryNext     }
-  - { key: Return,                mode: Search|Vi, action: SearchFocusNext       }
-  - { key: Return, mods: Shift,   mode: Search|Vi, action: SearchFocusPrevious   }
+
+  - { key: Return,                           mode: Vi|~Search, action: SearchNext            }
+  - { key: Return,      mods: Shift,         mode: Vi|~Search, action: SearchPrevious        }
+  - { key: Return,                           mode: Search|Vi, action: SearchFocusNext       }
+  - { key: Return,      mods: Shift,         mode: Search|Vi, action: SearchFocusPrevious   }
 
   # sends alt-b
   - { key: G, mods: Control, chars: "\x1bb" }
