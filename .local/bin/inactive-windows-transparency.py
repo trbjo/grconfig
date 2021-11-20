@@ -96,7 +96,8 @@ def on_window_focus(ipc, event):
         prev_workspace = workspace
 
     if len(focused_workspace.workspace().descendants()) == 1:
-        focused.command("fullscreen enable")
+        if len([output for output in ipc.get_outputs() if output.active]) == 1:
+            focused.command("fullscreen enable")
 
 
 def exit_handler(ipc):
@@ -178,7 +179,7 @@ def signal_handler(ipc, inactive_opacities):
 prev_focused = None
 
 if __name__ == "__main__":
-    transparency_val = "0.80"
+    transparency_val = [ "0.94", "0.7" ]
 
     parser = argparse.ArgumentParser(
         description="This script allows you to set the transparency of unfocused windows in sway."
