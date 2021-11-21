@@ -6,7 +6,7 @@ interval=once
 [netspeed]
 markup=pango
 command=$HOME/.local/bin/net-speed.sh
-interval=persist
+interval=1
 min_width=88
 align=left
 
@@ -32,7 +32,7 @@ min_width=60
 markup=pango
 command=/home/tb/.local/bin/cpu_usage2 -l "<span size=\"10000\"></span>" -d "0" -t "5"
 interval=persist
-min_width=60
+min_width=55
 
 [coffee]
 command=[ -f /tmp/inhibitScreen ] && echo "" || [ -f /tmp/inhibitSuspend ] && echo ""

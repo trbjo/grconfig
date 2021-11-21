@@ -84,7 +84,7 @@ bindsym --locked XF86WLAN exec doas /usr/bin/rfkill unblock wifi
 
 bindsym --no-repeat ctrl+space [title="^PopUp$"] scratchpad show, move position center, resize set width 100ppt height 100ppt, resize shrink up 1100px, resize grow up 337px
 
-bindsym --no-repeat $alt+l output eDP-1 disable
+bindsym --no-repeat $alt+l output eDP-1 disable, output DP-1 enable
 bindsym --no-repeat $alt+shift+l output eDP-1 enable
 
 
@@ -189,28 +189,15 @@ title_align center
 floating_maximum_size 2050 x 1154
 floating_minimum_size 10 x 10
 
-# colors
-set $TITLEBARBORDER #D0D4D8
-set $BGTITLEBARA #F5F7FA
-set $BGTITLEBARI #F7F9FC
-set $BGTITLEBARU #E6E8EA
+set $WHITE #FFFFFF
+set $BLACK #000000
+set $ACCENT #15539E
 
-set $FGA #404040
-set $FGU #506070
+client.focused           $WHITE  $WHITE   #404040   #5294e2  #5294e2
+client.focused_inactive  $WHITE  $WHITE   #404040   #E6E6E6  #E6E6E6
+client.unfocused         #c8c8c8  #D8D8D8   #506070   #E6E6E6  #E6E6E6
 
-set $BORDERA #E6E6E6
-set $BORDERI #FFFFFF40
-set $BORDERU #FFFFFF00
-
-client.focused           $TITLEBARBORDER  $BGTITLEBARA   $FGA   $BORDERA   $BORDERA
-client.focused_inactive  $TITLEBARBORDER  $BGTITLEBARI   $FGA   $BORDERI   $BORDERI
-client.unfocused         $TITLEBARBORDER  $BGTITLEBARU   $FGU   $BORDERU   $BORDERU
-
-set $BARFG #EFE8E0
-set $BARBLACK #000000
-set $BARWHITE #FFFFFF
-set $BARFGINACTIVE #908880
-set $BARACCENT #3584E4
+set $FGINACTIVE #908880
 
 bar {
     id one
@@ -220,18 +207,18 @@ bar {
     status_command i3blocks
     mode hide
     workspace_min_width 50
-    height 26
-    modifier Mod4
+    height 23
+    modifier $alt
     status_edge_padding 0
     separator_symbol " "
     strip_workspace_numbers yes
     colors {
-        statusline $BARFG
-        background $BARBLACK
-        binding_mode $BARBLACK $BARBLACK $BARACCENT
-        focused_workspace $BARBLACK $BARBLACK $BARWHITE
-        active_workspace $BARBLACK $BARBLACK $BARFG
-        inactive_workspace $BARBLACK $BARBLACK $BARFGINACTIVE
+        statusline $WHITE
+        background $BLACK
+        binding_mode $BLACK $BLACK $ACCENT
+        focused_workspace $BLACK $BLACK $WHITE
+        active_workspace $BLACK $BLACK $WHITE
+        inactive_workspace $BLACK $BLACK $FGINACTIVE
         }
 }
 
@@ -280,7 +267,6 @@ exec "systemctl --user import-environment"
 exec /usr/bin/mako
 exec /usr/bin/sh -c 'while pgrep sway > /dev/null 2>&1; do env PopUp=True /usr/bin/alacritty --class PopUp --title PopUp --command /usr/bin/zsh > /dev/null 2>&1; done'
 exec "/usr/bin/clipman restore"
-# exec "/usr/bin/wl-paste --type text --watch /usr/bin/clipman store --max-items=2000"
 exec '/usr/bin/wl-paste --type text --watch sh -c "if [[ -f /tmp/clipman_ignore ]]; then rm /tmp/clipman_ignore; else /usr/bin/clipman store --max-items=2000; fi"'
 exec /usr/bin/swayidle \
     timeout 30 'pgrep swaylockd && swaymsg "output * dpms off" && grep -q 0 /sys/class/power_supply/AC0/online && [ ! -f /tmp/inhibitSuspend ] && /usr/bin/systemctl suspend' \
@@ -295,6 +281,8 @@ exec /usr/bin/swayidle \
     timeout 360 '[ ! -f /tmp/inhibitScreen ] && loginctl lock-session && light -S 0' \
     timeout 362 'swaymsg "output * dpms off"'\
     before-sleep "! grep -q "enabled" /sys/class/drm/{card0-DP-1,card0-DP-2,card0-HDMI-A-1}/enabled && swaymsg output eDP-1 enable ; loginctl lock-session"\
-    after-resume "if [[ \$(ps -o etimes= -p \$(pgrep --oldest swaylockd)) -lt 300 ]]; then pkill -9 swaylockd; fi; swaymsg 'output * enable, output * dpms on'"\
+    after-resume "swaymsg 'output * enable, output * dpms on'"\
     lock 'playerctl pause; if ! pgrep -x swaylockd > /dev/null 2>&1; then swaymsg bar one workspace_buttons no, bar one mode overlay; swaylockd; loginctl unlock-session; fi' \
     unlock 'swaymsg bar one mode hide, bar one workspace_buttons yes'
+
+    # after-resume "if [[ \$(ps -o etimes= -p \$(pgrep --oldest swaylockd)) -lt 300 ]]; then pkill -9 swaylockd; fi; swaymsg 'output * enable, output * dpms on'"\

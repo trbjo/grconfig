@@ -3,8 +3,8 @@
 # interface=(/sys/class/net/???*)
 # interface=/sys/devices/pci0000:00/0000:00:1d.2/0000:3c:00.0/net/wlan0
 # interface=/sys/devices/pci0000:00/0000:00:1d.0/0000:03:00.0/0000:04:02.0/0000:3b:00.0/usb4/4-1/4-1.1/4-1.1:1.0/net/enp59s0u1u1
-# interface=/sys/class/net/wlan0
-interface=/sys/class/net/enp0s31f6
+interface=/sys/class/net/wlan0
+# interface=/sys/class/net/enp0s31f6
 # interface=/sys/devices/virtual/net/tun0
 
 readable() {
@@ -37,12 +37,12 @@ readable() {
 
 
 
-while true; do
+# while true; do
     read last_rx < "${interface}/statistics/rx_bytes"
     read last_tx < "${interface}/statistics/tx_bytes"
     sleep 1
     read rx < "${interface}/statistics/rx_bytes"
     read tx < "${interface}/statistics/tx_bytes"
     printf "↓$(readable $((rx - last_rx))) ↑$(readable $((tx - last_tx)))\n" || exit 1
-done
+# done
 

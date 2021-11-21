@@ -49,6 +49,12 @@ format=<span size='11000' weight='bold'>%s</span>\n%b
 default-timeout=3000
 group-by=app-icon
 
+[app-name="NETSPEED"]
+format=<span size='11000' weight='normal'>%s\n%b</span>
+default-timeout=3000
+width=100
+group-by=app-name
+
 [app-icon=camera-photo]
 format=<span size='11000' weight='bold'>%s</span>\n%b
 group-by=app-icon
