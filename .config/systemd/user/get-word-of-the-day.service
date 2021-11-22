@@ -5,12 +5,9 @@ Description=update word of the day
 Type=oneshot
 RemainAfterExit=false
 #ExecStartPre=/usr/lib/systemd/systemd-networkd-wait-online --interface=wlan0 --timeout=86400 --operational-state=routable
-#ExecStart=/usr/bin/sh -c '/usr/bin/curl -o - -s http://www.germaneveryday.com/feed/ | rg --no-config --color never -o "<description><!\[CDATA\[(.+)]]></description>" --max-count 1 -r \$1 | sed -r -e "s/&#8217;/’/" | sed -r -e "s/^(.{105})..+$/\1…/"'
-ExecStart=/usr/bin/alacritty
-#ExecStartPost=/usr/bin/sleep 3
-#ExecStartPost=/usr/bin/pkill -RTMIN+14 i3blocks
-StandardOutput=%h/.wordoftheday
-#StandardError=null
+ExecStart=/usr/bin/sh -c '/usr/bin/curl -o - -s http://www.germaneveryday.com/feed/ | rg --no-config --color never -o "<description><!\[CDATA\[(.+)]]></description>" --max-count 1 -r \$1 | sed -r -e "s/&#8217;/’/" | sed -r -e "s/^(.{195})..+$/\1…/" > ~/.wordoftheday'
+ExecStartPost=/usr/bin/sleep 3
+ExecStartPost=/usr/bin/pkill -RTMIN+14 i3blocks
 
 [Install]
 WantedBy=default.target
