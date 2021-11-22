@@ -236,7 +236,7 @@ case $(bemenu --prompt 'Actions' <<< "  ${list//$'\n'/   $'\n'  }   ") in
         ;;
 
 
-    '   Hibernate  ')
+    '   Hibernate   ')
         dbus-send --system --print-reply --dest=org.freedesktop.login1 /org/freedesktop/login1 "org.freedesktop.login1.Manager.Hibernate" boolean:true
         ;;
 
@@ -251,7 +251,7 @@ case $(bemenu --prompt 'Actions' <<< "  ${list//$'\n'/   $'\n'  }   ") in
         ;;
 
 
-    '   Sublime Merge  ')
+    '   Sublime Merge   ')
         swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^sublime_merge$"] focus'
         /opt/sublime_text/sublime_text --fwdargv0 "$0" --command goto_sublime_current_dir
         /opt/sublime_merge/sublime_merge --fwdargv0 "$0" "$(cat /tmp/sublfile)" || /opt/sublime_merge/sublime_merge
