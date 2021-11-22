@@ -208,7 +208,7 @@ bar {
     workspace_min_width 50
     height 22
     modifier $alt
-    status_edge_padding 0
+    status_edge_padding 6
     separator_symbol " "
     strip_workspace_numbers yes
     colors {
