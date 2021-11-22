@@ -4,11 +4,11 @@ set $ws7 workspace "7"
 set $ws8 workspace "8"
 set $ws9 workspace "9"
 
-$ws2 output DP-1
-$ws3 output DP-1
-$ws7 output DP-3
-$ws8 output DP-3
-$ws9 output DP-3
+$ws2 output DP-3
+$ws3 output DP-3
+$ws7 output DP-1
+$ws8 output DP-1
+$ws9 output DP-1
 
 bindsym --no-repeat ctrl+2 $ws2
 bindsym --no-repeat ctrl+3 [app_id="^PopUp$"] move scratchpad; [app_id="^firefox$" tiling] focus

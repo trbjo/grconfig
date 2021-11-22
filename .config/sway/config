@@ -191,7 +191,6 @@ floating_minimum_size 10 x 10
 
 set $WHITE #FFFFFF
 set $BLACK #000000
-set $ACCENT #15539E
 
 client.focused           $WHITE  $WHITE   #404040   #5294e2  #5294e2
 client.focused_inactive  $WHITE  $WHITE   #404040   #E6E6E6  #E6E6E6
@@ -215,7 +214,7 @@ bar {
     colors {
         statusline $WHITE
         background $BLACK
-        binding_mode $BLACK $BLACK $ACCENT
+        binding_mode $BLACK $BLACK #3584E4
         focused_workspace $BLACK $BLACK $WHITE
         active_workspace $BLACK $BLACK $WHITE
         inactive_workspace $BLACK $BLACK $FGINACTIVE
