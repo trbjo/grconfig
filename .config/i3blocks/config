@@ -7,8 +7,8 @@ interval=once
 markup=pango
 command=$HOME/.local/bin/net-speed.sh
 interval=1
-min_width=88
-align=left
+min_width=102
+align=center
 
 # [transmission]
 # command=transmission-remote -l | tail -n +2 | sed '/Unknown/d' | awk 'FNR == 1 {print " " $5 " " $6}'
