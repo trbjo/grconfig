@@ -1,11 +1,22 @@
 #!/usr/bin/env sh
 
-# interface=(/sys/class/net/???*)
-# interface=/sys/devices/pci0000:00/0000:00:1d.2/0000:3c:00.0/net/wlan0
-# interface=/sys/devices/pci0000:00/0000:00:1d.0/0000:03:00.0/0000:04:02.0/0000:3b:00.0/usb4/4-1/4-1.1/4-1.1:1.0/net/enp59s0u1u1
-interface=/sys/class/net/wlan0
-# interface=/sys/class/net/enp0s31f6
-# interface=/sys/devices/virtual/net/tun0
+interfaces=(/sys/class/net/???*)
+
+for iface in ${interfaces[@]}; do
+    case ${iface##*/} in
+        tun**)
+            interface=$iface
+            break
+            ;;
+        enp**)
+            interface=$iface
+            break
+            ;;
+        *)
+            interface=$iface
+            ;;
+    esac
+done
 
 readable() {
     local bytes=$1
