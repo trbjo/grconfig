@@ -207,7 +207,7 @@ bar {
     status_command i3blocks
     mode hide
     workspace_min_width 50
-    height 23
+    height 22
     modifier $alt
     status_edge_padding 0
     separator_symbol " "
