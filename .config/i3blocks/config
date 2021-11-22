@@ -10,23 +10,19 @@ interval=1
 min_width=102
 align=center
 
-# [transmission]
-# command=transmission-remote -l | tail -n +2 | sed '/Unknown/d' | awk 'FNR == 1 {print " " $5 " " $6}'
-# interval=20
-
-
-# [git]
-# markup=pango
-# command=/usr/bin/git -C $(</tmp/sublfile) status --porcelain | awk '/^M./{b++}END{printf "<span foreground=\"#A5F89D\">+"b"</span>  "}; /^.M/{c++}END{printf "<span foreground=\"#FFBF50\">!"c"</span>  "}; /\?\?/{a++}END{printf "<span foreground=\"#3584E4\">?"a"</span>  "};END{printf "\n"}'
-# signal=15
-# interval=10
-
 [net]
 markup=pango
-command=grep --fixed-strings -q "TOR" /vpn/name && printf "<span foreground=\"#9A54B5\"" || printf "<span " ; grep -q --fixed-strings 'up' /sys/class/net/enp*/operstate && printf "></span>\n" || awk 'FNR==NR{if ($1 == "down") { print "></span><span foreground=\"#908880\" size=\"11000\" weight=\"100\"></span>" } else { printf "size=\"11000\" weight=\"100\"> </span>"}} /wlan0/{print "<span rise=\"700\" size=\"10000\" >"int($3 * 100 / 70)"%</span>" }' /sys/class/net/wlan0/operstate /proc/net/wireless
+command=grep --fixed-strings -q "TOR" /vpn/name && printf "<span foreground=\"#9A54B5\"" || printf "<span " ; grep -q --fixed-strings 'up' /sys/class/net/enp*/operstate && printf "></span>\n"
 signal=13
 interval=10
-min_width=60
+min_width=35
+
+[netquality]
+markup=pango
+command=grep -q --fixed-strings 'up' /sys/class/net/wlan0/operstate && awk 'FNR==NR{if ($1 == "down") { print "></span><span foreground=\"#908880\" size=\"11000\" weight=\"100\"></span>" } else { printf "size=\"11000\" weight=\"100\"> </span>"}} /wlan0/{print "<span rise=\"700\" size=\"10000\" >"int($3 * 100 / 70)"%</span>" }' /sys/class/net/wlan0/operstate /proc/net/wireless
+signal=13
+interval=10
+min_width=35
 
 [cpu]
 markup=pango
