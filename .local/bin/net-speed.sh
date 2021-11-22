@@ -12,8 +12,12 @@ for iface in ${interfaces[@]}; do
             interface=$iface
             break
             ;;
-        *)
+        wlan**)
             interface=$iface
+            break
+            ;;
+        *)
+            exit
             ;;
     esac
 done
