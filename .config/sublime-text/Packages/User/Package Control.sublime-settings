@@ -3,6 +3,7 @@
 	[
 		"https://github.com/deathaxe/sublime-align-cursors",
 	    "https://github.com/deathaxe/sublime-commands",
+	    "https://github.com/trobjo-telia/RemoteSubl",
 	    "https://github.com/trobjo/sublime-text-git",
 	    "https://github.com/sublimelsp/LSP",
 	    "https://github.com/trobjo/sublime-fly-keys",
@@ -11,6 +12,7 @@
 	"package_name_map":
 	{
 	    "AdaptiveOverride": "AdaptiveOverride",
+	    "RemoteSubl": "RemoteSubl",
 	    "sublime-align-cursors": "Align Cursors",
 	    "sublime-commands": "Default",
 	    "sublime-text-git": "Git Enhanced",
@@ -48,7 +50,6 @@
 		"Pretty JSON",
 		"rainbow_csv",
 		"Razor",
-		"RemoteSubl",
 		"Sass",
 		"Snowflake",
 		"SqlBeautifier",
