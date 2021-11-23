@@ -19,7 +19,7 @@ min_width=35
 
 [wifi]
 markup=pango
-command=grep -q --fixed-strings 'up' /sys/class/net/wlan0/operstate && awk 'FNR==NR{if ($1 == "down") { print "<span foreground=\"#908880\" size=\"11000\" weight=\"100\"></span>" } else { printf "<span size=\"11000\" weight=\"100\"> </span>"}} /wlan0/{print "<span rise=\"700\" size=\"10000\" >"int($3 * 100 / 70)"%</span>" }' /sys/class/net/wlan0/operstate /proc/net/wireless
+command=systemctl is-active --quiet iwd.service && awk 'FNR==NR{if ($1 == "down") { print "<span foreground=\"#908880\" size=\"11000\" weight=\"100\"></span>" } else { printf "<span size=\"11000\" weight=\"100\"> </span>"}} /wlan0/{print "<span rise=\"700\" size=\"10000\" >"int($3 * 100 / 70)"%</span>" }' /sys/class/net/wlan0/operstate /proc/net/wireless
 signal=13
 interval=10
 min_width=58

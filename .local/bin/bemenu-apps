@@ -17,7 +17,7 @@ else
 fi
 
 
-if rfkill list | grep -q 'Soft blocked: no'; then
+if systemctl is-active --quiet iwd; then
     wifi="OFF"
 else
     wifi="ON"
