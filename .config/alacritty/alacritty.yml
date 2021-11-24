@@ -1091,6 +1091,7 @@ key_bindings:
   - { key: T, mods: Control,     mode: Search,     action: SearchHistoryNext }
   - { key: T,      mods: Control,       mode: Vi, action: ScrollHalfPageDown      }
   - { key: T,      mods: Control,       mode: Vi, action: Middle      }
+  - { key: L,      mods: Control|Shift,  action: ClearHistory      }
 
   # inserts newline without enter
   # - { key: Return, mods: Shift, chars: "\x16\x0A" }
