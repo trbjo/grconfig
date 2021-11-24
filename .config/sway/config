@@ -162,8 +162,8 @@ bindsym $alt+y [app_id=^firefox$] focus; exec 'set -o noglob ; clipboard=$(wl-pa
 bindsym $alt+i [app_id=^firefox$] focus; exec 'set -o noglob ; clipboard=$(wl-paste --primary -n); grep "^https\\?://.\+\.\w\{2,3\}" <<< $clipboard && /usr/bin/firefox --new-tab "$clipboard" || /usr/bin/firefox --new-tab "https://duckduckgo.com/?t=ffab&q=${clipboard}"'
 bindsym $alt+s fullscreen disable; exec bemenu-apps
 bindsym $alt+p fullscreen disable; exec bemenu-pw
-bindsym $alt+b fullscreen disable; exec pgrep wofi && pkill -9 wofi || clipman pick --tool wofi -T'--prompt=Clipboard --height=30% --width=30% --columns=5 -i -I --xoffset=660 --yoffset=-2'
-bindsym $alt+m exec xdg-open "$(file=$(ls --color=never -ctd1 ${XDG_DOWNLOAD_DIR}/* | wofi -i --show=dmenu); touch $file; echo -n $file)"
+bindsym $alt+b fullscreen disable; exec pgrep wofi && pkill -9 wofi || clipman pick --tool wofi -T'--prompt=Clipboard --height=30% --width=30% -i -I --xoffset=660 --yoffset=-2'
+bindsym $alt+m exec xdg-open "$(cd ${XDG_DOWNLOAD_DIR}; file=$(ls --color=never -d1 * | wofi -i --height=30% --width=30% -i -I --xoffset=660 --yoffset=-2 --prompt=Downloads --show=dmenu); if [[ -e $file ]]; then touch $file; echo -n ${XDG_DOWNLOAD_DIR}/$file; fi)"
 
 
 bindsym $alt+o exec quicknotes.py
