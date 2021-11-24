@@ -1,6 +1,6 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
-/usr/bin/pgrep bemenu && exit
+/usr/bin/pgrep -x bemenu && exit
 
 candidate=$(/usr/bin/fd . --extension gpg --base-directory $HOME/.password-store |\
 sed -e 's/.gpg$//' |\
