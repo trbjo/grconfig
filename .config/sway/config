@@ -163,6 +163,8 @@ bindsym $alt+i [app_id=^firefox$] focus; exec 'set -o noglob ; clipboard=$(wl-pa
 bindsym $alt+s fullscreen disable; exec bemenu-apps
 bindsym $alt+p fullscreen disable; exec bemenu-pw
 bindsym $alt+b fullscreen disable; exec pgrep wofi && pkill -9 wofi || clipman pick --tool wofi -T'--prompt=Clipboard --height=30% --width=30% --columns=5 -i -I --xoffset=660 --yoffset=-2'
+bindsym $alt+m exec xdg-open "$(file=$(ls --color=never -ctd1 ${XDG_DOWNLOAD_DIR}/* | wofi -i --show=dmenu); touch $file; echo -n $file)"
+
 
 bindsym $alt+o exec quicknotes.py
 bindsym $alt+e [app_id=^sublime_text$] focus, exec /opt/sublime_text/sublime_text $HOME/quicknotes.md
