@@ -1,25 +1,12 @@
 #!/usr/bin/env sh
 
-interfaces=(/sys/class/net/???*)
+actual_interfaces=(/sys/class/net/???*)
+priorities=("tun" "enp" "wlan")
 
-for iface in ${interfaces[@]}; do
-    case ${iface##*/} in
-        tun**)
-            interface=$iface
-            break
-            ;;
-        enp**)
-            interface=$iface
-            break
-            ;;
-        wlan**)
-            interface=$iface
-            break
-            ;;
-        *)
-            exit
-            ;;
-    esac
+for iface in ${actual_interfaces[@]}; do
+    for priority in ${priorities[@]}; do
+        [[ ${iface##*/} == $priority** ]] && interface=$iface && break 2
+    done
 done
 
 readable() {
