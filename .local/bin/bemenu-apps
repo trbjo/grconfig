@@ -188,8 +188,8 @@ case $(bemenu --prompt 'Actions' <<< "  ${list//$'\n'/   $'\n'  }   ") in
 
     '   Teams   ')
         swaymsg -q -- '[app_id="^PopUp$"] move scratchpad'
-        swaymsg -q -- '[app_id="^\/usr\/bin\/chromium-snapshot-bin$" title="^Microsoft Teams$"] focus' ||\
-        /usr/bin/chromium-snapshot-bin  --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://teams.microsoft.com/'
+        swaymsg -q -- '[app_id="^microsoft-edge-dev$"] focus' ||\
+        /opt/microsoft/msedge-dev/microsoft-edge-dev --enable-features=UseOzonePlatform --ozone-platform=wayland 'teams.microsoft.com'
         ;;
 
 
