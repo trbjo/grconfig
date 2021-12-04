@@ -44,6 +44,7 @@
         "active_guide": "var(magenta0)",
         "background": "var(background)",
         "bracket_contents_foreground": "var(accent)",
+        "block_caret": "color(var(accent) alpha(0.3))",
         "bracket_contents_options": "bold",
         "brackets_foreground": "var(accent)",
         "brackets_options": "bold",

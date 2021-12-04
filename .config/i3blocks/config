@@ -46,4 +46,3 @@ signal=12
 command=date "+%a %-d %h %H.%M"
 signal=12
 interval=10
-min_width=126
