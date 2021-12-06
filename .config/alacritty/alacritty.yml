@@ -275,6 +275,10 @@ schemes:
     selection:
       text: "#24292E"
       background: "#DAE9F9"
+    line_indicator:
+     background: "#F0F4F8"
+     foreground: "#1d1f21"
+
 
     # Normal colors
     normal:
@@ -547,7 +551,7 @@ schemes:
      black: "#000000"
      red: "#FB4934"
      # this is light blue instead. for strings
-     green: "#B8BB26"
+     green: "#CCCF3A"
      yellow: "#FABD2F"
      blue: "#83A598"
      cyan: "#8EC07C"

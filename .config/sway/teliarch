@@ -27,6 +27,7 @@ bindsym --no-repeat ctrl+Shift+9 move container to $ws9; $ws9; fullscreen disabl
 ## Output
 #
 
+output 'Goldstar Company Ltd LG UltraFine 611NTCZ8V987' resolution 4096x2304 pos 1921 0 scale 2 subpixel rgb
 output 'Chimei Innolux Corporation 0x1515 0x00000000' resolution 1920x1080 pos 0 0 scale 1 subpixel rgb
 output 'Goldstar Company Ltd LG UltraFine 907NTUWBA398' resolution 3840x2160 pos 1921 0 scale 2 subpixel rgb
 output 'Goldstar Company Ltd LG UltraFine 909NTWG7R817' resolution 3840x2160 pos 3841 0 scale 2 subpixel rgb
