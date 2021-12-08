@@ -259,6 +259,7 @@ for_window [app_id="^imv$"] title_format "<span weight='100' foreground='#3874C7
 for_window [app_id="^mpv$"] title_format "<span weight='100' foreground='#FF0000'></span>  %title"
 for_window [app_id="^Google-chrome-unstable$" title="^Microsoft Teams$"] title_format "<span weight='100' foreground='#6264A7'></span>  Microsoft Teams"
 for_window [app_id="-Telegram_Desktop$" title="^Telegram$"] title_format "<span weight='100' foreground='#2FA5D8'></span>  %title"
+for_window [app_id="^firefox$"] title_format "<span weight='100' foreground='#E66700'></span>  %title"
 for_window [app_id="Signal$" title="^Signal$"] title_format "<span weight='100' foreground='#3A76F0'></span>  %title"
 for_window [app_id="firefox$" title="^Picture-in-Picture$"] floating enable, sticky enable, resize set 300 170, move position 2 28
 
