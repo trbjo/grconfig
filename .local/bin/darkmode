@@ -61,7 +61,7 @@ set_values() {
 
     export TITLEBARBORDERA_$DARK="#1D2021"
     export TITLEBARBORDERI_$DARK="#1D2021"
-    export TITLEBARBORDERU_$DARK="#25292B${DARK_OPACITY}"
+    export TITLEBARBORDERU_$DARK="#000808${DARK_OPACITY}"
 
     # sway, zathura, mako
     # FGA_$DARK="#EBDBB2"
