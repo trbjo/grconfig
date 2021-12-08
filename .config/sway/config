@@ -177,7 +177,7 @@ bindsym --no-repeat $alt+Print exec 'pgrep slurp || (curdate=$(date +"Screenshot
 ## Appearance
 #
 
-font pango:SF Pro Display Medium 10
+font pango:Inter Medium 9
 
 default_border pixel 2
 gaps inner 0
@@ -204,7 +204,7 @@ set $FGINACTIVE #908880
 bar {
     id one
     position top
-    font SF Pro Display Medium 11
+    font Inter Medium 10
     pango_markup enabled
     status_command i3blocks
     mode hide
