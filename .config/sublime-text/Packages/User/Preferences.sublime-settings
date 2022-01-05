@@ -104,6 +104,7 @@
 		"target/rls"
 	],
 	"file_tab_style": "square",
+	"font_face": "monospace",
 	"font_size": 8.9,
 	"hardware_acceleration": "opengl",
 	"ignored_packages": [

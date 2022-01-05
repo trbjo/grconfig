@@ -17,8 +17,15 @@ bindsym --no-repeat ctrl+Shift+7 move container to $ws7; $ws7; fullscreen disabl
 bindsym --no-repeat ctrl+Shift+8 move container to $ws8; $ws8; fullscreen disable
 bindsym --no-repeat ctrl+Shift+9 move container to $ws9; $ws9; fullscreen disable
 
+
+bindsym --no-repeat $alt+l output DP-1 disable
+bindsym --no-repeat $alt+shift+l output DP-1 enable
+
+
 #
 ## Output
 #
 
-output 'Goldstar Company Ltd LG UltraFine 611NTCZ8V987' resolution 4096x2304 pos 1921 0 scale 2 subpixel rgb
+output 'Goldstar Company Ltd LG UltraFine 907NTUWBA398' resolution 3840x2160 pos 0 0 scale 2 subpixel rgb
+output 'Goldstar Company Ltd LG UltraFine 909NTWG7R817' resolution 3840x2160 pos 1921 0 scale 2 subpixel rgb
+

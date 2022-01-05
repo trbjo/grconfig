@@ -1,58 +1,59 @@
-#!/usr/bin/bash
+#!/usr/bin/zsh
 
 /usr/bin/pgrep -x bemenu && exit
 
-if pgrep -x wf-recorder > /dev/null 2>&1; then
-    recorder="Stop Recording"
-else
-    recorder="Record Desktop"
-fi
+IFS=$'\n'
+typeset -a list
+
+[[ $commands[firefox] ]] && list+=(" Firefox" " Firefox (Private Window)")
+[[ $commands[subl] ]] && list+=(" Sublime Text")
+[[ $commands[smerge] ]] && list+=(" Sublime Merge")
+[[ $commands[baobab] ]] && list+=(" Disk Usage")
+[[ $commands[telegram-desktop] ]] && list+=(" Telegram")
+[[ $commands[pavucontrol] ]] && list+=(" SoundControl")
+
+[[ $commands[darkmode] ]] &&  {
+    theme="$(gsettings get org.gnome.desktop.interface gtk-theme)"
+    if [[ $theme  == "'Adwaita'" ]]; then
+        list+=(" Dark Mode")
+    else
+        list+=(" Light Mode")
+    fi
+}
+
+[[ $commands[wf-recorder] ]] && {
+    if pgrep -x wf-recorder > /dev/null 2>&1; then
+        recorder="Stop Recording"
+    else
+        recorder="Record Desktop"
+    fi
+    list+=(" $recorder")
+}
+
+[[ $commands[code] ]] && list+=(" VSCode")
+[[ $commands[grim] ]] && list+=(" Screenshot (Whole Screen)" " Screenshot (Whole Screen, Delay)") && \
+[[ $commands[slurp] ]] && list+=(" Screenshot (Subset)")
+[[ $commands[foot] ]] && list+=(" Foot Terminal")
+[[ $commands[quicknotes.py] ]] && list+=(" Add to Quicknotes" " Open Quicknotes")
+[[ $commands[wl-paste] ]] && list+=(" Upload Clipboard" " Upload Clipboard (Primary)")
+
+[[ $commands[iwctl] ]] && {
+    if systemctl is-active --quiet iwd; then
+        wifi="OFF"
+    else
+        wifi="ON"
+    fi
+    list+=(" Turn WiFi $wifi")
+}
 
 
-theme="$(gsettings get org.gnome.desktop.interface gtk-theme)"
-if [[ $theme  == "'Adwaita'" ]]; then
-    mode=" Dark Mode"
-else
-    mode=" Light Mode"
-fi
+[[ $commands[swaylock] ]] && list+=(" Lock")
+[[ $commands[chromium-snapshot-bin] ]] && list+=(" Discord")
 
+[[ "$HOST" == "teliarch" ]] && list+=(" Slack" " Teams")
+[[ $commands[dbus-send] ]] && list+=(" Suspend" " Reboot" " Poweroff")
 
-if systemctl is-active --quiet iwd; then
-    wifi="OFF"
-else
-    wifi="ON"
-fi
-
-
-list="\
- Firefox
- Sublime Text
- Slack
- Telegram
- Disk Usage
- VSCode
-$mode
- Sublime Merge
- Teams
- Discord
- SoundControl
- $recorder
- Screenshot (Whole Screen)
- Screenshot (Whole Screen, Delay)
- Screenshot (Subset)
- Lock
- Suspend
- Reboot
- Poweroff
- Firefox (Private Window)
- Turn WiFi $wifi
- Upload Clipboard
- Upload Clipboard (Primary)
- Open Quicknotes
- Add to Quicknotes
- Foot Terminal"
-
-case $(bemenu --prompt 'Actions' <<< "  ${list//$'\n'/   $'\n'  }   ") in
+case $(bemenu --prompt 'Actions' <<< ${${list[@]/#/  }/%/   }) in
     '   Firefox   ')
         swaymsg -q --  '[app_id="^PopUp$"] move scratchpad'
         swaymsg -q --  '[app_id="^firefox$" tiling] focus' || /usr/bin/firefox

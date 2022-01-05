@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 actual_interfaces=(/sys/class/net/???*)
-priorities=("tun" "enp" "wlan")
+priorities=("tun" "en" "wl")
 
 for iface in ${actual_interfaces[@]}; do
     for priority in ${priorities[@]}; do
