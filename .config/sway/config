@@ -2,7 +2,7 @@ set $alt Mod1
 set $super Mod4
 
 include "~/.config/sway/`hostnamectl hostname`"
-include "~/.config/sway/stationary"
+include "~/.config/sway/this_pc"
 
 #
 ### Input
