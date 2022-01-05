@@ -2,6 +2,7 @@ set $alt Mod1
 set $super Mod4
 
 include "~/.config/sway/`hostnamectl hostname`"
+include "~/.config/sway/stationary"
 
 #
 ### Input
@@ -263,7 +264,6 @@ for_window [app_id="^firefox$"] title_format "<span weight='100' foreground='#E6
 for_window [app_id="Signal$" title="^Signal$"] title_format "<span weight='100' foreground='#3A76F0'></span>  %title"
 for_window [app_id="firefox$" title="^Picture-in-Picture$"] floating enable, sticky enable, resize set 300 170, move position 2 28
 
-
 exec "python ~/.local/bin/inactive-windows-transparency.py"
 exec "dbus-update-activation-environment --systemd --all"
 exec "systemctl --user import-environment"
@@ -271,7 +271,3 @@ exec /usr/bin/mako
 exec /usr/bin/sh -c 'while pgrep sway > /dev/null 2>&1; do env PopUp=True /usr/bin/alacritty --class PopUp --title PopUp --command /usr/bin/zsh > /dev/null 2>&1; done'
 exec "/usr/bin/clipman restore"
 exec '/usr/bin/wl-paste --type text --watch sh -c "if [[ -f /tmp/clipman_ignore ]]; then rm /tmp/clipman_ignore; else /usr/bin/clipman store --max-items=2000; fi"'
-
-    # after-resume "if [[ \$(ps -o etimes= -p \$(pgrep --oldest swaylockd)) -lt 300 ]]; then pkill -9 swaylockd; fi; swaymsg 'output * enable, output * dpms on'"\
-
-include "~/.config/sway/swayidle-stationary"
