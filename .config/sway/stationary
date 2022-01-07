@@ -32,8 +32,8 @@ bindsym --no-repeat $alt+shift+l output DP-1 enable
 ## Output
 #
 
-output 'Goldstar Company Ltd LG UltraFine 907NTUWBA398' resolution 3840x2160 pos 0 0 scale 2 subpixel rgb
-output 'Goldstar Company Ltd LG UltraFine 909NTWG7R817' resolution 3840x2160 pos 1921 0 scale 2 subpixel rgb
+output 'Goldstar Company Ltd LG UltraFine 909NTWG7R817' resolution 3840x2160 pos 0 0 scale 2 subpixel rgb
+output 'Goldstar Company Ltd LG UltraFine 907NTUWBA398' resolution 3840x2160 pos 1921 0 scale 2 subpixel rgb
 
 exec /usr/bin/swayidle\
     timeout 300 'swaymsg "output * dpms off"'\
