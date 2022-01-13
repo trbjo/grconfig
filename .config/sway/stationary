@@ -11,9 +11,9 @@ $ws8 output DP-2
 $ws9 output DP-2
 
 bindsym --no-repeat ctrl+2 $ws2
-bindsym --no-repeat ctrl+3 [app_id="^PopUp$"] move scratchpad; [app_id="^firefox$" tiling] focus
+bindsym --no-repeat ctrl+3 $ws3
 bindsym --no-repeat ctrl+7 $ws7
-bindsym --no-repeat ctrl+8 [app_id="^PopUp$"] move scratchpad; [app_id="^sublime_text$"] focus
+bindsym --no-repeat ctrl+8 $ws8
 bindsym --no-repeat ctrl+9 $ws9
 
 # move focused container to workspace
