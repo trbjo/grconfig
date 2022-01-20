@@ -3,8 +3,8 @@
 actual_interfaces=(/sys/class/net/???*)
 priorities=("tun" "en" "wl")
 
-for iface in ${actual_interfaces[@]}; do
-    for priority in ${priorities[@]}; do
+for priority in ${priorities[@]}; do
+    for iface in ${actual_interfaces[@]}; do
         [[ ${iface##*/} == $priority** ]] && interface=$iface && break 2
     done
 done
