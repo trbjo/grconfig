@@ -8,7 +8,8 @@ typeset -a list
 [[ $commands[firefox] ]] && list+=(" Firefox" " Firefox (Private Window)")
 [[ $commands[subl] ]] && list+=(" Sublime Text")
 [[ $commands[smerge] ]] && list+=(" Sublime Merge")
-[[ $commands[baobab] ]] && list+=(" Disk Usage")
+[[ $commands[baobab] ]] && list+=(" Disk Usage")
+[[ $commands[gnome-disks] ]] && list+=(" Disk Utility")
 [[ $commands[telegram-desktop] ]] && list+=(" Telegram")
 [[ $commands[pavucontrol] ]] && list+=(" SoundControl")
 
@@ -113,9 +114,15 @@ case $(bemenu --prompt 'Actions' <<< ${${list[@]/#/  }/%/   }) in
         ;;
 
 
-    '   Disk Usage   ')
+    '   Disk Usage   ')
         swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^baobab$"] focus'
         /usr/bin/baobab
+        ;;
+
+
+    '   Disk Utility   ')
+        swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^gnome-disks$"] focus'
+        /usr/bin/gnome-disks
         ;;
 
 
@@ -254,7 +261,9 @@ case $(bemenu --prompt 'Actions' <<< ${${list[@]/#/  }/%/   }) in
 
     '   Sublime Merge   ')
         swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^sublime_merge$"] focus'
-        /opt/sublime_text/sublime_text --fwdargv0 "$0" --command goto_sublime_current_dir
+        if pgrep -x sublime_text; then
+            /opt/sublime_text/sublime_text --fwdargv0 "$0" --command goto_sublime_current_dir
+        fi
         /opt/sublime_merge/sublime_merge --fwdargv0 "$0" "$(cat /tmp/sublfile)" || /opt/sublime_merge/sublime_merge
         ;;
 
@@ -354,8 +363,8 @@ case $(bemenu --prompt 'Actions' <<< ${${list[@]/#/  }/%/   }) in
 
 
     *)
-        elems=$(swaymsg -t get_tree | jq -r '[.. | ((.floating_nodes,.nodes)? // empty)[] | select(.pid and .visible)] | length')
-        (( elems == 1 )) && swaymsg fullscreen enable
+        # elems=$(swaymsg -t get_tree | jq -r '[.. | ((.floating_nodes,.nodes)? // empty)[] | select(.pid and .visible)] | length')
+        # (( elems == 1 )) && swaymsg fullscreen enable
         ;;
 
 
