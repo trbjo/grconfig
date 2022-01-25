@@ -208,7 +208,7 @@ bar {
     font Inter Medium 10
     pango_markup enabled
     status_command i3blocks
-    mode hide
+    mode dock
     workspace_min_width 50
     height 22
     modifier $alt
@@ -267,7 +267,7 @@ for_window [app_id="firefox$" title="^Picture-in-Picture$"] floating enable, sti
 exec "python ~/.local/bin/inactive-windows-transparency.py"
 exec "dbus-update-activation-environment --systemd --all"
 exec "systemctl --user import-environment"
-exec /usr/local/bin/mako
+exec mako
 exec /usr/bin/sh -c 'while pgrep sway > /dev/null 2>&1; do env PopUp=True /usr/bin/alacritty --class PopUp --title PopUp --command /usr/bin/zsh > /dev/null 2>&1; done'
 exec "/usr/bin/clipman restore"
 exec '/usr/bin/wl-paste --type text --watch sh -c "if [[ -f /tmp/clipman_ignore ]]; then rm /tmp/clipman_ignore; else /usr/bin/clipman store --max-items=2000; fi"'
