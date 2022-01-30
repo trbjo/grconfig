@@ -3,7 +3,7 @@
 {
     "settings": {
         "python.venvPath": "/home/tb/.pyenv/versions/",
-        "python.analysis.typeCheckingMode": "basic",
+        "python.analysis.typeCheckingMode": "strict",
         // a special predefined setup for developing ST plugins
         "pyright.dev_environment": "sublime_text",
     }

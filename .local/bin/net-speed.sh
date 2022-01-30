@@ -30,7 +30,6 @@ readable() {
             mib_dec=$(( ${mib_dec:0:1} ))
         fi
 
-
         printf "%-69s" "<span size=\"10000\">${mib_int}.${mib_dec}</span><span weight=\"800\" foreground=\"#3584FF\" size=\"6000\">M</span>"
     else
         printf "%-69s" "<span size=\"10000\">$(printf "%3s" ${kib})</span><span weight=\"800\" size=\"6000\">K</span>"
@@ -39,12 +38,12 @@ readable() {
 
 
 
-# while true; do
+while true; do
     read last_rx < "${interface}/statistics/rx_bytes"
     read last_tx < "${interface}/statistics/tx_bytes"
     sleep 1
     read rx < "${interface}/statistics/rx_bytes"
     read tx < "${interface}/statistics/tx_bytes"
     printf "↓$(readable $((rx - last_rx))) ↑$(readable $((tx - last_tx)))\n" || exit 1
-# done
+done
 

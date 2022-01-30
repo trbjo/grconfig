@@ -12,6 +12,7 @@ typeset -a list
 [[ $commands[gnome-disks] ]] && list+=(" Disk Utility")
 [[ $commands[telegram-desktop] ]] && list+=(" Telegram")
 [[ $commands[pavucontrol] ]] && list+=(" SoundControl")
+[[ $commands[libreoffice] ]] && list+=(" LibreOffice Writer" " LibreOffice Calc" " LibreOffice Draw" " LibreOffice Impress" )
 
 [[ $commands[darkmode] ]] &&  {
     theme="$(gsettings get org.gnome.desktop.interface gtk-theme)"
@@ -210,6 +211,26 @@ case $(bemenu --prompt 'Actions' <<< ${${list[@]/#/  }/%/   }) in
 
     '   SoundControl   ')
         /usr/bin/pavucontrol
+        ;;
+
+
+    '   LibreOffice Writer   ')
+        libreoffice --writer
+        ;;
+
+
+    '   LibreOffice Calc   ')
+        libreoffice --calc
+        ;;
+
+
+    '   LibreOffice Draw   ')
+        libreoffice --draw
+        ;;
+
+
+    '   LibreOffice Impress   ')
+        libreoffice --impress
         ;;
 
 

@@ -2,13 +2,11 @@
     "clients": {
         "LSP-OmniSharp":{
             "command": [
-                "/user/.omnisharp-server/bin/mono",
-                "--assembly-loader=strict",
-                "/user/.omnisharp-server/omnisharp/OmniSharp.exe",
+                "/usr/bin/omnisharp",
                 "--zero-based-indices",
                 "--languageserver",
             ],
-            "enabled": false,
+            "enabled": true,
             "selector": "source.cs | source.cake",
             "initializationOptions": {
                 "csharp.format.enable": true,

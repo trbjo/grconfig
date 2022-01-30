@@ -6,7 +6,7 @@ interval=once
 [netspeed]
 markup=pango
 command=$HOME/.local/bin/net-speed.sh
-interval=1
+interval=persist
 min_width=102
 align=center
 
