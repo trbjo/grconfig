@@ -5,7 +5,7 @@
 IFS=$'\n'
 typeset -a list
 
-[[ $commands[firefox] ]] && list+=(" Firefox" " Firefox (Private Window)")
+[[ $commands[firefox] ]] && list+=(" Firefox" " Firefox (Private Window)" " IRC")
 [[ $commands[subl] ]] && list+=(" Sublime Text")
 [[ $commands[smerge] ]] && list+=(" Sublime Merge")
 [[ $commands[baobab] ]] && list+=(" Disk Usage")
@@ -65,6 +65,12 @@ case $(bemenu --prompt 'Actions' <<< ${${list[@]/#/  }/%/   }) in
     '   Firefox (Private Window)   ')
         swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^firefox$" tiling] focus'
         swaymsg -q -- '[title="Mozilla\ Firefox\ \(Private\ Browsing\)$"] focus' || /usr/bin/firefox --private-window
+        ;;
+
+    '   IRC   ')
+        swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^firefox$" tiling] focus'
+        swaymsg -q --  '[app_id="^firefox$" tiling] focus' || /usr/bin/firefox
+        swaymsg -q -- '[title="^chat.sr.ht\ —\ Mozilla\ Firefox$"] focus' || /usr/bin/firefox --new-window --kiosk https://chat.sr.ht/
         ;;
 
 
