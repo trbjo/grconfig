@@ -68,8 +68,7 @@ case $(bemenu --prompt 'Actions' <<< ${${list[@]/#/  }/%/   }) in
         ;;
 
     '   IRC   ')
-        swaymsg -q -- '[app_id="^PopUp$"] move scratchpad; [app_id="^firefox$" tiling] focus'
-        swaymsg -q -- '[title="^chat.sr.ht\ —\ Mozilla\ Firefox$"] focus' || /usr/bin/firefox --new-window --kiosk https://chat.sr.ht/
+        swaymsg -q -- '[app_id="^PopUp$"] move scratchpad; [title="^chat.sr.ht\ —\ Mozilla\ Firefox$"] focus' || /usr/bin/firefox --new-window --kiosk https://chat.sr.ht/
         ;;
 
 
