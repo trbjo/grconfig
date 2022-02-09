@@ -93,7 +93,7 @@
         },
         {
             "name": "Punctuation",
-            "scope": "punctuation.definition.string, punctuation.section.interpolation.end.cs, punctuation.section.interpolation.begin.cs",
+            "scope": "punctuation.definition.string, punctuation.section.interpolation.end.cs, punctuation.section.interpolation.begin.cs, punctuation.separator.path",
             "foreground": "var(blue0)"
         },
         {

@@ -86,10 +86,10 @@ def on_window_focus(ipc, event):
         if workspace == prev_workspace:
             old = ipc.get_tree().find_by_id(prev_focused.id)
             if old is not None:
-                if old.visible and prev_focused.type != 'floating_con':
+                if old.visible and prev_focused.type != 'floating_con' and old.app_id != 'mpv':
                     prev_focused.command("opacity " + OPACITY)
         else:
-            if prev_focused.type != 'floating_con':
+            if prev_focused.type != 'floating_con' and old.app_id != 'mpv':
                 prev_focused.command("opacity " + OPACITY)
 
         prev_focused = focused
