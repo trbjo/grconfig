@@ -89,7 +89,7 @@ def on_window_focus(ipc, event):
                 if old.visible and prev_focused.type != 'floating_con' and old.app_id != 'mpv':
                     prev_focused.command("opacity " + OPACITY)
         else:
-            if prev_focused.type != 'floating_con' and old.app_id != 'mpv':
+            if prev_focused.type != 'floating_con' and prev_focused.app_id != 'mpv':
                 prev_focused.command("opacity " + OPACITY)
 
         prev_focused = focused
