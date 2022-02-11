@@ -37,4 +37,5 @@ output 'Goldstar Company Ltd LG UltraFine 907NTUWBA398' resolution 3840x2160 pos
 
 exec /usr/bin/swayidle\
     timeout 300 'swaymsg "output * dpms off"'\
-    resume 'swaymsg "output * dpms on"'
+    resume 'swaymsg "output * dpms on"'\
+    timeout 3000 'systemctl suspend'

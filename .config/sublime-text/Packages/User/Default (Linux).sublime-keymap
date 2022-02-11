@@ -9,12 +9,8 @@
             "context": [
             {"key": "setting.command_mode", "operator": "equal", "operand": true },
             {"key": "last_command", "operator": "not_equal", "operand": "find_under_expand" },
-
          ]
     },
-
-
-
 
 { "keys": ["N"], "command": "chain",
         "args": {
