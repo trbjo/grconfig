@@ -62,7 +62,6 @@ KEYWORD_SET = frozenset(["TODO", "CURRENT", "DONE"])
 
 class CycleCommand(sublime_plugin.TextCommand):
     def run(self, edit):
-        print('hej')
         view = self.view
         if len(view.sel()) != 1:
             return
