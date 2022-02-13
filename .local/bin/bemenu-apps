@@ -121,8 +121,7 @@ case $(bemenu --prompt 'Actions' <<< ${${list[@]/#/  }/%/   }) in
 
 
     '   Emacs   ')
-        swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^emacs$"] focus'
-        /usr/bin/emacs
+        swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^emacs$"] focus' || /usr/bin/emacs
         ;;
 
 

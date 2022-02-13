@@ -25,6 +25,7 @@
         "diffDeleted": "#d73a49"
     },
     "globals": {
+        "fold_marker": "var(line_highlight)",
         "accent": "var(accent)",
         "active_guide": "var(purple)",
         "background": "var(white)",

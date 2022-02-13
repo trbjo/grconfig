@@ -352,6 +352,16 @@
 ]},
 
 
+{"keys": ["shift+tab"], "command": "cycle_all", "context": [
+    {"key": "selector", "operator": "equal", "operand": "text.html.markdown", "match_all": true },
+]},
+
+
+{"keys": ["tab"], "command": "cycle", "context": [
+    {"key": "selector", "operator": "equal", "operand": "text.html.markdown markup.heading", "match_all": true },
+]},
+
+
 { "keys": ["enter"], "command": "chain",
         "args": {
             "commands": [
