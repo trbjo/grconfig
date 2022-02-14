@@ -11,8 +11,8 @@ $ws4 output eDP-1
 $ws5 output DP-1
 
 bindsym --no-repeat ctrl+1 $ws1
-bindsym --no-repeat ctrl+2 [app_id="^PopUp$"] move scratchpad; [app_id="^sublime_text$"] focus
-bindsym --no-repeat ctrl+3 [app_id="^PopUp$"] move scratchpad; [app_id="^firefox$" tiling] focus
+bindsym --no-repeat ctrl+2 $ws2
+bindsym --no-repeat ctrl+3 $ws3
 bindsym --no-repeat ctrl+4 $ws4
 bindsym --no-repeat ctrl+5 $ws5
 
