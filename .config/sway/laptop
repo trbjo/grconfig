@@ -30,3 +30,27 @@ bindsym --no-repeat ctrl+Shift+5 move container to $ws5; $ws5; fullscreen disabl
 output 'Panasonic Industry Company Panasonic-TV 0x00000101' resolution 1920x1080@60Hz pos 1921 0 scale 1 subpixel rgb
 output 'Goldstar Company Ltd LG UltraFine 611NTCZ8V987' resolution 4096x2304 pos 1921 0 scale 2 subpixel rgb
 output 'Unknown 0x422A 0x00000000' resolution 3000x2000 pos 0 0 scale 2 subpixel rgb
+
+bar {
+    id one
+    position top
+    font Inter Medium 10
+    pango_markup enabled
+    status_command i3blocks
+    mode dock
+    workspace_min_width 50
+    height 22
+    modifier $alt
+    status_edge_padding 18
+    separator_symbol " "
+    strip_workspace_numbers yes
+    colors {
+        statusline $WHITE
+        background $BLACK
+        binding_mode $BLACK $BLACK #3584E4
+        focused_workspace $BLACK $BLACK $WHITE
+        active_workspace $BLACK $BLACK $WHITE
+        inactive_workspace $BLACK $BLACK $FGINACTIVE
+        }
+}
+

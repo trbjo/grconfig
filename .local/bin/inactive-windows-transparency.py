@@ -48,7 +48,7 @@ def on_window_move(ipc, event):
     for workspace in ipc.get_tree().workspaces():
         for w in workspace:
             if w.visible:
-                if not w.focused:
+                if not w.focused and not w.app_id == 'mpv':
                     w.command("opacity " + OPACITY)
                 else:
                     w.command("opacity 1")

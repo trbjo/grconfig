@@ -2,9 +2,13 @@ window .modules-left #workspaces {
     min-height: 0;
 }
 
+#window {
+    margin-left: 10px;
+}
+
 window#waybar {
     font-weight: 500;
-    font-size: 15px;
+    font-size: 14px;
     background: shade(alpha(@borders, 0.9), 1.25);
     border-bottom: 1px solid alpha(@unfocused_borders, 0.85);
     /*background: linear-gradient(to top, shade(alpha(@borders, 0.95), 1.15), shade(alpha(@borders, 0.9), 1.25));*/
@@ -13,7 +17,6 @@ window#waybar {
 }
 
 window .modules-left #workspaces button {
-    font-size: 16px;
     box-shadow: none;
     min-height: 0;
     min-width: 50px;
@@ -40,7 +43,7 @@ window .modules-left #workspaces button:hover  {
 }
 
 #custom-word {
-    margin: 0px 0px 0px 10px;
+    margin: 0px 12px 0px 10px;
 }
 
 #idle_inhibitor.activated {

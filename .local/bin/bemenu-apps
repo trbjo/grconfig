@@ -56,7 +56,7 @@ typeset -a list
 [[ "$HOST" == "teliarch" ]] && list+=(" Slack" " Teams")
 [[ $commands[dbus-send] ]] && list+=(" Suspend" " Reboot" " Poweroff")
 
-case $(bemenu --prompt 'Actions' <<< ${${list[@]/#/  }/%/   }) in
+case $(bemenu -f --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
     '   Firefox   ')
         swaymsg -q --  '[app_id="^PopUp$"] move scratchpad'
         swaymsg -q --  '[app_id="^firefox$" tiling] focus' || /usr/bin/firefox
