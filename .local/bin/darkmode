@@ -100,9 +100,9 @@ execute() {
     # $HOME/.config/sublime-text/Packages/User/Preferences.sublime-settings
 
     # vscode
-    # sed -r -i -e\
-    # "/workbench.colorTheme/s/${THEME_OLD}/${THEME_NEW}/" \
-    # $HOME/.config/Code/User/settings.json
+    sed -r -i -e\
+    "/workbench.colorTheme/s/${THEME_OLD}/${THEME_NEW}/" \
+    $HOME/.config/Code\ \-\ OSS/User/settings.json
 
     # sway
     (sleep 0.2 && swaymsg -q -- \
