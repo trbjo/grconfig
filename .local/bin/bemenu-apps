@@ -56,7 +56,7 @@ typeset -a list
 [[ "$HOST" == "teliarch" ]] && list+=(" Slack" " Teams")
 [[ $commands[dbus-send] ]] && list+=(" Suspend" " Reboot" " Poweroff")
 
-case $(bemenu -f --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
+case $(bemenu -f --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
     '   Firefox   ')
         swaymsg -q --  '[app_id="^PopUp$"] move scratchpad'
         swaymsg -q --  '[app_id="^firefox$" tiling] focus' || /usr/bin/firefox
@@ -184,7 +184,7 @@ case $(bemenu -f --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
 
 
     '   VSCode   ')
-        /opt/visual-studio-code/code --enable-features=UseOzonePlatform --ozone-platform=wayland
+        electron13 /usr/lib/code/out/cli.js /usr/lib/code/code.js --enable-features=UseOzonePlatform --ozone-platform=wayland
         ;;
 
 
