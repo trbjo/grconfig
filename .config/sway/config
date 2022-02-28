@@ -1,5 +1,6 @@
 set $WHITE #FFFFFF
 set $BLACK #000000
+set $FGINACTIVE #908880
 
 set $alt Mod1
 set $super Mod4
@@ -199,8 +200,6 @@ floating_minimum_size 10 x 10
 client.focused           $WHITE  $WHITE   #404040   #5294e2  #5294e2
 client.focused_inactive  $WHITE  $WHITE   #404040   #E6E6E6  #E6E6E6
 client.unfocused         #c8c8c8  #D8D8D8   #506070   #E6E6E6  #E6E6E6
-
-set $FGINACTIVE #908880
 
 #
 ## Window rules
