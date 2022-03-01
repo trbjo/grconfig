@@ -94,6 +94,9 @@ fileopener() {
         html|mhtml)
             browser_function ${@}
             ;;
+        docx|doc|odt)
+            libreoffice ${@}
+            ;;
         jpg|png|svg|gif|bmp|tif|tiff|psd)
             # swaymsg workspace number 4
             dirname=$(dirname "$@")
