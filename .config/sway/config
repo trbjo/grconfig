@@ -5,8 +5,8 @@ set $FGINACTIVE #908880
 set $alt Mod1
 set $super Mod4
 
-include "~/.config/sway/`hostnamectl hostname`"
-include "~/.config/sway/this_pc"
+include "~/.config/sway/enabled/*"
+# then do ln -s
 
 #
 ### Input
