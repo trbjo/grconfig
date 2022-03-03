@@ -201,6 +201,32 @@ client.focused           $WHITE  $WHITE   #404040   #5294e2  #5294e2
 client.focused_inactive  $WHITE  $WHITE   #404040   #E6E6E6  #E6E6E6
 client.unfocused         #c8c8c8  #D8D8D8   #506070   #E6E6E6  #E6E6E6
 
+
+bar {
+    id one
+    position top
+    font Inter Medium 10
+    pango_markup enabled
+    status_command i3blocks
+    mode hide
+    workspace_min_width 50
+    height 22
+    modifier $alt
+    status_edge_padding 18
+    separator_symbol " "
+    strip_workspace_numbers yes
+    colors {
+        statusline $WHITE
+        background $BLACK
+        binding_mode $BLACK $BLACK #3584E4
+        focused_workspace $BLACK $BLACK $WHITE
+        active_workspace $BLACK $BLACK $WHITE
+        inactive_workspace $BLACK $BLACK $FGINACTIVE
+        }
+}
+
+
+
 #
 ## Window rules
 #
