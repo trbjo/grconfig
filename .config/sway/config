@@ -57,8 +57,8 @@ seat seat0 hide_cursor 15000
 seat seat0 hide_cursor when-typing enable
 
 # bindswitch --reload lid:on exec '! grep -q "enabled" /sys/class/drm/{card0-DP-1,card0-DP-2,card0-HDMI-A-1}/enabled && systemctl suspend || swaymsg output eDP-1 disable'
-bindswitch --locked --reload lid:on output eDP-1 disable
-bindswitch --locked --reload lid:off output eDP-1 enable
+# bindswitch --locked --reload lid:on output eDP-1 dpms off
+# bindswitch --locked --reload lid:off output eDP-1 dpms on
 
 #
 ## Keybindings
@@ -66,18 +66,18 @@ bindswitch --locked --reload lid:off output eDP-1 enable
 
 bindsym $super+tab nop
 
-bindsym ctrl+alt+F1 nop
-bindsym ctrl+alt+F2 nop
-bindsym ctrl+alt+F3 nop
-bindsym ctrl+alt+F4 nop
-bindsym ctrl+alt+F5 nop
-bindsym ctrl+alt+F6 nop
-bindsym ctrl+alt+F8 nop
-bindsym ctrl+alt+F7 nop
-bindsym ctrl+alt+F9 nop
-bindsym ctrl+alt+F10 nop
-bindsym ctrl+alt+F11 nop
-bindsym ctrl+alt+F12 nop
+bindsym --no-repeat --locked ctrl+alt+F1 nop
+bindsym --no-repeat --locked ctrl+alt+F2 nop
+bindsym --no-repeat --locked ctrl+alt+F3 nop
+bindsym --no-repeat --locked ctrl+alt+F4 nop
+bindsym --no-repeat --locked ctrl+alt+F5 nop
+bindsym --no-repeat --locked ctrl+alt+F6 nop
+bindsym --no-repeat --locked ctrl+alt+F8 nop
+bindsym --no-repeat --locked ctrl+alt+F7 nop
+bindsym --no-repeat --locked ctrl+alt+F9 nop
+bindsym --no-repeat --locked ctrl+alt+F10 nop
+bindsym --no-repeat --locked ctrl+alt+F11 nop
+bindsym --no-repeat --locked ctrl+alt+F12 nop
 
 # For the Plantronic headset
 bindsym --locked XF86AudioPlay exec playerctl play-pause
@@ -191,7 +191,7 @@ default_floating_border pixel 4
 hide_edge_borders --i3 smart_no_gaps
 
 titlebar_border_thickness 1
-titlebar_padding 15 5
+titlebar_padding 15 4
 title_align center
 
 floating_maximum_size 2050 x 1154
@@ -207,7 +207,7 @@ bar {
     position top
     font Inter Medium 10
     pango_markup enabled
-    status_command i3blocks
+    status_command i3status
     mode hide
     workspace_min_width 50
     height 22
