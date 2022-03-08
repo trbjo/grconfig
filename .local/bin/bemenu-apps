@@ -59,17 +59,17 @@ typeset -a list
 case $(bemenu -f --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
     '   Firefox   ')
         swaymsg -q --  '[app_id="^PopUp$"] move scratchpad'
-        swaymsg -q --  '[app_id="^firefox$" tiling] focus' || /usr/bin/firefox
+        swaymsg -q --  '[app_id="^firefox$" tiling] focus' || swaymsg exec /usr/bin/firefox
         ;;
 
 
     '   Firefox (Private Window)   ')
         swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^firefox$" tiling] focus'
-        swaymsg -q -- '[title="Mozilla\ Firefox\ \(Private\ Browsing\)$"] focus' || /usr/bin/firefox --private-window
+        swaymsg -q -- '[title="Mozilla\ Firefox\ \(Private\ Browsing\)$"] focus' || swaymsg exec /usr/bin/firefox --private-window
         ;;
 
     '   IRC   ')
-        swaymsg -q -- '[app_id="^PopUp$"] move scratchpad; [title="^chat.sr.ht\ —\ Mozilla\ Firefox$"] focus' || /usr/bin/firefox --new-window --kiosk https://chat.sr.ht/
+        swaymsg -q -- '[app_id="^PopUp$"] move scratchpad; [title="^chat.sr.ht\ —\ Mozilla\ Firefox$"] focus' || swaymsg exec /usr/bin/firefox --new-window --kiosk https://chat.sr.ht/
         ;;
 
 
@@ -127,13 +127,13 @@ case $(bemenu -f --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
 
     '   Disk Usage   ')
         swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^baobab$"] focus'
-        /usr/bin/baobab
+        swaymsg exec /usr/bin/baobab
         ;;
 
 
     '   Disk Utility   ')
         swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^gnome-disks$"] focus'
-        /usr/bin/gnome-disks
+        swaymsg exec /usr/bin/gnome-disks
         ;;
 
 
