@@ -138,7 +138,8 @@ bindsym ctrl+$alt+c resize grow height 80px
 bindsym ctrl+$alt+t resize shrink height 80px
 bindsym ctrl+$alt+n resize grow width 80px
 
-bindsym --locked XF86AudioMute exec playerctl pause
+bindsym --locked --no-repeat XF86AudioMute exec amixer set Master mute
+bindsym --locked --no-repeat ctrl+XF86AudioMute exec playerctl play-pause
 bindsym --locked XF86MonBrightnessDown exec light -U 0.5 && light -S $(echo "$(light -G) /1.3" | bc -l)
 bindsym --locked XF86MonBrightnessUp exec light -S $(echo "$(light -G) * 1.3" | bc -l) && light -A 0.5
 
@@ -149,10 +150,10 @@ bindsym --locked XF86MonBrightnessUp exec light -S $(echo "$(light -G) * 1.3" | 
     # pactl set-sink-volume @DEFAULT_SINK@ +5%
 
 bindsym XF86AudioLowerVolume exec \
-    amixer set Master 3%-
+    amixer set Master unmute && amixer set Master 3%- && mpv /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga
 
 bindsym XF86AudioRaiseVolume exec \
-    amixer set Master 3%+
+    amixer set Master unmute && amixer set Master 3%+ && mpv /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga
 
 bindsym --locked $alt+F4 exec [ -S /tmp/mpvsocket ] && echo 'cycle pause' | socat - /tmp/mpvsocket > /dev/null 2>&1 || /usr/bin/ssh music@Intel-NUC "tmux send-keys -t main:1.1 ' '"
 

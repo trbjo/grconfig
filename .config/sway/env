@@ -16,5 +16,5 @@ VISUAL=/usr/bin/swaymsg '[app_id="^PopUp$"] move scratchpad; [app_id=^sublime_te
 PASSWORD_STORE_ENABLE_EXTENSIONS=true
 
 BEMENU_BACKEND=wayland
-BEMENU_OPTS="--tb '#000000' --grab --ignorecase --line-height 21 --tf '#FFFFFF' --fb '#000000' --ff '#ffffff' --nb '#000000' --nf '#ffffff' --hb '#15539E' --hf '#ffffff' --sb '#ff0000' --sf '#ff0000' --scb '#ff0000' --fn 'font pango:Inter Medium 10' --scf '#ff79c6'"
+BEMENU_OPTS="--tb '#000000' --grab --ignorecase --line-height 22 --tf '#FFFFFF' --fb '#000000' --ff '#ffffff' --nb '#000000' --nf '#ffffff' --hb '#15539E' --hf '#ffffff' --sb '#ff0000' --sf '#ff0000' --scb '#ff0000' --fn 'font pango:Inter Medium 10' --scf '#ff79c6'"
 

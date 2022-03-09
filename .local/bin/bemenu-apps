@@ -8,6 +8,7 @@ typeset -a list
 [[ $commands[firefox] ]] && list+=(" Firefox" " Firefox (Private Window)" " IRC")
 [[ $commands[subl] ]] && list+=(" Sublime Text")
 [[ $commands[emacs] ]] && list+=(" Emacs")
+[[ $commands[spot] ]] && list+=(" Spotify")
 [[ $commands[smerge] ]] && list+=(" Sublime Merge")
 [[ $commands[baobab] ]] && list+=(" Disk Usage")
 [[ $commands[gnome-disks] ]] && list+=(" Disk Utility")
@@ -122,6 +123,11 @@ case $(bemenu -f --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
 
     '   Emacs   ')
         swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^emacs$"] focus' || /usr/bin/emacs
+        ;;
+
+
+    '   Spotify   ')
+        swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^dev.alextren.Spot$"] focus' || /usr/bin/spot
         ;;
 
 
