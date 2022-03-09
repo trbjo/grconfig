@@ -213,7 +213,7 @@ bar {
     height 22
     modifier $alt
     status_edge_padding 18
-    separator_symbol " "
+    separator_symbol "   "
     strip_workspace_numbers yes
     colors {
         statusline $WHITE
