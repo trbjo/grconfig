@@ -31,3 +31,21 @@ output 'Panasonic Industry Company Panasonic-TV 0x00000101' resolution 1920x1080
 output 'Goldstar Company Ltd LG UltraFine 611NTCZ8V987' resolution 4096x2304 pos 1921 0 scale 2 subpixel rgb
 output 'Unknown 0x422A 0x00000000' resolution 3000x2000 pos 0 0 scale 2 subpixel rgb
 
+exec /usr/bin/swayidle \
+    timeout 30 'pgrep swaylockd && swaymsg "output * dpms off" && grep -q 0 /sys/class/power_supply/AC0/online && [ ! -f /tmp/inhibitSuspend ] && /usr/bin/systemctl suspend' \
+    resume 'swaymsg "output * dpms on"' \
+    timeout 120 'light -O && grep -q 0 /sys/class/power_supply/AC0/online && [ ! -f /tmp/inhibitScreen ] && light -T 0.2' \
+    resume 'light -I; swaymsg "output * dpms on"' \
+    timeout 150 'grep -q 0 /sys/class/power_supply/AC0/online && [ ! -f /tmp/inhibitScreen ] && loginctl lock-session && light -S 0' \
+    resume "if [[ \$(ps -o etimes= -p \$(pgrep --oldest swaylockd)) -lt 300 ]]; then pkill -9 swaylockd; fi" \
+    timeout 152 'grep -q 0 /sys/class/power_supply/AC0/online && [ ! -f /tmp/inhibitScreen ] && swaymsg "output * dpms off"' \
+    timeout 180 'grep -q 0 /sys/class/power_supply/AC0/online && [ ! -f /tmp/inhibitSuspend ] && /usr/bin/systemctl suspend' \
+    timeout 240 '[ -f /tmp/inhibitSuspend ] || grep -q "ens1u\|4c:1b:86:91:63:70\|54:64:d9:7e:dd:d3\|00:1e:80:8b:eb:fa" /proc/net/arp || loginctl lock-session' \
+    timeout 360 '[ ! -f /tmp/inhibitScreen ] && loginctl lock-session && light -S 0' \
+    timeout 362 'swaymsg "output * dpms off"'\
+    before-sleep "! grep -q "enabled" /sys/class/drm/{card0-DP-1,card0-DP-2,card0-HDMI-A-1}/enabled && swaymsg output eDP-1 enable ; loginctl lock-session"\
+    after-resume "swaymsg 'output * enable, output * dpms on'"\
+    lock 'playerctl pause; if ! pgrep -x swaylockd > /dev/null 2>&1; then swaymsg bar one workspace_buttons no, bar one mode overlay; swaylockd; loginctl unlock-session; fi' \
+    unlock 'swaymsg bar one mode hide, bar one workspace_buttons yes'
+
+    # after-resume "if [[ \$(ps -o etimes= -p \$(pgrep --oldest swaylockd)) -lt 300 ]]; then pkill -9 swaylockd; fi; swaymsg 'output * enable, output * dpms on'"\
