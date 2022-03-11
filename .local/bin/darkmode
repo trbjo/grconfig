@@ -6,7 +6,7 @@ set_values() {
 
     # gnome
     export GTKTHEME_$LIGHT="Adwaita"
-    export SPOT_VALUE_$LIGHT=false
+    # export SPOT_VALUE_$LIGHT=false
 
     # sublime, alacritty
     export THEME_$LIGHT="Light"
@@ -48,7 +48,7 @@ set_values() {
 
     # gnome
     export GTKTHEME_$DARK="Adwaita-dark"
-    export SPOT_VALUE_$DARK=true
+    # export SPOT_VALUE_$DARK=true
 
     # sublime, alacritty
     export THEME_$DARK="Gruvbox_dark"
@@ -95,7 +95,7 @@ execute() {
 
     # gnome
     gsettings set org.gnome.desktop.interface gtk-theme "${GTKTHEME_NEW}"
-    gsettings set dev.alextren.Spot prefers-dark-theme ${SPOT_VALUE_NEW}
+    # gsettings set dev.alextren.Spot prefers-dark-theme ${SPOT_VALUE_NEW}
 
     # # sublime
     # sed -r -i -e\
