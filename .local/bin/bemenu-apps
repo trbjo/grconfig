@@ -66,11 +66,11 @@ case $(bemenu -f --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
 
     '   Firefox (Private Window)   ')
         swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^firefox$" tiling] focus'
-        swaymsg -q -- '[title="Mozilla\ Firefox\ \(Private\ Browsing\)$"] focus' || swaymsg exec /usr/bin/firefox --private-window
+        swaymsg -q -- '[title="Mozilla\ Firefox\ \(Private\ Browsing\)$"] focus' || swaymsg exec '/usr/bin/firefox --private-window'
         ;;
 
     '   IRC   ')
-        swaymsg -q -- '[app_id="^PopUp$"] move scratchpad; [title="^chat.sr.ht\ —\ Mozilla\ Firefox$"] focus' || swaymsg exec /usr/bin/firefox --new-window --kiosk https://chat.sr.ht/
+        swaymsg -q -- '[app_id="^PopUp$"] move scratchpad; [title="^chat.sr.ht\ —\ Mozilla\ Firefox$"] focus' || swaymsg exec '/usr/bin/firefox --new-window --kiosk https://chat.sr.ht/'
         ;;
 
 
