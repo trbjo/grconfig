@@ -232,7 +232,7 @@ bar {
 ## Window rules
 #
 
-assign [app_id="^(mpv|imv|org.pwmt.zathura|evince)$"] workspace 4
+assign [app_id="^(mpv|imv|org.pwmt.zathura|evince)$"] $ws4
 
 # all new windows except the PopUp should receive focus.
 for_window [title=^(?!(PopUp)$).*$] focus
