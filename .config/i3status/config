@@ -20,7 +20,7 @@ general {
 #order += "run_watch DHCP"
 #order += "ipv6"
 #order += "run_watch VPN"
-order += "wireless wlan0"
+order += "wireless _first_"
 order += "volume master"
 order += "disk /"
 # order += "ethernet enp0s25"
@@ -30,7 +30,7 @@ order += "cpu_usage 0"
 order += "battery 0"
 order += "tztime local"
 
-wireless wlan0 {
+wireless _first_ {
     format_up = "<span foreground='#ffffff'></span><span size='7000'>(%quality)</span> <span foreground='#ffffff'>%essid</span>"
     format_quality = "%2d%s"
     format_down = ""
