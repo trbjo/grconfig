@@ -2,7 +2,8 @@
     "clients": {
         "LSP-OmniSharp":{
             "command": [
-                "/usr/bin/omnisharp",
+                "/home/tb/.omnisharp-server/bin/mono",
+                "/home/tb/.omnisharp-server/omnisharp/OmniSharp.exe",
                 "--zero-based-indices",
                 "--languageserver",
             ],
@@ -85,9 +86,9 @@
                 "razor.format.enable": true,
             },
             "env": {
-                "MONO_CFG_DIR": "/user/.omnisharp-server/etc",
-                "MONO_ENV_OPTIONS": "--config /user/.omnisharp-server/etc/config",
-                "MSBUILD_EXE_PATH": "/user/.omnisharp-server/omnisharp/.msbuild/Current/Bin/MSBuild.exe",
+                "MONO_CFG_DIR": "/home/tb/.omnisharp-server/etc",
+                "MONO_ENV_OPTIONS": "--config /home/tb/.omnisharp-server/etc/config",
+                "MSBUILD_EXE_PATH": "/home/tb/.omnisharp-server/omnisharp/.msbuild/Current/Bin/MSBuild.exe",
             },
         },
         "haskell-language-server-wrapper": {
