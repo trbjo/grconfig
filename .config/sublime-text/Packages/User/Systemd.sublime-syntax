@@ -1,7 +1,7 @@
 %YAML 1.2
 ---
 name: Systemd
-file_extensions: [service]
+file_extensions: [service, network]
 scope: source.systemd
 
 contexts:
