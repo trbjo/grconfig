@@ -2,7 +2,7 @@
 ---
 name: Systemd
 file_extensions: [service]
-scope: source.c
+scope: source.systemd
 
 contexts:
   main:
@@ -14,5 +14,5 @@ contexts:
       scope: entity.name
     - match: '\\'
       scope: constant.character.escape
-    - match: '\#\w+'
+    - match: '\#.*'
       scope: comment.number-sign

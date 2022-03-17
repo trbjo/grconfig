@@ -63,7 +63,7 @@
                 // incomplete reference lists for symbols.
                 "omnisharp.enableMsBuildLoadProjectsOnDemand": false,
                 // Enables support for roslyn analyzers, code fixes and rulesets.
-                "omnisharp.enableRoslynAnalyzers": false,
+                "omnisharp.enableRoslynAnalyzers": true,
                 // Specifies the level of logging output from the OmniSharp server.
                 // possible values: trace, debug, information, warning, error, critical
                 "omnisharp.loggingLevel": "trace",
