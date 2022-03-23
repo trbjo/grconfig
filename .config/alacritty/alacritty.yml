@@ -1,3 +1,4 @@
+alt_send_esc: false
 # Configuration for Alacritty, the GPU enhanced terminal emulator.
 
 # Import additional configuration files
@@ -1127,9 +1128,9 @@ key_bindings:
   - { key: R, mods: Alt, chars: "\x1bt" , mode: ~Vi|~Search }
   # wth?
   - { key: Semicolon, mods: Control, chars: "\x1b[1;3A" , mode: ~Vi|~Search }
-
   # Delete word <- ->
   # sends c-w, kill word backwards
+  - { key: Back, mods: Shift, chars: "\x1D" }
   - { key: Comma, mods: Control, chars: "\x17" , mode: ~Vi|~Search }
   - { key: Back, mods: Control, chars: "\x17" , mode: ~Vi|~Search }
   # sends alt-d kill word forward

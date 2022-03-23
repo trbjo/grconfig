@@ -309,7 +309,7 @@ case $(bemenu --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
         /usr/bin/pgrep slurp || {
             curdate=$(date +"Screenshot_%Y-%m-%d_%H:%M:%S.png")
             screenshot=$HOME/screenshots/$curdate
-            grim $screenshot && notify-send.sh "Screenshot taken" "$curdate" --icon=camera-photo --default-action="xdg-open $screenshot"
+            grim $screenshot && notify-send.sh "Screenshot taken" "$curdate" --icon=camera-photo --default-action="swaymsg -- unbindsym return && swaymsg -- unbindsym escape; xdg-open \"$screenshot\""
             wl-copy < "$screenshot"
             swaymsg -- "bindsym return exec xdg-open \"$screenshot\" && swaymsg -- unbindsym return && swaymsg -- unbindsym escape"
             swaymsg -- "bindsym escape exec makoctl dismiss && swaymsg -- unbindsym return && swaymsg -- unbindsym escape"
@@ -328,7 +328,7 @@ case $(bemenu --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
 
             curdate=$(date +"Screenshot_%Y-%m-%d_%H:%M:%S.png")
             screenshot=$HOME/screenshots/$curdate
-            grim $screenshot && notify-send.sh "Screenshot taken" "$curdate" --icon=camera-photo --default-action="xdg-open $screenshot"
+            grim $screenshot && notify-send.sh "Screenshot taken" "$curdate" --icon=camera-photo --default-action="swaymsg -- unbindsym return && swaymsg -- unbindsym escape; xdg-open \"$screenshot\""
             wl-copy < "$screenshot"
             swaymsg -- "bindsym return exec xdg-open \"$screenshot\" && swaymsg -- unbindsym return && swaymsg -- unbindsym escape"
             swaymsg -- "bindsym escape exec makoctl dismiss && swaymsg -- unbindsym return && swaymsg -- unbindsym escape"
@@ -342,7 +342,7 @@ case $(bemenu --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
             screenshot=$HOME/screenshots/$curdate
             export XCURSOR_SIZE=48
             swaymsg -t get_tree | jq -r ".. | select(.pid? and .visible?) | .rect | \"\\(.x),\\(.y) \\(.width)x\\(.height)\"" | slurp -w 1 -c A5BAD1 -s C3DFFE94 | grim -g - "$screenshot" && {
-            notify-send.sh "Screenshot taken" "$curdate" --icon=camera-photo --default-action="xdg-open \"$screenshot\""
+            notify-send.sh "Screenshot taken" "$curdate" --icon=camera-photo --default-action="swaymsg -- unbindsym return && swaymsg -- unbindsym escape; xdg-open \"$screenshot\""
             swaymsg -- "bindsym return exec xdg-open \"$url\" && swaymsg -- unbindsym return"
             wl-copy < "$screenshot"
             swaymsg -- "bindsym return exec xdg-open \"$screenshot\" && swaymsg -- unbindsym return && swaymsg -- unbindsym escape"
