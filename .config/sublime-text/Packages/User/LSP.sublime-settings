@@ -117,12 +117,9 @@
     "diagnostics_gutter_marker": "Packages/User/circle.png",
     // convert -size 17x17 xc:none -fill white -draw "circle 7.5,7.5,7.5,0" circle.png && convert circle.png -gravity center -background none -extent 28x28 circle.png
     "document_highlight_style": "underline",
-    "log_max_size": 0,
-    "log_debug": true,
-    "log_server": [
-      "panel",
-      "remote",
-    ],
+    "log_max_size": 1,
+    "log_debug": false,
+    "log_server": [],
     "lsp_format_on_save": true,
     "lsp_code_actions_on_save": {
         "source.fixAll.eslint": true,

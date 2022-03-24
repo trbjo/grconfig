@@ -121,28 +121,13 @@
             "commands": [
                 {"command": "move_to", "args": {"to": "hardeol"}},
                 {"command": "insert", "args": {"characters": ":"}},
-                // {"command": "reindent", "args": {"force_indent": false}},
+                {"command": "reindent", "args": {"force_indent": false}},
                 {"command": "insert", "args": {"characters": "\n"}},
             ]},
             "context": [
             {"key": "setting.command_mode", "operator": "equal", "operand": false },
             {"key": "selector", "operator": "equal", "operand": "source.python", "match_all": true },
-            {"key": "num_selections", "operator": "equal", "operand": 1 },
-         ]
-    },
-
-{ "keys": [";"], "command": "chain",
-        "args": {
-            "commands": [
-                {"command": "move_to", "args": {"to": "hardeol"}},
-                {"command": "insert", "args": {"characters": ":"}},
-                {"command": "unindent"},
-                {"command": "insert", "args": {"characters": "\n"}},
-            ]},
-            "context": [
-            {"key": "setting.command_mode", "operator": "equal", "operand": false },
-            {"key": "selector", "operator": "equal", "operand": "source.python", "match_all": true },
-            {"key": "preceding_text", "operator": "regex_contains", "operand": "\\s+(elif|else)"},
+            // {"key": "preceding_text", "operator": "regex_contains", "operand": "\\s+(elif|else)"},
             {"key": "num_selections", "operator": "equal", "operand": 1 },
          ]
     },
@@ -406,15 +391,12 @@
         {"key": "setting.is_widget", "operator": "equal", "operand": true}
     ]
 },
+
 {"keys": ["ctrl+w"], "command": "toggle_whole_word", "context":
     [
         {"key": "panel_has_focus", "operator": "equal", "operand": true },
         {"key": "setting.is_widget", "operator": "equal", "operand": true}
     ]
 },
-
-// {"keys": ["escape"], "command": "unselect_to_right"},
-
-
 
 ]
