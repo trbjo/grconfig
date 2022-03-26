@@ -420,22 +420,22 @@
             "foreground_adjust": "l(- 30%)"
         },
         {
-            "name": "dotnet.blue0",
+            "name": "dotnet.blue",
             "font_style": "bold",
-            "scope": "dotnet.blue0",
-            "foreground": "var(blue0)"
+            "scope": "dotnet.blue",
+            "foreground": "var(blue)"
         },
         {
             "name": "dotnet.green",
             "font_style": "bold",
             "scope": "dotnet.green",
-            "foreground": "var(green0)"
+            "foreground": "var(green)"
         },
         {
             "name": "dotnet.red",
             "font_style": "bold",
             "scope": "dotnet.red",
-            "foreground": "var(red0)"
+            "foreground": "var(red)"
         },
         {
             "name": "dotnet.yellow0",
@@ -446,12 +446,12 @@
         {
             "name": "dotnet.filename",
             "scope": "dotnet.filename",
-            "foreground": "var(green0)"
+            "foreground": "var(green)"
         },
         {
             "name": "dotnet.line_number",
             "scope": "dotnet.line_number",
-            "foreground": "var(magenta0)"
+            "foreground": "var(purple)"
         },
         {
             "name": "dotnet.orange",
@@ -462,7 +462,7 @@
         {
             "name": "dotnet.link_blue",
             "scope": "dotnet.link_blue",
-            "foreground": "var(blue0)"
+            "foreground": "var(blue)"
         },
 
         {
