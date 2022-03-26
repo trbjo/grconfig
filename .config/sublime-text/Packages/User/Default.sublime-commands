@@ -66,18 +66,18 @@
 
 
   {
+    "caption": "Set English dictionary",
+    "command": "set_english_dict"
+  },
+
+  {
     "caption": "Set Danish dictionary",
-    "command": "danish"
+    "command": "set_danish_dict"
   },
 
   {
     "caption": "Show diagnostics nicely",
     "command": "show_diagnostics_nicely"
-  },
-
-  {
-    "caption": "Set English dictionary",
-    "command": "english"
   },
 
   {
