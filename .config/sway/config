@@ -87,7 +87,7 @@ bindsym --locked XF86AudioPrev exec playerctl previous
 # undoes the button completely
 bindsym --locked XF86WLAN exec doas /usr/bin/rfkill unblock wifi
 
-bindsym --no-repeat ctrl+space [title="^PopUp$"] scratchpad show, move position center, resize set width 100ppt height 100ppt, resize shrink up 1100px, resize grow up 337px
+bindsym --no-repeat ctrl+space [app_id="^PopUp$"] scratchpad show, move position center, resize set width 100ppt height 100ppt, resize shrink up 1100px, resize grow up 337px
 
 #bindsym --no-repeat $alt+l output eDP-1 disable, output DP-1 enable
 #bindsym --no-repeat $alt+shift+l output eDP-1 enable
@@ -108,7 +108,7 @@ bindsym --no-repeat ctrl+shift+space focus mode_toggle
 # Toggle the current focus between tiling and floating mode
 bindsym --no-repeat $alt+shift+space floating toggle
 
-floating_modifier ctrl normal
+floating_modifier $alt normal
 
 # Switch the current container between different layout styles
 bindsym --no-repeat $alt+shift+e layout toggle tabbed split
@@ -235,7 +235,8 @@ bar {
 assign [app_id="^(mpv|imv|org.pwmt.zathura|evince)$"] $ws4
 
 # all new windows except the PopUp should receive focus.
-for_window [title=^(?!(PopUp)$).*$] focus
+for_window [app_id=^(?!(PopUp)$).*$] focus
+for_window [app_id="^PopUp$"] floating enable, border pixel 0, move scratchpad
 for_window [app_id="^Chromium$" title="^teams.microsoft.com is sharing your screen.$"] border pixel 0
 for_window [app_id="^\/usr\/bin\/chromium-snapshot-bin$" title="^Discord$"] title_format "Discord"
 
@@ -246,7 +247,6 @@ for_window [title="^(Switch Project - Sublime Text|Select Application)$"] fullsc
 for_window [app_id="^gcr-prompter$"] fullscreen disable, floating enable
 # for_window [title="(?!(Telegram)$)" app_id="^appimagekit_.*-Telegram_Desktop$"] floating enable, resize set 636 916
 
-for_window [app_id="^PopUp$"] floating enable, border pixel 0, move scratchpad
 for_window [app_id="^pavucontrol$"] floating enable, move position center, resize set width 100ppt height 100ppt, resize shrink down 1100px, resize set 727 0, resize grow down 500px
 
 for_window [app_id="^firefox$" title="^Library$"] floating enable, border pixel 1, move position center, resize set width 100ppt height 100ppt, resize shrink down 450px, resize set width 1000, move down 35px
@@ -271,6 +271,6 @@ exec "python ~/.local/bin/inactive-windows-transparency.py"
 exec "dbus-update-activation-environment --systemd --all"
 exec "systemctl --user import-environment"
 exec mako
-exec /usr/bin/sh -c 'while pgrep sway > /dev/null 2>&1; do env PopUp=True /usr/bin/alacritty --class PopUp --title PopUp --command /usr/bin/zsh > /dev/null 2>&1; done'
+exec /usr/bin/sh -c 'while pgrep sway > /dev/null 2>&1; do env PopUp=True /usr/bin/alacritty --class PopUp --command /usr/bin/zsh > /dev/null 2>&1; done'
 exec "/usr/bin/clipman restore"
 exec '/usr/bin/wl-paste --type text --watch sh -c "if [[ -f /tmp/clipman_ignore ]]; then rm /tmp/clipman_ignore; else /usr/bin/clipman store --max-items=2000; fi"'
