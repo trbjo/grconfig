@@ -299,7 +299,7 @@ case $(bemenu --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
     '   Sublime Merge   ')
         swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^sublime_merge$"] focus'
         if pgrep -x sublime_text; then
-            /opt/sublime_text/sublime_text --fwdargv0 "$0" --command goto_sublime_current_dir
+            /opt/sublime_text/sublime_text --fwdargv0 "$0" --command get_sublime_folder_name
         fi
         /opt/sublime_merge/sublime_merge --fwdargv0 "$0" "$(cat /tmp/sublfile)" || /opt/sublime_merge/sublime_merge
         ;;
