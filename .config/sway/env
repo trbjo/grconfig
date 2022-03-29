@@ -1,6 +1,7 @@
-PATH=/home/tb/.local/bin:/usr/local/bin:/usr/bin
+PATH=/home/tb/.npm/bin:/home/tb/.local/bin:/usr/local/bin:/usr/bin
 XDG_CURRENT_DESKTOP=sway
 XDG_DOWNLOAD_DIR=/home/tb/dl
+XDG_CONFIG_HOME=/home/tb/.config
 GDK_BACKEND=wayland
 NO_AT_BRIDGE=1
 #LIBVA_DRIVER_NAME=radeonsi
@@ -22,3 +23,4 @@ PASSWORD_STORE_GENERATED_LENGTH=39
 BEMENU_BACKEND=wayland
 BEMENU_OPTS="--tb '#000000' --ignorecase --line-height 22 --tf '#FFFFFF' --fb '#000000' --ff '#ffffff' --nb '#000000' --nf '#ffffff' --hb '#15539E' --hf '#ffffff' --sb '#ff0000' --sf '#ff0000' --scb '#ff0000' --fn 'font pango:Inter Medium 10' --scf '#ff79c6'"
 
+BAT_THEME=base16
