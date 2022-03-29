@@ -93,7 +93,7 @@ bindsym --no-repeat ctrl+space [app_id="^PopUp$"] scratchpad show, move position
 #bindsym --no-repeat $alt+shift+l output eDP-1 enable
 
 
-bindsym $alt+return exec /usr/bin/alacritty msg create-window
+bindsym $alt+return exec /usr/bin/alacritty
 bindsym --no-repeat $alt+space [app_id="^PopUp$"] focus, fullscreen enable
 
 # kill focused window
