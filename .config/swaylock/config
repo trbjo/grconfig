@@ -1,11 +1,11 @@
-# screenshots
-# effect-blur=5x5
-image="$HOME/pics/storebælt.jpg"
+screenshots
+effect-blur=5x5
+# image="$HOME/pic/Baggrunde/badebro.jpg"
 effect-compose=/home/tb/.faceLock.png
 
 
 ignore-empty-password
-color=000000
+# color=000000
 # image=eDP-1:.facelock.jpg
 # image=DP-2:.facelock-DP.jpg
 scaling=center
