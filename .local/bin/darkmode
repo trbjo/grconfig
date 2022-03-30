@@ -28,9 +28,9 @@ set_values() {
     export FGU_$LIGHT="#506070"
 
     # sway
-    export BORDERA_$LIGHT="#3584E4"
-    export BORDERI_$LIGHT="#E6E6E6"
-    export BORDERU_$LIGHT="#E6E6E6"
+    export BORDERA_$LIGHT="#E6E6E6"
+    export BORDERI_$LIGHT="#000000"
+    export BORDERU_$LIGHT="#000000"
 
     # mako
     export MAKOBG_$LIGHT="#F6F5F4"

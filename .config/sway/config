@@ -87,7 +87,7 @@ bindsym --locked XF86AudioPrev exec playerctl previous
 # undoes the button completely
 bindsym --locked XF86WLAN exec doas /usr/bin/rfkill unblock wifi
 
-bindsym --no-repeat ctrl+space [app_id="^PopUp$"] scratchpad show, move position center, resize set width 100ppt height 100ppt, resize shrink up 1100px, resize grow up 337px
+bindsym --no-repeat ctrl+space [app_id="^PopUp$"] scratchpad show, move position center, resize set width 100ppt height 100ppt, resize shrink up 1100px, resize grow up 337px, move left 1px, move down 1px, resize grow right 2px
 
 #bindsym --no-repeat $alt+l output eDP-1 disable, output DP-1 enable
 #bindsym --no-repeat $alt+shift+l output eDP-1 enable
@@ -198,9 +198,9 @@ title_align center
 floating_maximum_size 2050 x 1154
 floating_minimum_size 10 x 10
 
-client.focused           $WHITE  $WHITE   #404040   #5294e2  #5294e2
-client.focused_inactive  $WHITE  $WHITE   #404040   #E6E6E6  #E6E6E6
-client.unfocused         #c8c8c8  #D8D8D8   #506070   #E6E6E6  #E6E6E6
+client.focused           $WHITE  $WHITE   #404040   #E6E6E6  #E6E6E6
+client.focused_inactive  $WHITE  $WHITE   #404040   $WHITE88  $WHITE88
+client.unfocused         #c8c8c8  #D8D8D8   #506070   $WHITE88  $WHITE88
 
 
 bar {
@@ -236,7 +236,7 @@ assign [app_id="^(mpv|imv|org.pwmt.zathura|evince)$"] $ws4
 
 # all new windows except the PopUp should receive focus.
 for_window [app_id=^(?!(PopUp)$).*$] focus
-for_window [app_id="^PopUp$"] floating enable, border pixel 0, move scratchpad
+for_window [app_id="^PopUp$"] floating enable, border pixel 1, move scratchpad
 for_window [app_id="^Chromium$" title="^teams.microsoft.com is sharing your screen.$"] border pixel 0
 for_window [app_id="^\/usr\/bin\/chromium-snapshot-bin$" title="^Discord$"] title_format "Discord"
 
