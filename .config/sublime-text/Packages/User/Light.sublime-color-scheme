@@ -3,6 +3,7 @@
     "author": "Sublime HQ Pty Ltd, Dmitri Voronianski",
     "variables": {
         "blue": "hsl(212,100%,38.6%)",
+        "tester": "#0366d6",
         "accent": "hsl(212,75%,48.6%)",
         "strings": " hsl(212.2, 44.1%, 59.8%)",
         "strings2": " hsl(212.2, 100.0%, 19.8%)",
@@ -34,6 +35,7 @@
         "brackets_foreground": "var(accent)",
         "brackets_options": "bold",
         "caret": "var(accent)",
+        "block_caret": "#0366D625",
         "find_highlight": "var(light_blue)",
         "find_highlight_foreground": "var(white)",
         "foreground": "var(grey3)",
@@ -546,7 +548,7 @@
         {
             "name": "Zorgmode Control Line",
             "scope": "special_line",
-            "foreground": "color(var(green) alpha(0.7))",
+            "foreground": "color(var(tester) alpha(0.9))",
         },
         {
             "name": "Zorgmode Agenda Warning",
