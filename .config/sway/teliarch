@@ -5,4 +5,3 @@ $ws99 output DP-1
 assign [app_id="^pulseUI$"] $ws99
 
 exec /opt/pulsesecure/bin/pulseUI
-exec /usr/bin/swaybg --output '*' --mode solid_color --color '#000000'

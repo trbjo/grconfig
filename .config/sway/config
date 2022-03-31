@@ -185,8 +185,8 @@ bindsym --no-repeat $alt+Print exec 'pgrep slurp || (curdate=$(date +"Screenshot
 
 font pango:Inter Medium 9
 
-default_border pixel 2
-gaps inner 0
+default_border pixel 5
+gaps inner 8
 smart_gaps on
 default_floating_border pixel 4
 hide_edge_borders --i3 smart_no_gaps
