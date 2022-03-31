@@ -38,7 +38,6 @@ exec /usr/bin/swayidle \
     timeout 120 'light -O && grep -q 0 /sys/class/power_supply/AC0/online && [ ! -f /tmp/inhibitScreen ] && light -T 0.2' \
     resume 'light -I; swaymsg "output * dpms on"' \
     timeout 150 'grep -q 0 /sys/class/power_supply/AC0/online && [ ! -f /tmp/inhibitScreen ] && loginctl lock-session && light -S 0' \
-    resume "if [[ \$(ps -o etimes= -p \$(pgrep --oldest swaylockd)) -lt 300 ]]; then pkill -9 swaylockd; fi" \
     timeout 152 'grep -q 0 /sys/class/power_supply/AC0/online && [ ! -f /tmp/inhibitScreen ] && swaymsg "output * dpms off"' \
     timeout 180 'grep -q 0 /sys/class/power_supply/AC0/online && [ ! -f /tmp/inhibitSuspend ] && /usr/bin/systemctl suspend' \
     timeout 240 '[ -f /tmp/inhibitSuspend ] || grep -q "ens1u\|4c:1b:86:91:63:70\|54:64:d9:7e:dd:d3\|00:1e:80:8b:eb:fa" /proc/net/arp || loginctl lock-session' \
@@ -49,4 +48,5 @@ exec /usr/bin/swayidle \
     lock 'playerctl pause; if ! pgrep -x swaylockd > /dev/null 2>&1; then swaymsg bar one workspace_buttons no, bar one mode overlay; swaylockd; loginctl unlock-session; fi' \
     unlock 'swaymsg bar one mode hide, bar one workspace_buttons yes'
 
+    # resume "if [[ \$(ps -o etimes= -p \$(pgrep --oldest swaylockd)) -lt 300 ]]; then pkill -9 swaylockd; fi" \
     # after-resume "if [[ \$(ps -o etimes= -p \$(pgrep --oldest swaylockd)) -lt 300 ]]; then pkill -9 swaylockd; fi; swaymsg 'output * enable, output * dpms on'"\
