@@ -37,7 +37,7 @@ set_values() {
     export MAKOBORDER_$LIGHT="#DEDDDA"
 
     # Zathura
-    export ZATHURABG_$LIGHT="EEEEEE"
+    export ZATHURABG_$LIGHT="E8E8E8"
     export ZATHURA_SCROLLBAR_$LIGHT="D0D0D0"
     export ZATHURA_COMPLETION_$LIGHT="F2F2F2"
     export ZATHURASEARCH_$LIGHT="FBFCFD"
@@ -67,7 +67,7 @@ set_values() {
 
     # sway, zathura, mako
     # FGA_$DARK="#EBDBB2"
-    export FGA_$DARK="#EEEEEE"
+    export FGA_$DARK="#E6E6E4"
     export FGU_$DARK="#A0A0A0"
 
 

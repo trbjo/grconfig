@@ -43,17 +43,17 @@ set recolor-darkcolor "#000000"
 set scrollbar-bg "#D0D0D0"
 
 
-set default-bg "#404040" #00
-set default-fg "#E6E6E4" #01
+set default-bg "#EEEEEE" #00
+set default-fg "#404040" #01
 
-set statusbar-fg "#E6E6E4" #04
-set statusbar-bg "#404040" #01
+set statusbar-fg "#404040" #04
+set statusbar-bg "#EEEEEE" #01
 
 set inputbar-bg  "#FBFCFD" # base01
-set inputbar-fg  "#E6E6E4" # base2
+set inputbar-fg  "#404040" # base2
 
 set notification-error-bg "#e06c75" #08
-set notification-error-fg "#E6E6E4" #00
+set notification-error-fg "#404040" #00
 
 set notification-warning-bg "#e06c75" #08
 set notification-warning-fg "#2D3031" #00
@@ -71,14 +71,14 @@ set completion-highlight-fg "#151515"
 set completion-highlight-bg "#5288E2"
 
 set completion-bg "#F2F2F2"
-set completion-fg "#E6E6E4"
+set completion-fg "#404040"
 
 set notification-bg "#202429" #0B
 set notification-fg "#fafbfc" #00
 
 # Define the color in index mode
-set index-bg                   "#404040" # base02
-set index-fg                   "#E6E6E4" # base1
+set index-bg                   "#EEEEEE" # base02
+set index-fg                   "#404040" # base1
 set index-active-bg             "#3584E4" # base01
 set index-active-fg             "#ffffff" # base2
 
