@@ -12,8 +12,8 @@ include "~/.config/sway/enabled/*"
 ### Output
 #
 
-output 'Goldstar Company Ltd LG UltraFine 909NTWG7R817' resolution 3840x2160 pos 0 0 scale 2 subpixel rgb
-output 'Goldstar Company Ltd LG UltraFine 907NTUWBA398' resolution 3840x2160 pos 0 0 scale 2 subpixel rgb
+output 'Goldstar Company Ltd LG UltraFine 909NTWG7R817' resolution 3840x2160 pos 0 0 scale 2 subpixel rgb bg ~/pic/Baggrunde/badebro.jpg stretch
+output 'Goldstar Company Ltd LG UltraFine 907NTUWBA398' resolution 3840x2160 pos 0 0 scale 2 subpixel rgb bg ~/pic/Baggrunde/badebro.jpg stretch
 
 #
 ### Input
