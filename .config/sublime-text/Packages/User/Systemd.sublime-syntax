@@ -8,8 +8,8 @@ contexts:
   main:
     - match: '^([A-Za-z]+(?=([\=][\-]?)))'
       scope: keyword.other
-    - match: '^\[[A-Za-z]+\]'
-      scope: entity.name.section
+    - match: '^\[[A-Z][a-z]+\]$'
+      scope: entity.name.filename.find-in-files
     - match: '(\\\w)?'
       scope: entity.name
     - match: '\\'
