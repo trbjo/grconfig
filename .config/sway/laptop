@@ -23,13 +23,6 @@ bindsym --no-repeat ctrl+Shift+3 move container to $ws3; $ws3; fullscreen disabl
 bindsym --no-repeat ctrl+Shift+4 move container to $ws4; $ws4; fullscreen disable
 bindsym --no-repeat ctrl+Shift+5 move container to $ws5; $ws5; fullscreen disable
 
-#
-## Output
-#
-
-output 'Unknown 0x422A 0x00000000' resolution 3000x2000 pos 0 0 scale 2 subpixel rgb bg ~/pic/Baggrunde/badebro.jpg stretch
-output 'Chimei Innolux Corporation 0x1515 0x00000000' resolution 1920x1080@60Hz pos 0 0 scale 1 subpixel rgb bg ~/pic/Baggrunde/badebro.jpg stretch
-
 exec /usr/bin/swayidle \
     timeout 30 'pgrep swaylockd && swaymsg "output * dpms off" && grep -q 0 /sys/class/power_supply/AC0/online && [ ! -f /tmp/inhibitSuspend ] && /usr/bin/systemctl suspend' \
     resume 'swaymsg "output * dpms on"' \

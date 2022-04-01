@@ -5,3 +5,12 @@ $ws99 output DP-1
 assign [app_id="^pulseUI$"] $ws99
 
 exec /opt/pulsesecure/bin/pulseUI
+
+#
+## Output
+#
+
+output 'Chimei Innolux Corporation 0x1515 0x00000000' resolution 1920x1080@60Hz pos 0 0 scale 1 subpixel rgb bg ~/pic/Baggrunde/badebro.jpg stretch
+
+output 'Goldstar Company Ltd LG UltraFine 909NTWG7R817' resolution 3840x2160 pos 1921 0 scale 2 subpixel rgb bg ~/pic/Baggrunde/badebro.jpg stretch
+output 'Goldstar Company Ltd LG UltraFine 907NTUWBA398' resolution 3840x2160 pos 1921 0 scale 2 subpixel rgb bg ~/pic/Baggrunde/badebro.jpg stretch
