@@ -38,7 +38,7 @@ def on_window_focus(ipc, event):
         descendants[0].command("fullscreen enable")
         # if len([output for output in ipc.get_outputs() if output.active]) == 1:
 
-def on_workspace_init_or_focus(ipc, event):
+def on_workspace_init_or_focus_or_fullscreen(ipc, event):
     global POWER_STATUS
     if POWER_STATUS == PowerStatus.ON_BATTERY:
         global FIREFOX_PID
@@ -116,8 +116,9 @@ if __name__ == "__main__":
     ipc.on("window::focus", on_window_focus)
     ipc.on("window::new", on_window_new_or_close)
     ipc.on("window::close", on_window_new_or_close)
-    ipc.on("workspace::init", on_workspace_init_or_focus)
-    ipc.on('workspace::focus', on_workspace_init_or_focus)
+    ipc.on("workspace::init", on_workspace_init_or_focus_or_fullscreen)
+    ipc.on('workspace::focus', on_workspace_init_or_focus_or_fullscreen)
+    ipc.on('window::fullscreen_mode', on_workspace_init_or_focus_or_fullscreen)
 
     for sig in [signal.SIGINT, signal.SIGTERM]:
         signal.signal(sig, lambda signal, frame: exit_handler(ipc))
