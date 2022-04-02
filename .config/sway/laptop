@@ -34,7 +34,7 @@ exec /usr/bin/swayidle \
     timeout 240 '[ -f /tmp/inhibitSuspend ] || grep -q "ens1u\|4c:1b:86:91:63:70\|54:64:d9:7e:dd:d3\|00:1e:80:8b:eb:fa" /proc/net/arp || loginctl lock-session' \
     timeout 360 '[ ! -f /tmp/inhibitScreen ] && loginctl lock-session && light -S 0' \
     timeout 362 'swaymsg "output * dpms off"'\
-    before-sleep "! grep -q "enabled" /sys/class/drm/{card0-DP-1,card0-DP-2,card0-HDMI-A-1}/enabled && swaymsg output eDP-1 enable ; loginctl lock-session"\
+    before-sleep "playerctl pause; if ! pgrep -x swaylockd > /dev/null 2>&1; then swaymsg bar one workspace_buttons no, bar one mode overlay; swaylockd --fade-in=0; loginctl unlock-session; fi"\
     after-resume "swaymsg 'output * enable, output * dpms on'"\
     lock 'playerctl pause; if ! pgrep -x swaylockd > /dev/null 2>&1; then swaymsg bar one workspace_buttons no, bar one mode overlay; swaylockd; loginctl unlock-session; fi' \
     unlock 'swaymsg bar one mode hide, bar one workspace_buttons yes'
