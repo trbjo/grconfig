@@ -34,7 +34,7 @@ def on_window_new_or_close(ipc, event):
 
 def on_window_focus(ipc, event):
     descendants = ipc.get_tree().find_focused().workspace().descendants()
-    if len(descendants) == 1:
+    if len(descendants) == 1 and descendants[0].type != 'floating_con':
         descendants[0].command("fullscreen enable")
         # if len([output for output in ipc.get_outputs() if output.active]) == 1:
 
