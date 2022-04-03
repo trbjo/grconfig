@@ -15,22 +15,45 @@ from enum import Enum, IntEnum
 import glob
 import psutil
 
-class PowerStatus(Enum):
+class PowerStatus(IntEnum):
     NOT_A_LAPTOP = 1
-    ON_BATTERY = 2
-    ON_AC = 3
+    ON_AC = 18
+    ON_BATTERY = 19
 
 class MySignal(IntEnum):
     SIGCONT = 18
     SIGSTOP = 19
 
-def signal_firefox(firefox_pid, signal: MySignal):
-    parent = psutil.Process(firefox_pid)
+def signal_firefox(signal: MySignal):
+    global FIREFOX_RUNNING
+    if FIREFOX_RUNNING and signal == MySignal.SIGCONT:
+        return
+    if not FIREFOX_RUNNING and signal == MySignal.SIGSTOP:
+        return
+    FIREFOX_RUNNING = not FIREFOX_RUNNING
+    global FIREFOX_PID
+    parent = psutil.Process(FIREFOX_PID)
     for child in parent.children(recursive=True):
         child.send_signal(signal)
 
-def on_window_new_or_close(ipc, event):
-    check_firefox_exists(ipc, event)
+
+def check_firefox_close(ipc, event):
+    global num_of_firefox_windows
+    if event.container.app_id == 'firefox':
+        if num_of_firefox_windows == 1:
+            global FIREFOX_PID
+            FIREFOX_PID = -1
+        num_of_firefox_windows-=1
+
+
+def check_firefox_open(ipc, event):
+    global num_of_firefox_windows
+    if event.container.app_id == 'firefox':
+        if num_of_firefox_windows == 0:
+            global FIREFOX_PID
+            FIREFOX_PID = event.container.pid
+        num_of_firefox_windows+=1
+
 
 def on_window_focus(ipc, event):
     descendants = ipc.get_tree().find_focused().workspace().descendants()
@@ -38,86 +61,84 @@ def on_window_focus(ipc, event):
         descendants[0].command("fullscreen enable")
         # if len([output for output in ipc.get_outputs() if output.active]) == 1:
 
-def on_workspace_init_or_focus(ipc, event):
+
+def on_workspace_init_or_focus(ipc, event=None):
     global POWER_STATUS
-    if POWER_STATUS == PowerStatus.ON_BATTERY:
-        global FIREFOX_PID
-        if FIREFOX_PID != -1:
-            if ipc.get_tree().find_by_pid(FIREFOX_PID)[0].visible:
-                signal_firefox(FIREFOX_PID, MySignal.SIGCONT)
-            else:
-                signal_firefox(FIREFOX_PID, MySignal.SIGSTOP)
+    if POWER_STATUS != PowerStatus.ON_BATTERY:
+        return
+    global FIREFOX_PID
+    if FIREFOX_PID == -1:
+        return
+    if ipc.get_tree().find_by_pid(FIREFOX_PID)[0].visible:
+        signal_firefox(MySignal.SIGCONT)
+    else:
+        signal_firefox(MySignal.SIGSTOP)
 
 
 def exit_handler(ipc):
-    global POWER_STATUS
     global FIREFOX_PID
-    if POWER_STATUS != PowerStatus.NOT_A_LAPTOP and FIREFOX_PID != -1:
-        signal_firefox(FIREFOX_PID, MySignal.SIGCONT)
+    global POWER_STATUS
+    if FIREFOX_PID != -1 and POWER_STATUS != PowerStatus.NOT_A_LAPTOP:
+        signal_firefox(MySignal.SIGCONT)
+
     ipc.main_quit()
     sys.exit(0)
 
 
-def should_firefox_continue(ipc):
+def set_power_status(ipc):
     global POWER_STATUS
     ac_adapter = None
     for f in glob.glob('/sys/class/power_supply/AC*', recursive=False):
         ac_adapter = f
         break
-
     if ac_adapter is None:
         POWER_STATUS = PowerStatus.NOT_A_LAPTOP
-    else:
-        with open(f'{ac_adapter}/online', mode='rb') as fd:
-            res = fd.read().decode().split('\x0A')[0]
-            if res == '0':
-                POWER_STATUS = PowerStatus.ON_BATTERY
-            else:
-                POWER_STATUS = PowerStatus.ON_AC
-
-    if FIREFOX_PID != -1:
-        if POWER_STATUS == POWER_STATUS.ON_BATTERY and not ipc.get_tree().find_by_pid(FIREFOX_PID)[0].visible:
-            signal_firefox(FIREFOX_PID, MySignal.SIGSTOP)
+        return
+    with open(f'{ac_adapter}/online', mode='rb') as fd:
+        res = fd.read().decode().split('\x0A')[0]
+        if res == '0':
+            POWER_STATUS = PowerStatus.ON_BATTERY
         else:
-            signal_firefox(FIREFOX_PID, MySignal.SIGCONT)
+            POWER_STATUS = PowerStatus.ON_AC
 
-
-def check_firefox_exists(ipc, event=None) -> None:
     global FIREFOX_PID
-    try:
-        cont = event.container
-        if cont.app_id == 'firefox':
-            if event.change == 'new':
-                FIREFOX_PID = cont.pid
-            elif event.change == 'close':
-                FIREFOX_PID = -1
-            else:
-                raise Exception(f'Unknown event: {event.change}')
-    except AttributeError:
-        for window in ipc.get_tree():
-            if window.app_id == 'firefox':
-                FIREFOX_PID = window.pid
-                if window.visible:
-                    signal_firefox(FIREFOX_PID, MySignal.SIGSTOP)
-                break
+    if FIREFOX_PID == -1:
+        return
+    if POWER_STATUS == PowerStatus.ON_BATTERY and not ipc.get_tree().find_by_pid(FIREFOX_PID)[0].visible:
+        signal_firefox(MySignal.SIGSTOP)
+    else:
+        signal_firefox(MySignal.SIGCONT)
 
+
+def set_firefox_pid_init(ipc, event=None) -> None:
+    global num_of_firefox_windows
+    global FIREFOX_PID
+    for window in ipc.get_tree():
+        if window.app_id == 'firefox':
+            if FIREFOX_PID == -1:
+                FIREFOX_PID = window.pid
+            num_of_firefox_windows+=1
 
 if __name__ == "__main__":
     ipc = i3ipc.Connection()
     prev_workspace = ipc.get_tree().find_focused().workspace().num
 
+    # we assume the sigstop/sigcont status of firefox to be running when we start the script
+    FIREFOX_RUNNING: bool = True
+
+    num_of_firefox_windows: int = 0
     FIREFOX_PID: int = -1
-    check_firefox_exists(ipc)
-
+    set_firefox_pid_init(ipc)
     POWER_STATUS = None
-    should_firefox_continue(ipc)
+    set_power_status(ipc)
 
-    signal.signal(signal.SIGUSR1, lambda signal, frame: should_firefox_continue(ipc))
     ipc.on("window::focus", on_window_focus)
-    ipc.on("window::new", on_window_new_or_close)
-    ipc.on("window::close", on_window_new_or_close)
-    ipc.on("workspace::init", on_workspace_init_or_focus)
-    ipc.on('workspace::focus', on_workspace_init_or_focus)
+    if POWER_STATUS != PowerStatus.NOT_A_LAPTOP:
+        ipc.on("window::new", check_firefox_open)
+        ipc.on("window::close", check_firefox_close)
+        ipc.on("workspace::init", on_workspace_init_or_focus)
+        ipc.on('workspace::focus', on_workspace_init_or_focus)
+        signal.signal(signal.SIGUSR1, lambda signal, frame: set_power_status(ipc))
 
     for sig in [signal.SIGINT, signal.SIGTERM]:
         signal.signal(sig, lambda signal, frame: exit_handler(ipc))
