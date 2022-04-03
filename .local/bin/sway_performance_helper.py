@@ -125,7 +125,6 @@ def set_firefox_pid_init(ipc, event=None) -> None:
 
 if __name__ == "__main__":
     ipc = i3ipc.Connection()
-    prev_workspace = ipc.get_tree().find_focused().workspace().num
 
     # we assume the sigstop/sigcont status of firefox to be running when we start the script
     FIREFOX_RUNNING: bool = True
