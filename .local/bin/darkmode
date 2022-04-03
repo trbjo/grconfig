@@ -131,7 +131,6 @@ execute() {
     -e "/set inputbar-bg /s/$ZATHURASEARCH_OLD/$ZATHURASEARCH_NEW/"\
     -e "s/$ACCENT_OLD/$ACCENT_NEW/" $HOME/.config/zathura/zathurarc
 
-    pkill -SIGUSR2 python
     makoctl reload
 
 }
