@@ -530,9 +530,9 @@
             "foreground": "var(purple2)"
         },
         {
-            "name": "Zorgmode DONE",
-            "scope": "done.text.org",
-            "foreground": "var(green)"
+            "name": "Accent",
+            "scope": "accent",
+            "foreground": "var(accent)"
         },
         {
             "name": "Zorgmode Link",

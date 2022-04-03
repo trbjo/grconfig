@@ -127,7 +127,23 @@
             "context": [
             {"key": "setting.command_mode", "operator": "equal", "operand": false },
             {"key": "selector", "operator": "equal", "operand": "source.python", "match_all": true },
-            // {"key": "preceding_text", "operator": "regex_contains", "operand": "\\s+(elif|else)"},
+            {"key": "preceding_text", "operator": "regex_contains", "operand": "\\s+(elif|else)"},
+            {"key": "num_selections", "operator": "equal", "operand": 1 },
+         ]
+    },
+
+// do not indent fuction definition
+{ "keys": [";"], "command": "chain",
+        "args": {
+            "commands": [
+                {"command": "move_to", "args": {"to": "hardeol"}},
+                {"command": "insert", "args": {"characters": ":"}},
+                // {"command": "reindent", "args": {"force_indent": false}},
+                {"command": "insert", "args": {"characters": "\n"}},
+            ]},
+            "context": [
+            {"key": "setting.command_mode", "operator": "equal", "operand": false },
+            {"key": "selector", "operator": "equal", "operand": "source.python", "match_all": true },
             {"key": "num_selections", "operator": "equal", "operand": 1 },
          ]
     },
@@ -398,5 +414,14 @@
         {"key": "setting.is_widget", "operator": "equal", "operand": true}
     ]
 },
+
+{ "keys": ["ctrl+j", "ctrl+up"], "command": "noop" },
+{ "keys": ["ctrl+j", "ctrl+left"], "command": "noop" },
+{ "keys": ["ctrl+j", "ctrl+right"], "command": "noop" },
+{ "keys": ["ctrl+j", "ctrl+shift+left"], "command": "noop" },
+{ "keys": ["ctrl+j", "ctrl+shift+right"], "command": "noop" },
+{ "keys": ["ctrl+j", "ctrl+pageup"], "command": "noop" },
+{ "keys": ["ctrl+j", "ctrl+pagedown"], "command": "noop" },
+
 
 ]
