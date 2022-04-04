@@ -4,6 +4,7 @@
         "conf",
         "config",
         "hosts",
-        ".zimrc",
+        "zshrc",
+        "zshenv",
     ],
 }
