@@ -31,7 +31,6 @@ def signal_firefox(signal: MySignal):
     if not FIREFOX_RUNNING and signal == MySignal.SIGSTOP:
         return
     FIREFOX_RUNNING = not FIREFOX_RUNNING
-    global FIREFOX_PID
     parent = psutil.Process(FIREFOX_PID)
     for child in parent.children(recursive=True):
         child.send_signal(signal)
@@ -67,10 +66,8 @@ def on_window_focus(ipc, event):
 
 
 def on_workspace_init_or_focus(ipc, event=None):
-    global POWER_STATUS
     if POWER_STATUS != PowerStatus.ON_BATTERY:
         return
-    global FIREFOX_PID
     if FIREFOX_PID == -1:
         return
     if ipc.get_tree().find_by_pid(FIREFOX_PID)[0].visible:
@@ -80,21 +77,19 @@ def on_workspace_init_or_focus(ipc, event=None):
 
 
 def exit_handler(ipc):
-    global FIREFOX_PID
-    global POWER_STATUS
     if FIREFOX_PID != -1 and POWER_STATUS != PowerStatus.NOT_A_LAPTOP:
         signal_firefox(MySignal.SIGCONT)
-
     ipc.main_quit()
     sys.exit(0)
 
 
 def set_power_status(ipc):
-    global POWER_STATUS
     ac_adapter = None
     for f in glob.glob('/sys/class/power_supply/AC*', recursive=False):
         ac_adapter = f
         break
+
+    global POWER_STATUS
     if ac_adapter is None:
         POWER_STATUS = PowerStatus.NOT_A_LAPTOP
         return
@@ -105,7 +100,6 @@ def set_power_status(ipc):
         else:
             POWER_STATUS = PowerStatus.ON_AC
 
-    global FIREFOX_PID
     if FIREFOX_PID == -1:
         return
     if POWER_STATUS == PowerStatus.ON_BATTERY and not ipc.get_tree().find_by_pid(FIREFOX_PID)[0].visible:
