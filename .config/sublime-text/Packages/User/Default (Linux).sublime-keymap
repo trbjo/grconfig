@@ -1,34 +1,31 @@
 [
 
 
-{ "keys": ["N"], "command": "chain",
-        "args": {
-            "commands": [
-                {"command": "move", "args": {"by": "stops", "word_end": true, "empty_line": true, "separators": "", "forward": true, "extend": true }},
-            ]},
-            "context": [
-            {"key": "setting.command_mode", "operator": "equal", "operand": true },
-            {"key": "last_command", "operator": "not_equal", "operand": "find_under_expand" },
-         ]
-    },
+// { "keys": ["N"], "command": "chain",
+//         "args": {
+//             "commands": [
+//                 {"command": "move", "args": {"by": "stops", "word_end": true, "empty_line": true, "separators": "", "forward": true, "extend": true }},
+//             ]},
+//             "context": [
+//             {"key": "setting.command_mode", "operator": "equal", "operand": true },
+//             {"key": "last_command", "operator": "not_equal", "operand": "find_under_expand" },
+//          ]
+//     },
 
-{ "keys": ["N"], "command": "chain",
-        "args": {
-            "commands": [
-                {"command": "move", "args": {"by": "stops", "word_begin": true, "empty_line": true, "separators": "", "forward": false, "extend": false }},
-                {"command": "move", "args": {"by": "stops", "word_end": true, "empty_line": true, "separators": "", "forward": true, "extend": true }},
-            ]},
-            "context": [
-            { "key": "preceding_text", "operator": "not_regex_match", "operand": ".* $|^$", "match_all": true },
-            {"key": "last_command", "operator": "not_equal", "operand": "find_under_expand" },
-            {"key": "setting.command_mode", "operator": "equal", "operand": true },
-         ]
-    },
-
-
+// { "keys": ["N"], "command": "chain",
+//         "args": {
+//             "commands": [
+//                 {"command": "move", "args": {"by": "stops", "word_begin": true, "empty_line": true, "separators": "", "forward": false, "extend": false }},
+//                 {"command": "move", "args": {"by": "stops", "word_end": true, "empty_line": true, "separators": "", "forward": true, "extend": true }},
+//             ]},
+//             "context": [
+//             { "key": "preceding_text", "operator": "not_regex_match", "operand": ".* $|^$", "match_all": true },
+//             {"key": "last_command", "operator": "not_equal", "operand": "find_under_expand" },
+//             {"key": "setting.command_mode", "operator": "equal", "operand": true },
+//          ]
+//     },
 
 
-    { "keys": ["ctrl+k"], "command": "paste" },
 
 
     {"keys": ["enter"], "command": "run_macro_file", "args": {"file": "res://Packages/sublime-fly-keys/macros/div-exp.sublime-macro"}, "context": [{"key": "following_text", "operator": "regex_match", "operand": "^\">$"} ] },
@@ -388,9 +385,6 @@
 
 {"keys": ["`"], "command": "next_view_in_stack", "context": [{"key": "setting.command_mode"}, ] },
 {"keys": ["ctrl+`"], "command": "toggle_side_bar" },
-
-{"keys": ["ctrl+x"], "command": "duplicate_line", "context": [{"key": "setting.command_mode"} ] },
-
 
 {"keys": ["escape"], "command": "prompt_git", "context": [{ "key": "selector", "operator": "equal", "operand": "text.git.commit", "match_all": true }, ] },
 
