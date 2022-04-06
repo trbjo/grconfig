@@ -1,33 +1,6 @@
 [
 
 
-// { "keys": ["N"], "command": "chain",
-//         "args": {
-//             "commands": [
-//                 {"command": "move", "args": {"by": "stops", "word_end": true, "empty_line": true, "separators": "", "forward": true, "extend": true }},
-//             ]},
-//             "context": [
-//             {"key": "setting.command_mode", "operator": "equal", "operand": true },
-//             {"key": "last_command", "operator": "not_equal", "operand": "find_under_expand" },
-//          ]
-//     },
-
-// { "keys": ["N"], "command": "chain",
-//         "args": {
-//             "commands": [
-//                 {"command": "move", "args": {"by": "stops", "word_begin": true, "empty_line": true, "separators": "", "forward": false, "extend": false }},
-//                 {"command": "move", "args": {"by": "stops", "word_end": true, "empty_line": true, "separators": "", "forward": true, "extend": true }},
-//             ]},
-//             "context": [
-//             { "key": "preceding_text", "operator": "not_regex_match", "operand": ".* $|^$", "match_all": true },
-//             {"key": "last_command", "operator": "not_equal", "operand": "find_under_expand" },
-//             {"key": "setting.command_mode", "operator": "equal", "operand": true },
-//          ]
-//     },
-
-
-
-
     {"keys": ["enter"], "command": "run_macro_file", "args": {"file": "res://Packages/sublime-fly-keys/macros/div-exp.sublime-macro"}, "context": [{"key": "following_text", "operator": "regex_match", "operand": "^\">$"} ] },
 
     {"keys": ["enter"], "command": "run_macro_file", "args": {"file": "res://Packages/sublime-fly-keys/macros/div-exp.sublime-macro"}, "context": [{"key": "preceding_text", "operator": "regex_match", "operand": "^\\s+<\\w+>\\s?$"},  ] },
