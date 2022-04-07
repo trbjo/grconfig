@@ -20,8 +20,6 @@ class PowerStatus(IntEnum):
     ON_BATTERY = 19
 
 def signal_app(pid: int, app_id: str, signal: int):
-    if app_id == "Alacritty":
-        return
     try:
         parent = psutil.Process(pid)
         for child in parent.children(recursive=False if app_id == 'Alacritty' else True):
