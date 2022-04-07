@@ -38,14 +38,14 @@ def signal_app(pid: int, app_id: str, signal: MySignal):
     else:
         kill = KillStatus.ALL
         rec = True
-    parent = psutil.Process(pid)
     try:
+        parent = psutil.Process(pid)
         if kill == KillStatus.CHILDREN or kill == KillStatus.ALL:
             for child in parent.children(recursive=rec):
                 child.send_signal(signal)
         if kill == KillStatus.ALL:
             parent.send_signal(signal)
-    except:
+    except psutil.NoSuchProcess:
         pass
 
 
