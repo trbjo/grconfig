@@ -263,7 +263,7 @@ for_window [app_id="^gcr-prompter$"] fullscreen disable, floating enable
 
 for_window [app_id="^pavucontrol$"] floating enable, move position center, resize set width 100ppt height 100ppt, resize shrink down 1100px, resize set 727 0, resize grow down 500px
 
-for_window [app_id="^firefox$" title="^Library$"] floating enable, border pixel 1, move position center, resize set width 100ppt height 100ppt, resize shrink down 450px, resize set width 1000, move down 35px
+for_window [app_id="^firefox$" title="^Library$"] floating enable, move position center, resize set width 100ppt height 100ppt, resize shrink down 450px, resize set width 1000
 
 for_window [title="^Firefox — Sharing Indicator$"] floating enable, border pixel 0, sticky enable, resize set 57 30, move position 0 0
 

@@ -19,32 +19,14 @@ class PowerStatus(IntEnum):
     ON_AC = 18
     ON_BATTERY = 19
 
-class MySignal(IntEnum):
-    SIGCONT = 18
-    SIGSTOP = 19
-
-class KillStatus(IntEnum):
-    KEEPALIVE= 0
-    CHILDREN= 1
-    ALL= 2
-
-def signal_app(pid: int, app_id: str, signal: MySignal):
-    if app_id == 'Alacritty':
-        kill = KillStatus.ALL
-        rec = False
-    elif app_id == 'firefox':
-        kill = KillStatus.CHILDREN
-        rec = True
-    else:
-        kill = KillStatus.ALL
-        rec = True
+def signal_app(pid: int, app_id: str, signal: int):
+    if app_id == "Alacritty":
+        return
     try:
         parent = psutil.Process(pid)
-        if kill == KillStatus.CHILDREN or kill == KillStatus.ALL:
-            for child in parent.children(recursive=rec):
-                child.send_signal(signal)
-        if kill == KillStatus.ALL:
-            parent.send_signal(signal)
+        for child in parent.children(recursive=False if app_id == 'Alacritty' else True):
+            child.send_signal(signal)
+        parent.send_signal(signal)
     except psutil.AccessDenied:
         pass
     except psutil.NoSuchProcess:
@@ -52,12 +34,12 @@ def signal_app(pid: int, app_id: str, signal: MySignal):
 
 
 def check_app_close(ipc, event):
-    signal_app(event.container.pid, event.container.app_id, MySignal.SIGCONT)
+    signal_app(event.container.pid, event.container.app_id, signal.SIGCONT)
     global current_focus
     current_focus = None
 
 def on_window_focus(ipc, event):
-    signal_app(event.container.pid, event.container.app_id, MySignal.SIGCONT)
+    signal_app(event.container.pid, event.container.app_id, signal.SIGCONT)
     # race condition workaround:
     focused = ipc.get_tree().find_focused()
     if focused is None:
@@ -74,7 +56,7 @@ def on_window_focus(ipc, event):
     if current_focus is not None:
         con = ipc.get_tree().find_by_pid(current_focus)[0]
         if not con.visible:
-            signal_app(current_focus, con.app_id, MySignal.SIGSTOP)
+            signal_app(current_focus, con.app_id, signal.SIGSTOP)
     current_focus = event.container.pid
 
 
@@ -91,7 +73,7 @@ def on_window_move(ipc, event):
         if d.app_id is None:
             continue
         if d.visible:
-            signal_app(d.pid, d.app_id, MySignal.SIGCONT)
+            signal_app(d.pid, d.app_id, signal.SIGCONT)
 
 
 def on_workspace_focus(ipc, event):
@@ -104,17 +86,17 @@ def on_workspace_focus(ipc, event):
             if window.app_id is None:
                 continue
             if window.visible:
-                signal_app(window.pid, window.app_id, MySignal.SIGCONT)
+                signal_app(window.pid, window.app_id, signal.SIGCONT)
             else:
-                signal_app(window.pid, window.app_id, MySignal.SIGSTOP)
+                signal_app(window.pid, window.app_id, signal.SIGSTOP)
     if event.old is not None:
         for window in event.old:
             if window.app_id is None:
                 continue
             if window.visible:
-                signal_app(window.pid, window.app_id, MySignal.SIGCONT)
+                signal_app(window.pid, window.app_id, signal.SIGCONT)
             else:
-                signal_app(window.pid, window.app_id, MySignal.SIGSTOP)
+                signal_app(window.pid, window.app_id, signal.SIGSTOP)
 
 def on_workspace_init(ipc, event):
     if power_status != PowerStatus.ON_BATTERY:
@@ -124,14 +106,14 @@ def on_workspace_init(ipc, event):
         for window in event.current:
             if window.app_id is None:
                 continue
-            signal_app(window.pid, window.app_id, MySignal.SIGSTOP)
+            signal_app(window.pid, window.app_id, signal.SIGSTOP)
     current_ws = None
 
 
 def exit_handler(ipc):
     for window in ipc.get_tree():
         if window.app_id is not None:
-            signal_app(window.pid, window.app_id, MySignal.SIGCONT)
+            signal_app(window.pid, window.app_id, signal.SIGCONT)
     ipc.main_quit()
     sys.exit(0)
 
@@ -153,12 +135,9 @@ def set_power_status(ipc):
             power_status = PowerStatus.ON_AC
 
     for window in ipc.get_tree():
-        if window.app_id is None:
+        if window.app_id is None or window.visible:
             continue
-        if not window.visible and power_status == power_status.ON_BATTERY:
-            signal_app(window.pid, window.app_id, MySignal.SIGSTOP)
-        else:
-            signal_app(window.pid, window.app_id, MySignal.SIGCONT)
+        signal_app(window.pid, window.app_id, power_status)
 
 
 if __name__ == "__main__":

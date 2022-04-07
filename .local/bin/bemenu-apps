@@ -116,7 +116,7 @@ case $(bemenu --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
         ;;
 
 
-    '   Sublime Text   ')
+    '   Sublime Text   ')
         swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^sublime_text$"] focus'
         swaymsg exec -q -- /opt/sublime_text/sublime_text
         ;;
