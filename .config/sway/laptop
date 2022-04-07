@@ -9,6 +9,7 @@ bindsym --no-repeat ctrl+2 $ws2
 bindsym --no-repeat ctrl+3 $ws3
 bindsym --no-repeat ctrl+4 $ws4
 bindsym --no-repeat ctrl+5 $ws5
+bindsym --no-repeat ctrl+6 $ws6
 
 # move focused container to workspace
 bindsym --no-repeat ctrl+Shift+1 move container to $ws1; $ws1; fullscreen disable
@@ -16,6 +17,7 @@ bindsym --no-repeat ctrl+Shift+2 move container to $ws2; $ws2; fullscreen disabl
 bindsym --no-repeat ctrl+Shift+3 move container to $ws3; $ws3; fullscreen disable
 bindsym --no-repeat ctrl+Shift+4 move container to $ws4; $ws4; fullscreen disable
 bindsym --no-repeat ctrl+Shift+5 move container to $ws5; $ws5; fullscreen disable
+bindsym --no-repeat ctrl+Shift+6 move container to $ws6; $ws6; fullscreen disable
 
 exec /usr/bin/swayidle \
     timeout 30 'pgrep swaylockd && swaymsg "output * dpms off" && grep -q 0 /sys/class/power_supply/AC0/online && [ ! -f /tmp/inhibitSuspend ] && /usr/bin/systemctl suspend' \

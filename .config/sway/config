@@ -6,10 +6,11 @@ set $alt Mod1
 set $super Mod4
 
 set $ws1 workspace "1"
-set $ws2 workspace "2"
-set $ws3 workspace "3"
+set $ws2 workspace "2"
+set $ws3 workspace "3"
 set $ws4 workspace "4"
 set $ws5 workspace "5"
+set $ws6 workspace "6"
 
 include "~/.config/sway/enabled/*"
 # then do ln -s
@@ -243,6 +244,7 @@ assign [app_id="^sublime_merge$"] $ws1
 assign [app_id="^sublime_text$"] $ws2
 assign [app_id="^firefox$"] $ws3
 assign [app_id="^(mpv|imv|org.pwmt.zathura|evince)$"] $ws4
+assign [app_id="-Telegram_Desktop$"] $ws6
 
 # all new windows except the PopUp should receive focus.
 for_window [title=^(?!(PopUp)$).*$] focus

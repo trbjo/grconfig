@@ -147,7 +147,7 @@ settings:
   fonts.downloads:
     global: default_size default_family
   fonts.web.family.sans_serif:
-    global: SF Pro Display
+    global: Inter
   fonts.web.family.serif:
     global: Garamond
   fonts.web.family.standard:
