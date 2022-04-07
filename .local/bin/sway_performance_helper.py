@@ -45,6 +45,8 @@ def signal_app(pid: int, app_id: str, signal: MySignal):
                 child.send_signal(signal)
         if kill == KillStatus.ALL:
             parent.send_signal(signal)
+    except psutil.AccessDenied:
+        pass
     except psutil.NoSuchProcess:
         pass
 
