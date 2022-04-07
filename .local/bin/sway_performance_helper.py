@@ -39,11 +39,14 @@ def signal_app(pid: int, app_id: str, signal: MySignal):
         kill = KillStatus.ALL
         rec = True
     parent = psutil.Process(pid)
-    if kill == KillStatus.CHILDREN or kill == KillStatus.ALL:
-        for child in parent.children(recursive=rec):
-            child.send_signal(signal)
-    if kill == KillStatus.ALL:
-        parent.send_signal(signal)
+    try:
+        if kill == KillStatus.CHILDREN or kill == KillStatus.ALL:
+            for child in parent.children(recursive=rec):
+                child.send_signal(signal)
+        if kill == KillStatus.ALL:
+            parent.send_signal(signal)
+    except:
+        pass
 
 
 def check_app_close(ipc, event):
@@ -71,6 +74,22 @@ def on_window_focus(ipc, event):
         if not con.visible:
             signal_app(current_focus, con.app_id, MySignal.SIGSTOP)
     current_focus = event.container.pid
+
+
+def on_window_move(ipc, event):
+    if power_status != PowerStatus.ON_BATTERY:
+        return
+    focused = ipc.get_tree().find_focused()
+    if focused is None:
+        return
+    descendants = focused.workspace().descendants()
+    if len(descendants) <= 1:
+        return
+    for d in descendants:
+        if d.app_id is None:
+            continue
+        if d.visible:
+            signal_app(d.pid, d.app_id, MySignal.SIGCONT)
 
 
 def on_workspace_focus(ipc, event):
@@ -150,6 +169,7 @@ if __name__ == "__main__":
 
     ipc.on("window::focus", on_window_focus)
     if power_status != PowerStatus.NOT_A_LAPTOP:
+        ipc.on("window::move", on_window_move)
         ipc.on("window::close", check_app_close)
         ipc.on("workspace::init", on_workspace_init)
         ipc.on('workspace::focus', on_workspace_focus)

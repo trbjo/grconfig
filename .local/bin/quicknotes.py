@@ -23,8 +23,7 @@ class Quicknote:
 
       def __str__(self):
             return f"""
-# {self.app_id.replace('_', ' ').title()} – {self.title}
-## {self.timestamp}
+# {self.title} – {self.timestamp}
 {self.content}
 """
 
