@@ -5,19 +5,19 @@
 IFS=$'\n'
 typeset -a list
 
-[[ $commands[firefox] ]] && list+=(" Firefox" " Firefox (Private Window)" " IRC")
-[[ $commands[subl] ]] && list+=(" Sublime Text")
-[[ $commands[emacs] ]] && list+=(" Emacs")
-[[ $commands[inkscape] ]] && list+=(" Inkscape")
-[[ $commands[spot] ]] && list+=(" Spotify")
-[[ $commands[smerge] ]] && list+=(" Sublime Merge")
-[[ $commands[baobab] ]] && list+=(" Disk Usage")
-[[ $commands[gnome-disks] ]] && list+=(" Disk Utility")
-[[ $commands[telegram-desktop] ]] && list+=(" Telegram")
-[[ $commands[pavucontrol] ]] && list+=(" SoundControl")
-[[ $commands[libreoffice] ]] && list+=(" LibreOffice Writer" " LibreOffice Calc" " LibreOffice Draw" " LibreOffice Impress" )
+type firefox > /dev/null 2>&1 && list+=(" Firefox" " Firefox (Private Window)" " IRC")
+type subl > /dev/null 2>&1 && list+=(" Sublime Text")
+type emacs > /dev/null 2>&1 && list+=(" Emacs")
+type inkscape > /dev/null 2>&1 && list+=(" Inkscape")
+type spot > /dev/null 2>&1 && list+=(" Spotify")
+type smerge > /dev/null 2>&1 && list+=(" Sublime Merge")
+type baobab > /dev/null 2>&1 && list+=(" Disk Usage")
+type gnome-disks > /dev/null 2>&1 && list+=(" Disk Utility")
+type telegram-desktop > /dev/null 2>&1 && list+=(" Telegram")
+type pavucontrol > /dev/null 2>&1 && list+=(" SoundControl")
+type libreoffice > /dev/null 2>&1 && list+=(" LibreOffice Writer" " LibreOffice Calc" " LibreOffice Draw" " LibreOffice Impress" )
 
-[[ $commands[darkmode] ]] &&  {
+type darkmode > /dev/null 2>&1 &&  {
     theme="$(gsettings get org.gnome.desktop.interface gtk-theme)"
     if [[ $theme  == "'Adwaita'" ]]; then
         list+=(" Dark Mode")
@@ -26,7 +26,7 @@ typeset -a list
     fi
 }
 
-[[ $commands[wf-recorder] ]] && {
+type wf-recorder > /dev/null 2>&1 && {
     if pgrep -x wf-recorder > /dev/null 2>&1; then
         recorder="Stop Recording"
     else
@@ -35,16 +35,16 @@ typeset -a list
     list+=(" $recorder")
 }
 
-[[ $commands[chromium-snapshot-bin] ]] && list+=(" Chrome" " Discord" " Slack")
-[[ "$HOST" == "teliarch" ]] && list+=(" Teams")
-[[ $commands[code] ]] && list+=(" VSCode")
-[[ $commands[grim] ]] && list+=(" Screenshot (Whole Screen)" " Screenshot (Whole Screen, Delay)") && \
-[[ $commands[slurp] ]] && list+=(" Screenshot (Subset)")
-[[ $commands[foot] ]] && list+=(" Foot Terminal")
-[[ $commands[quicknotes.py] ]] && list+=(" Add to Quicknotes" " Open Quicknotes")
-[[ $commands[wl-paste] ]] && list+=(" Upload Clipboard" " Upload Clipboard (Primary)")
+type chromium-snapshot-bin > /dev/null 2>&1 && list+=(" Chrome" " Discord" " Slack" " Outlook")
+type microsoft-edge-dev > /dev/null 2>&1 && list+=(" Teams")
+type code > /dev/null 2>&1 && list+=(" VSCode")
+type grim > /dev/null 2>&1 && list+=(" Screenshot (Whole Screen)" " Screenshot (Whole Screen, Delay)") && \
+type slurp > /dev/null 2>&1 && list+=(" Screenshot (Subset)")
+type foot > /dev/null 2>&1 && list+=(" Foot Terminal")
+type quicknotes.py > /dev/null 2>&1 && list+=(" Add to Quicknotes" " Open Quicknotes")
+type wl-paste > /dev/null 2>&1 && list+=(" Upload Clipboard" " Upload Clipboard (Primary)")
 
-[[ $commands[iwctl] ]] && {
+type iwctl > /dev/null 2>&1 && {
     if systemctl is-active --quiet iwd; then
         wifi="OFF"
     else
@@ -54,9 +54,9 @@ typeset -a list
 }
 
 
-[[ $commands[swaylock] ]] && list+=(" Lock")
+type swaylock > /dev/null 2>&1 && list+=(" Lock")
 
-[[ $commands[dbus-send] ]] && list+=(" Suspend" " Reboot" " Poweroff")
+type dbus-send > /dev/null 2>&1 && list+=(" Suspend" " Reboot" " Poweroff")
 
 case $(bemenu --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
     '   Firefox   ')
@@ -207,6 +207,13 @@ case $(bemenu --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
         ;;
 
 
+    '   Outlook   ')
+        swaymsg -q -- '[app_id="^PopUp$"] move scratchpad'
+        swaymsg -q -- '[app_id="^\/usr\/bin\/chromium-snapshot-bin$" title="^Slack"] focus' ||\
+        swaymsg exec -q -- /usr/bin/chromium-snapshot-bin --user-data-dir=~/.cache/chrom/Outlook --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://outlook.com/' &!
+        ;;
+
+
     '   Dark Mode   ')
         /home/tb/.local/bin/darkmode dark
         ;;
@@ -221,6 +228,8 @@ case $(bemenu --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
         swaymsg -q -- '[app_id="^PopUp$"] move scratchpad'
         swaymsg -q -- '[app_id="^microsoft-edge-dev$"] focus' ||\
         swaymsg exec -- /opt/microsoft/msedge-dev/microsoft-edge-dev --enable-features=UseOzonePlatform --ozone-platform=wayland 'teams.microsoft.com'
+        sleep 10
+        pkill msedge_crashpad
         ;;
 
 
