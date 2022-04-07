@@ -6,8 +6,9 @@ IFS=$'\n'
 typeset -a list
 
 [[ $commands[firefox] ]] && list+=(" Firefox" " Firefox (Private Window)" " IRC")
-[[ $commands[subl] ]] && list+=(" Sublime Text")
+[[ $commands[subl] ]] && list+=(" Sublime Text")
 [[ $commands[emacs] ]] && list+=(" Emacs")
+[[ $commands[inkscape] ]] && list+=(" Inkscape")
 [[ $commands[spot] ]] && list+=(" Spotify")
 [[ $commands[smerge] ]] && list+=(" Sublime Merge")
 [[ $commands[baobab] ]] && list+=(" Disk Usage")
@@ -34,6 +35,8 @@ typeset -a list
     list+=(" $recorder")
 }
 
+[[ $commands[chromium-snapshot-bin] ]] && list+=(" Chrome" " Discord" " Slack")
+[[ "$HOST" == "teliarch" ]] && list+=(" Teams")
 [[ $commands[code] ]] && list+=(" VSCode")
 [[ $commands[grim] ]] && list+=(" Screenshot (Whole Screen)" " Screenshot (Whole Screen, Delay)") && \
 [[ $commands[slurp] ]] && list+=(" Screenshot (Subset)")
@@ -52,9 +55,7 @@ typeset -a list
 
 
 [[ $commands[swaylock] ]] && list+=(" Lock")
-[[ $commands[chromium-snapshot-bin] ]] && list+=(" Discord" " Chrome")
 
-[[ "$HOST" == "teliarch" ]] && list+=(" Slack" " Teams")
 [[ $commands[dbus-send] ]] && list+=(" Suspend" " Reboot" " Poweroff")
 
 case $(bemenu --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
@@ -123,6 +124,11 @@ case $(bemenu --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
 
     '   Emacs   ')
         swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^emacs$"] focus' || swaymsg exec -q -- /usr/bin/emacs
+        ;;
+
+
+    '   Inkscape   ')
+        swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^inkscape$"] focus' || swaymsg exec -q -- /usr/bin/inkscape
         ;;
 
 
@@ -197,7 +203,7 @@ case $(bemenu --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
     '   Slack   ')
         swaymsg -q -- '[app_id="^PopUp$"] move scratchpad'
         swaymsg -q -- '[app_id="^\/usr\/bin\/chromium-snapshot-bin$" title="^Slack"] focus' ||\
-        swaymsg exec -q -- /usr/bin/chromium-snapshot-bin  --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://app.slack.com/client/T03PATMPV/D02D6BJLB5Z' &!
+        swaymsg exec -q -- /usr/bin/chromium-snapshot-bin --user-data-dir=~/.cache/chrom/Slack --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://app.slack.com/client/T03PATMPV/D02D6BJLB5Z' &!
         ;;
 
 
@@ -221,7 +227,7 @@ case $(bemenu --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
     '   Discord   ')
         swaymsg -q -- '[app_id="^PopUp$"] move scratchpad'
         swaymsg -q -- '[app_id="chrome-discord.com__channels_280102180189634562_280102180189634562-Default$"] focus' ||\
-        swaymsg exec -- /usr/bin/chromium-snapshot-bin --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://discord.com/channels/280102180189634562/280102180189634562' --user-data-dir=~/.chrome/discord
+        swaymsg exec -- /usr/bin/chromium-snapshot-bin --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://discord.com/channels/280102180189634562/280102180189634562' --user-data-dir=~/.cache/chrom/Discord
         sleep 10
         pkill chrome_crashpad
         ;;

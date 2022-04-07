@@ -284,8 +284,7 @@ for_window [app_id="firefox$" title="^Picture-in-Picture$"] floating enable, sti
 # exec "dbus-update-activation-environment --systemd --all"
 # exec "systemctl --user import-environment"
 exec mako
-exec /usr/bin/sh -c 'while pgrep sway > /dev/null 2>&1; do env PROHIBIT_TERM_TITLE=true PopUp=true /usr/bin/alacritty --title=PopUp > /dev/null 2>&1; done'
-# exec /usr/bin/sh -c 'while pgrep sway > /dev/null 2>&1; do python ~/.local/bin/sway_performance_helper.py > /home/tb/sway_performance_helper_log.log 2>&1; done'
-exec python ~/.local/bin/sway_performance_helper.py
 exec "/usr/bin/clipman restore"
 exec '/usr/bin/wl-paste --type text --watch sh -c "if [[ -f /tmp/clipman_ignore ]]; then rm /tmp/clipman_ignore; else /usr/bin/clipman store --max-items=2000; fi"'
+exec python ~/.local/bin/sway_performance_helper.py
+exec /usr/bin/sh -c 'while pgrep sway > /dev/null 2>&1; do env PROHIBIT_TERM_TITLE=true PopUp=true /usr/bin/alacritty --title=PopUp > /dev/null 2>&1; done'
