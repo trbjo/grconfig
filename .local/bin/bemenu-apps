@@ -185,7 +185,7 @@ case $(bemenu --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
         grep --color=auto -q 'enabled' /sys/class/drm/card0-DP-1/enabled && export ALSA_CARD=Audio
         readlink -q /sys/bus/hid/devices/0003:047F:02F7* > /dev/null 2>&1 && export ALSA_CARD=BT600
         swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="-Telegram_Desktop$"] focus'
-        /usr/bin/telegram-desktop
+        swaymsg exec -q -- /usr/bin/telegram-desktop
         ;;
 
 
@@ -214,14 +214,16 @@ case $(bemenu --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
     '   Teams   ')
         swaymsg -q -- '[app_id="^PopUp$"] move scratchpad'
         swaymsg -q -- '[app_id="^microsoft-edge-dev$"] focus' ||\
-        /opt/microsoft/msedge-dev/microsoft-edge-dev --enable-features=UseOzonePlatform --ozone-platform=wayland 'teams.microsoft.com'
+        swaymsg exec -- /opt/microsoft/msedge-dev/microsoft-edge-dev --enable-features=UseOzonePlatform --ozone-platform=wayland 'teams.microsoft.com'
         ;;
 
 
     '   Discord   ')
         swaymsg -q -- '[app_id="^PopUp$"] move scratchpad'
         swaymsg -q -- '[app_id="\/usr\/bin\/chromium-snapshot-bin$" title=^(?!(Slack.*|.*Chromium|.*Microsoft.Teams)).*$] focus' ||\
-        /usr/bin/chromium-snapshot-bin --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://discord.com/channels/280102180189634562/280102180189634562'
+        swaymsg exec -- /usr/bin/chromium-snapshot-bin --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://discord.com/channels/280102180189634562/280102180189634562'
+        sleep 10
+        pkill chrome_crashpad
         ;;
 
 
@@ -402,7 +404,7 @@ case $(bemenu --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
     *)
         # elems=$(swaymsg -t get_tree | jq -r '[.. | ((.floating_nodes,.nodes)? // empty)[] | select(.pid and .visible)] | length')
         # (( elems == 1 )) && swaymsg fullscreen enable
-        ;;
+
 
 
 

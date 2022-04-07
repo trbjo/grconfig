@@ -94,14 +94,14 @@ bindsym --locked XF86AudioPrev exec playerctl previous
 # undoes the button completely
 bindsym --locked XF86WLAN exec doas /usr/bin/rfkill unblock wifi
 
-bindsym --no-repeat ctrl+space [app_id="^PopUp$"] scratchpad show, fullscreen disable, move position center, resize set width 100ppt height 100ppt, resize shrink up 1100px, resize grow up 337px, move left 1px, move down 1px, resize grow right 2px
+bindsym --no-repeat ctrl+space [title="^PopUp$"] scratchpad show, fullscreen disable, move position center, resize set width 100ppt height 100ppt, resize shrink up 1100px, resize grow up 337px, move left 1px, move down 1px, resize grow right 2px
 
 #bindsym --no-repeat $alt+l output eDP-1 disable, output DP-1 enable
 #bindsym --no-repeat $alt+shift+l output eDP-1 enable
 
 
 bindsym $alt+return exec /usr/bin/alacritty
-bindsym --no-repeat $alt+space [app_id="^PopUp$"] move scratchpad, scratchpad show, fullscreen enable
+bindsym --no-repeat $alt+space [title="^PopUp$"] move scratchpad, scratchpad show, fullscreen enable
 
 # kill focused window
 bindsym --no-repeat $alt+apostrophe kill
@@ -245,8 +245,8 @@ assign [app_id="^firefox$"] $ws3
 assign [app_id="^(mpv|imv|org.pwmt.zathura|evince)$"] $ws4
 
 # all new windows except the PopUp should receive focus.
-for_window [app_id=^(?!(PopUp)$).*$] focus
-for_window [app_id="^PopUp$"] floating enable, border pixel 1, move scratchpad
+for_window [title=^(?!(PopUp)$).*$] focus
+for_window [title="^PopUp$"] floating enable, border pixel 1, move scratchpad
 for_window [app_id="^Chromium$" title="^teams.microsoft.com is sharing your screen.$"] border pixel 0
 for_window [app_id="^\/usr\/bin\/chromium-snapshot-bin$" title="^Discord$"] title_format "Discord"
 
@@ -277,10 +277,11 @@ for_window [app_id="^firefox$"] title_format "<span weight='100' foreground='#E6
 for_window [app_id="Signal$" title="^Signal$"] title_format "<span weight='100' foreground='#3A76F0'></span>  %title"
 for_window [app_id="firefox$" title="^Picture-in-Picture$"] floating enable, sticky enable, resize set 300 170, move position 2 28
 
-exec "dbus-update-activation-environment --systemd --all"
-exec "systemctl --user import-environment"
+# exec "dbus-update-activation-environment --systemd --all"
+# exec "systemctl --user import-environment"
 exec mako
-exec /usr/bin/sh -c 'while pgrep sway > /dev/null 2>&1; do env PopUp=True /usr/bin/alacritty --class PopUp --command /usr/bin/zsh > /dev/null 2>&1; done'
-exec /usr/bin/sh -c 'while pgrep sway > /dev/null 2>&1; do python ~/.local/bin/sway_performance_helper.py > /home/tb/sway_performance_helper_log.log 2>&1; done'
+exec /usr/bin/sh -c 'while pgrep sway > /dev/null 2>&1; do env PROHIBIT_TERM_TITLE=true PopUp=true /usr/bin/alacritty --title=PopUp > /dev/null 2>&1; done'
+# exec /usr/bin/sh -c 'while pgrep sway > /dev/null 2>&1; do python ~/.local/bin/sway_performance_helper.py > /home/tb/sway_performance_helper_log.log 2>&1; done'
+exec python ~/.local/bin/sway_performance_helper.py
 exec "/usr/bin/clipman restore"
 exec '/usr/bin/wl-paste --type text --watch sh -c "if [[ -f /tmp/clipman_ignore ]]; then rm /tmp/clipman_ignore; else /usr/bin/clipman store --max-items=2000; fi"'
