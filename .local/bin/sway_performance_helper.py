@@ -67,7 +67,8 @@ def on_window_focus(ipc, event):
 def on_window_move(ipc, event):
     if power_status != PowerStatus.ON_BATTERY:
         return
-    if len(current_ws.descendants()) > 1:
+    descendants = current_ws.descendants()
+    if len(descendants) > 1:
         for d in descendants:
             if d.app_id and d.visible:
                 signal_app(d.pid, d.app_id, signal.SIGCONT)
