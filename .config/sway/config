@@ -248,7 +248,7 @@ assign [app_id="^(mpv|imv|org.pwmt.zathura|evince)$"] $ws4
 for_window [title=^(?!(PopUp)$).*$] focus
 for_window [title="^PopUp$"] floating enable, border pixel 1, move scratchpad
 for_window [app_id="^Chromium$" title="^teams.microsoft.com is sharing your screen.$"] border pixel 0
-for_window [app_id="^\/usr\/bin\/chromium-snapshot-bin$" title="^Discord$"] title_format "Discord"
+for_window [app_id="^chrome-discord.com__channels_280102180189634562_280102180189634562-Default$"] title_format "Discord"
 
 for_window [app_id="^(subl|sublime_text)$" title="^(Open File|Save File|)$"] fullscreen disable
 for_window [app_id="^(subl|sublime_text)$" title="^Changelog - Sublime Tex$"] fullscreen disable, floating enable
