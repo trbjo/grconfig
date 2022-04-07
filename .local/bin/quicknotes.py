@@ -47,7 +47,10 @@ def main():
       except:
             notes_file = open('/home/tb/quicknotes.md', 'x')
       finally:
+            swayer="""swaymsg '[title="^PopUp$"] move scratchpad; [app_id="^sublime_text$"] focus; exec /opt/sublime_text/sublime_text $HOME/quicknotes.md'"""
             notes_file.write(str(clipboard_content))
+            subprocess.Popen(['notify-send.sh', 'Added to quicknotes', 'to quicknotes', '--icon=sublime-text', '--expire-time=4000', f'--default-action={swayer}'], stdout=subprocess.PIPE).wait()
+
             notes_file.close()
 
 

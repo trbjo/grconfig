@@ -117,29 +117,29 @@ case $(bemenu --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
 
     '   Sublime Text   ')
         swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^sublime_text$"] focus'
-        /opt/sublime_text/sublime_text
+        swaymsg exec -q -- /opt/sublime_text/sublime_text
         ;;
 
 
     '   Emacs   ')
-        swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^emacs$"] focus' || /usr/bin/emacs
+        swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^emacs$"] focus' || swaymsg exec -q -- /usr/bin/emacs
         ;;
 
 
     '   Spotify   ')
-        swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^dev.alextren.Spot$"] focus' || /usr/bin/spot
+        swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^dev.alextren.Spot$"] focus' || swaymsg exec -q -- /usr/bin/spot
         ;;
 
 
     '   Disk Usage   ')
         swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^baobab$"] focus'
-        swaymsg exec /usr/bin/baobab
+        swaymsg exec -q -- /usr/bin/baobab
         ;;
 
 
     '   Disk Utility   ')
         swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^gnome-disks$"] focus'
-        swaymsg exec /usr/bin/gnome-disks
+        swaymsg exec -q -- /usr/bin/gnome-disks
         ;;
 
 
@@ -197,7 +197,7 @@ case $(bemenu --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
     '   Slack   ')
         swaymsg -q -- '[app_id="^PopUp$"] move scratchpad'
         swaymsg -q -- '[app_id="^\/usr\/bin\/chromium-snapshot-bin$" title="^Slack"] focus' ||\
-        /usr/bin/chromium-snapshot-bin  --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://app.slack.com/client/T03PATMPV/D02D6BJLB5Z' &!
+        swaymsg exec -q -- /usr/bin/chromium-snapshot-bin  --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://app.slack.com/client/T03PATMPV/D02D6BJLB5Z' &!
         ;;
 
 
@@ -228,27 +228,27 @@ case $(bemenu --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
 
 
     '   SoundControl   ')
-        /usr/bin/pavucontrol
+        swaymsg exec -q -- /usr/bin/pavucontrol
         ;;
 
 
     '   LibreOffice Writer   ')
-        libreoffice --writer
+        swaymsg exec -q -- libreoffice --writer
         ;;
 
 
     '   LibreOffice Calc   ')
-        libreoffice --calc
+        swaymsg exec -q -- libreoffice --calc
         ;;
 
 
     '   LibreOffice Draw   ')
-        libreoffice --draw
+        swaymsg exec -q -- libreoffice --draw
         ;;
 
 
     '   LibreOffice Impress   ')
-        libreoffice --impress
+        swaymsg exec -q -- libreoffice --impress
         ;;
 
 
@@ -261,12 +261,10 @@ case $(bemenu --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
         message() {
             notify-send "Wi-Fi Manager" "$1" --icon=preferences-system-network
         }
-        /usr/bin/pkill -RTMIN+13 i3blocks
         doas /usr/bin/systemctl start iwd.service
         doas /usr/bin/rfkill unblock wifi
         message "Turning Wi-Fi on"
-        /usr/lib/systemd/systemd-networkd-wait-online --ignore=lo --timeout=30 --interface=wlan0 --operational-state=dormant && message "Connected to $( iw dev wlan0 link | grep -oP '(?<=SSID: ).+')"&& /usr/bin/pkill -RTMIN+13 i3blocks && /usr/bin/pkill -RTMIN+14 i3blocks
-        pkill -RTMIN+13 i3blocks
+        /usr/lib/systemd/systemd-networkd-wait-online --ignore=lo --timeout=30 --interface=wlan0 --operational-state=dormant && message "Connected to $( iw dev wlan0 link | grep -oP '(?<=SSID: ).+')"
         ;;
 
 
@@ -274,7 +272,6 @@ case $(bemenu --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
         notify-send "Wi-Fi Manager" "Turning Wi-Fi off" --icon=preferences-system-network
         doas /usr/bin/systemctl stop iwd.service
         doas /usr/bin/rfkill block wifi
-        /usr/bin/pkill -RTMIN+13 i3blocks
         ;;
 
 
@@ -303,7 +300,7 @@ case $(bemenu --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
         if pgrep -x sublime_text; then
             /opt/sublime_text/sublime_text --fwdargv0 "$0" --command get_sublime_folder_name
         fi
-        /opt/sublime_merge/sublime_merge --fwdargv0 "$0" "$(cat /tmp/sublfile)" || /opt/sublime_merge/sublime_merge
+        swaymsg exec -q -- /opt/sublime_merge/sublime_merge --fwdargv0 "$0" "$(cat /tmp/sublfile)" || /opt/sublime_merge/sublime_merge
         ;;
 
 
@@ -387,7 +384,7 @@ case $(bemenu --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
 
     '   Open Quicknotes   ')
             swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^sublime_text$"] focus'
-            /opt/sublime_text/sublime_text $HOME/quicknotes.md
+            swaymsg exec -q -- /opt/sublime_text/sublime_text $HOME/quicknotes.md
         ;;
 
 
