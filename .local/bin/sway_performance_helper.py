@@ -1,10 +1,5 @@
 #!/usr/bin/python
 
-# This script requires i3ipc-python package (install it from a system package manager
-# or pip).
-# It makes inactive windows transparent. Use `transparency_val` variable to control
-# transparency strength in range of 0…1 or use the command line argument -o.
-
 import sys
 sys.path.append('/home/tb/code/i3ipc-python')
 
@@ -30,11 +25,10 @@ def signal_app(pid: int, app_id: str, signal: int):
     except psutil.NoSuchProcess:
         pass
 
-
 def check_app_close(ipc, event):
     signal_app(event.container.pid, event.container.app_id, signal.SIGCONT)
-    global current_focus
-    current_focus = None
+    global prev_app
+    prev_app = None
 
 def on_window_focus(ipc, event):
     signal_app(event.container.pid, event.container.app_id, signal.SIGCONT)
@@ -46,66 +40,59 @@ def on_window_focus(ipc, event):
     if len(descendants) == 1 and descendants[0].type != 'floating_con':
         descendants[0].command("fullscreen enable")
         # if len([output for output in ipc.get_outputs() if output.active]) == 1:
-
     if power_status != PowerStatus.ON_BATTERY:
         return
+    global workspace_changed
+    # workspace not changed, meaning we only need to check the previous container
+    if not workspace_changed:
+        global prev_app
+        if prev_app is not None:
+            if prev_app == event.container.pid:
+                return
+            con = ipc.get_tree().find_by_pid(prev_app)[0]
+            if not con.visible:
+                signal_app(prev_app, con.app_id, signal.SIGSTOP)
+        prev_app = event.container.pid
+        return
 
-    global current_focus
-    if current_focus is not None:
-        con = ipc.get_tree().find_by_pid(current_focus)[0]
-        if not con.visible:
-            signal_app(current_focus, con.app_id, signal.SIGSTOP)
-    current_focus = event.container.pid
+    workspace_changed = False
+    for window in focused:
+        if window.app_id and window.visible:
+            signal_app(window.pid, window.app_id, signal.SIGCONT)
 
+    for window in prev_ws:
+        if window.app_id:
+            signal_app(window.pid, window.app_id, signal.SIGSTOP)
 
 def on_window_move(ipc, event):
     if power_status != PowerStatus.ON_BATTERY:
         return
-    focused = ipc.get_tree().find_focused()
-    if focused is None:
-        return
-    descendants = focused.workspace().descendants()
-    if len(descendants) <= 1:
-        return
-    for d in descendants:
-        if d.app_id is None:
-            continue
-        if d.visible:
-            signal_app(d.pid, d.app_id, signal.SIGCONT)
+    if len(current_ws.descendants()) > 1:
+        for d in descendants:
+            if d.app_id and d.visible:
+                signal_app(d.pid, d.app_id, signal.SIGCONT)
 
 
 def on_workspace_focus(ipc, event):
     if power_status != PowerStatus.ON_BATTERY:
         return
-    if event.current is not None:
-        global current_ws
-        current_ws = event.current
-        for window in event.current:
-            if window.app_id is None:
-                continue
-            if window.visible:
-                signal_app(window.pid, window.app_id, signal.SIGCONT)
-            else:
-                signal_app(window.pid, window.app_id, signal.SIGSTOP)
-    if event.old is not None:
-        for window in event.old:
-            if window.app_id is None:
-                continue
-            if window.visible:
-                signal_app(window.pid, window.app_id, signal.SIGCONT)
-            else:
-                signal_app(window.pid, window.app_id, signal.SIGSTOP)
+    global workspace_changed
+    workspace_changed = True
+    global current_ws
+    current_ws = event.current
+    global prev_ws
+    prev_ws = event.old
 
 def on_workspace_init(ipc, event):
     if power_status != PowerStatus.ON_BATTERY:
         return
     global current_ws
-    if current_ws is not None:
-        for window in event.current:
-            if window.app_id is None:
-                continue
+    for window in current_ws:
+        if window.app_id:
             signal_app(window.pid, window.app_id, signal.SIGSTOP)
-    current_ws = None
+    global prev_ws
+    prev_ws = current_ws
+    current_ws = event.current
 
 
 def exit_handler(ipc):
@@ -141,10 +128,12 @@ def set_power_status(ipc):
 if __name__ == "__main__":
     ipc = i3ipc.Connection()
 
-    current_ws = None
-    current_focus = None
-    power_status = None
+    current_ws = ipc.get_tree().find_focused().workspace()
+    prev_ws = ipc.get_tree().find_focused().workspace()
+    prev_app = None
+    power_status = PowerStatus.ON_BATTERY
     set_power_status(ipc)
+    workspace_changed = False
 
     ipc.on("window::focus", on_window_focus)
     if power_status != PowerStatus.NOT_A_LAPTOP:
