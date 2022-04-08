@@ -535,6 +535,11 @@
             "foreground": "var(accent)"
         },
         {
+            "name": "Light",
+            "scope": "light",
+            "foreground": "color(var(accent) alpha(0.4))"
+        },
+        {
             "name": "Zorgmode Link",
             "scope": "markup.underline.link",
             "foreground": "var(blue)",
