@@ -35,7 +35,7 @@ type wf-recorder > /dev/null 2>&1 && {
     list+=(" $recorder")
 }
 
-type chromium-snapshot-bin > /dev/null 2>&1 && list+=(" Chrome" " Discord" " Slack" " Outlook")
+type chromium-snapshot-bin > /dev/null 2>&1 && list+=(" Chrome" " Discord" " Slack" " Outlook")
 type microsoft-edge-dev > /dev/null 2>&1 && list+=(" Teams")
 type code > /dev/null 2>&1 && list+=(" VSCode")
 type grim > /dev/null 2>&1 && list+=(" Screenshot (Whole Screen)" " Screenshot (Whole Screen, Delay)") && \
@@ -202,15 +202,15 @@ case $(bemenu --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
 
     '   Slack   ')
         swaymsg -q -- '[app_id="^PopUp$"] move scratchpad'
-        swaymsg -q -- '[app_id="^\/usr\/bin\/chromium-snapshot-bin$" title="^Slack"] focus' ||\
-        swaymsg exec -q -- /usr/bin/chromium-snapshot-bin --user-data-dir=~/.cache/chrom/Slack --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://app.slack.com/client/T03PATMPV/D02D6BJLB5Z' &!
+        swaymsg -q -- '[app_id="^chrome-app.slack.com__client_T03PATMPV_D02D6BJLB5Z-Default$"] focus' ||\
+        swaymsg exec -q -- /usr/bin/chromium-snapshot-bin --user-data-dir=~/.cache/chrom/Slack --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://app.slack.com/client/T03PATMPV/D02D6BJLB5Z'
         ;;
 
 
-    '   Outlook   ')
+    '   Outlook   ')
         swaymsg -q -- '[app_id="^PopUp$"] move scratchpad'
-        swaymsg -q -- '[app_id="^\/usr\/bin\/chromium-snapshot-bin$" title="^Slack"] focus' ||\
-        swaymsg exec -q -- /usr/bin/chromium-snapshot-bin --user-data-dir=~/.cache/chrom/Outlook --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://outlook.com/' &!
+        swaymsg -q -- '[app_id="^chrome-outlook.office.com__mail_inbox-Default$"] focus' ||\
+        swaymsg exec -q -- /usr/bin/chromium-snapshot-bin --user-data-dir=~/.cache/chrom/Outlook --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://outlook.office.com/mail/inbox'
         ;;
 
 
