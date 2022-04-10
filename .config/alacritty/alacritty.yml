@@ -264,7 +264,7 @@ draw_bold_text_with_bright_colors: true
 schemes:
   Light: &Light # Default colors
     primary:
-      background: "#FFFFFF"
+      background: "#FAFAFA"
       foreground: "#24292E"
     cursor:
       text: "0xFFFFFF"
@@ -328,6 +328,9 @@ schemes:
       - { index: 16, color: "#1F76D9" }
       # line hl and selection, AFD7FF if no alacritty override
       - { index: 153, color: "#DAE9F9" }
+      # sublime bg/fg
+      - { index: 154, color: "#484848" }
+      - { index: 208, color: "#F49800" }
       # gutter fg and dimmed e.g. log, out
       - { index: 18, color: "#8090A0" }
       - { index: 243, color: "#8090A0" }
@@ -479,6 +482,9 @@ schemes:
       - { index: 16, color: "#eff3f8" }
       # line hl and selection, AFD7FF if no alacritty override
       - { index: 153, color: "#2C4A67" }
+      # sublime bg
+      - { index: 154, color: "#404040" }
+      - { index: 208, color: "#F49800" }
 
       # arch linux pacman upgrade versions
       - { index: 243, color: "#72838D" }
@@ -534,7 +540,7 @@ schemes:
  # Cursor colors
  Dark: &Gruvbox_dark # Default colors
    primary:
-     background: "#1D2021"
+     background: "#1f2223"
      # background: "#25292B"
      foreground: "#EBDBB2"
    cursor:
@@ -593,6 +599,9 @@ schemes:
      - { index: 16, color: "#F49800" }
      # line hl and selection, AFD7FF if no alacritty override
      - { index: 153, color: "#504945" }
+     # sublime bg
+     - { index: 154, color: "#404040" }
+     - { index: 208, color: "#F49800" }
      # gutter fg
      - { index: 18, color: "#6A6C6D" }
      # border
