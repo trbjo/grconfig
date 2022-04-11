@@ -173,12 +173,12 @@ bindsym --no-repeat ctrl+XF86Tools exec xdg-open --mpv $(wl-paste)
 # bindsym --no-repeat $alt+d exec xdg-open "$(ls -ctgd $HOME/dl/* | awk '$1=="-rw-r--r--" { $1=$2=$3=$4=$5=$6=$7=""; gsub("^[ \t]*","",$0); print $0; exit}')"
 bindsym --no-repeat $alt+d exec xdg-open "$(ls -ctd1 $HOME/dl/* | head -1)"
 
-bindsym $alt+y [app_id=^firefox$] focus; exec 'set -o noglob ; clipboard=$(wl-paste -n); grep "^https\\?://.\+\.\w\{2,3\}" <<< $clipboard && /usr/bin/firefox --new-tab "$clipboard" || /usr/bin/firefox --new-tab "https://duckduckgo.com/?t=ffab&q=${clipboard}"'
-bindsym $alt+i [app_id=^firefox$] focus; exec 'set -o noglob ; clipboard=$(wl-paste --primary -n); grep "^https\\?://.\+\.\w\{2,3\}" <<< $clipboard && /usr/bin/firefox --new-tab "$clipboard" || /usr/bin/firefox --new-tab "https://duckduckgo.com/?t=ffab&q=${clipboard}"'
+bindsym $alt+y [title=^PopUp$] move scratchpad; [app_id=^firefox$] focus; exec 'set -o noglob ; clipboard=$(wl-paste -n); grep "^https\\?://.\+\.\w\{2,3\}" <<< $clipboard && /usr/bin/firefox --new-tab "$clipboard" || /usr/bin/firefox --new-tab "https://duckduckgo.com/?t=ffab&q=${clipboard}"'
+bindsym $alt+i [title=^PopUp$] move scratchpad; [app_id=^firefox$] focus; exec 'set -o noglob ; clipboard=$(wl-paste --primary -n); grep "^https\\?://.\+\.\w\{2,3\}" <<< $clipboard && /usr/bin/firefox --new-tab "$clipboard" || /usr/bin/firefox --new-tab "https://duckduckgo.com/?t=ffab&q=${clipboard}"'
 bindsym $alt+s fullscreen disable; exec bemenu-apps
 bindsym $alt+p fullscreen disable; exec bemenu-pw
 bindsym $alt+b fullscreen disable; exec pgrep wofi && pkill -9 wofi || clipman pick --tool wofi -T'--prompt=Clipboard --height=30% --width=30% -i -I --xoffset=660 --yoffset=-2'
-bindsym $alt+m exec pgrep wofi && pkill -9 wofi || xdg-open "$(cd ${XDG_DOWNLOAD_DIR}; file=$(ls --color=never -ctd1 * | wofi -i --height=30% --width=30% -i -I --xoffset=660 --yoffset=-2 --cache-file=/dev/null --prompt=Downloads --show=dmenu); if [[ -e $file ]]; then touch \"$file\"; echo -n ${XDG_DOWNLOAD_DIR}/$file; fi)"
+bindsym $alt+m fullscreen disable; exec pgrep wofi && pkill -9 wofi || xdg-open "$(cd ${XDG_DOWNLOAD_DIR}; file=$(ls --color=never -ctd1 * | wofi -i --height=30% --width=30% -i -I --xoffset=660 --yoffset=-2 --cache-file=/dev/null --prompt=Downloads --show=dmenu); if [[ -e $file ]]; then touch \"$file\"; echo -n ${XDG_DOWNLOAD_DIR}/$file; fi)"
 
 
 bindsym $alt+o exec quicknotes.py
