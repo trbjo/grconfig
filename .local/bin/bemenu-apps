@@ -245,7 +245,7 @@ case $(bemenu --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
     '   Discord   ')
         swaymsg -q -- '[app_id="^PopUp$"] move scratchpad'
         swaymsg -q -- '[app_id="chrome-discord.com__channels_280102180189634562_280102180189634562-Default$"] focus' && exit
-        swaymsg exec -- /usr/bin/chromium-snapshot-bin --user-data-dir=~/.cache/chrom/Discord --enable-features=WebRTCPipeWireCapturer --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://discord.com/channels/280102180189634562/280102180189634562'
+        swaymsg exec -- /usr/bin/chromium-snapshot-bin --user-data-dir=$HOME/.cache/chrom/Discord --enable-features=WebRTCPipeWireCapturer --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://discord.com/channels/280102180189634562/280102180189634562'
         sleep 10
         pkill chrome_crashpad
         ;;
