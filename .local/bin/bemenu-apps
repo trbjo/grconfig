@@ -57,8 +57,8 @@ type iwctl > /dev/null 2>&1 && {
 type swaylock > /dev/null 2>&1 && list+=(" Lock")
 
 type dbus-send > /dev/null 2>&1 && list+=(" Suspend" " Reboot" " Poweroff")
-
-case $(bemenu --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
+res=$(bemenu --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   })
+case $res in
     '   Firefox   ')
         swaymsg -q --  '[app_id="^PopUp$"] move scratchpad'
         swaymsg -q --  '[app_id="^firefox$" tiling] focus'||\
@@ -432,6 +432,12 @@ case $(bemenu --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
 
 
     *)
+        if [[ ! -z "$res" ]]; then
+            swaymsg -q --  '[title="^PopUp$"] move scratchpad'
+            swaymsg -q --  '[app_id="^firefox$" tiling] focus'||\
+            swaymsg exec /usr/bin/firefox
+            grep "^\S\+\.\w\{2,3\}" <<< "$res" && /usr/bin/firefox --new-tab "$res" || /usr/bin/firefox --new-tab "https://duckduckgo.com/?t=ffab&q=${res}"
+        fi
         # elems=$(swaymsg -t get_tree | jq -r '[.. | ((.floating_nodes,.nodes)? // empty)[] | select(.pid and .visible)] | length')
         # (( elems == 1 )) && swaymsg fullscreen enable
 
