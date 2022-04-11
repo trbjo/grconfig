@@ -207,7 +207,7 @@ case $(bemenu --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
 
     '   Slack   ')
         swaymsg -q -- '[app_id="^PopUp$"] move scratchpad'
-        swaymsg -q -- '[app_id="^chrome-app.slack.com__client_T03PATMPV_D02D6BJLB5Z-Default$"] focus' ||\
+        swaymsg -q -- '[app_id="^chrome-app.slack.com__client_T03PATMPV_D02D6BJLB5Z-Default$"] focus' && exit
         swaymsg exec -q -- /usr/bin/chromium-snapshot-bin --user-data-dir=$HOME/.cache/chrom/Slack --enable-features=WebRTCPipeWireCapturer --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://app.slack.com/client/T03PATMPV/D02D6BJLB5Z'
         sleep 10
         pkill chrome_crashpad
@@ -216,7 +216,7 @@ case $(bemenu --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
 
     '   Outlook   ')
         swaymsg -q -- '[app_id="^PopUp$"] move scratchpad'
-        swaymsg -q -- '[app_id="^chrome-outlook.office.com__mail_inbox-Default$"] focus' ||\
+        swaymsg -q -- '[app_id="^chrome-outlook.office.com__mail_inbox-Default$"] focus' && exit
         swaymsg exec -q -- /usr/bin/chromium-snapshot-bin --user-data-dir=$HOME/.cache/chrom/Outlook --enable-features=WebRTCPipeWireCapturer --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://outlook.office.com/mail/inbox'
         sleep 10
         pkill chrome_crashpad
@@ -235,7 +235,7 @@ case $(bemenu --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
 
     '   Teams   ')
         swaymsg -q -- '[app_id="^PopUp$"] move scratchpad'
-        swaymsg -q -- '[app_id="^microsoft-edge-dev$"] focus' ||\
+        swaymsg -q -- '[app_id="^microsoft-edge-dev$"] focus' && exit
         swaymsg exec -- /opt/microsoft/msedge-dev/microsoft-edge-dev --enable-features=UseOzonePlatform --ozone-platform=wayland 'teams.microsoft.com'
         sleep 10
         pkill msedge_crashpad
@@ -244,7 +244,7 @@ case $(bemenu --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
 
     '   Discord   ')
         swaymsg -q -- '[app_id="^PopUp$"] move scratchpad'
-        swaymsg -q -- '[app_id="chrome-discord.com__channels_280102180189634562_280102180189634562-Default$"] focus' ||\
+        swaymsg -q -- '[app_id="chrome-discord.com__channels_280102180189634562_280102180189634562-Default$"] focus' && exit
         swaymsg exec -- /usr/bin/chromium-snapshot-bin --user-data-dir=~/.cache/chrom/Discord --enable-features=WebRTCPipeWireCapturer --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://discord.com/channels/280102180189634562/280102180189634562'
         sleep 10
         pkill chrome_crashpad
@@ -253,7 +253,7 @@ case $(bemenu --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   }) in
 
     '   Chrome   ')
         swaymsg -q -- '[app_id="^PopUp$"] move scratchpad'
-        swaymsg -q -- '[app_id="^\/usr\/bin\/chromium-snapshot-bin$"] focus' ||\
+        swaymsg -q -- '[app_id="^\/usr\/bin\/chromium-snapshot-bin$"] focus' && exit
         swaymsg exec -- /usr/bin/chromium-snapshot-bin --enable-features=UseOzonePlatform --ozone-platform=wayland
         sleep 10
         pkill chrome_crashpad
