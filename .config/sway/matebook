@@ -4,10 +4,5 @@
 
 output 'Unknown 0x422A 0x00000000' resolution 3000x2000 pos 0 0 scale 2 subpixel rgb bg ~/pic/Baggrunde/badebro.jpg stretch
 
-
 output 'Goldstar Company Ltd LG UltraFine 909NTWG7R817' resolution 3840x2160 pos 1501 0 scale 2 subpixel rgb bg ~/pic/Baggrunde/badebro.jpg stretch
 output 'Goldstar Company Ltd LG UltraFine 907NTUWBA398' resolution 3840x2160 pos 1501 0 scale 2 subpixel rgb bg ~/pic/Baggrunde/badebro.jpg stretch
-
-
-bindsym --no-repeat $alt+l output eDP-1 disable, output DP-1 enable
-bindsym --no-repeat $alt+shift+l output eDP-1 enable

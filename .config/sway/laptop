@@ -21,6 +21,9 @@ bindsym --no-repeat ctrl+Shift+5 move container to $ws5; $ws5; fullscreen disabl
 bindsym --no-repeat ctrl+Shift+6 move container to $ws6; $ws6; fullscreen disable
 bindsym --no-repeat ctrl+Shift+7 move container to $ws7; $ws7; fullscreen disable
 
+bindsym --no-repeat $alt+l output eDP-1 disable, output DP-1 enable
+bindsym --no-repeat $alt+shift+l output eDP-1 enable
+
 exec /usr/bin/swayidle \
     timeout 30 'pgrep swaylockd && swaymsg "output * dpms off" && grep -q 0 /sys/class/power_supply/AC0/online && [ ! -f /tmp/inhibitSuspend ] && /usr/bin/systemctl suspend' \
     resume 'swaymsg "output * dpms on"' \
