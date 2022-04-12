@@ -57,7 +57,7 @@ type iwctl > /dev/null 2>&1 && {
 type swaylock > /dev/null 2>&1 && list+=(" Lock")
 
 type dbus-send > /dev/null 2>&1 && list+=(" Suspend" " Reboot" " Poweroff")
-res=$(bemenu --fork --prompt 'Programs' <<< ${${list[@]/#/  }/%/   })
+res=$(bemenu --prompt 'Programs' <<< ${${list[@]/#/  }/%/   })
 case $res in
     '   Firefox   ')
         swaymsg -q --  '[app_id="^PopUp$"] move scratchpad'

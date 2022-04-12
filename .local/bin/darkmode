@@ -15,12 +15,12 @@ set_values() {
     export OPACITY="D0"
 
     # sway
-    export BGTITLEBARA_$LIGHT="#FFFFFF"
-    export BGTITLEBARI_$LIGHT="#FFFFFF"
+    export BGTITLEBARA_$LIGHT="#FAFAFA"
+    export BGTITLEBARI_$LIGHT="#FAFAFA"
     export BGTITLEBARU_$LIGHT="#D8D8D8"
 
-    export TITLEBARBORDERA_$LIGHT="#FFFFFF"
-    export TITLEBARBORDERI_$LIGHT="#FFFFFF"
+    export TITLEBARBORDERA_$LIGHT="#FAFAFA"
+    export TITLEBARBORDERI_$LIGHT="#FAFAFA"
     export TITLEBARBORDERU_$LIGHT="#c8c8c8"
 
     # sway, zathura, mako

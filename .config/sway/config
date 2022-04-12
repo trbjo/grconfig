@@ -1,4 +1,5 @@
 set $WHITE #FFFFFF
+set $OFFWHITE #FAFAFA
 set $BLACK #000000
 set $FGINACTIVE #908880
 
@@ -207,8 +208,8 @@ title_align center
 floating_maximum_size 2050 x 1154
 floating_minimum_size 10 x 10
 
-client.focused           $WHITE  $WHITE   #404040   #E6E6E6  #E6E6E6
-client.focused_inactive  $WHITE  $WHITE   #404040   $WHITE88  $WHITE88
+client.focused           $OFFWHITE  $OFFWHITE   #404040   #E6E6E6  #E6E6E6
+client.focused_inactive  $OFFWHITE  $OFFWHITE   #404040   $WHITE88  $WHITE88
 client.unfocused         #c8c8c8  #D8D8D8   #506070   $WHITE88  $WHITE88
 
 
