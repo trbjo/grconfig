@@ -159,10 +159,10 @@ bindsym --locked XF86MonBrightnessUp exec light -S $(echo "$(light -G) * 1.3" | 
 # bindsym XF86AudioRaiseVolume exec \
     # pactl set-sink-volume @DEFAULT_SINK@ +5%
 
-bindsym XF86AudioLowerVolume exec \
+bindsym --no-repeat XF86AudioLowerVolume exec \
     amixer set Master unmute && amixer set Master 3%- && mpv /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga
 
-bindsym XF86AudioRaiseVolume exec \
+bindsym --no-repeat XF86AudioRaiseVolume exec \
     amixer set Master unmute && amixer set Master 3%+ && mpv /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga
 
 bindsym --locked $alt+F4 exec [ -S /tmp/mpvsocket ] && echo 'cycle pause' | socat - /tmp/mpvsocket > /dev/null 2>&1 || /usr/bin/ssh music@Intel-NUC "tmux send-keys -t main:1.1 ' '"
