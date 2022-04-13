@@ -438,10 +438,10 @@ case $res in
             swaymsg exec /usr/bin/firefox
             case ${res[0,2]} in
                 'y ')
-                    swaymsg exec -q -- /usr/bin/firefox --new-tab "https://yewtu.be/search?q=${res:2}"
+                    swaymsg exec -q -- /usr/bin/firefox --new-tab "https://yewtu.be/search?q=${(q)res:2}"
                     ;;
                 'w ')
-                    swaymsg exec -q -- /usr/bin/firefox --new-tab "https://en.wikipedia.org/w/index.php?search=${res:2}&title=Special%3ASearch"
+                    swaymsg exec -q -- /usr/bin/firefox --new-tab "https://en.wikipedia.org/w/index.php?search=${(q)res:2}&title=Special%3ASearch"
                     ;;
                 *)
                     grep "^\S\+\.\w\{2,3\}" <<< "$res" && /usr/bin/firefox --new-tab "$res" || /usr/bin/firefox --new-tab "https://duckduckgo.com/?t=ffab&q=${res}"
