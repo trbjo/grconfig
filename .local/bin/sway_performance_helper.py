@@ -56,7 +56,7 @@ def on_window_focus(ipc, event):
         return
 
     workspace_changed = False
-    for window in focused:
+    for window in descendants:
         if window.app_id and window.visible:
             signal_app(window.pid, window.app_id, signal.SIGCONT)
 
