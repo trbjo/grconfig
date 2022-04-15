@@ -12,8 +12,8 @@ WINIT_UNIX_BACKEND=wayland
 QT_QPA_PLATFORM=wayland-egl
 QT_QPA_PLATFORMTHEME=gtk3
 BROWSER=xdg-open
-EDITOR=/usr/bin/swaymsg '[app_id="^PopUp$"] move scratchpad; [app_id=^sublime_text$] focus'; /opt/sublime_text/sublime_text -w
-VISUAL=/usr/bin/swaymsg '[app_id="^PopUp$"] move scratchpad; [app_id=^sublime_text$] focus'; /opt/sublime_text/sublime_text -w
+EDITOR=/usr/bin/swaymsg '[title="^PopUp$"] move scratchpad; [app_id=^sublime_text$] focus'; /opt/sublime_text/sublime_text -w
+VISUAL=/usr/bin/swaymsg '[title="^PopUp$"] move scratchpad; [app_id=^sublime_text$] focus'; /opt/sublime_text/sublime_text -w
 
 PASSWORD_STORE_X_SELECTION=primary
 PASSWORD_STORE_ENABLE_EXTENSIONS=true

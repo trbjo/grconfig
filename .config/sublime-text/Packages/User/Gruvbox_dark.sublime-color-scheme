@@ -32,7 +32,7 @@
         "--background": "var(background)",
         "--foreground": "var(foreground)",
         "--redish": "var(red0)",
-        "--orangish": "var(orange0)",
+        "--orangish": "var(orange)",
         "--yellowish": "var(yellow0)",
         "--greenish": "var(green0)",
         "--cyanish": "var(cyan1)",
@@ -493,7 +493,7 @@
         {
             "name": "Zorgmode CURRENT",
             "scope": "current.text.org",
-            "foreground": "var(purple2)"
+            "foreground": "var(magenta1)"
         },
         {
             "name": "Accent",
