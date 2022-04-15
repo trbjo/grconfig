@@ -14,11 +14,11 @@
         "comment": "hsl(211.6, 8.2%, 45.3%)",
         "grey3": "hsl(210,12.2%,16.1%)",
         "line_highlight": "hsla(210,28.6%,93.3%, 0.5)",
-        "purple": "#6F42C1",
         "orange": "#EDA200",
         "yellow": "#FDF200",
         "red": "hsl(354.3,66.2%,53.5%)",
         "purple": "hsl(261.3, 50.6%, 50.8%)",
+        "purple_test": "#7800C2",
         "purple2": "hsl(261.3, 60.6%, 40.8%)",
         "white": "rgb(255,255,255)",
         "white3": "hsl(204, 10%, 90%)",
@@ -577,6 +577,11 @@
             "name": "dotnet.cyan",
             "scope": "dotnet.cyan",
             "foreground": "var(cyan)"
+        },
+        {
+            "name": "dotnet.purple_test",
+            "scope": "dotnet.purple_test",
+            "foreground": "var(purple_test)"
         },
     ]
 }
