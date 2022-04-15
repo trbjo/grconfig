@@ -10,11 +10,13 @@
         "strings3": " hsl(212.2, 94.1%, 19.8%)",
         "light_blue": "hsl(212,70%,58.6%)",
         "green": "#22863a",
+        "cyan": "#0CD1FF",
         "comment": "hsl(211.6, 8.2%, 45.3%)",
         "grey3": "hsl(210,12.2%,16.1%)",
         "line_highlight": "hsla(210,28.6%,93.3%, 0.5)",
-        "orange": "#6F42C1",
-        "yellow": "#EDA200",
+        "purple": "#6F42C1",
+        "orange": "#EDA200",
+        "yellow": "#FDF200",
         "red": "hsl(354.3,66.2%,53.5%)",
         "purple": "hsl(261.3, 50.6%, 50.8%)",
         "purple2": "hsl(261.3, 60.6%, 40.8%)",
@@ -51,7 +53,6 @@
         "line_diff_width": "3",
         "line_highlight": "var(line_highlight)",
         "misspelling": "var(red)",
-        "popup_css": "html, body { --mdpopups-font-mono: monospace}",
         "selection": "#0366D625",
         "selection_border": "#0366D650",
         "minimap_border": "#E6E6E6",
@@ -140,7 +141,7 @@
             "name": "LSP Warning",
             "scope": "output.lsp.diagnostics meta.diagnostic.body.lsp markup.changed.lsp sublimelinter.mark.warning markup.warning.lsp",
             "font_style": "bold",
-            "foreground": "var(yellow)"
+            "foreground": "var(orange)"
         },
         {
             "name": "LSP Error",
@@ -290,7 +291,7 @@
             "name": "Invalid deprecated",
             "scope": "invalid.deprecated",
             "foreground": "var(white)",
-            "background": "var(orange)"
+            "background": "var(purple)"
         },
         {
             "name": "YAML Key",
@@ -443,7 +444,7 @@
             "name": "dotnet.yellow0",
             "font_style": "bold",
             "scope": "dotnet.yellow0",
-            "foreground": "var(yellow)"
+            "foreground": "var(orange)"
         },
         {
             "name": "dotnet.filename",
@@ -456,10 +457,10 @@
             "foreground": "var(purple)"
         },
         {
-            "name": "dotnet.orange",
+            "name": "dotnet.purple",
             "font_style": "bold",
-            "scope": "dotnet.orange",
-            "foreground": "var(orange)"
+            "scope": "dotnet.purple",
+            "foreground": "var(purple)"
         },
         {
             "name": "dotnet.link_blue",
@@ -486,10 +487,10 @@
             "foreground": "var(red)"
         },
         {
-            "name": "dotnet.yellow",
+            "name": "dotnet.orange",
             "font_style": "bold",
-            "scope": "dotnet.yellow",
-            "foreground": "var(yellow)"
+            "scope": "dotnet.orange",
+            "foreground": "var(orange)"
         },
         {
             "name": "dotnet.filename",
@@ -502,10 +503,10 @@
             "foreground": "var(purple)"
         },
         {
-            "name": "dotnet.orange",
+            "name": "dotnet.purple",
             "font_style": "bold",
-            "scope": "dotnet.orange",
-            "foreground": "var(orange)"
+            "scope": "dotnet.purple",
+            "foreground": "var(purple)"
         },
         {
             "name": "dotnet.link_blue",
@@ -565,7 +566,17 @@
             "name": "dotnet.orange",
             "font_style": "bold",
             "scope": "dotnet.orange",
+            "foreground": "var(orange)"
+        },
+        {
+            "name": "dotnet.yellow",
+            "scope": "dotnet.yellow",
             "foreground": "var(yellow)"
+        },
+        {
+            "name": "dotnet.cyan",
+            "scope": "dotnet.cyan",
+            "foreground": "var(cyan)"
         },
     ]
 }
