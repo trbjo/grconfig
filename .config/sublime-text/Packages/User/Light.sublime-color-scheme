@@ -2,30 +2,25 @@
     "name": "Breakers",
     "author": "Sublime HQ Pty Ltd, Dmitri Voronianski",
     "variables": {
-        "blue": "hsl(212,100%,38.6%)",
-        "tester": "#0366d6",
-        "accent": "hsl(212,75%,48.6%)",
-        "strings": " hsl(212.2, 44.1%, 59.8%)",
-        "strings2": " hsl(212.2, 100.0%, 19.8%)",
-        "strings3": " hsl(212.2, 94.1%, 19.8%)",
-        "light_blue": "hsl(212,70%,58.6%)",
-        "green": "#22863a",
-        "cyan": "#0CD1FF",
-        "comment": "hsl(211.6, 8.2%, 45.3%)",
-        "grey3": "hsl(210,12.2%,16.1%)",
+        "accent": "#1F76D9",
+        "blue": "#005CC5",
+        "strings": "#6b95c6",
+        "strings2": "#0a3069",
+        "light_blue": "#4C91DF",
+        "cyan": "#0Ca1cF",
         "line_highlight": "hsla(210,28.6%,93.3%, 0.5)",
+        "white": "#FFFFFF",
+        "white3": "#E3E6E8",
+        "comment": "#6A737D",
+        "foreground": "#24292E",
+        "red": "#D73A49",
+        "green": "#116329",
+        "pink": "#FA9AEA",
         "orange": "#EDA200",
-        "yellow": "#FDF200",
-        "red": "hsl(354.3,66.2%,53.5%)",
-        "purple": "hsl(261.3, 50.6%, 50.8%)",
-        "purple_test": "#7800C2",
-        "purple2": "hsl(261.3, 60.6%, 40.8%)",
-        "white": "rgb(255,255,255)",
-        "white3": "hsl(204, 10%, 90%)",
-        "white4": "hsl(195, 11%, 93%)",
-        "diffAdded": "#28a745",
-        "diffModified": "#0366d6",
-        "diffDeleted": "#d73a49"
+        "orange2": "#E36209",
+        "purple": "#8250df",
+        "yellow": "#FDD200",
+
     },
     "globals": {
         "fold_marker": "var(line_highlight)",
@@ -40,16 +35,16 @@
         "block_caret": "#0366D625",
         "find_highlight": "var(light_blue)",
         "find_highlight_foreground": "var(white)",
-        "foreground": "var(grey3)",
+        "foreground": "var(foreground)",
         "gutter": "var(white)",
-        "gutter_foreground": "color(var(grey3) alpha(0.2))",
+        "gutter_foreground": "color(var(foreground) alpha(0.2))",
         "highlight": "var(light_blue)",
         "selection_corner_style": "round",
         "selection_corner_radius": "2",
         "inactive_selection": "#0366D615",
-        "line_diff_added": "var(diffAdded)",
-        "line_diff_deleted": "var(diffDeleted)",
-        "line_diff_modified": "var(diffModified)",
+        "line_diff_added": "var(green)",
+        "line_diff_deleted": "var(red)",
+        "line_diff_modified": "var(blue)",
         "line_diff_width": "3",
         "line_highlight": "var(line_highlight)",
         "misspelling": "var(red)",
@@ -74,7 +69,7 @@
         // json key: value
         {
             "scope": "meta.mapping.key string.quoted.double",
-            "foreground": "var(grey3)"
+            "foreground": "var(foreground)"
         },
         {
             "scope": "meta.mapping.value string.quoted.double",
@@ -98,7 +93,7 @@
         {
             "name": "Search Results Nums",
             "scope": "constant.numeric.line-number.find-in-files - match",
-            "foreground": "color(var(grey3) alpha(0.2))"
+            "foreground": "color(var(foreground) alpha(0.2))"
         },
         {
             "name": "Search Results Match Nums",
@@ -175,11 +170,11 @@
             "scope": "keyword.operator",
             "foreground": "var(red)"
         },
-        // {
-        //     "name": "Punctuation",
-        //     "scope": "punctuation.separator, punctuation.terminator",
-        //     "foreground": "var(blue)"
-        // },
+        {
+            "name": "Punctuation",
+            "scope": "punctuation.separator, punctuation.terminator",
+            "foreground": "var(strings2)"
+        },
         {
             "name": "Accessor",
             "scope": "punctuation.accessor",
@@ -301,7 +296,7 @@
         {
             "name": "YAML String",
             "scope": "source.yaml string.unquoted",
-            "foreground": "var(grey3)"
+            "foreground": "var(foreground)"
         },
         {
             "name": "markup headings",
@@ -392,7 +387,7 @@
         {
             "name": "CSS Properties",
             "scope": "support.type.property-name",
-            "foreground": "var(grey3)"
+            "foreground": "var(foreground)"
         },
         {
             "scope": "constant.numeric.line-number.match",
@@ -513,23 +508,6 @@
             "scope": "dotnet.link_blue",
             "foreground": "var(blue)"
         },
-        // zorgmode;
-        {
-            "name": "Zorgmode Headline",
-            "scope": "heading | markup.heading",
-            "font_style": "bold",
-            "foreground": "var(grey3)"
-        },
-        {
-            "name": "Zorgmode TODO",
-            "scope": "todo.text.org",
-            "foreground": "var(red)"
-        },
-        {
-            "name": "Zorgmode CURRENT",
-            "scope": "current.text.org",
-            "foreground": "var(purple2)"
-        },
         {
             "name": "Accent",
             "scope": "accent",
@@ -541,42 +519,24 @@
             "foreground": "color(var(accent) alpha(0.4))"
         },
         {
-            "name": "Zorgmode Link",
-            "scope": "markup.underline.link",
-            "foreground": "var(blue)",
-            "font_style": "underline",
-        },
-        {
-            "name": "Zorgmode Link Hidden",
-            "scope": "link.text.org",
-            "foreground": "var(blue)",
-        },
-        {
-            "name": "Zorgmode Control Line",
-            "scope": "special_line",
-            "foreground": "color(var(tester) alpha(0.9))",
-        },
-        {
-            "name": "Zorgmode Agenda Warning",
-            "scope": "warning.agenda",
-            "foreground": "var(red)",
-            "font_style": "italic"
-        },
-        {
-            "name": "dotnet.orange",
-            "font_style": "bold",
-            "scope": "dotnet.orange",
+            "name": "orangeish",
+            "scope": "orangeish",
             "foreground": "var(orange)"
         },
         {
-            "name": "dotnet.yellow",
-            "scope": "dotnet.yellow",
+            "name": "yellowish",
+            "scope": "yellowish",
             "foreground": "var(yellow)"
         },
         {
-            "name": "dotnet.cyan",
-            "scope": "dotnet.cyan",
+            "name": "cyanish",
+            "scope": "cyanish",
             "foreground": "var(cyan)"
+        },
+        {
+            "name": "pinkish",
+            "scope": "pinkish",
+            "foreground": "var(pink)"
         },
         {
             "name": "dotnet.purple_test",
