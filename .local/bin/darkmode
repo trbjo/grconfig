@@ -36,6 +36,8 @@ set_values() {
     export MAKOBG_$LIGHT="#F6F5F4"
     export MAKOBORDER_$LIGHT="#DEDDDA"
 
+    export SWAYLOCK_RING_$LIGHT="FFFFFF"
+
     # Zathura
     export ZATHURABG_$LIGHT="E8E8E8"
     export ZATHURA_SCROLLBAR_$LIGHT="D0D0D0"
@@ -82,6 +84,8 @@ set_values() {
     export MAKOBG_$DARK="#2A2A2A"
     export MAKOBORDER_$DARK="#181818"
 
+    export SWAYLOCK_RING_$DARK="404040"
+
     # Zathura
     export ZATHURABG_$DARK="2A2A2A"
     export ZATHURA_SCROLLBAR_$DARK="303030"
@@ -118,6 +122,9 @@ execute() {
     -e "/^background-color/s/${MAKOBG_OLD}/${MAKOBG_NEW}/"\
     -e "/^text-color/s/${FGA_OLD}/${FGA_NEW}/"\
     -e "/^border-color/s/${MAKOBORDER_OLD}/${MAKOBORDER_NEW}/" $HOME/.config/mako/config
+
+    sed -i -e\
+    "/ring-color=/s/$SWAYLOCK_RING_OLD/$SWAYLOCK_RING_NEW/" "$HOME/.config/swaylock/config"
 
     sed -r -i -e\
     "/colors:/s/$THEME_OLD/$THEME_NEW/" "$HOME/.config/alacritty/alacritty.yml"
