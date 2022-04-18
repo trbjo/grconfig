@@ -188,13 +188,16 @@ bindsym $alt+o exec quicknotes.py
 bindsym --no-repeat Print exec 'pgrep slurp || (curdate=$(date +"Screenshot_%Y-%m-%d_%H:%M:%S.png"); grim $HOME/screenshots/$curdate && notify-send.sh "Screenshot taken" "$curdate" --icon=camera-photo --default-action="xdg-open $HOME/screenshots/$curdate" && wl-copy < "$HOME/screenshots/$curdate")'
 bindsym --no-repeat $alt+Print exec 'pgrep slurp || (curdate=$(date +"Screenshot_%Y-%m-%d_%H:%M:%S.png"); swaymsg -t get_tree | jq -r ".. | select(.pid? and .visible?) | .rect | \\"\\\(.x),\\\(.y) \\\(.width)x\\\(.height)\\"" | env XCURSOR_SIZE=48 slurp -w 1 -c A5BAD1 -s C3DFFE94 | grim -g - $HOME/screenshots/$curdate && notify-send.sh "Screenshot taken" "$curdate" --icon=camera-photo --default-action="xdg-open $HOME/screenshots/$curdate" && wl-copy < $HOME/screenshots/$curdate)'
 
-bindgesture swipe:4:up [title="^PopUp$"] move scratchpad; [app_id=^sublime_text$] focus, exec /opt/sublime_text/sublime_text $HOME/quicknotes.md
-bindgesture swipe:4:down [title="^PopUp$"] scratchpad show, fullscreen disable, move position center, resize set width 100ppt height 100ppt, resize shrink up 1100px, resize grow up 337px, move left 1px, move down 1px, resize grow right 2px
-bindgesture swipe:4:right workspace prev
-bindgesture swipe:4:left workspace next
+bindgesture swipe:3:down [title="^PopUp$"] scratchpad show, fullscreen disable, move position center, resize set width 100ppt height 100ppt, resize shrink up 1100px, resize grow up 337px, move left 1px, move down 1px, resize grow right 2px
+bindgesture swipe:3:up [title="^PopUp$"] move scratchpad; [app_id=^sublime_text$] focus, exec /opt/sublime_text/sublime_text $HOME/.notes.md:999, exec /opt/sublime_text/sublime_text --command cycle_all
 bindgesture swipe:3:right seat seat0 cursor press button8, seat seat0 cursor release button8
 bindgesture swipe:3:left seat seat0 cursor press button9, seat seat0 cursor release button9
 
+bindgesture swipe:4:right workspace prev
+bindgesture swipe:4:left workspace next
+bindgesture swipe:4:down exec light -S 100
+bindgesture swipe:4:up exec light -S 0.2
+bindgesture pinch:4:inward exec light -S 50
 
 #
 ## Appearance

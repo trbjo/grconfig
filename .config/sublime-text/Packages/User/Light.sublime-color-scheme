@@ -2,16 +2,15 @@
     "name": "Breakers",
     "author": "Sublime HQ Pty Ltd, Dmitri Voronianski",
     "variables": {
-        "accent": "#1F76D9",
+        "accent": "#4085D4",
         "blue": "#005CC5",
         "strings": "#6b95c6",
-        "strings2": "#0a3069",
-        "light_blue": "#4C91DF",
         "cyan": "#0Ca1cF",
         "line_highlight": "hsla(210,28.6%,93.3%, 0.5)",
         "white": "#FFFFFF",
         "white3": "#E3E6E8",
         "comment": "#6A737D",
+        "grey": "#404040",
         "foreground": "#24292E",
         "red": "#D73A49",
         "green": "#116329",
@@ -33,18 +32,18 @@
         "brackets_options": "bold",
         "caret": "var(accent)",
         "block_caret": "#0366D625",
-        "find_highlight": "var(light_blue)",
+        "find_highlight": "var(accent)",
         "find_highlight_foreground": "var(white)",
         "foreground": "var(foreground)",
         "gutter": "var(white)",
         "gutter_foreground": "color(var(foreground) alpha(0.2))",
-        "highlight": "var(light_blue)",
+        "highlight": "var(accent)",
         "selection_corner_style": "round",
         "selection_corner_radius": "2",
         "inactive_selection": "#0366D615",
         "line_diff_added": "var(green)",
         "line_diff_deleted": "var(red)",
-        "line_diff_modified": "var(blue)",
+        "line_diff_modified": "var(accent)",
         "line_diff_width": "3",
         "line_highlight": "var(line_highlight)",
         "misspelling": "var(red)",
@@ -173,7 +172,7 @@
         {
             "name": "Punctuation",
             "scope": "punctuation.separator, punctuation.terminator",
-            "foreground": "var(strings2)"
+            "foreground": "var(grey)"
         },
         {
             "name": "Accessor",
@@ -218,7 +217,7 @@
         // {
         // "name": "Entity name",
         // "scope": "entity.name - (entity.name.section | entity.name.tag | entity.name.label)",
-        // "foreground": "var(light_blue)"
+        // "foreground": "var(accent)"
         // },
         {
             "name": "Inherited class",
@@ -229,7 +228,7 @@
         // {
         //     "name": "Function argument",
         //     "scope": "variable.parameter",
-        //     "foreground": "var(light_blue)"
+        //     "foreground": "var(accent)"
         // },
         // {
         //     "name": "Language variable",
@@ -336,7 +335,7 @@
         {
             "name": "markup hr",
             "scope": "punctuation.definition.thematic-break",
-            "foreground": "var(light_blue)"
+            "foreground": "var(accent)"
         },
         {
             "name": "markup numbered list bullet",
@@ -382,7 +381,7 @@
         {
             "name": "diff.changed",
             "scope": "markup.changed",
-            "foreground": "var(light_blue)"
+            "foreground": "var(accent)"
         },
         {
             "name": "CSS Properties",
