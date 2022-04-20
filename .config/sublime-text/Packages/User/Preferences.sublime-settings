@@ -139,7 +139,7 @@
 	"move_to_trash": false,
 	"overlay_scroll_bars": "enabled",
 	"scroll_context_lines": 4,
-	"scroll_past_end": 0.5,
+	"scroll_past_end": 0.2,
 	"shift_tab_unindent": true,
 	"show_sidebar_button": false,
 	"show_tab_close_buttons": true,

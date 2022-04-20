@@ -11,7 +11,7 @@ ignore-empty-password
 scaling=center
 line-uses-inside
 
-indicator-radius=71
+indicator-radius=70
 indicator-thickness=4
 
 key-hl-color=15539E
@@ -21,7 +21,7 @@ separator-color=00ff0000
 # do not hide my face when typing
 inside-color=00ff0000
 # # only color the ring blue
-ring-color=FFFFFF00
+ring-color=FFFFFF
 line-color=ff0000
 
 # but clear by making a white overlay
@@ -34,9 +34,9 @@ ring-clear-color=808080
 inside-ver-color=FFFFFF00
 ring-ver-color=15539E
 line-ver-color=15539E
-inside-wrong-color=F97583DD
-ring-wrong-color=F97583DD
-line-wrong-color=F97583DD
+inside-wrong-color=F9758300
+ring-wrong-color=F97583
+line-wrong-color=F9758300
 
 # we do not want to look at the text
 text-clear-color=FBFAFA00

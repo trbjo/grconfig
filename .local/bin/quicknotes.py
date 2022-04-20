@@ -42,11 +42,11 @@ def get_clipboard_data() -> str:
 def main():
       clipboard_content = Quicknote(get_clipboard_data(), get_active_window())
       try:
-            notes_file = open('/home/tb/quicknotes.md', 'a')
+            notes_file = open('/home/tb/.notes.md', 'a')
       except:
-            notes_file = open('/home/tb/quicknotes.md', 'x')
+            notes_file = open('/home/tb/.notes.md', 'x')
       finally:
-            swayer="""swaymsg '[title="^PopUp$"] move scratchpad; [app_id="^sublime_text$"] focus; exec /opt/sublime_text/sublime_text $HOME/quicknotes.md'"""
+            swayer="""swaymsg '[title="^PopUp$"] move scratchpad; [app_id="^sublime_text$"] focus; exec /opt/sublime_text/sublime_text $HOME/.notes.md'"""
             notes_file.write(str(clipboard_content))
             subprocess.Popen(['notify-send.sh', 'Added to quicknotes', 'to quicknotes', '--icon=sublime-text', '--expire-time=4000', f'--default-action={swayer}'], stdout=subprocess.PIPE).wait()
 
