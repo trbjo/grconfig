@@ -329,11 +329,12 @@ case $res in
 
 
     '   Sublime Merge   ')
-        swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^sublime_merge$"] focus'
-        if pgrep -x sublime_text; then
+        if pgrep --exact sublime_text > /dev/null; then
+            pkill -CONT 'plugin_host-3.3|plugin_host-3.8|sublime_text'
             /opt/sublime_text/sublime_text --fwdargv0 "$0" --command get_sublime_folder_name
         fi
-        swaymsg exec -q -- /opt/sublime_merge/sublime_merge --fwdargv0 "$0" "$(cat /tmp/sublfile)" || /opt/sublime_merge/sublime_merge
+        swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^sublime_merge$"] focus'
+        /opt/sublime_merge/sublime_merge "$(cat /tmp/sublime_folder_name)" || swaymsg exec -q -- /opt/sublime_merge/sublime_merge
         ;;
 
 
