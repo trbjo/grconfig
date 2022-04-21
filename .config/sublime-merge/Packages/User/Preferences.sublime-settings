@@ -15,4 +15,5 @@
 	"image_diff_style": "side-by-side",
 	"theme": "auto",
 	"diff_style": "auto",
+	"update_check": false,
 }
