@@ -8,6 +8,7 @@
 ###############################################################################
 
 general {
+    output_format   = i3bar
     interval        = 1
     markup          = pango
     colors          = true
