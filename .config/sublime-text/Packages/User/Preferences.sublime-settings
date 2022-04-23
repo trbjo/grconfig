@@ -105,6 +105,7 @@
 	"file_tab_style": "square",
 	"font_face": "monospace",
 	"font_size": 8.9,
+	"goto_anything_exclude_gitignore": true,
 	"hardware_acceleration": "opengl",
 	"ignored_packages": [
 		"ActionScript",
