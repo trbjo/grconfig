@@ -1,0 +1,10 @@
+<snippet>
+    <content><![CDATA[---
+title: ${1:title}
+author: ${2:Troels Bjørnskov}
+date:
+---]]></content>
+    <tabTrigger>head</tabTrigger>
+    <scope>text.html.markdown</scope>
+    <description>Insert YAML Header</description>
+</snippet>
