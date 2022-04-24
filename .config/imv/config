@@ -2,14 +2,11 @@
 
 [options]
 overlay = true
-overlay_font = Imvfont:11
+overlay_font = Inter:11
 overlay_background_alpha = ff
 overlay_text =\ ${imv_current_file##*/}, \($imv_width\x$imv_height\),\ $imv_scale%, \($imv_current_index/$imv_file_count\)
 title_text =${imv_current_file##*/}, \($imv_width\x$imv_height\),\ $imv_scale%, \($imv_current_index/$imv_file_count\)
 background = checks
-width = 3000
-height = 2000
-# scaling_mode = shrink
 
 
 # Suppress built-in key bindings, and specify them explicitly in this
