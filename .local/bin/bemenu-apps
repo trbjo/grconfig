@@ -352,19 +352,9 @@ case $res in
 
     '   Screenshot (Whole Screen, Delay)   ')
         /usr/bin/pgrep slurp || {
-            notify-send "Taking Screenshot in 3 seconds" --icon=camera-video
-            sleep 1
-            notify-send "Taking Screenshot in 2 seconds" --icon=camera-video
-            sleep 1
-            notify-send "Taking Screenshot in 1 second" --icon=camera-video
-            sleep 1
-
-            curdate=$(date +"Screenshot_%Y-%m-%d_%H:%M:%S.png")
-            screenshot=$HOME/screenshots/$curdate
-            grim $screenshot && notify-send.sh "Screenshot taken" "$curdate" --icon=camera-photo --default-action="swaymsg -- unbindsym return && swaymsg -- unbindsym escape; xdg-open \"$screenshot\""
-            wl-copy < "$screenshot"
-            swaymsg -- "bindsym return exec xdg-open \"$screenshot\" && swaymsg -- unbindsym return && swaymsg -- unbindsym escape"
-            swaymsg -- "bindsym escape exec makoctl dismiss && swaymsg -- unbindsym return && swaymsg -- unbindsym escape"
+            notification_id=$(notify-send.sh "Press enter when you want to take the screenshot" --expire-time=99999999 --print-id)
+            swaymsg -- "bindsym escape exec swaymsg -- unbindsym return && swaymsg -- unbindsym escape && makoctl dismiss -n $notification_id"
+            swaymsg -- "bindsym return exec swaymsg -- unbindsym return && swaymsg -- unbindsym escape && makoctl dismiss -n $notification_id && curdate=\"\$(date +\"Screenshot_%Y-%m-%d_%H:%M:%S.png\")\" && screenshot=\"$HOME/screenshots/\$curdate\" && grim \"\$screenshot\" && xdg-open \"\$screenshot\" && wl-copy < \"\$screenshot\" && notify-send.sh \"\$curdate taken\""
         }
         ;;
 
