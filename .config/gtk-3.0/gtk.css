@@ -1,19 +1,17 @@
-/* for synapse selected widget */
-/*window box widget {*/
-    /*border-radius: 0;*/
-/*}*/
-
-window.popup,
-menubar {
-    color: mix(@theme_text_color, @theme_base_color, 0.25);
+window.popup {
     font-weight: 500;
 }
 
 menubar {
+    font-weight: 500;
     background: @theme_base_color;
     border: none;
 }
 
+menuitem {
+    padding-bottom: 3px;
+    padding-top: 3px;
+}
 
 tooltip {
     background: @theme_base_color;
