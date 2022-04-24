@@ -352,9 +352,9 @@ case $res in
 
     '   Screenshot (Whole Screen, Delay)   ')
         /usr/bin/pgrep slurp || {
-            notification_id=$(notify-send.sh "Press enter when you want to take the screenshot" --expire-time=99999999 --print-id)
+            notification_id="$(notify-send.sh "Press enter when you want to take the screenshot" --expire-time=99999999 --print-id)"
             swaymsg -- "bindsym escape exec swaymsg -- unbindsym return && swaymsg -- unbindsym escape && makoctl dismiss -n $notification_id"
-            swaymsg -- "bindsym return exec swaymsg -- unbindsym return && swaymsg -- unbindsym escape && makoctl dismiss -n $notification_id && curdate=\"\$(date +\"Screenshot_%Y-%m-%d_%H:%M:%S.png\")\" && screenshot=\"$HOME/screenshots/\$curdate\" && grim \"\$screenshot\" && xdg-open \"\$screenshot\" && wl-copy < \"\$screenshot\" && notify-send.sh \"\$curdate taken\""
+            swaymsg -- "bindsym return exec swaymsg -- unbindsym return && swaymsg -- unbindsym escape && makoctl dismiss -n $notification_id && sleep 0.1 && curdate=\"\$(date +\"Screenshot_%Y-%m-%d_%H:%M:%S.png\")\" && screenshot=\"$HOME/screenshots/\$curdate\" && grim \"\$screenshot\" && xdg-open \"\$screenshot\" && wl-copy < \"\$screenshot\""
         }
         ;;
 
