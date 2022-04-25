@@ -12,16 +12,6 @@
 
 {"keys": ["ctrl+alt+enter"],"command": "helium_execute_cell", "args": {"move_cursor": "True"}},
 
-// {"keys": [" "], "command": "run_macro_file", "args": {"file": "res://Packages/User/macros/capital-beginning-with-comma.sublime-macro"}, "context":
-// [
-//     {"key": "preceding_text", "operator": "regex_contains", "operand": "((\\.|\\?) |^|astri|troel|linu|ethereu|bitcoi)\\w+[[:punct:]]$"},
-//     {"key": "setting.block_caret", "operator": "equal", "operand": false },
-//     {"key": "selector", "operator": "equal", "operand": "text", "match_all": true },
-//     {"key": "setting.is_widget", "operator": "equal", "operand": false}
-// ]
-// },
-
-
 {"keys": [";"], "command": "run_macro_file", "args": {"file": "res://Packages/sublime-fly-keys/macros/line_end_semicolon.sublime-macro"},"context": [{"key": "setting.command_mode", "operator": "equal", "operand": false }, {"key": "preceding_text", "operator": "not_regex_contains", "operand": "for\\s?\\(", "match_all": true}, {"key": "selector", "operator": "equal", "operand": "source.cs, source.tsx"}, ] },
 
 {"keys": [";"], "command": "command_mode", "context": [{"key": "setting.command_mode", "operator": "equal", "operand": false }, {"key": "preceding_text", "operator": "regex_contains", "operand": ";$", "match_all": true}, {"key": "following_text", "operator": "regex_match", "operand": "^$", "match_all": true}, {"key": "selector", "operator": "equal", "operand": "source"}, ] },
