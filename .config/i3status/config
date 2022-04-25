@@ -78,6 +78,8 @@ load {
 }
 
 cpu_usage {
+    min_width = 50
+    align = center
     format = " %usage"
 }
 
