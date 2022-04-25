@@ -123,6 +123,11 @@ bindsym --no-repeat $alt+shift+e layout toggle tabbed split
 # Moving around:
 #
 
+mode "" {
+    bindsym $alt+t focus down
+}
+
+
 # Move your focus around
 
 bindsym $alt+t focus down
@@ -224,7 +229,7 @@ bar {
     colors {
         statusline $WHITE
         background $BLACK
-        binding_mode $BLACK $BLACK #3584E4
+        binding_mode $BLACK $BLACK $WHITE
         focused_workspace $BLACK $BLACK $WHITE
         active_workspace $BLACK $BLACK $WHITE
         inactive_workspace $BLACK $BLACK $FGINACTIVE
