@@ -66,10 +66,6 @@ seat seat0 hide_cursor 15000
 seat seat0 hide_cursor when-typing enable
 
 
-bindswitch --locked --reload lid:on exec 'grep -q \^connected /sys/class/drm/{card0-DP-1,card0-DP-2,card0-HDMI-A-1}/status && swaymsg output eDP-1 disable || systemctl suspend'
-# bindswitch --locked --reload lid:on output eDP-1 dpms off
-bindswitch --locked --reload lid:off output eDP-1 enable
-
 #
 ## Keybindings
 #
@@ -122,11 +118,6 @@ bindsym --no-repeat $alt+shift+e layout toggle tabbed split
 #
 # Moving around:
 #
-
-mode "" {
-    bindsym $alt+t focus down
-}
-
 
 # Move your focus around
 
