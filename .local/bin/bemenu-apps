@@ -35,7 +35,7 @@ type wf-recorder > /dev/null 2>&1 && {
     list+=(" $recorder")
 }
 
-type chromium-snapshot-bin > /dev/null 2>&1 && list+=(" Chrome" " Discord" " Slack" " Outlook")
+type chromium-snapshot-bin > /dev/null 2>&1 && list+=(" Chrome" " Discord" " Slack" " Work Email")
 type microsoft-edge-dev > /dev/null 2>&1 && list+=(" Teams")
 type code > /dev/null 2>&1 && list+=(" VSCode")
 type grim > /dev/null 2>&1 && list+=(" Screenshot (Whole Screen)" " Screenshot (Whole Screen, Delay)") && \
@@ -56,6 +56,7 @@ type iwctl > /dev/null 2>&1 && {
 
 type swaylock > /dev/null 2>&1 && list+=(" Lock")
 
+list+=(" Log Out")
 type dbus-send > /dev/null 2>&1 && list+=(" Suspend" " Reboot" " Poweroff")
 res=$(bemenu --prompt 'Programs' <<< ${${list[@]/#/  }/%/   })
 case $res in
@@ -221,7 +222,7 @@ case $res in
         ;;
 
 
-    '   Outlook   ')
+    '   Work Email   ')
         swaymsg -q -- '[app_id="^PopUp$"] move scratchpad'
         swaymsg -q -- '[app_id="^chrome-outlook.office.com__mail_inbox-Default$"] focus' && exit
         swaymsg exec -q -- /usr/bin/chromium-snapshot-bin --user-data-dir=$HOME/.cache/chrom/Outlook --enable-features=WebRTCPipeWireCapturer --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://outlook.office.com/mail/inbox'
@@ -317,6 +318,12 @@ case $res in
 
     '   Suspend   ')
         /usr/bin/dbus-send --system --print-reply --dest=org.freedesktop.login1 /org/freedesktop/login1 "org.freedesktop.login1.Manager.Suspend" boolean:true
+        ;;
+
+
+    '   Log Out   ')
+        loginctl terminate-session self
+        # $(loginctl session-status | head -n 1 | awk '{print $1}')
         ;;
 
 

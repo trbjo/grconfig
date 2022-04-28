@@ -1,5 +1,5 @@
 [Unit]
-Description=PopUp terminal
+BindsTo=sway-session.target
 
 [Service]
 Type=simple
@@ -9,4 +9,4 @@ Environment=PopUp=true
 ExecStart=/usr/bin/alacritty --title=PopUp
 
 [Install]
-WantedBy=default.target
+WantedBy=sway-session.target
