@@ -2,6 +2,7 @@
 
 import os
 import sys
+from typing import Dict
 
 HOME=os.getenv('HOME')
 sys.path.append(f'{HOME}/code/i3ipc-python')
@@ -11,11 +12,36 @@ import signal
 from enum import IntEnum
 import glob
 import psutil
+import threading
+import time
+
+INTERVAL_SECS = 90
+STOPPED_APPS: Dict[int,str] = {}
+
+class Counter():
+    def __init__(self, increment: int):
+        self.next_t = time.time()
+        self.increment = increment
+        threading.Timer(increment, self._run).start()
+
+    def _run(self):
+        stopped_apps_copy = STOPPED_APPS.copy()
+        for key,val in stopped_apps_copy.items():
+            signal_app(key, val, signal.SIGCONT)
+        time.sleep(5)
+        for key,val in STOPPED_APPS.items():
+            signal_app(key, val, signal.SIGSTOP)
+        self.next_t+=self.increment
+        threading.Timer( self.next_t - time.time(), self._run).start()
+
+a=Counter(increment = INTERVAL_SECS)
+
 
 class PowerStatus(IntEnum):
     NOT_A_LAPTOP = 1
     ON_AC = 18
     ON_BATTERY = 19
+
 
 def signal_app(pid: int, app_id: str, signal: int):
     try:
@@ -28,13 +54,47 @@ def signal_app(pid: int, app_id: str, signal: int):
     except psutil.NoSuchProcess:
         pass
 
+
+def del_key(key: int):
+    global STOPPED_APPS
+    try:
+        del STOPPED_APPS[key]
+    except KeyError:
+        pass
+
+def stop_app(pid: int, app_id: str):
+    try:
+        parent = psutil.Process(pid)
+        for child in parent.children(recursive=False if app_id == 'Alacritty' else True):
+            child.send_signal(signal.SIGSTOP)
+        parent.send_signal(signal.SIGSTOP)
+    except psutil.AccessDenied:
+        pass
+    except psutil.NoSuchProcess:
+        del_key(pid)
+        return
+    global STOPPED_APPS
+    STOPPED_APPS[pid] = app_id
+
+def start_app(pid: int, app_id: str):
+    del_key(pid)
+    try:
+        parent = psutil.Process(pid)
+        for child in parent.children(recursive=False if app_id == 'Alacritty' else True):
+            child.send_signal(signal.SIGCONT)
+        parent.send_signal(signal.SIGCONT)
+    except psutil.AccessDenied:
+        return
+    except psutil.NoSuchProcess:
+        return
+
 def check_app_close(ipc, event):
-    signal_app(event.container.pid, event.container.app_id, signal.SIGCONT)
+    start_app(event.container.pid, event.container.app_id)
     global prev_app
     prev_app = None
 
 def on_window_focus(ipc, event):
-    signal_app(event.container.pid, event.container.app_id, signal.SIGCONT)
+    start_app(event.container.pid, event.container.app_id)
     # race condition workaround:
     focused = ipc.get_tree().find_focused()
     if focused is None:
@@ -54,18 +114,18 @@ def on_window_focus(ipc, event):
                 return
             con = ipc.get_tree().find_by_pid(prev_app)[0]
             if not con.visible:
-                signal_app(prev_app, con.app_id, signal.SIGSTOP)
+                stop_app(con.pid, con.app_id)
         prev_app = event.container.pid
         return
 
     workspace_changed = False
     for window in descendants:
         if window.app_id and window.visible:
-            signal_app(window.pid, window.app_id, signal.SIGCONT)
+            start_app(window.pid, window.app_id)
 
     for window in prev_ws:
         if window.app_id:
-            signal_app(window.pid, window.app_id, signal.SIGSTOP)
+            stop_app(window.pid, window.app_id)
 
 def on_window_move(ipc, event):
     if power_status != PowerStatus.ON_BATTERY:
@@ -74,7 +134,7 @@ def on_window_move(ipc, event):
     if len(descendants) > 1:
         for d in descendants:
             if d.app_id and d.visible:
-                signal_app(d.pid, d.app_id, signal.SIGCONT)
+                start_app(d.pid, d.app_id)
 
 
 def on_workspace_focus(ipc, event):
@@ -93,16 +153,17 @@ def on_workspace_init(ipc, event):
     global current_ws
     for window in current_ws:
         if window.app_id:
-            signal_app(window.pid, window.app_id, signal.SIGSTOP)
+            stop_app(window.pid, window.app_id)
     global prev_ws
     prev_ws = current_ws
     current_ws = event.current
 
 
 def exit_handler(ipc):
+    print('got signal')
     for window in ipc.get_tree():
         if window.app_id is not None:
-            signal_app(window.pid, window.app_id, signal.SIGCONT)
+            start_app(window.pid, window.app_id)
     ipc.main_quit()
     sys.exit(0)
 
@@ -120,13 +181,17 @@ def set_power_status(ipc):
         res = fd.read().decode().split('\x0A')[0]
         if res == '0':
             power_status = PowerStatus.ON_BATTERY
+            for window in ipc.get_tree():
+                if window.app_id is None or window.visible:
+                    continue
+                stop_app(window.pid, window.app_id)
         else:
             power_status = PowerStatus.ON_AC
+            for window in ipc.get_tree():
+                if window.app_id is None or window.visible:
+                    continue
+                start_app(window.pid, window.app_id)
 
-    for window in ipc.get_tree():
-        if window.app_id is None or window.visible:
-            continue
-        signal_app(window.pid, window.app_id, power_status)
 
 
 if __name__ == "__main__":
@@ -151,3 +216,4 @@ if __name__ == "__main__":
         signal.signal(sig, lambda signal, frame: exit_handler(ipc))
 
     ipc.main()
+
