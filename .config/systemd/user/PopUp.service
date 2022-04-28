@@ -1,0 +1,12 @@
+[Unit]
+Description=PopUp terminal
+
+[Service]
+Type=simple
+Restart=always
+Environment=PROHIBIT_TERM_TITLE=true
+Environment=PopUp=true
+ExecStart=/usr/bin/alacritty --title=PopUp
+
+[Install]
+WantedBy=default.target
