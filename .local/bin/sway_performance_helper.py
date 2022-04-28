@@ -1,7 +1,10 @@
 #!/usr/bin/python
 
+import os
 import sys
-sys.path.append('/home/tb/code/i3ipc-python')
+
+HOME=os.getenv('HOME')
+sys.path.append(f'{HOME}/code/i3ipc-python')
 
 import i3ipc
 import signal

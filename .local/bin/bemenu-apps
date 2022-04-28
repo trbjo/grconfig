@@ -205,6 +205,13 @@ case $res in
         ;;
 
 
+    '   Geogebra   ')
+        swaymsg -q -- '[app_id="^PopUp$"] move scratchpad'
+        swaymsg -q -- '[app_id="^code-oss$"] focus' ||\
+        swaymsg exec -q -- electron17 /usr/lib/geogebra/resources/app --enable-features=UseOzonePlatform --ozone-platform=wayland
+        ;;
+
+
     '   Slack   ')
         swaymsg -q -- '[app_id="^PopUp$"] move scratchpad'
         swaymsg -q -- '[app_id="^chrome-app.slack.com__client_T03PATMPV_D02D6BJLB5Z-Default$"] focus' && exit

@@ -39,9 +39,8 @@ exec /usr/bin/swayidle \
     timeout 360 '[ ! -f /tmp/inhibitScreen ] && loginctl lock-session && light -S 0' \
     timeout 362 'swaymsg "output * dpms off"'\
     before-sleep 'echo "{ \"command\": [\"set_property\", \"pause\", true] }" | socat - /tmp/mpvsocket; playerctl pause; if ! pgrep -x swaylock > /dev/null 2>&1; then swaymsg bar one workspace_buttons no, bar one mode overlay; swaylock --fade-in=0; loginctl unlock-session; fi'\
-    after-resume "swaymsg 'output * enable, output * dpms on'"\
+    after-resume "if [[ \$(ps -o etimes= -p \$(pgrep --oldest swaylock)) -lt 300 ]]; then pkill -9 swaylock; fi; swaymsg 'output * enable, output * dpms on'"\
     lock 'echo "{ \"command\": [\"set_property\", \"pause\", true] }" | socat - /tmp/mpvsocket; playerctl pause; if ! pgrep -x swaylock > /dev/null 2>&1; then swaymsg bar one workspace_buttons no, bar one mode overlay; swaylock; loginctl unlock-session; fi'\
     unlock 'swaymsg bar one workspace_buttons yes, bar one mode hide'
 
-    # resume "if [[ \$(ps -o etimes= -p \$(pgrep --oldest swaylockd)) -lt 300 ]]; then pkill -9 swaylockd; fi" \
-    # after-resume "if [[ \$(ps -o etimes= -p \$(pgrep --oldest swaylockd)) -lt 300 ]]; then pkill -9 swaylockd; fi; swaymsg 'output * enable, output * dpms on'"\
+    # resume "if [[ \$(ps -o etimes= -p \$(pgrep --oldest swaylock)) -lt 300 ]]; then pkill -9 swaylock; fi" \

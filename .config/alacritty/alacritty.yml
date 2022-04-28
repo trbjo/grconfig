@@ -350,7 +350,10 @@ schemes:
       - { index: 30, color: "#D0D6DA" }
       # snowsql
       - { index: 61, color: "#6F42C1" }
+      # pgcl autocomplete second hl
+      - { index: 66, color: "#D0D6DA" }
       # snowsql autocomplete selected color:
+
       - { index: 37, color: "#1F76D9" }
       # snowsql autocomplete scrollbar fg/handle:
       - { index: 238, color: "#909498" }
