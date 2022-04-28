@@ -24,8 +24,13 @@ bindsym --no-repeat ctrl+Shift+7 move container to $ws7; $ws7; fullscreen disabl
 bindsym --no-repeat $alt+l output eDP-1 disable, output DP-1 enable
 bindsym --no-repeat $alt+shift+l output eDP-1 enable
 
+mode "" {
+    bindswitch --locked lid:on exec 'grep -q \^connected /sys/class/drm/{card0-DP-1,card0-DP-2,card0-HDMI-A-1}/status && swaymsg output eDP-1 disable || systemctl suspend'
+    bindswitch --locked lid:off output eDP-1 enable
+}
 bindswitch --locked lid:on exec 'grep -q \^connected /sys/class/drm/{card0-DP-1,card0-DP-2,card0-HDMI-A-1}/status && swaymsg output eDP-1 disable || systemctl suspend'
 bindswitch --locked lid:off output eDP-1 enable
+
 
 exec /usr/bin/swayidle \
     timeout 30 'pgrep swaylock && swaymsg "output * dpms off" && grep -q 0 /sys/class/power_supply/AC0/online && [ ! -f /tmp/inhibitSuspend ] && /usr/bin/systemctl suspend' \
@@ -38,9 +43,9 @@ exec /usr/bin/swayidle \
     timeout 240 '[ -f /tmp/inhibitSuspend ] || grep -q "ens1u\|4c:1b:86:91:63:70\|54:64:d9:7e:dd:d3\|00:1e:80:8b:eb:fa" /proc/net/arp || loginctl lock-session' \
     timeout 360 '[ ! -f /tmp/inhibitScreen ] && loginctl lock-session && light -S 0' \
     timeout 362 'swaymsg "output * dpms off"'\
-    before-sleep 'echo "{ \"command\": [\"set_property\", \"pause\", true] }" | socat - /tmp/mpvsocket; playerctl pause; if ! pgrep -x swaylock > /dev/null 2>&1; then swaymsg bar one workspace_buttons no, bar one mode overlay; swaylock --fade-in=0; loginctl unlock-session; fi'\
+    before-sleep 'echo "{ \"command\": [\"set_property\", \"pause\", true] }" | socat - /tmp/mpvsocket; playerctl pause; if ! pgrep -x swaylock > /dev/null 2>&1; then swaymsg bar one workspace_buttons no, mode ; swaylock --fade-in=0; loginctl unlock-session; fi'\
     after-resume "if [[ \$(ps -o etimes= -p \$(pgrep --oldest swaylock)) -lt 300 ]]; then pkill -9 swaylock; fi; swaymsg 'output * enable, output * dpms on'"\
-    lock 'echo "{ \"command\": [\"set_property\", \"pause\", true] }" | socat - /tmp/mpvsocket; playerctl pause; if ! pgrep -x swaylock > /dev/null 2>&1; then swaymsg bar one workspace_buttons no, bar one mode overlay; swaylock; loginctl unlock-session; fi'\
-    unlock 'swaymsg bar one workspace_buttons yes, bar one mode hide'
+    lock 'echo "{ \"command\": [\"set_property\", \"pause\", true] }" | socat - /tmp/mpvsocket; playerctl pause; if ! pgrep -x swaylock > /dev/null 2>&1; then swaymsg bar one workspace_buttons no, mode ; swaylock; loginctl unlock-session; fi'\
+    unlock 'swaymsg bar one workspace_buttons yes, mode default'
 
     # resume "if [[ \$(ps -o etimes= -p \$(pgrep --oldest swaylock)) -lt 300 ]]; then pkill -9 swaylock; fi" \
