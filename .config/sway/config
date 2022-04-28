@@ -279,4 +279,3 @@ exec mako
 exec "/usr/bin/clipman restore"
 exec '/usr/bin/wl-paste --type text --watch sh -c "if [[ -f /tmp/clipman_ignore ]]; then rm /tmp/clipman_ignore; else /usr/bin/clipman store --max-items=2000; fi"'
 exec python ~/.local/bin/sway_performance_helper.py
-exec /usr/bin/sh -c 'while pgrep sway > /dev/null 2>&1; do env PROHIBIT_TERM_TITLE=true PopUp=true /usr/bin/alacritty --title=PopUp > /dev/null 2>&1; done'
