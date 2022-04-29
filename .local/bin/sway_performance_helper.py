@@ -35,8 +35,6 @@ class Counter():
             self.next_t+=self.increment
         threading.Timer( self.next_t - time.time(), self._run).start()
 
-a=Counter(increment = INTERVAL_SECS)
-
 
 class PowerStatus(IntEnum):
     NOT_A_LAPTOP = 1
@@ -207,6 +205,7 @@ if __name__ == "__main__":
 
     ipc.on("window::focus", on_window_focus)
     if power_status != PowerStatus.NOT_A_LAPTOP:
+        a=Counter(increment = INTERVAL_SECS)
         ipc.on("window::move", on_window_move)
         ipc.on("window::close", check_app_close)
         ipc.on("workspace::init", on_workspace_init)
