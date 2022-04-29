@@ -27,20 +27,41 @@ bindsym --no-repeat $alt+shift+l output eDP-1 enable
 mode "" {
     bindswitch --locked lid:on exec 'grep -q \^connected /sys/class/drm/{card0-DP-1,card0-DP-2,card0-HDMI-A-1}/status && swaymsg output eDP-1 disable || systemctl suspend'
     bindswitch --locked lid:off output eDP-1 enable
+    bindsym --no-repeat --locked ctrl+alt+F1 nop
+    bindsym --no-repeat --locked ctrl+alt+F2 nop
+    bindsym --no-repeat --locked ctrl+alt+F3 nop
+    bindsym --no-repeat --locked ctrl+alt+F4 nop
+    bindsym --no-repeat --locked ctrl+alt+F5 nop
+    bindsym --no-repeat --locked ctrl+alt+F6 nop
+    bindsym --no-repeat --locked ctrl+alt+F8 nop
+    bindsym --no-repeat --locked ctrl+alt+F7 nop
+    bindsym --no-repeat --locked ctrl+alt+F9 nop
+    bindsym --no-repeat --locked ctrl+alt+F10 nop
+    bindsym --no-repeat --locked ctrl+alt+F11 nop
+    bindsym --no-repeat --locked ctrl+alt+F12 nop
+    bindsym --locked XF86AudioPlay exec playerctl play-pause
+    bindsym --locked XF86AudioNext exec playerctl next
+    bindsym --locked XF86AudioPrev exec playerctl previous
+    bindsym --locked XF86WLAN exec doas /usr/bin/rfkill unblock wifi
+    bindsym --locked --no-repeat XF86AudioMute exec amixer set Master mute
+    bindsym --locked --no-repeat ctrl+XF86AudioMute exec playerctl play-pause
+    bindsym --locked XF86MonBrightnessDown exec light -T 0.63
+    bindsym --locked XF86MonBrightnessUp exec light -T 1.6
 }
 bindswitch --locked lid:on exec 'grep -q \^connected /sys/class/drm/{card0-DP-1,card0-DP-2,card0-HDMI-A-1}/status && swaymsg output eDP-1 disable || systemctl suspend'
 bindswitch --locked lid:off output eDP-1 enable
 
 exec /usr/bin/swayidle \
-    timeout 30 'pgrep swaylock && swaymsg "output * dpms off" && grep -q 0 /sys/class/power_supply/AC0/online && /usr/bin/systemctl suspend' \
+    timeout 30 'if pgrep swaylock; then grep -q 0 /sys/class/power_supply/AC0/online && /usr/bin/systemctl suspend || swaymsg "output * dpms off"; fi' \
         resume 'swaymsg "output * dpms on"' \
     timeout 120 'light -O && grep -q 0 /sys/class/power_supply/AC0/online && light -T 0.2' \
         resume 'light -I' \
     timeout 150 'grep -q 0 /sys/class/power_supply/AC0/online && loginctl lock-session' \
         resume "if [[ \$(ps -o etimes= -p \$(pgrep --oldest swaylock)) -lt 300 ]]; then pkill -9 swaylock; fi; swaymsg 'output * dpms on'" \
     timeout 180 'grep -q 0 /sys/class/power_supply/AC0/online && /usr/bin/systemctl suspend' \
-    timeout 240 'grep -q "ens1u\|4c:1b:86:91:63:70\|54:64:d9:7e:dd:d3\|00:1e:80:8b:eb:fa" /proc/net/arp || loginctl lock-session' \
-    timeout 360 'loginctl lock-session; swaymsg "output * dpms off"'\
+    timeout 240 'grep -q "ens1u\|00:1e:80:8b:eb:fa" /proc/net/arp || loginctl lock-session' \
+    timeout 360 'loginctl lock-session'\
+    timeout 362 'swaymsg "output * dpms off"'\
     before-sleep 'echo "cycle pause" | socat - /tmp/mpvsocket; playerctl pause; if ! pgrep -x swaylock > /dev/null 2>&1; then swaymsg bar one workspace_buttons no, mode ; swaylock --fade-in=0; loginctl unlock-session; fi'\
     after-resume "if [[ \$(ps -o etimes= -p \$(pgrep --oldest swaylock)) -lt 300 ]]; then pkill -9 swaylock; fi; swaymsg 'output * enable, output * dpms on'"\
     lock 'echo "cycle pause" | socat - /tmp/mpvsocket; playerctl pause; if ! pgrep -x swaylock > /dev/null 2>&1; then swaymsg bar one workspace_buttons no, mode ; swaylock; loginctl unlock-session; fi'\

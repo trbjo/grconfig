@@ -72,26 +72,26 @@ seat seat0 hide_cursor when-typing enable
 
 bindsym $super+tab nop
 
-bindsym --no-repeat --locked ctrl+alt+F1 nop
-bindsym --no-repeat --locked ctrl+alt+F2 nop
-bindsym --no-repeat --locked ctrl+alt+F3 nop
-bindsym --no-repeat --locked ctrl+alt+F4 nop
-bindsym --no-repeat --locked ctrl+alt+F5 nop
-bindsym --no-repeat --locked ctrl+alt+F6 nop
-bindsym --no-repeat --locked ctrl+alt+F8 nop
-bindsym --no-repeat --locked ctrl+alt+F7 nop
-bindsym --no-repeat --locked ctrl+alt+F9 nop
-bindsym --no-repeat --locked ctrl+alt+F10 nop
-bindsym --no-repeat --locked ctrl+alt+F11 nop
-bindsym --no-repeat --locked ctrl+alt+F12 nop
+bindsym --no-repeat ctrl+alt+F1 nop
+bindsym --no-repeat ctrl+alt+F2 nop
+bindsym --no-repeat ctrl+alt+F3 nop
+bindsym --no-repeat ctrl+alt+F4 nop
+bindsym --no-repeat ctrl+alt+F5 nop
+bindsym --no-repeat ctrl+alt+F6 nop
+bindsym --no-repeat ctrl+alt+F8 nop
+bindsym --no-repeat ctrl+alt+F7 nop
+bindsym --no-repeat ctrl+alt+F9 nop
+bindsym --no-repeat ctrl+alt+F10 nop
+bindsym --no-repeat ctrl+alt+F11 nop
+bindsym --no-repeat ctrl+alt+F12 nop
 
 # For the Plantronic headset
-bindsym --locked XF86AudioPlay exec playerctl play-pause
-bindsym --locked XF86AudioNext exec playerctl next
-bindsym --locked XF86AudioPrev exec playerctl previous
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
 
 # undoes the button completely
-bindsym --locked XF86WLAN exec doas /usr/bin/rfkill unblock wifi
+bindsym XF86WLAN exec doas /usr/bin/rfkill unblock wifi
 
 bindsym --no-repeat ctrl+space [title="^PopUp$"] scratchpad show, fullscreen disable, move position center, resize set width 100ppt height 100ppt, resize shrink up 1100px, resize grow up 337px, move left 1px, move down 1px, resize grow right 2px
 
@@ -140,24 +140,16 @@ bindsym ctrl+$alt+c resize grow height 80px
 bindsym ctrl+$alt+t resize shrink height 80px
 bindsym ctrl+$alt+n resize grow width 80px
 
-bindsym --locked --no-repeat XF86AudioMute exec amixer set Master mute
-bindsym --locked --no-repeat ctrl+XF86AudioMute exec playerctl play-pause
-bindsym --locked XF86MonBrightnessDown exec light -U 0.5 && light -S $(echo "$(light -G) /1.3" | bc -l)
-bindsym --locked XF86MonBrightnessUp exec light -S $(echo "$(light -G) * 1.3" | bc -l) && light -A 0.5
-
-# bindsym XF86AudioLowerVolume exec \
-    # pactl set-sink-volume @DEFAULT_SINK@ -5%
-
-# bindsym XF86AudioRaiseVolume exec \
-    # pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym --no-repeat XF86AudioMute exec amixer set Master mute
+bindsym --no-repeat ctrl+XF86AudioMute exec playerctl play-pause
+bindsym XF86MonBrightnessDown exec light -T 0.63
+bindsym XF86MonBrightnessUp exec light -T 1.6
 
 bindsym --no-repeat XF86AudioLowerVolume exec \
     amixer set Master unmute && amixer set Master 3%- && mpv /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga
 
 bindsym --no-repeat XF86AudioRaiseVolume exec \
     amixer set Master unmute && amixer set Master 3%+ && mpv /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga
-
-bindsym --locked $alt+F4 exec [ -S /tmp/mpvsocket ] && echo 'cycle pause' | socat - /tmp/mpvsocket > /dev/null 2>&1 || /usr/bin/ssh music@Intel-NUC "tmux send-keys -t main:1.1 ' '"
 
 bindsym --no-repeat ctrl+f10 exec xdg-open --mpv $(wl-paste)
 bindsym --no-repeat ctrl+XF86Tools exec xdg-open --mpv $(wl-paste)
