@@ -25,13 +25,14 @@ class Counter():
         threading.Timer(increment, self._run).start()
 
     def _run(self):
-        stopped_apps_copy = STOPPED_APPS.copy()
-        for key,val in stopped_apps_copy.items():
-            signal_app(key, val, signal.SIGCONT)
-        time.sleep(5)
-        for key,val in STOPPED_APPS.items():
-            signal_app(key, val, signal.SIGSTOP)
-        self.next_t+=self.increment
+        if power_status == PowerStatus.ON_BATTERY:
+            stopped_apps_copy = STOPPED_APPS.copy()
+            for key,val in stopped_apps_copy.items():
+                signal_app(key, val, signal.SIGCONT)
+            time.sleep(5)
+            for key,val in STOPPED_APPS.items():
+                signal_app(key, val, signal.SIGSTOP)
+            self.next_t+=self.increment
         threading.Timer( self.next_t - time.time(), self._run).start()
 
 a=Counter(increment = INTERVAL_SECS)
