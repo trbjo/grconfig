@@ -32,8 +32,8 @@ class Counter():
             time.sleep(5)
             for key,val in STOPPED_APPS.items():
                 signal_app(key, val, signal.SIGSTOP)
-            self.next_t+=self.increment
-        threading.Timer( self.next_t - time.time(), self._run).start()
+        self.next_t+=self.increment
+        threading.Timer(self.next_t - time.time(), self._run).start()
 
 
 class PowerStatus(IntEnum):
@@ -216,4 +216,3 @@ if __name__ == "__main__":
         signal.signal(sig, lambda signal, frame: exit_handler(ipc))
 
     ipc.main()
-
