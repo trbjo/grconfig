@@ -6,7 +6,7 @@ IFS=$'\n'
 typeset -a list
 
 type firefox > /dev/null 2>&1 && list+=(" Firefox" " Firefox (Private Window)" " IRC")
-type subl > /dev/null 2>&1 && list+=(" Sublime Text")
+type subl > /dev/null 2>&1 && list+=(" Sublime Text")
 type emacs > /dev/null 2>&1 && list+=(" Emacs")
 type inkscape > /dev/null 2>&1 && list+=(" Inkscape")
 type spot > /dev/null 2>&1 && list+=(" Spotify")
@@ -120,7 +120,7 @@ case $res in
         ;;
 
 
-    '   Sublime Text   ')
+    '   Sublime Text   ')
         swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^sublime_text$"] focus'
         swaymsg exec -q -- /opt/sublime_text/sublime_text
         ;;
