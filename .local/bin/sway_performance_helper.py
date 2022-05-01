@@ -15,25 +15,23 @@ import psutil
 import threading
 import time
 
-INTERVAL_SECS = 90
+PAUSE_SECS = 90
+RUN_SECS = 3
 STOPPED_APPS: Dict[int,str] = {}
 
-class Counter():
-    def __init__(self, increment: int):
-        self.next_t = time.time()
-        self.increment = increment
-        threading.Timer(increment, self._run).start()
-
-    def _run(self):
-        if power_status == PowerStatus.ON_BATTERY:
-            stopped_apps_copy = STOPPED_APPS.copy()
-            for key,val in stopped_apps_copy.items():
-                signal_app(key, val, signal.SIGCONT)
-            time.sleep(5)
-            for key,val in STOPPED_APPS.items():
-                signal_app(key, val, signal.SIGSTOP)
-        self.next_t+=self.increment
-        threading.Timer(self.next_t - time.time(), self._run).start()
+def periodically_pause(pause=True):
+    time.sleep(PAUSE_SECS if pause else RUN_SECS)
+    if power_status == PowerStatus.ON_BATTERY:
+        if pause:
+            apps = STOPPED_APPS.copy()
+            sign = signal.SIGCONT
+        else:
+            apps = STOPPED_APPS
+            sign = signal.SIGSTOP
+        for key,val in apps.items():
+            signal_app(key, val, sign)
+        pause = not pause
+    periodically_pause(pause)
 
 
 class PowerStatus(IntEnum):
@@ -205,7 +203,7 @@ if __name__ == "__main__":
 
     ipc.on("window::focus", on_window_focus)
     if power_status != PowerStatus.NOT_A_LAPTOP:
-        a=Counter(increment = INTERVAL_SECS)
+        threading.Thread(target=periodically_pause).start()
         ipc.on("window::move", on_window_move)
         ipc.on("window::close", check_app_close)
         ipc.on("workspace::init", on_workspace_init)
