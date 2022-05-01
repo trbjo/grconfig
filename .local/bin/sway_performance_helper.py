@@ -28,62 +28,38 @@ def periodically_pause(pause=True):
         else:
             apps = STOPPED_APPS
             sign = signal.SIGSTOP
-        for key,val in apps.items():
-            signal_app(key, val, sign)
-        pause = not pause
-    periodically_pause(pause)
-
+        for pid,app_id in apps.items():
+            send_signal(pid, app_id, sign)
+    periodically_pause(not pause)
 
 class PowerStatus(IntEnum):
     NOT_A_LAPTOP = 1
     ON_AC = 18
     ON_BATTERY = 19
 
-
-def signal_app(pid: int, app_id: str, signal: int):
+def send_signal(pid: int, app_id: str, sign: signal):
     try:
         parent = psutil.Process(pid)
         for child in parent.children(recursive=False if app_id == 'Alacritty' else True):
-            child.send_signal(signal)
-        parent.send_signal(signal)
+            child.send_signal(sign)
+        parent.send_signal(sign)
     except psutil.AccessDenied:
         pass
     except psutil.NoSuchProcess:
-        pass
-
-
-def del_key(key: int):
-    global STOPPED_APPS
-    try:
-        del STOPPED_APPS[key]
-    except KeyError:
         pass
 
 def stop_app(pid: int, app_id: str):
-    try:
-        parent = psutil.Process(pid)
-        for child in parent.children(recursive=False if app_id == 'Alacritty' else True):
-            child.send_signal(signal.SIGSTOP)
-        parent.send_signal(signal.SIGSTOP)
-    except psutil.AccessDenied:
-        pass
-    except psutil.NoSuchProcess:
-        del_key(pid)
-        return
+    send_signal(pid, app_id, signal.SIGSTOP)
     global STOPPED_APPS
     STOPPED_APPS[pid] = app_id
 
 def start_app(pid: int, app_id: str):
-    del_key(pid)
+    global STOPPED_APPS
     try:
-        parent = psutil.Process(pid)
-        for child in parent.children(recursive=False if app_id == 'Alacritty' else True):
-            child.send_signal(signal.SIGCONT)
-        parent.send_signal(signal.SIGCONT)
-    except psutil.AccessDenied:
-        return
-    except psutil.NoSuchProcess:
-        return
+        del STOPPED_APPS[pid]
+    except KeyError:
+        pass
+    send_signal(pid, app_id, signal.SIGCONT)
 
 def check_app_close(ipc, event):
     start_app(event.container.pid, event.container.app_id)
@@ -95,6 +71,7 @@ def on_window_focus(ipc, event):
     # race condition workaround:
     focused = ipc.get_tree().find_focused()
     if focused is None:
+        print('Focused is none :-(')
         return
     descendants = focused.workspace().descendants()
     if len(descendants) == 1 and descendants[0].type != 'floating_con':

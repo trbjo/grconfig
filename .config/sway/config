@@ -7,7 +7,7 @@ set $alt Mod1
 set $super Mod4
 
 set $ws1 workspace "1"
-set $ws2 workspace "2"
+set $ws2 workspace "2"
 set $ws3 workspace "3"
 set $ws4 workspace "4"
 set $ws5 workspace "5"

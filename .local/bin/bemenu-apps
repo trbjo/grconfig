@@ -343,12 +343,13 @@ case $res in
 
 
     '   Sublime Merge   ')
-        if pgrep --exact sublime_text > /dev/null; then
-            pkill -CONT 'plugin_host-3.3|plugin_host-3.8|sublime_text'
-            /opt/sublime_text/sublime_text --fwdargv0 "$0" --command get_sublime_folder_name
-        fi
         swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^sublime_merge$"] focus'
-        /opt/sublime_merge/sublime_merge "$(cat /tmp/sublime_folder_name)" || swaymsg exec -q -- /opt/sublime_merge/sublime_merge
+        file_name="$(cat $XDG_RUNTIME_DIR/sublime_folder_name)"
+        if [[ ! -z "$file_name" ]]; then
+            /opt/sublime_merge/sublime_merge "$file_name" || swaymsg exec -q -- /opt/sublime_merge/sublime_merge
+        else
+          swaymsg exec -q -- /opt/sublime_merge/sublime_merge
+        fi
         ;;
 
 

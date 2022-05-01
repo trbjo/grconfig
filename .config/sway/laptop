@@ -25,7 +25,7 @@ bindsym --no-repeat $alt+l output eDP-1 disable, output DP-1 enable
 bindsym --no-repeat $alt+shift+l output eDP-1 enable
 
 mode "" {
-    bindswitch --locked lid:on exec 'grep -q \^connected /sys/class/drm/{card0-DP-1,card0-DP-2,card0-HDMI-A-1}/status && swaymsg output eDP-1 disable || systemctl suspend'
+    bindswitch --locked lid:on exec 'if grep -q \^connected /sys/class/drm/{card0-DP-1,card0-DP-2,card0-HDMI-A-1}/status; then swaymsg output eDP-1 disable; else swaymsg "output * dpms on"; systemctl suspend; fi'
     bindswitch --locked lid:off output eDP-1 enable
     bindsym --no-repeat --locked ctrl+alt+F1 nop
     bindsym --no-repeat --locked ctrl+alt+F2 nop
@@ -48,7 +48,7 @@ mode "" {
     bindsym --locked XF86MonBrightnessDown exec light -T 0.63
     bindsym --locked XF86MonBrightnessUp exec light -T 1.6
 }
-bindswitch --locked lid:on exec 'grep -q \^connected /sys/class/drm/{card0-DP-1,card0-DP-2,card0-HDMI-A-1}/status && swaymsg output eDP-1 disable || systemctl suspend'
+bindswitch --locked lid:on exec 'if grep -q \^connected /sys/class/drm/{card0-DP-1,card0-DP-2,card0-HDMI-A-1}/status; then swaymsg output eDP-1 disable; else swaymsg "output * dpms on"; systemctl suspend; fi'
 bindswitch --locked lid:off output eDP-1 enable
 
 exec /usr/bin/swayidle \
@@ -63,6 +63,9 @@ exec /usr/bin/swayidle \
     timeout 360 'loginctl lock-session'\
     timeout 362 'swaymsg "output * dpms off"'\
     before-sleep 'echo "cycle pause" | socat - /tmp/mpvsocket; playerctl pause; if ! pgrep -x swaylock > /dev/null 2>&1; then swaymsg bar one workspace_buttons no, mode ; swaylock --fade-in=0; loginctl unlock-session; fi'\
-    after-resume "if [[ \$(ps -o etimes= -p \$(pgrep --oldest swaylock)) -lt 300 ]]; then pkill -9 swaylock; fi; swaymsg 'output * enable, output * dpms on'"\
+    after-resume "if grep -q \^connected /sys/class/drm/{card0-DP-1,card0-DP-2,card0-HDMI-A-1}/status; then swaymsg output eDP-1 disable; else swaymsg 'output * enable, output * dpms on'; fi; if [[ \$(ps -o etimes= -p \$(pgrep --oldest swaylock)) -lt 300 ]]; then pkill -9 swaylock; fi;"\
     lock 'echo "cycle pause" | socat - /tmp/mpvsocket; playerctl pause; if ! pgrep -x swaylock > /dev/null 2>&1; then swaymsg bar one workspace_buttons no, mode ; swaylock; loginctl unlock-session; fi'\
     unlock 'swaymsg bar one workspace_buttons yes, mode default'
+
+exec 'grep -q \^connected /sys/class/drm/{card0-DP-1,card0-DP-2,card0-HDMI-A-1}/status && swaymsg output eDP-1 disable || swaymsg output eDP-1 enable'
+# after-resume "if [[ \$(ps -o etimes= -p \$(pgrep --oldest swaylock)) -lt 300 ]]; then pkill -9 swaylock; fi; swaymsg 'output * enable, output * dpms on'"\
