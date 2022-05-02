@@ -1,0 +1,11 @@
+[Unit]
+BindsTo=sway-session.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/sh -c 'grep -q \^connected /sys/class/drm/{card0-DP-1,card0-DP-2,card0-HDMI-A-1}/status && swaymsg output eDP-1 disable || swaymsg output eDP-1 enable'
+
+[Install]
+WantedBy=sway-session.target
+
