@@ -15,6 +15,6 @@ bindgesture swipe:3:left seat seat0 cursor press button9, seat seat0 cursor rele
 bindgesture swipe:4:right workspace prev
 bindgesture swipe:4:left workspace next
 bindgesture swipe:4:down exec light -S 100
-bindgesture swipe:4:up exec light -S 0.2
+bindgesture swipe:4:up exec light -S 0.02
 bindgesture pinch:4:inward exec light -S 50
 
