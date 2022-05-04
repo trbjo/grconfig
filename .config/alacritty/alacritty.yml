@@ -543,7 +543,7 @@ schemes:
  # Cursor colors
  Dark: &Gruvbox_dark # Default colors
    primary:
-     background: "#202426"
+     background: "#141414"
      # background: "#25292B"
      foreground: "#EBDBB2"
    cursor:

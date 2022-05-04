@@ -1,0 +1,6 @@
+[Unit]
+Description=Cable connection
+BindsTo=sway-session.target
+Conflicts=wifi.target
+Wants=sway-session.target
+After=graphical-session-pre.target

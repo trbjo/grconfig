@@ -1,0 +1,10 @@
+[Unit]
+BindsTo=wifi.target
+
+[Service]
+Type=simple
+Restart=always
+ExecStart=/opt/pulsesecure/bin/pulseUI
+
+[Install]
+WantedBy=wifi.target

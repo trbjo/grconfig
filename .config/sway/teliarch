@@ -4,8 +4,6 @@ $ws99 output DP-1
 
 assign [app_id="^pulseUI$"] $ws99
 
-exec /opt/pulsesecure/bin/pulseUI
-
 #
 ## Output
 #

@@ -256,6 +256,7 @@ for_window [app_id="^python3$"] floating enable, resize set 1000 800
 for_window [app_id="^signal-desktop$" title=""] floating enable, resize set 1000 800
 
 # custom logos.
+for_window [app_id="^sublime_text$"] title_format "<span weight='100' foreground='#FF9800'></span>  %title"
 for_window [app_id="^(org.pwmt.zathura)$"] layout tabbed, title_format "<span weight='100' foreground='#d73a49'></span>  %title"
 for_window [app_id="^imv$"] title_format "<span weight='100' foreground='#3874C7'></span>  %title"
 for_window [app_id="^mpv$"] title_format "<span weight='100' foreground='#FF0000'></span>  %title"
@@ -266,7 +267,6 @@ for_window [app_id="Signal$" title="^Signal$"] title_format "<span weight='100' 
 for_window [app_id="firefox$" title="^Picture-in-Picture$"] floating enable, sticky enable, resize set 300 170, move position 2 28
 
 exec "dbus-update-activation-environment --systemd --all; systemctl --user import-environment; systemctl --user start sway-session.target"
-exec mako
 exec "/usr/bin/clipman restore"
 exec '/usr/bin/wl-paste --type text --watch sh -c "if [[ -f /tmp/clipman_ignore ]]; then rm /tmp/clipman_ignore; else /usr/bin/clipman store --max-items=2000; fi"'
-exec python ~/.local/bin/sway_performance_helper.py
+exec 'if [[ $TELIA_CONNECTION == "cable" ]]; then systemctl --user start cable.target; elif [[ $TELIA_CONNECTION == "wifi" ]]; then systemctl --user start wifi.target; fi'

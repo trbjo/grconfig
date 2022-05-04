@@ -156,7 +156,7 @@
 	"update_check": false,
 	"word_wrap": true,
 	"color_scheme": "auto",
-	"dark_color_scheme": "Dark.sublime-color-scheme",
+	"dark_color_scheme": "Gruvbox_dark.sublime-color-scheme",
 	"light_color_scheme": "Light.sublime-color-scheme",
 	"auto_complete": true,
 	"dark_theme": "Default Dark.sublime-theme",

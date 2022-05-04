@@ -1,0 +1,12 @@
+[Unit]
+BindsTo=cable.target
+
+[Service]
+Type=simple
+Restart=always
+ExecStart=/opt/pulsesecure/bin/pulseUI
+Environment=http_proxy=
+Environment=https_proxy=
+
+[Install]
+WantedBy=cable.target

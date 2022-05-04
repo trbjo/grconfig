@@ -1,0 +1,13 @@
+[Unit]
+BindsTo=sway-session.target
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+TimeoutStopSec=30
+KillSignal=SIGINT
+ExecStart=sway_performance_helper.py
+
+[Install]
+WantedBy=sway-session.target
