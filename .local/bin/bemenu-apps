@@ -9,14 +9,11 @@ type firefox > /dev/null 2>&1 && list+=(" Firefox" " Firefox (Private Wind
 type subl > /dev/null 2>&1 && list+=(" Sublime Text")
 type emacs > /dev/null 2>&1 && list+=(" Emacs")
 type inkscape > /dev/null 2>&1 && list+=(" Inkscape")
-type spot > /dev/null 2>&1 && list+=(" Spotify")
 type smerge > /dev/null 2>&1 && list+=(" Sublime Merge")
 type baobab > /dev/null 2>&1 && list+=(" Disk Usage")
 type gnome-disks > /dev/null 2>&1 && list+=(" Disk Utility")
 type telegram-desktop > /dev/null 2>&1 && list+=(" Telegram")
 type pavucontrol > /dev/null 2>&1 && list+=(" SoundControl")
-[[ -d /opt/pulsesecure ]] && [[ $USER != 'telia' ]] > /dev/null 2>&1 && list+=(" Telia Session" " Telia Session (cable)")
-[[ $USER != 'tb' ]] > /dev/null 2>&1 && list+=(" Sway session")
 type libreoffice > /dev/null 2>&1 && list+=(" LibreOffice Writer" " LibreOffice Calc" " LibreOffice Draw" " LibreOffice Impress" )
 
 type darkmode > /dev/null 2>&1 && list+=(" Toggle Dark Mode")
@@ -48,11 +45,13 @@ type iwctl > /dev/null 2>&1 && {
     list+=(" Turn WiFi $wifi")
 }
 
-
 type swaylock > /dev/null 2>&1 && list+=(" Lock")
 
 list+=(" Log Out")
+[[ -d /opt/pulsesecure ]] && [[ $USER != 'telia' ]] > /dev/null 2>&1 && list+=(" Telia Session" " Telia Session (cable)")
+[[ $USER != 'tb' ]] > /dev/null 2>&1 && list+=(" Sway session")
 type dbus-send > /dev/null 2>&1 && list+=(" Suspend" " Reboot" " Poweroff")
+
 res=$(bemenu --prompt 'Programs' <<< ${${list[@]/#/  }/%/   })
 case $res in
     '   Firefox   ')
