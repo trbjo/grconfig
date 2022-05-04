@@ -55,20 +55,20 @@ type dbus-send > /dev/null 2>&1 && list+=(" Suspend" " Reboot" " Powero
 res=$(bemenu --prompt 'Programs' <<< ${${list[@]/#/  }/%/   })
 case $res in
     '   Firefox   ')
-        swaymsg -q --  '[app_id="^PopUp$"] move scratchpad'
+        swaymsg -q --  '[title="^PopUp$"] move scratchpad'
         swaymsg -q --  '[app_id="^firefox$" tiling] focus'||\
         swaymsg exec /usr/bin/firefox
         ;;
 
 
     '   Firefox (Private Window)   ')
-        swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^firefox$" tiling] focus'
+        swaymsg -q --  '[title="^PopUp$"] move scratchpad; [app_id="^firefox$" tiling] focus'
         swaymsg -q -- '[title="Mozilla\ Firefox\ \(Private\ Browsing\)$"] focus' ||\
         swaymsg exec '/usr/bin/firefox --private-window'
         ;;
 
     '   IRC   ')
-        swaymsg -q -- '[app_id="^PopUp$"] move scratchpad; [title="^chat.sr.ht\ —\ Mozilla\ Firefox$"] focus' ||\
+        swaymsg -q -- '[title="^PopUp$"] move scratchpad; [title="^chat.sr.ht\ —\ Mozilla\ Firefox$"] focus' ||\
         swaymsg exec '/usr/bin/firefox --new-window --kiosk https://chat.sr.ht/'
         ;;
 
@@ -115,34 +115,34 @@ case $res in
 
 
     '   Sublime Text   ')
-        swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^sublime_text$"] focus'
+        swaymsg -q --  '[title="^PopUp$"] move scratchpad; [app_id="^sublime_text$"] focus'
         swaymsg exec -q -- /opt/sublime_text/sublime_text
         ;;
 
 
     '   Emacs   ')
-        swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^emacs$"] focus' || swaymsg exec -q -- /usr/bin/emacs
+        swaymsg -q --  '[title="^PopUp$"] move scratchpad; [app_id="^emacs$"] focus' || swaymsg exec -q -- /usr/bin/emacs
         ;;
 
 
     '   Inkscape   ')
-        swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^inkscape$"] focus' || swaymsg exec -q -- /usr/bin/inkscape
+        swaymsg -q --  '[title="^PopUp$"] move scratchpad; [app_id="^inkscape$"] focus' || swaymsg exec -q -- /usr/bin/inkscape
         ;;
 
 
     '   Spotify   ')
-        swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^dev.alextren.Spot$"] focus' || swaymsg exec -q -- /usr/bin/spot
+        swaymsg -q --  '[title="^PopUp$"] move scratchpad; [app_id="^dev.alextren.Spot$"] focus' || swaymsg exec -q -- /usr/bin/spot
         ;;
 
 
     '   Disk Usage   ')
-        swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^baobab$"] focus'
+        swaymsg -q --  '[title="^PopUp$"] move scratchpad; [app_id="^baobab$"] focus'
         swaymsg exec -q -- /usr/bin/baobab
         ;;
 
 
     '   Disk Utility   ')
-        swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^gnome-disks$"] focus'
+        swaymsg -q --  '[title="^PopUp$"] move scratchpad; [app_id="^gnome-disks$"] focus'
         swaymsg exec -q -- /usr/bin/gnome-disks
         ;;
 
@@ -188,28 +188,28 @@ case $res in
         export TDESKTOP_USE_GTK_FILE_DIALOG=1
         grep --color=auto -q 'enabled' /sys/class/drm/card0-DP-1/enabled && export ALSA_CARD=Audio
         readlink -q /sys/bus/hid/devices/0003:047F:02F7* > /dev/null 2>&1 && export ALSA_CARD=BT600
-        swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="-Telegram_Desktop$"] focus'
+        swaymsg -q --  '[title="^PopUp$"] move scratchpad; [app_id="-Telegram_Desktop$"] focus'
         swaymsg exec -q -- /usr/bin/telegram-desktop
         ;;
 
 
     '   VSCode   ')
-        swaymsg -q -- '[app_id="^PopUp$"] move scratchpad'
+        swaymsg -q -- '[title="^PopUp$"] move scratchpad'
         swaymsg -q -- '[app_id="^code-oss$"] focus' ||\
         swaymsg exec -q -- electron17 /usr/lib/code/out/cli.js /usr/lib/code/code.js --enable-features=UseOzonePlatform --ozone-platform=wayland
         ;;
 
 
     '   Geogebra   ')
-        swaymsg -q -- '[app_id="^PopUp$"] move scratchpad'
+        swaymsg -q -- '[title="^PopUp$"] move scratchpad'
         swaymsg -q -- '[app_id="^code-oss$"] focus' ||\
         swaymsg exec -q -- electron17 /usr/lib/geogebra/resources/app --enable-features=UseOzonePlatform --ozone-platform=wayland
         ;;
 
 
     '   Slack   ')
-        swaymsg -q -- '[app_id="^PopUp$"] move scratchpad'
-        swaymsg -q -- '[app_id="^chrome-app.slack.com__client_T03PATMPV_D02D6BJLB5Z-Default$"] focus' && exit
+        swaymsg -q -- '[title="^PopUp$"] move scratchpad'
+        swaymsg -q -- '[app_id="^chrome-app.slack.com__client_T03PATMPV-Default$"] focus' && exit
         swaymsg exec -q -- /usr/bin/chromium-snapshot-bin --user-data-dir=$HOME/.cache/chrom/Slack --enable-features=WebRTCPipeWireCapturer --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://app.slack.com/client/T03PATMPV'
         sleep 10
         pkill chrome_crashpad
@@ -217,7 +217,7 @@ case $res in
 
 
     '   Work Email   ')
-        swaymsg -q -- '[app_id="^PopUp$"] move scratchpad'
+        swaymsg -q -- '[title="^PopUp$"] move scratchpad'
         swaymsg -q -- '[app_id="^chrome-outlook.office.com__mail_inbox-Default$"] focus' && exit
         swaymsg exec -q -- /usr/bin/chromium-snapshot-bin --user-data-dir=$HOME/.cache/chrom/Outlook --enable-features=WebRTCPipeWireCapturer --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://outlook.office.com/mail/inbox'
         sleep 10
@@ -231,7 +231,7 @@ case $res in
 
 
     '   Teams   ')
-        swaymsg -q -- '[app_id="^PopUp$"] move scratchpad'
+        swaymsg -q -- '[title="^PopUp$"] move scratchpad'
         swaymsg -q -- '[app_id="^microsoft-edge-dev$"] focus' && exit
         swaymsg exec -- /opt/microsoft/msedge-dev/microsoft-edge-dev --enable-features=UseOzonePlatform --ozone-platform=wayland 'teams.microsoft.com'
         sleep 10
@@ -240,7 +240,7 @@ case $res in
 
 
     '   Discord   ')
-        swaymsg -q -- '[app_id="^PopUp$"] move scratchpad'
+        swaymsg -q -- '[title="^PopUp$"] move scratchpad'
         swaymsg -q -- '[app_id="chrome-discord.com__channels_280102180189634562_280102180189634562-Default$"] focus' && exit
         swaymsg exec -- /usr/bin/chromium-snapshot-bin --user-data-dir=$HOME/.cache/chrom/Discord --enable-features=WebRTCPipeWireCapturer --enable-features=UseOzonePlatform --ozone-platform=wayland --app='https://discord.com/channels/280102180189634562/280102180189634562'
         sleep 10
@@ -249,7 +249,7 @@ case $res in
 
 
     '   Chrome   ')
-        swaymsg -q -- '[app_id="^PopUp$"] move scratchpad'
+        swaymsg -q -- '[title="^PopUp$"] move scratchpad'
         swaymsg -q -- '[app_id="^\/usr\/bin\/chromium-snapshot-bin$"] focus' && exit
         swaymsg exec -- /usr/bin/chromium-snapshot-bin --enable-features=UseOzonePlatform --ozone-platform=wayland
         sleep 10
@@ -347,7 +347,7 @@ case $res in
 
 
     '   Sublime Merge   ')
-        swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^sublime_merge$"] focus'
+        swaymsg -q --  '[title="^PopUp$"] move scratchpad; [app_id="^sublime_merge$"] focus'
         file_name="$(cat $XDG_RUNTIME_DIR/sublime_folder_name)"
         if [[ ! -z "$file_name" ]]; then
             /opt/sublime_merge/sublime_merge "$file_name" || swaymsg exec -q -- /opt/sublime_merge/sublime_merge
@@ -426,7 +426,7 @@ case $res in
 
 
     '   Open Quicknotes   ')
-            swaymsg -q --  '[app_id="^PopUp$"] move scratchpad; [app_id="^sublime_text$"] focus'
+            swaymsg -q --  '[title="^PopUp$"] move scratchpad; [app_id="^sublime_text$"] focus'
             swaymsg exec -q -- /opt/sublime_text/sublime_text $HOME/quicknotes.md
         ;;
 
