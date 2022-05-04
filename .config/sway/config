@@ -229,6 +229,7 @@ assign [app_id="^sublime_merge$"] $ws1
 assign [app_id="^sublime_text$"] $ws2
 assign [app_id="^firefox$"] $ws3
 assign [app_id="^(org.pwmt.zathura|evince)$"] $ws4
+assign [app_id="^chrome-app.slack.com__client_T03PATMPV-Default$"] $ws5
 assign [app_id="-Telegram_Desktop$"] $ws6
 assign [app_id="^(mpv|imv)$"] $ws7
 
@@ -264,9 +265,11 @@ for_window [app_id="^Google-chrome-unstable$" title="^Microsoft Teams$"] title_f
 for_window [app_id="-Telegram_Desktop$" title="^Telegram$"] title_format "<span weight='100' foreground='#2FA5D8'></span>  %title"
 for_window [app_id="^firefox$"] title_format "<span weight='100' foreground='#E66700'></span>  %title"
 for_window [app_id="Signal$" title="^Signal$"] title_format "<span weight='100' foreground='#3A76F0'></span>  %title"
+for_window [app_id="chrome-app.slack.com__client_T03PATMPV-Default$"] title_format "<span weight='100' foreground='#DB1E59'></span>  %title"
 for_window [app_id="firefox$" title="^Picture-in-Picture$"] floating enable, sticky enable, resize set 300 170, move position 2 28
 
 exec "dbus-update-activation-environment --systemd --all; systemctl --user import-environment; systemctl --user start sway-session.target"
 exec "/usr/bin/clipman restore"
 exec '/usr/bin/wl-paste --type text --watch sh -c "if [[ -f /tmp/clipman_ignore ]]; then rm /tmp/clipman_ignore; else /usr/bin/clipman store --max-items=2000; fi"'
 exec 'if [[ $TELIA_CONNECTION == "cable" ]]; then systemctl --user start cable.target; elif [[ $TELIA_CONNECTION == "wifi" ]]; then systemctl --user start wifi.target; fi'
+
