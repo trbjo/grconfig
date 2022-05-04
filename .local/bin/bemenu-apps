@@ -19,14 +19,7 @@ type pavucontrol > /dev/null 2>&1 && list+=(" SoundControl")
 [[ $USER != 'tb' ]] > /dev/null 2>&1 && list+=(" Sway session")
 type libreoffice > /dev/null 2>&1 && list+=(" LibreOffice Writer" " LibreOffice Calc" " LibreOffice Draw" " LibreOffice Impress" )
 
-type darkmode > /dev/null 2>&1 &&  {
-    theme="$(gsettings get org.gnome.desktop.interface gtk-theme)"
-    if [[ $theme  == "'Adwaita'" ]]; then
-        list+=(" Dark Mode")
-    else
-        list+=(" Light Mode")
-    fi
-}
+type darkmode > /dev/null 2>&1 && list+=(" Toggle Dark Mode")
 
 type wf-recorder > /dev/null 2>&1 && {
     if pgrep -x wf-recorder > /dev/null 2>&1; then
@@ -233,13 +226,8 @@ case $res in
         ;;
 
 
-    '   Dark Mode   ')
-        /home/tb/.local/bin/darkmode dark
-        ;;
-
-
-    '   Light Mode   ')
-        /home/tb/.local/bin/darkmode light
+    '   Toggle Dark Mode   ')
+        darkmode
         ;;
 
 
