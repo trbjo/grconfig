@@ -231,7 +231,8 @@ assign [app_id="^firefox$"] $ws3
 assign [app_id="^(org.pwmt.zathura|evince)$"] $ws4
 assign [app_id="^chrome-app.slack.com__client_T03PATMPV-Default$"] $ws5
 assign [app_id="-Telegram_Desktop$"] $ws6
-assign [app_id="^(mpv|imv)$"] $ws7
+assign [app_id="chrome-outlook.office.com__mail_inbox-Default$"] $ws6
+assign [app_id="^(mpv|eog)$"] $ws7
 
 # all new windows except the PopUp should receive focus.
 for_window [title=^(?!(PopUp)$).*$] focus
@@ -259,7 +260,7 @@ for_window [app_id="^signal-desktop$" title=""] floating enable, resize set 1000
 # custom logos.
 for_window [app_id="^sublime_text$"] title_format "<span weight='100' foreground='#FF9800'></span>  %title"
 for_window [app_id="^(org.pwmt.zathura)$"] layout tabbed, title_format "<span weight='100' foreground='#d73a49'></span>  %title"
-for_window [app_id="^imv$"] title_format "<span weight='100' foreground='#3874C7'></span>  %title"
+for_window [app_id="^eog$"] title_format "<span weight='100' foreground='#3874C7'></span>  %title"
 for_window [app_id="^mpv$"] title_format "<span weight='100' foreground='#FF0000'></span>  %title"
 for_window [app_id="^Google-chrome-unstable$" title="^Microsoft Teams$"] title_format "<span weight='100' foreground='#6264A7'></span>  Microsoft Teams"
 for_window [app_id="-Telegram_Desktop$" title="^Telegram$"] title_format "<span weight='100' foreground='#2FA5D8'></span>  %title"
