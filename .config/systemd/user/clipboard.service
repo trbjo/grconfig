@@ -1,0 +1,11 @@
+[Unit]
+BindsTo=sway-session.target
+
+[Service]
+Type=simple
+Restart=always
+ExecStartPre=/usr/bin/clipman restore
+ExecStart=/usr/bin/wl-paste --type text --watch sh -c "if [[ -f /tmp/clipman_ignore ]]; then rm /tmp/clipman_ignore; else /usr/bin/clipman store --max-items=2000; fi"
+
+[Install]
+WantedBy=sway-session.target
