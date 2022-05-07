@@ -5,20 +5,19 @@ BindsTo=sway-session.target
 Type=simple
 Restart=always
 ExecStart=/usr/bin/swayidle \
-    timeout 30 'if pgrep swaylock; then grep -q 0 /sys/class/power_supply/AC0/online && /usr/bin/systemctl suspend || swaymsg "output * dpms off"; fi' \
+    timeout 30 'if /usr/bin/systemctl --user is-active --quiet swaylock.service; then grep -q 0 /sys/class/power_supply/AC0/online && /usr/bin/systemctl suspend || swaymsg "output * dpms off"; fi' \
         resume 'swaymsg "output * dpms on"' \
     timeout 120 'light -O && grep -q 0 /sys/class/power_supply/AC0/online && light -T 0.2' \
         resume 'light -I' \
-    timeout 150 'grep -q 0 /sys/class/power_supply/AC0/online && loginctl lock-session' \
-        resume "if [[ \$(ps -o etimes= -p \$(pgrep --oldest swaylock)) -lt 300 ]]; then pkill -9 swaylock; fi; swaymsg 'output * dpms on'" \
-    timeout 180 'if ! grep -q \^connected /sys/class/drm/{card0-DP-1,card0-DP-2,card0-HDMI-A-1}/status; then /usr/bin/systemctl suspend; fi' \
-    timeout 240 'if ! grep -q "ens1u\|00:1e:80:8b:eb:fa" /proc/net/arp; then loginctl lock-session; fi' \
-    timeout 360 'loginctl lock-session'\
+    timeout 150 'grep -q 0 /sys/class/power_supply/AC0/online && ! grep -q \^connected /sys/class/drm/{card0-DP-1,card0-DP-2,card0-HDMI-A-1}/status && /usr/bin/systemctl --user start swaylock.service' \
+        resume "[[ $(ps -o etimes= -p $(/usr/bin/systemctl --user show --value --property ExecMainPID swaylock)) -lt 300 ]] && /usr/bin/systemctl --user stop swaylock.service" \
+    timeout 180 'grep -q 0 /sys/class/power_supply/AC0/online && ! grep -q \^connected /sys/class/drm/{card0-DP-1,card0-DP-2,card0-HDMI-A-1}/status && /usr/bin/systemctl suspend' \
+    timeout 360 '/usr/bin/systemctl --user start swaylock.service'\
+        resume "grep -q --fixed-strings '00:1e:80:8b:eb:fa' /proc/net/arp && /usr/bin/systemctl --user stop swaylock.service" \
     timeout 362 'swaymsg "output * dpms off"'\
-    before-sleep 'echo "cycle pause" | socat - /tmp/mpvsocket; playerctl pause; if ! pgrep -x swaylock > /dev/null 2>&1; then swaymsg bar one workspace_buttons no, mode ; swaylock --fade-in=0; loginctl unlock-session; fi'\
-    after-resume "if grep -q \^connected /sys/class/drm/{card0-DP-1,card0-DP-2,card0-HDMI-A-1}/status; then swaymsg output eDP-1 disable; else swaymsg 'output * enable, output * dpms on'; fi; if [[ \$(ps -o etimes= -p \$(pgrep --oldest swaylock)) -lt 300 ]]; then pkill -9 swaylock; fi;"\
-    lock 'echo "cycle pause" | socat - /tmp/mpvsocket; playerctl pause; if ! pgrep -x swaylock > /dev/null 2>&1; then swaymsg bar one workspace_buttons no, mode ; swaylock; loginctl unlock-session; fi'\
-    unlock 'swaymsg bar one workspace_buttons yes, mode default'
+    after-resume '[[ $(ps -o etimes= -p $(systemctl --user show --value --property ExecMainPID swaylock)) -lt 300 ]] && /usr/bin/systemctl --user stop swaylock.service; if grep -q \^connected /sys/class/drm/{card0-DP-1,card0-DP-2,card0-HDMI-A-1}/status; then swaymsg output eDP-1 disable; else swaymsg "output * enable, output * dpms on"; fi'\
+    lock 'systemctl --user start swaylock.service'\
+    unlock 'systemctl --user stop swaylock.service'
 
 
 [Install]

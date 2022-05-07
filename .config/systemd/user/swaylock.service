@@ -1,0 +1,17 @@
+[Unit]
+BindsTo=sway-session.target
+
+[Service]
+Type=simple
+Restart=on-failure
+ExecStartPre=-/usr/bin/sh -c 'echo "cycle pause" | socat - /tmp/mpvsocket'
+ExecStartPre=-/usr/bin/playerctl pause
+ExecStartPre=-/usr/bin/gdbus call --system --dest org.freedesktop.login1 --object-path /org/freedesktop/login1/session/auto --method org.freedesktop.login1.Session.SetLockedHint true
+ExecStartPre=-/usr/bin/swaymsg bar one workspace_buttons no, mode 
+ExecStart=/usr/bin/swaylock
+ExecStopPost=-/usr/bin/swaymsg bar one workspace_buttons yes, mode default
+ExecStopPost=-/usr/bin/gdbus call --system --dest org.freedesktop.login1 --object-path /org/freedesktop/login1/session/auto --method org.freedesktop.login1.Session.SetLockedHint false
+ExecStopPost=-/usr/bin/gdbus call --system --dest org.freedesktop.login1 --object-path /org/freedesktop/login1/session/auto --method org.freedesktop.login1.Session.SetIdleHint false
+
+[Install]
+WantedBy=sway-session.target

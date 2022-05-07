@@ -44,7 +44,7 @@ text-ver-color=FBFAFA00
 text-wrong-color=FBFAFA00
 
 
-fade-in=0.4
+fade-in=0.3
 
 # clock
 # timestr=%H:%M
