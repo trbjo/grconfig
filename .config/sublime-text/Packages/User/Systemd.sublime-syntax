@@ -1,7 +1,7 @@
 %YAML 1.2
 ---
 name: Systemd
-file_extensions: [service, network]
+file_extensions: [service, network, netdev, timer, target]
 scope: source.systemd
 
 contexts:

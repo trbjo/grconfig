@@ -66,6 +66,11 @@ case "$(aplay -l)" in
     ;;
 esac
 
+if networkctl status enp8s0u1 --no-pager; then
+    export https_proxy=http://proxy.telia.dk:8080/
+    export http_proxy=http://proxy.telia.dk:8080/
+fi
+
 case $res in
     '   Firefox   ')
         swaymsg -q --  '[title="^PopUp$"] move scratchpad'
@@ -193,6 +198,8 @@ case $res in
 
 
     '   Telegram   ')
+        export QT_QPA_PLATFORM=wayland-egl
+        export QT_QPA_PLATFORMTHEME=gtk3
         export DESKTOP_APP_I_KNOW_ABOUT_GTK_INCOMPATIBILITY=1
         export DESKTOP_APP_DISABLE_TRAY_COUNTER=1
         export TDESKTOP_I_KNOW_ABOUT_GTK_INCOMPATIBILITY=1

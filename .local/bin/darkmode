@@ -76,7 +76,7 @@ set_values() {
 
     # sway
     # export BORDERA_$DARK="#4040BB10"
-    export BORDERA_$DARK="#000000"
+    export BORDERA_$DARK="#262626"
     export BORDERI_$DARK="#35393B88"
     export BORDERU_$DARK="#35393B88"
 

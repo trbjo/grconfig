@@ -107,6 +107,7 @@
 	"font_size": 8.9,
 	"goto_anything_exclude_gitignore": true,
 	"hardware_acceleration": "opengl",
+	 "indent_guide_options": ["draw_active", "draw_normal"],
 	"ignored_packages": [
 		"ActionScript",
 		"AppleScript",
