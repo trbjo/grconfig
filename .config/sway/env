@@ -4,13 +4,9 @@ XDG_DOWNLOAD_DIR=/home/tb/dl
 XDG_CONFIG_HOME=/home/tb/.config
 GDK_BACKEND=wayland
 NO_AT_BRIDGE=1
-#LIBVA_DRIVER_NAME=radeonsi
 LIBVA_DRIVER_NAME=i965
-#VDPAU_DRIVER=va_gl
 LIBVA_DRIVERS_PATH=/usr/lib/dri/
 WINIT_UNIX_BACKEND=wayland
-QT_QPA_PLATFORM=wayland-egl
-QT_QPA_PLATFORMTHEME=gtk3
 BROWSER=xdg-open
 EDITOR=/usr/bin/swaymsg '[title="^PopUp$"] move scratchpad; [app_id=^sublime_text$] focus'; /opt/sublime_text/sublime_text -w
 VISUAL=/usr/bin/swaymsg '[title="^PopUp$"] move scratchpad; [app_id=^sublime_text$] focus'; /opt/sublime_text/sublime_text -w
@@ -22,9 +18,3 @@ PASSWORD_STORE_GENERATED_LENGTH=39
 
 BEMENU_BACKEND=wayland
 BEMENU_OPTS="--tb '#000000' --ignorecase --line-height 22 --tf '#FFFFFF' --fb '#000000' --ff '#ffffff' --nb '#000000' --nf '#ffffff' --hb '#15539E' --hf '#ffffff' --sb '#ff0000' --sf '#ff0000' --scb '#ff0000' --fn 'font pango:Inter Medium 10' --scf '#ff79c6'"
-
-BAT_THEME=base16
-
-
-DOTNET_CLI_TELEMETRY_OPTOUT=1
-DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
