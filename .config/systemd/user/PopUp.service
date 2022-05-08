@@ -5,6 +5,9 @@ BindsTo=sway-session.target
 Type=simple
 Restart=always
 Environment=PROHIBIT_TERM_TITLE=true
+Environment=SHLVL=0
+#Environment=https_proxy=http://proxy.telia.dk:8080/
+#Environment=http_proxy=http://proxy.telia.dk:8080/
 Environment=PopUp=true
 ExecStart=/usr/bin/alacritty --title=PopUp
 
