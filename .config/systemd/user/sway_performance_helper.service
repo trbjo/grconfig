@@ -5,8 +5,7 @@ BindsTo=sway-session.target
 Type=simple
 Restart=always
 RestartSec=1
-TimeoutStopSec=30
-KillSignal=SIGINT
+TimeoutStopSec=2
 ExecStart=sway_performance_helper.py
 
 [Install]

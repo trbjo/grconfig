@@ -66,10 +66,10 @@ case "$(aplay -l)" in
     ;;
 esac
 
-if networkctl status enp8s0u1 --no-pager; then
-    export https_proxy=http://proxy.telia.dk:8080/
-    export http_proxy=http://proxy.telia.dk:8080/
-fi
+# if networkctl status enp8s0u1 --no-pager || networkctl status enp0s20f0u1u4u3 --no-pager; then
+#     export https_proxy=http://proxy.telia.dk:8080/
+#     export http_proxy=http://proxy.telia.dk:8080/
+# fi
 
 case $res in
     '   Firefox   ')

@@ -50,7 +50,8 @@
         "selection": "#0366D625",
         "selection_border": "#0366D650",
         "minimap_border": "#E6E6E6",
-        "stack_guide": "color(var(purple) alpha(0.5))",
+        "stack_guide": "color(var(foreground) alpha(0.2))",
+        "active_guide": "color(var(foreground) alpha(0.5))",
         "tags_foreground": "var(red)",
         "tags_options": "glow"
     },
