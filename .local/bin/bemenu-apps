@@ -344,6 +344,7 @@ case $res in
 
 
     '   Log Out   ')
+        systemctl --user stop sway-session.target
         loginctl terminate-session self
         # $(loginctl session-status | head -n 1 | awk '{print $1}')
         ;;
