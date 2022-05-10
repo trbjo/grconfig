@@ -289,19 +289,19 @@ schemes:
       blue: "#005CC5"
       magenta: "#6F42C1"
       green: "#22863a"
-      white: "#000000"
+      white: "#24292E"
 
     # Bright colors
     bright:
       #same as comment in sublime
-      black: "#34393E"
+      black: "#FFFFFF"
       red: "#D73A49"
       cyan: "#5CB1FF"
       yellow: "#FFAF00"
       blue: "#3584E4"
       magenta: "#6F42C1"
       green: "#82A63a"
-      white: "#000000"
+      white: "#24292E"
 
 
     # Search colors
@@ -443,6 +443,10 @@ schemes:
   # Colors (Github Dark)
   # Cursor colors
   Dark: &Dark
+    # Default colors
+    primary:
+      background: "#14181F"
+      foreground: "#dfe3e8"
     cursor:
       text: "0xFFFFFF"
       cursor: "#80c0ef"
@@ -450,10 +454,6 @@ schemes:
       text: "0xEAEFF3"
       background: "#2C4A67"
 
-    # Default colors
-    primary:
-      background: "#14181F"
-      foreground: "#dfe3e8"
 
     # Normal colors
     normal:
@@ -466,19 +466,19 @@ schemes:
       cyan: "#a5d6ff"
       magenta: "#b392f0"
       # same as base color in sublime
-      white: "#F0F6FA"
+      white: "#dfe3e8"
 
     # Bright colors
     bright:
       #same as comment in sublime
-      black: "#FFFFFF"
+      black: "#0A0E14"
       red: "#f97583"
       green: "#A5F89D"
       blue: "#4C91DF"
       yellow: "#FFCF60"
       magenta: "#b392f0"
       cyan: "#a5d6ff"
-      white: "#F0F6FA"
+      white: "#dfe3e8"
 
     indexed_colors:
       # accent
@@ -570,7 +570,7 @@ schemes:
    # Bright colors
    bright:
      #same as comment in sublime
-     black: "#EBDBB2"
+     black: "#000000"
      red: "#FF343D"
      green: "#98971A"
      blue: "#458588"
