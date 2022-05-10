@@ -344,8 +344,9 @@ case $res in
 
 
     '   Log Out   ')
+        /usr/bin/rm -rf /run/user/$UID
         /usr/bin/systemctl --user stop sway-session.target
-        /usr/bin/loginctl terminate-session self
+        /usr/bin/dbus-send --system --print-reply --dest=org.freedesktop.login1 /org/freedesktop/login1 'org.freedesktop.login1.Manager.TerminateSession' string:$(/usr/bin/loginctl show-session -p Id --value)
         # $(loginctl session-status | head -n 1 | awk '{print $1}')
         ;;
 
