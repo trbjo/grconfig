@@ -24,7 +24,6 @@
     "globals": {
         "fold_marker": "var(line_highlight)",
         "accent": "var(accent)",
-        "active_guide": "var(purple)",
         "background": "var(white)",
         "bracket_contents_foreground": "var(accent)",
         "bracket_contents_options": "bold",

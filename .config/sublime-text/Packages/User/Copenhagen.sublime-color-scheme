@@ -4,20 +4,17 @@
     "variables":
     {
         "black": "hsl(0, 0%, 0%)",
-        "blue": "hsl(210, 50%, 60%)",
         "blue": "#83CDFC",
-        "blue-vibrant": "hsl(210, 60%, 60%)",
         "blue2": "hsla(210, 13%, 40%, 0.7)",
         "blue3": "hsl(210, 15%, 22%)",
+        "blue4": "hsl(210, 60%, 50%)",
         "blue5": "hsl(180, 36%, 54%)",
         "grey": "hsl(0, 0%, 20%)",
         "orange": "hsl(32, 93%, 66%)",
         "orange2": "hsl(32, 85%, 55%)",
         "orange3": "hsl(40, 94%, 68%)",
-        "magenta": "#fc6d5d",
-        // "red": "#dc9eaf",
+        "magenta": "hsl(6,96%,68%)",
         "red": "#FE8019",
-        "red2": "hsl(13, 93%, 66%)",
         "white": "hsl(0, 0%, 100%)",
         "white2": "hsl(0, 0%, 97%)",
         "white3": "hsl(219, 28%, 88%)",
@@ -38,7 +35,7 @@
     {
         "foreground": "var(foreground)",
         "background": "var(background)",
-        "accent": "var(blue-vibrant)",
+        "accent": "var(blue4)",
         "caret": "var(orange)",
         "line_highlight": "var(line_highlight)",
         "selection": "var(background1)",
@@ -126,7 +123,7 @@
         {
             "name": "Operators",
             "scope": "keyword.operator",
-            "foreground": "var(red2)"
+            "foreground": "var(blue4)"
         },
         {
             "name": "Punctuation",
@@ -259,7 +256,7 @@
         {
             "name": "markup headings",
             "scope": "markup.heading punctuation.definition.heading",
-            "foreground": "var(red2)"
+            "foreground": "var(blue4)"
         },
         {
             "name": "markup h1",
