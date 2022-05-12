@@ -1,9 +1,10 @@
 {
-    "draw_centered": false,
-    "gutter": true,
-    "line_numbers": true,
-    "margin": 300,
+    "draw_centered": true,
+    "gutter": false,
+    "line_numbers": false,
+    "font_size": 10,
+    // "margin": 300,
     "auto_match_enabled": true,
     "word_wrap": true,
-    "wrap_width": 120,
+    "wrap_width": 90,
 }

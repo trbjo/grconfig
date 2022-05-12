@@ -95,7 +95,7 @@ bindsym XF86WLAN exec doas /usr/bin/rfkill unblock wifi
 
 bindsym --no-repeat ctrl+space [title="^PopUp$"] scratchpad show, fullscreen disable, move position center, resize set width 100ppt height 100ppt, resize shrink up 1100px, resize grow up 337px, move left 1px, move down 1px, resize grow right 2px
 
-bindsym $alt+return [title="^PopUp$"] move scratchpad, exec /usr/bin/alacritty
+bindsym $alt+return [title="^PopUp$"] move scratchpad; exec /usr/bin/alacritty
 bindsym --no-repeat $alt+space [title="^PopUp$"] move scratchpad, scratchpad show, fullscreen enable
 
 # kill focused window
