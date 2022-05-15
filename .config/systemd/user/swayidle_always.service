@@ -1,0 +1,15 @@
+[Unit]
+BindsTo=sway-session.target
+
+[Service]
+Type=simple
+Restart=always
+ExecStart=/usr/bin/swayidle \
+    after-resume '[[ $(ps -o etimes= -p $(systemctl --user show --value --property ExecMainPID swaylock)) -lt 300 ]] && /usr/bin/systemctl --user stop swaylock.service; if grep -q ^connected /sys/class/drm/{card0-DP-1,card0-DP-2,card0-HDMI-A-1}/status; then swaymsg -q -- output eDP-1 disable; else swaymsg -q -- "output * enable, output * dpms on"; fi'\
+    lock 'systemctl --user start swaylock.service'\
+    unlock 'systemctl --user stop swaylock.service'
+
+
+[Install]
+WantedBy=sway-session.target
+

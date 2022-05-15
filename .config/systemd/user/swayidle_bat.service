@@ -1,0 +1,22 @@
+[Unit]
+BindsTo=sway-session.target
+Conflicts=swayidle_power.service
+
+[Service]
+Type=simple
+Restart=always
+ExecStartPre=-/usr/bin/sh -c '! grep -q ^connected /sys/class/drm/{card0-DP-1,card0-DP-2,card0-HDMI-A-1}/status && swaymsg output eDP-1 enable, output eDP-1 dpms on'
+ExecStart=/usr/bin/swayidle \
+    timeout 30 'if /usr/bin/systemctl --user is-active --quiet swaylock.service; then /usr/bin/systemctl suspend; fi' \
+    timeout 120 'light -O && light -T 0.2' \
+        resume 'light -I' \
+    timeout 150 '! grep -q ^connected /sys/class/drm/{card0-DP-1,card0-DP-2,card0-HDMI-A-1}/status && /usr/bin/systemctl --user start swaylock.service' \
+        resume "[[ $(ps -o etimes= -p $(/usr/bin/systemctl --user show --value --property ExecMainPID swaylock)) -lt 300 ]] && /usr/bin/systemctl --user stop swaylock.service" \
+    timeout 180 '! grep -q ^connected /sys/class/drm/{card0-DP-1,card0-DP-2,card0-HDMI-A-1}/status && /usr/bin/systemctl suspend' \
+    timeout 360 '/usr/bin/systemctl --user start swaylock.service'\
+        resume "grep -q --fixed-strings '00:1e:80:8b:eb:fa' /proc/net/arp && /usr/bin/systemctl --user stop swaylock.service" \
+    timeout 362 'swaymsg -q -- "output * dpms off"'
+
+[Install]
+WantedBy=sway-session.target
+

@@ -5,6 +5,7 @@ BindsTo=sway-session.target
 Type=oneshot
 RemainAfterExit=yes
 ExecStart=/usr/bin/sh -c 'grep -q ^connected /sys/class/drm/{card0-DP-1,card0-DP-2,card0-HDMI-A-1}/status && swaymsg -q -- output eDP-1 disable || swaymsg -q -- output eDP-1 enable'
+ExecStartPost=/usr/bin/swaymsg workspace "1"
 
 [Install]
 WantedBy=sway-session.target
