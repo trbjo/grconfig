@@ -17,7 +17,7 @@ default-timeout=15000
 
 output=*
 max-icon-size=42
-icon-path=/usr/share/icons/Adwaita
+icon-path=/usr/share/icons/elementary
 
 format=<span size='10000' weight='bold'>%s</span>\n%b
 

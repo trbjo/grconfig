@@ -67,7 +67,8 @@ transmission_function () {
 
     # if /usr/bin/ssh tb@51.154.197.131 "transmission-remote -a '"${@}"'"; then
     # /usr/bin/ssh tb@51.154.197.131 "transmission-remote -a '"${@}"'" && message $added
-    systemctl --user start transmission.service
+
+    systemctl --user enable --now transmission.service
     for file in "${@}"
     do
         transmission-remote -a "${file}"

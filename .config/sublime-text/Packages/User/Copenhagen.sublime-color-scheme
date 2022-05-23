@@ -38,9 +38,9 @@
         "accent": "var(blue4)",
         "caret": "var(blue)",
         "line_highlight": "var(line_highlight)",
-        "selection": "color(var(blue) alpha(0.25))",
+        "selection": "color(#7C6F64 alpha(0.5))",
         "inactive_selection": "color(var(blue) alpha(0.2))",
-        "selection_border": "color(var(blue) alpha(0.4))",
+        "selection_border": "color(#7C6F64 alpha(0.8))",
         "minimap_border": "var(background4)",
         "misspelling": "var(red)",
         "shadow": "color(var(black) alpha(0.25))",
@@ -148,7 +148,8 @@
         {
             "name": "Punctuation",
             "scope": "punctuation.separator, punctuation.terminator",
-            "foreground": "var(comment)"
+            "foreground": "var(blue5)"
+            // "foreground": "var(comment)"
         },
         {
             "name": "JavaScript Dollar",

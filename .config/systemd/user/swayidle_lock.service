@@ -1,0 +1,14 @@
+[Unit]
+BindsTo=lock.target
+
+[Service]
+Type=simple
+Restart=always
+ExecStart=/usr/bin/swayidle \
+    timeout 1 'true' \
+        resume "if [[ $(ps -o etimes= -p $(/usr/bin/systemctl --user show --value --property ExecMainPID swaylock)) -lt 5 ]] || grep -q --fixed-strings '00:1e:80:8b:eb:fa' /proc/net/arp; then /usr/bin/systemctl --user stop lock.target; fi; /usr/bin/swaymsg -q -- 'output * dpms on'" \
+    timeout 15 'grep -q 0 /sys/class/power_supply/AC0/online && /usr/bin/systemctl suspend || swaymsg -q -- "output * dpms off"'
+ExecStopPost=/usr/bin/swaymsg -q -- 'output * dpms on'
+
+[Install]
+WantedBy=lock.target

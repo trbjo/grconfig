@@ -5,14 +5,14 @@
 IFS=$'\n'
 typeset -a list
 
-type firefox > /dev/null 2>&1 && list+=(" Firefox" " Firefox (Private Window)" " IRC")
+type firefox > /dev/null 2>&1 && list+=(" Firefox" " Firefox (Private Window)")
 type subl > /dev/null 2>&1 && list+=(" Sublime Text")
 type emacs > /dev/null 2>&1 && list+=(" Emacs")
 type inkscape > /dev/null 2>&1 && list+=(" Inkscape")
 type smerge > /dev/null 2>&1 && list+=(" Sublime Merge")
 type baobab > /dev/null 2>&1 && list+=(" Disk Usage")
 type gnome-disks > /dev/null 2>&1 && list+=(" Disk Utility")
-type telegram-desktop > /dev/null 2>&1 && list+=(" Telegram")
+type kotatogram-desktop > /dev/null 2>&1 && list+=(" Telegram")
 type pavucontrol > /dev/null 2>&1 && list+=(" SoundControl")
 type libreoffice > /dev/null 2>&1 && list+=(" LibreOffice Writer" " LibreOffice Calc" " LibreOffice Draw" " LibreOffice Impress" )
 
@@ -27,6 +27,7 @@ type wf-recorder > /dev/null 2>&1 && {
     list+=(" $recorder")
 }
 
+type ssh > /dev/null 2>&1 && list+=(" IRC")
 type chromium-snapshot-bin > /dev/null 2>&1 && list+=(" Chrome" " Discord" " Slack" " Work Email")
 type microsoft-edge-dev > /dev/null 2>&1 && list+=(" Teams")
 type code > /dev/null 2>&1 && list+=(" VSCode")
@@ -86,8 +87,7 @@ case $res in
         ;;
 
     '   IRC   ')
-        swaymsg -q -- '[title="^PopUp$"] move scratchpad; [title="^chat.sr.ht\ —\ Mozilla\ Firefox$"] focus' ||\
-        exec /usr/bin/firefox --new-window --kiosk https://chat.sr.ht/
+        swaymsg -q -- '[title="^ IRC$"] focus' || swaymsg -q -- exec '/usr/bin/alacritty --title " IRC"  --command /usr/bin/ssh irc -t "exec env TERM=xterm-256color tmux attach || exec env TERM=xterm-256color tmux"'
         ;;
 
 
@@ -198,16 +198,8 @@ case $res in
 
 
     '   Telegram   ')
-        export QT_QPA_PLATFORM=wayland-egl
-        export QT_QPA_PLATFORMTHEME=gtk3
-        export DESKTOP_APP_I_KNOW_ABOUT_GTK_INCOMPATIBILITY=1
-        export DESKTOP_APP_DISABLE_TRAY_COUNTER=1
-        export TDESKTOP_I_KNOW_ABOUT_GTK_INCOMPATIBILITY=1
-        export TDESKTOP_DISABLE_TRAY_COUNTER=1
-        export TDESKTOP_USE_PORTAL=1
-        export TDESKTOP_USE_GTK_FILE_DIALOG=1
-        swaymsg -q --  '[title="^PopUp$"] move scratchpad; [app_id="-Telegram_Desktop$"] focus'
-        /usr/bin/telegram-desktop &!
+        swaymsg -q -- '[title="^PopUp$"] move scratchpad; [app_id="^kotatogramdesktop$"] focus, move position center, resize set width 100ppt height 100ppt, resize shrink left 10000px, resize grow left 450px, move right 1px, move down 1px, resize grow up 2px; fullscreen disable' ||\
+        swaymsg -q -- exec /usr/bin/kotatogram-desktop
         ;;
 
 
@@ -325,6 +317,8 @@ case $res in
             notify-send "Wi-Fi Manager" "$1" --icon=preferences-system-network
         }
         doas /usr/bin/systemctl start iwd.service
+        doas /usr/bin/networkctl up wlan0
+        doas /usr/bin/networkctl up wg0
         doas /usr/bin/rfkill unblock wifi
         message "Turning Wi-Fi on"
         /usr/lib/systemd/systemd-networkd-wait-online --ignore=lo --timeout=30 --interface=wlan0 --operational-state=dormant && message "Connected to $( iw dev wlan0 link | grep -oP '(?<=SSID: ).+')"
@@ -334,6 +328,8 @@ case $res in
     '   Turn WiFi OFF   ')
         notify-send "Wi-Fi Manager" "Turning Wi-Fi off" --icon=preferences-system-network
         doas /usr/bin/systemctl stop iwd.service
+        doas /usr/bin/networkctl down wg0
+        doas /usr/bin/networkctl down wlan0
         doas /usr/bin/rfkill block wifi
         ;;
 
@@ -345,8 +341,9 @@ case $res in
 
     '   Log Out   ')
         /usr/bin/systemctl --user stop sway-session.target
-        /usr/bin/dbus-send --system --print-reply --dest=org.freedesktop.login1 /org/freedesktop/login1 'org.freedesktop.login1.Manager.TerminateSession' string:$(/usr/bin/loginctl show-session -p Id --value)
         /usr/bin/rm -rf /run/user/$UID/*
+        /usr/bin/dbus-send --system --print-reply --dest=org.freedesktop.login1 /org/freedesktop/login1 'org.freedesktop.login1.Manager.TerminateSession' string:""
+        # $(/usr/bin/loginctl show-session self -p Id --value)
         # $(loginctl session-status | head -n 1 | awk '{print $1}')
         ;;
 

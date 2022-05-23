@@ -40,7 +40,19 @@ done <<< "$TORRENTLIST"
 #     fi
 # fi
 
-mpv /usr/share/sounds/freedesktop/stereo/complete.oga
+
+case "$(aplay -l)" in
+*": BT700 ["*)
+    audio='--audio-device=alsa/iec958:CARD=BT700,DEV=0'
+    ;;
+ *": Audio ["*)
+    audio='--audio-device=alsa/default:CARD=Audio'
+    ;;
+esac
+
+
+mpv $audio /usr/share/sounds/freedesktop/stereo/complete.oga
+
 if [ "$(transmission-remote -l | wc -l)" -eq 2 ]; then
-    systemctl --user stop transmission.service
+    systemctl --user disable --now transmission.service
 fi

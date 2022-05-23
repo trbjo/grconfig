@@ -112,10 +112,10 @@ execute() {
     $HOME/.config/Code\ \-\ OSS/User/settings.json
 
     # sway
-    (sleep 0.2 && swaymsg -q -- \
+    swaymsg -q -- \
      client.focused          "${TITLEBARBORDERA_NEW}" "${BGTITLEBARA_NEW}" "${FGA_NEW}" "${BORDERA_NEW}" "${BORDERA_NEW}",\
      client.focused_inactive "${TITLEBARBORDERI_NEW}" "${BGTITLEBARI_NEW}" "${FGA_NEW}" "${BORDERI_NEW}" "${BORDERI_NEW}",\
-     client.unfocused        "${TITLEBARBORDERU_NEW}" "${BGTITLEBARU_NEW}" "${FGU_NEW}" "${BORDERU_NEW}" "${BORDERU_NEW}" &)
+     client.unfocused        "${TITLEBARBORDERU_NEW}" "${BGTITLEBARU_NEW}" "${FGU_NEW}" "${BORDERU_NEW}" "${BORDERU_NEW}"
 
     # mako
     sed -r -i\

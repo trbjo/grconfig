@@ -21,24 +21,44 @@ bindsym --no-repeat ctrl+Shift+5 move container to $ws5; $ws5; fullscreen disabl
 bindsym --no-repeat ctrl+Shift+6 move container to $ws6; $ws6; fullscreen disable
 bindsym --no-repeat ctrl+Shift+7 move container to $ws7; $ws7; fullscreen disable
 
-bindsym --no-repeat $alt+l output eDP-1 disable, output DP-1 enable
-bindsym --no-repeat $alt+shift+l output eDP-1 enable
+bindsym --no-repeat --locked $alt+l output eDP-1 disable, output DP-1 enable
+bindsym --no-repeat --locked $alt+shift+l output eDP-1 enable; output eDP-1 dpms on
 
 mode "" {
     bindswitch --locked lid:on exec 'if grep -q \^connected /sys/class/drm/{card0-DP-1,card0-DP-2,card0-HDMI-A-1}/status; then swaymsg output eDP-1 disable; else swaymsg "output eDP-1 enable, output eDP-1 dpms on"; systemctl suspend; fi'
+    bindsym --no-repeat --locked $alt+l output eDP-1 disable, output DP-1 enable
+    bindsym --no-repeat --locked $alt+shift+l output eDP-1 enable; output eDP-1 dpms on
     bindswitch --locked lid:off output eDP-1 enable
-    bindsym --no-repeat --locked ctrl+alt+F1 nop
-    bindsym --no-repeat --locked ctrl+alt+F2 nop
-    bindsym --no-repeat --locked ctrl+alt+F3 nop
-    bindsym --no-repeat --locked ctrl+alt+F4 nop
-    bindsym --no-repeat --locked ctrl+alt+F5 nop
-    bindsym --no-repeat --locked ctrl+alt+F6 nop
-    bindsym --no-repeat --locked ctrl+alt+F8 nop
-    bindsym --no-repeat --locked ctrl+alt+F7 nop
-    bindsym --no-repeat --locked ctrl+alt+F9 nop
-    bindsym --no-repeat --locked ctrl+alt+F10 nop
-    bindsym --no-repeat --locked ctrl+alt+F11 nop
-    bindsym --no-repeat --locked ctrl+alt+F12 nop
+
+    bindsym --locked --no-repeat ctrl+$alt+F1 nop
+    bindsym --locked --no-repeat ctrl+$alt+F2 nop
+    bindsym --locked --no-repeat ctrl+$alt+F3 nop
+    bindsym --locked --no-repeat ctrl+$alt+F4 nop
+    bindsym --locked --no-repeat ctrl+$alt+F5 nop
+    bindsym --locked --no-repeat ctrl+$alt+F6 nop
+    bindsym --locked --no-repeat ctrl+$alt+F8 nop
+    bindsym --locked --no-repeat ctrl+$alt+F7 nop
+    bindsym --locked --no-repeat ctrl+$alt+F9 nop
+    bindsym --locked --no-repeat ctrl+$alt+F10 nop
+    bindsym --locked --no-repeat ctrl+$alt+F11 nop
+    bindsym --locked --no-repeat ctrl+$alt+F12 nop
+
+    bindsym --locked --no-repeat ctrl+$super+$alt+F1 nop
+    bindsym --locked --no-repeat ctrl+$super+$alt+F2 nop
+    bindsym --locked --no-repeat ctrl+$super+$alt+F3 nop
+    bindsym --locked --no-repeat ctrl+$super+$alt+F4 nop
+    bindsym --locked --no-repeat ctrl+$super+$alt+F5 nop
+    bindsym --locked --no-repeat ctrl+$super+$alt+F6 nop
+    bindsym --locked --no-repeat ctrl+$super+$alt+F8 nop
+    bindsym --locked --no-repeat ctrl+$super+$alt+F7 nop
+    bindsym --locked --no-repeat ctrl+$super+$alt+F9 nop
+    bindsym --locked --no-repeat ctrl+$super+$alt+F10 nop
+    bindsym --locked --no-repeat ctrl+$super+$alt+F11 nop
+    bindsym --locked --no-repeat ctrl+$super+$alt+F12 nop
+
+    bindsym --locked $alt nop
+
+
     bindsym --locked XF86AudioPlay exec playerctl play-pause
     bindsym --locked XF86AudioNext exec playerctl next
     bindsym --locked XF86AudioPrev exec playerctl previous

@@ -11,4 +11,4 @@ ExecReload=/bin/kill -s HUP $MAINPID
 NoNewPrivileges=true
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=sway-session.target

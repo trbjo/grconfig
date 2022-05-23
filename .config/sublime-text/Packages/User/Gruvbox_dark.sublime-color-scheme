@@ -2,8 +2,7 @@
     "name": "Breakers",
     "author": "Sublime HQ Pty Ltd, Dmitri Voronianski",
     "variables": {
-        "accent": "#FE8019",
-        "adwaita": "#15539E",
+        "accent": "#249FDB",
         "light_blue": "hsl(212,70%,58.6%)",
         "red0": "#fc6d5d",
         "green0": "#d5d841",
@@ -18,6 +17,7 @@
         "magenta1": "#B16286",
         "cyan1": "#689D6A",
         "orange": "#FE8019",
+        "orange0": "#FF761F",
         "orange1": "#D65D0E",
         "comment": "#928374",
         "foreground": "#efe2c1",
@@ -30,6 +30,7 @@
         "diffAdded": "var(green1)",
         "diffModified": "var(blue1)",
         "diffDeleted": "var(red0)",
+
         "--background": "var(background)",
         "--foreground": "var(foreground)",
         "--redish": "var(red0)",

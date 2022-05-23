@@ -26,6 +26,10 @@ input "1739:6572:SYNA2393:00_06CB:19AC" {
     events disabled
 }
 
+input "0:1:Power_Button" {
+    events disabled
+}
+
 input type:keyboard {
     repeat_delay 200
     repeat_rate 60
@@ -72,18 +76,31 @@ seat seat0 hide_cursor when-typing enable
 
 bindsym $super+tab nop
 
-bindsym --no-repeat ctrl+alt+F1 nop
-bindsym --no-repeat ctrl+alt+F2 nop
-bindsym --no-repeat ctrl+alt+F3 nop
-bindsym --no-repeat ctrl+alt+F4 nop
-bindsym --no-repeat ctrl+alt+F5 nop
-bindsym --no-repeat ctrl+alt+F6 nop
-bindsym --no-repeat ctrl+alt+F8 nop
-bindsym --no-repeat ctrl+alt+F7 nop
-bindsym --no-repeat ctrl+alt+F9 nop
-bindsym --no-repeat ctrl+alt+F10 nop
-bindsym --no-repeat ctrl+alt+F11 nop
-bindsym --no-repeat ctrl+alt+F12 nop
+bindsym --locked --no-repeat ctrl+$alt+F1 nop
+bindsym --locked --no-repeat ctrl+$alt+F2 nop
+bindsym --locked --no-repeat ctrl+$alt+F3 nop
+bindsym --locked --no-repeat ctrl+$alt+F4 nop
+bindsym --locked --no-repeat ctrl+$alt+F5 nop
+bindsym --locked --no-repeat ctrl+$alt+F6 nop
+bindsym --locked --no-repeat ctrl+$alt+F8 nop
+bindsym --locked --no-repeat ctrl+$alt+F7 nop
+bindsym --locked --no-repeat ctrl+$alt+F9 nop
+bindsym --locked --no-repeat ctrl+$alt+F10 nop
+bindsym --locked --no-repeat ctrl+$alt+F11 nop
+bindsym --locked --no-repeat ctrl+$alt+F12 nop
+
+bindsym --locked --no-repeat ctrl+$super+$alt+F1 nop
+bindsym --locked --no-repeat ctrl+$super+$alt+F2 nop
+bindsym --locked --no-repeat ctrl+$super+$alt+F3 nop
+bindsym --locked --no-repeat ctrl+$super+$alt+F4 nop
+bindsym --locked --no-repeat ctrl+$super+$alt+F5 nop
+bindsym --locked --no-repeat ctrl+$super+$alt+F6 nop
+bindsym --locked --no-repeat ctrl+$super+$alt+F8 nop
+bindsym --locked --no-repeat ctrl+$super+$alt+F7 nop
+bindsym --locked --no-repeat ctrl+$super+$alt+F9 nop
+bindsym --locked --no-repeat ctrl+$super+$alt+F10 nop
+bindsym --locked --no-repeat ctrl+$super+$alt+F11 nop
+bindsym --locked --no-repeat ctrl+$super+$alt+F12 nop
 
 # For the Plantronic headset
 bindsym XF86AudioPlay exec playerctl play-pause
@@ -154,16 +171,21 @@ bindsym --no-repeat XF86AudioRaiseVolume exec \
 bindsym --no-repeat ctrl+f10 exec xdg-open --mpv $(wl-paste)
 bindsym --no-repeat ctrl+XF86Tools exec xdg-open --mpv $(wl-paste)
 
+bindsym XF86Tools [app_id="^kotatogramdesktop$"] scratchpad show, fullscreen disable, move position center, resize set width 100ppt height 100ppt, resize shrink left 10000px, resize grow left 450px, move right 1px, move down 1px, resize grow up 2px
+bindsym F10 [app_id="^kotatogramdesktop$"] scratchpad show, fullscreen disable, move position center, resize set width 100ppt height 100ppt, resize shrink left 10000px, resize grow left 450px, move right 1px, move down 1px, resize grow up 2px
+for_window [app_id="^kotatogramdesktop$" title=^Kotatogram$] fullscreen disable, floating enable, move scratchpad; [app_id="^kotatogramdesktop$"] scratchpad show, border pixel 1, move position center, resize set width 100ppt height 100ppt, resize shrink left 10000px, resize grow left 450px, move right 1px, move down 1px, resize grow up 2px, title_format "<span weight='100' foreground='#2FA5D8'></span>  Telegram"
+
+
 # open most recent download
 # bindsym --no-repeat $alt+d exec xdg-open "$(ls -ctgd $HOME/dl/* | awk '$1=="-rw-r--r--" { $1=$2=$3=$4=$5=$6=$7=""; gsub("^[ \t]*","",$0); print $0; exit}')"
 bindsym --no-repeat $alt+d exec xdg-open "$(ls -ctd1 $HOME/dl/* | head -1)"
 
 bindsym $alt+y [title=^PopUp$] move scratchpad; [app_id=^firefox$] focus; exec 'set -o noglob ; clipboard=$(wl-paste -n); grep "^https\\?://.\+\.\w\{2,3\}" <<< $clipboard && /usr/bin/firefox --new-tab "$clipboard" || /usr/bin/firefox --new-tab "https://duckduckgo.com/?t=ffab&q=${clipboard}"'
 bindsym $alt+i [title=^PopUp$] move scratchpad; [app_id=^firefox$] focus; exec 'set -o noglob ; clipboard=$(wl-paste --primary -n); grep "^https\\?://.\+\.\w\{2,3\}" <<< $clipboard && /usr/bin/firefox --new-tab "$clipboard" || /usr/bin/firefox --new-tab "https://duckduckgo.com/?t=ffab&q=${clipboard}"'
-bindsym $alt+s fullscreen disable; exec bemenu-apps
+bindsym $alt+period fullscreen disable; exec bemenu-apps
 bindsym $alt+p fullscreen disable; exec bemenu-pw
 bindsym $alt+b fullscreen disable; exec clipman pick --tool bemenu
-bindsym $alt+m fullscreen disable; exec xdg-open "$(cd ${XDG_DOWNLOAD_DIR}; file=$(ls --color=never -ctd1 * | bemenu --prompt 'Downloads'); if [[ -e $file ]]; then touch \"$file\"; echo -n ${XDG_DOWNLOAD_DIR}/$file; fi)"
+bindsym $alt+m fullscreen disable; exec xdg-open "$(cd ${XDG_DOWNLOAD_DIR}; file=$(ls --color=never -ctd1 * | bemenu --list 10 --prompt 'Downloads'); if [[ -e $file ]]; then touch \"$file\"; echo -n ${XDG_DOWNLOAD_DIR}/$file; fi)"
 
 
 bindsym $alt+o exec quicknotes.py
@@ -219,8 +241,6 @@ bar {
         }
 }
 
-
-
 #
 ## Window rules
 #
@@ -230,9 +250,8 @@ assign [app_id="^sublime_text$"] $ws2
 assign [app_id="^firefox$"] $ws3
 assign [app_id="^(org.pwmt.zathura|evince)$"] $ws4
 assign [app_id="^chrome-app.slack.com__client_T03PATMPV-Default$"] $ws5
-assign [app_id="-Telegram_Desktop$"] $ws6
 assign [app_id="chrome-outlook.office.com__mail_inbox-Default$"] $ws6
-assign [app_id="^(mpv|eog)$"] $ws7
+assign [app_id="^(mpv|imv)$"] $ws7
 
 # all new windows except the PopUp should receive focus.
 for_window [title=^(?!(PopUp)$).*$] focus
@@ -245,7 +264,6 @@ for_window [app_id="^(subl|sublime_text)$" title="^Changelog - Sublime Tex$"] fu
 for_window [title="^(Switch Project - Sublime Text|Select Application)$"] fullscreen disable, floating enable, move up 283px, resize set 580 388, border pixel 2
 
 for_window [app_id="^gcr-prompter$"] fullscreen disable, floating enable
-# for_window [title="(?!(Telegram)$)" app_id="^appimagekit_.*-Telegram_Desktop$"] floating enable, resize set 636 916
 
 for_window [app_id="^pavucontrol$"] floating enable, move position center, resize set width 100ppt height 100ppt, resize shrink down 1100px, resize set 727 0, resize grow down 500px
 
@@ -260,13 +278,12 @@ for_window [app_id="^signal-desktop$" title=""] floating enable, resize set 1000
 # custom logos.
 for_window [app_id="^sublime_text$"] title_format "<span weight='100' foreground='#FF9800'></span>  %title"
 for_window [app_id="^(org.pwmt.zathura)$"] layout tabbed, title_format "<span weight='100' foreground='#d73a49'></span>  %title"
-for_window [app_id="^eog$"] title_format "<span weight='100' foreground='#3874C7'></span>  %title"
+for_window [app_id="^imv$"] title_format "<span weight='100' foreground='#3874C7'></span>  %title"
 for_window [app_id="^mpv$"] title_format "<span weight='100' foreground='#FF0000'></span>  %title"
 for_window [app_id="^Google-chrome-unstable$" title="^Microsoft Teams$"] title_format "<span weight='100' foreground='#6264A7'></span>  Microsoft Teams"
-for_window [app_id="-Telegram_Desktop$" title="^Telegram$"] title_format "<span weight='100' foreground='#2FA5D8'></span>  %title"
 for_window [app_id="^firefox$"] title_format "<span weight='100' foreground='#E66700'></span>  %title"
 for_window [app_id="Signal$" title="^Signal$"] title_format "<span weight='100' foreground='#3A76F0'></span>  %title"
 for_window [app_id="chrome-app.slack.com__client_T03PATMPV-Default$"] title_format "<span weight='100' foreground='#DB1E59'></span>  %title"
 for_window [app_id="firefox$" title="^Picture-in-Picture$"] floating enable, sticky enable, resize set 300 170, move position 2 28
 
-exec 'dbus-update-activation-environment --systemd --all; systemctl --user import-environment; systemctl --user start sway-session.target; if [[ $TELIA_CONNECTION == "cable" ]]; then systemctl --user start cable.target; elif [[ $TELIA_CONNECTION == "wifi" ]]; then systemctl --user start wifi.target; fi'
+exec '/usr/bin/systemctl --user import-environment SWAYSOCK WAYLAND_DISPLAY DBUS_SESSION_BUS_ADDRESS XDG_SEAT XDG_SESSION_CLASS XDG_SESSION_DESKTOP XDG_SESSION_ID XDG_SESSION_TYPE XDG_VTNR XCURSOR_SIZE && /usr/bin/systemctl --user start sway-session.target'

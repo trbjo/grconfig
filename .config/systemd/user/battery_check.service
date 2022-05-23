@@ -1,0 +1,12 @@
+[Unit]
+BindsTo=battery.target
+Description=Send notification if battery is low
+
+[Service]
+Type=oneshot
+RemainAfterExit=false
+ExecStartPre=/usr/bin/awk '{if ($1 > 11) {exit 1}}' /sys/class/power_supply/BAT0/capacity
+ExecStart=/usr/bin/sh -c 'read capacity < /sys/class/power_supply/BAT0/capacity ; /usr/bin/notify-send.sh "Battery level is $capacity" "Connect the laptop to a power source" --icon="battery-low" --expire-time=1000000'
+
+[Install]
+WantedBy=battery.target

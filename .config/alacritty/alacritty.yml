@@ -25,9 +25,9 @@ window:
   #
   # Specified in number of columns/lines, not pixels.
   # If both are `0`, this setting is ignored.
-  dimensions:
-    columns: 0
-    lines: 0
+  # dimensions:
+    # columns: 0
+    # lines: 10
 
   # Window position (changes require restart)
   #
@@ -294,7 +294,7 @@ schemes:
     # Bright colors
     bright:
       #same as comment in sublime
-      black: "#FFFFFF"
+      black: "#24292E"
       red: "#D73A49"
       cyan: "#5CB1FF"
       yellow: "#FFAF00"
@@ -560,23 +560,23 @@ schemes:
      black: "#000000"
      red: "#FB4934"
      # this is light blue instead. for strings
-     green: "#CCCF3A"
+     green: "#39BC86"
      yellow: "#FABD2F"
      blue: "#83A598"
-     cyan: "#8EC07C"
+     cyan: "#02B4DC"
      magenta: "#D3869B"
      # same as base color in sublime
      white: "#EBDBB2"
    # Bright colors
    bright:
      #same as comment in sublime
-     black: "#000000"
+     black: "#EBDBB2"
      red: "#FF343D"
-     green: "#98971A"
+     green: "#00D955"
      blue: "#458588"
      yellow: "#D79921"
      magenta: "#B16286"
-     cyan: "#689D6A"
+     cyan: "#2CF9FB"
      white: "#EBDBB2"
 
    # Search colors
@@ -1049,15 +1049,15 @@ key_bindings:
   # - { key: T, mods: Control, command: { program: "swaymsg", args: ["focus", "down"] } }
   - { key: Tab, mods: Control, command: { program: "next_tab" } }
   - { key: Tab, mods: Control|Shift, command: { program: "next_tab", args: ["--prev"] } }
-  - { key: Key1, mods: Alt, command: { program: "next_tab", args: ["--absolute=0"] } }
-  - { key: Key2, mods: Alt, command: { program: "next_tab", args: ["--absolute=1"] } }
-  - { key: Key3, mods: Alt, command: { program: "next_tab", args: ["--absolute=2"] } }
-  - { key: Key4, mods: Alt, command: { program: "next_tab", args: ["--absolute=3"] } }
-  - { key: Key5, mods: Alt, command: { program: "next_tab", args: ["--absolute=4"] } }
-  - { key: Key6, mods: Alt, command: { program: "next_tab", args: ["--absolute=5"] } }
-  - { key: Key7, mods: Alt, command: { program: "next_tab", args: ["--absolute=6"] } }
-  - { key: Key8, mods: Alt, command: { program: "next_tab", args: ["--absolute=7"] } }
-  - { key: Key9, mods: Alt, command: { program: "next_tab", args: ["--absolute=8"] } }
+  # - { key: Key1, mods: Alt, command: { program: "next_tab", args: ["--absolute=0"] } }
+  # - { key: Key2, mods: Alt, command: { program: "next_tab", args: ["--absolute=1"] } }
+  # - { key: Key3, mods: Alt, command: { program: "next_tab", args: ["--absolute=2"] } }
+  # - { key: Key4, mods: Alt, command: { program: "next_tab", args: ["--absolute=3"] } }
+  # - { key: Key5, mods: Alt, command: { program: "next_tab", args: ["--absolute=4"] } }
+  # - { key: Key6, mods: Alt, command: { program: "next_tab", args: ["--absolute=5"] } }
+  # - { key: Key7, mods: Alt, command: { program: "next_tab", args: ["--absolute=6"] } }
+  # - { key: Key8, mods: Alt, command: { program: "next_tab", args: ["--absolute=7"] } }
+  # - { key: Key9, mods: Alt, command: { program: "next_tab", args: ["--absolute=8"] } }
 
   # - { key: Space, mods: Alt, action: SpawnNewInstance }
 
@@ -1070,6 +1070,9 @@ key_bindings:
 
   - { key: H, mods: Super, chars: "\x1b[1;3D" }
   - { key: S, mods: Super, chars: "\x1b[1;3C" }
+
+  # Ctrl-S - sends ctrl-O
+  - { key: S, mods: Control, chars: "\x0F" , mode: ~Vi|~Search }
 
   # Simple copy paste
   - { key: J, mods: Super, action: Copy }
@@ -1154,9 +1157,6 @@ key_bindings:
   # sends ctrl-p -- why?
   # - { key: H,      mods: Control,              chars: "\x10",         }
 
-  # sends ctrl-z
-  - { key: S, mods: Control, chars: "\x1A" , mode: ~Vi|~Search }
-
   # Kill to EOL -- sends c-k
   # - { key: X, mods: Control, chars: "\x0B" , mode: ~Vi|~Search }
 
@@ -1206,9 +1206,6 @@ key_bindings:
   - { key: O, mods: Control|Shift, chars: "\x00\x1b[D", mode: ~AppCursor }
   - { key: O, mods: Control|Shift, chars: "\x00\x1bOD", mode: AppCursor }
 
-  # Ctrl-N - sends ctrl-O
-  - { key: N, mods: Control, chars: "\x0F" , mode: ~Vi|~Search }
-
   #fakes ctrl-enter -- check tmux.conf
   # - { key: Return, mods: Control, chars: "\x16" , mode: ~Vi|~Search }
   # - { key: Apostrophe,         mods: Control,       chars: "\x18"                        }
@@ -1223,11 +1220,15 @@ key_bindings:
   - { key: Escape,    mode: Vi|~Search,      action: ScrollToBottom }
 
   # try and insert search mode directly
-  - { key: M, mods: Control, mode: ~Vi|~Search, action: ToggleViMode }
-  - { key: M, mods: Control, mode: ~Vi|~Search, action: SearchForward }
+  - { key: M, mods: Control, chars: "\x14" }
+
+  - { key: Return, mods: Shift, chars: "\x12" }
+
+  # - { key: M, mods: Control, mode: ~Vi|~Search, action: ToggleViMode }
+  # - { key: M, mods: Control, mode: ~Vi|~Search, action: SearchForward }
 
   # Vi Mode
-  - { key: M, mode: Vi|~Search, action: SearchForward }
+  # - { key: M, mode: Vi|~Search, action: SearchForward }
   - { key: J, mode: Vi|~Search, action: Copy }
   - { key: J, mode: Vi|~Search, action: ClearSelection }
   - { key: J, mode: Vi|~Search, action: ScrollToBottom          }

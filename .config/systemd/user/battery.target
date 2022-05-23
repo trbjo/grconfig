@@ -1,0 +1,5 @@
+[Unit]
+Description=Laptop is on battery
+Documentation=man:systemd.special
+Requires=sway-session.target
+After=sway-session.target
