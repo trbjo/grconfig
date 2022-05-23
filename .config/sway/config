@@ -286,4 +286,4 @@ for_window [app_id="Signal$" title="^Signal$"] title_format "<span weight='100' 
 for_window [app_id="chrome-app.slack.com__client_T03PATMPV-Default$"] title_format "<span weight='100' foreground='#DB1E59'></span>  %title"
 for_window [app_id="firefox$" title="^Picture-in-Picture$"] floating enable, sticky enable, resize set 300 170, move position 2 28
 
-exec '/usr/bin/systemctl --user import-environment SWAYSOCK WAYLAND_DISPLAY DBUS_SESSION_BUS_ADDRESS XDG_SEAT XDG_SESSION_CLASS XDG_SESSION_DESKTOP XDG_SESSION_ID XDG_SESSION_TYPE XDG_VTNR XCURSOR_SIZE && /usr/bin/systemctl --user start sway-session.target'
+exec '/usr/bin/systemctl --user import-environment SWAYSOCK WAYLAND_DISPLAY DBUS_SESSION_BUS_ADDRESS XDG_SEAT XDG_SESSION_CLASS XDG_SESSION_DESKTOP XDG_SESSION_ID XDG_SESSION_TYPE XDG_VTNR XCURSOR_SIZE && /usr/bin/systemctl --user start sway-session.target && [[ $TELIA_CONNECTION == "wifi" ]] && systemctl --user start wifi.target'
