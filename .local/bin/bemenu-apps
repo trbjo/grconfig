@@ -49,7 +49,7 @@ type iwctl > /dev/null 2>&1 && {
 type swaylock > /dev/null 2>&1 && list+=(" Lock")
 
 list+=(" Log Out")
-[[ -d /opt/pulsesecure ]] && [[ $USER != 'telia' ]] > /dev/null 2>&1 && list+=(" Telia Session" " Telia Session (cable)")
+[[ -d /opt/pulsesecure ]] && [[ $USER != 'telia' ]] > /dev/null 2>&1 && list+=(" Telia Session")
 [[ $USER != 'tb' ]] > /dev/null 2>&1 && list+=(" Sway session")
 type dbus-send > /dev/null 2>&1 && list+=(" Suspend" " Reboot" " Poweroff")
 
@@ -87,7 +87,7 @@ case $res in
         ;;
 
     '   IRC   ')
-        swaymsg -q -- '[title="^ IRC$"] focus' || swaymsg -q -- exec '/usr/bin/alacritty --title " IRC"  --command /usr/bin/ssh irc -t "exec env TERM=xterm-256color tmux attach || exec env TERM=xterm-256color tmux"'
+        swaymsg -q -- '[title="^ IRC$"] focus' || swaymsg -q -- exec '/usr/bin/alacritty --option scrolling.history=0 --title " IRC"  --command /usr/bin/ssh irc -t "exec env TERM=xterm-256color tmux attach || exec env TERM=xterm-256color tmux"'
         ;;
 
 
@@ -273,17 +273,12 @@ case $res in
 
 
     '   Telia Session   ')
-        doas /usr/bin/systemctl start telia-wifi.service
+        doas /usr/bin/systemctl start telia.service
         ;;
 
 
     '   Sway session   ')
         doas /usr/bin/systemctl start sway.service
-        ;;
-
-
-    '   Telia Session (cable)   ')
-        doas /usr/bin/systemctl start telia-cable.service
         ;;
 
 
