@@ -1,7 +1,6 @@
 
 PATH=/home/tb/.local/bin:/usr/local/bin:/usr/bin
 # XDG_DOWNLOAD_DIR is not an official standard
-XDG_DOWNLOAD_DIR=/home/tb/dl
 
 
 BROWSER=xdg-open
