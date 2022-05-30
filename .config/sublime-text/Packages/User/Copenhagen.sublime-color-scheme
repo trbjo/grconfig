@@ -4,30 +4,42 @@
     "variables":
     {
         "black": "hsl(0, 0%, 0%)",
-        "blue": "#83CDFC",
+        "blue": "#20A6FF",
+        "blue1": "hsl(210, 60%, 50%)",
         "blue2": "hsla(210, 13%, 40%, 0.7)",
         "blue3": "hsl(210, 15%, 22%)",
-        "blue4": "hsl(210, 60%, 50%)",
-        "blue5": "hsl(180, 36%, 54%)",
+        "blue4": "hsl(21, 81%, 70%)",
+        "blue5": "#35DBFF",
+        "red": "hsl(280,75%,77%)",
         "grey": "hsl(0, 0%, 20%)",
-        "orange": "hsl(32, 93%, 66%)",
         "orange2": "hsl(32, 85%, 55%)",
         "orange3": "hsl(40, 94%, 68%)",
-        "magenta": "hsl(6,96%,68%)",
-        "red": "#FE8019",
+        "magenta": "hsl(0, 100%, 70%)",
+        "yellow": "hsl(42, 60%, 67%)",
         "white": "hsl(0, 0%, 100%)",
         "white2": "hsl(0, 0%, 97%)",
         "white3": "hsl(219, 28%, 88%)",
 
-        "green": "#B8CE3D",
+        "real_green": "#39BC86",
+        "green": "#98E0FF",
         // "red": "#fc6d5d",
         "dim_fg": "hsl(43,60%,60%)",
-        "foreground": "hsl(43,60%,85%)",
-        "line_highlight": "#202020",
+        "foreground": "hsl(43,60%,95%)",
+        "line_highlight": "#151515",
         "background": "#000000",
         "background1": "#3C3836",
         "background4": "#7C6F64",
-        "comment": "#928374",
+        "comment": "#868380",
+
+        "--background": "var(background)",
+        "--foreground": "var(foreground)",
+        "--redish": "var(magenta)",
+        "--orangish": "var(orange2)",
+        "--yellowish": "var(yellow)",
+        "--greenish": "var(real_green)",
+        "--cyanish": "var(blue5)",
+        "--bluish": "var(blue)",
+        "--purplish": "var(magenta)"
 
 
     },
@@ -35,12 +47,12 @@
     {
         "foreground": "var(foreground)",
         "background": "var(background)",
-        "accent": "var(blue4)",
+        "accent": "var(blue1)",
         "caret": "var(blue)",
         "line_highlight": "var(line_highlight)",
-        "selection": "color(#7C6F64 alpha(0.5))",
+        "selection": "color(var(blue1) alpha(0.4))",
         "inactive_selection": "color(var(blue) alpha(0.2))",
-        "selection_border": "color(#7C6F64 alpha(0.8))",
+        "selection_border": "#6080a0",
         "minimap_border": "var(background4)",
         "misspelling": "var(red)",
         "shadow": "color(var(black) alpha(0.25))",
@@ -48,12 +60,12 @@
         "highlight": "var(blue)",
         "find_highlight_foreground": "var(background)",
         "find_highlight": "var(blue)",
-        "brackets_options": "underline",
-        "brackets_foreground": "var(orange)",
-        "bracket_contents_options": "underline",
+        "brackets_options": "bold",
+        "brackets_foreground": "var(blue5)",
+        "bracket_contents_options": "bold",
         "bracket_contents_foreground": "var(blue5)",
         "gutter": "var(background)",
-        "gutter_foreground": "color(var(foreground) alpha(0.2))",
+        "gutter_foreground": "color(var(foreground) alpha(0.4))",
         "guide": "color(var(foreground) alpha(0.25))",
         "active_guide": "color(var(foreground) alpha(0.50))",
         "stack_guide": "color(var(foreground) alpha(0.22))",
@@ -91,7 +103,7 @@
         {
             "name": "Number",
             "scope": "constant.numeric",
-            "foreground": "var(orange)"
+            "foreground": "var(blue)"
         },
         {
             "name": "Number Suffix",
@@ -172,22 +184,22 @@
             "scope": "entity.name.function",
             "foreground": "var(blue5)"
         },
-        {
-            "name": "Entity name",
-            "scope": "entity.name - (entity.name.section | entity.name.tag | entity.name.label)",
-            "foreground": "var(orange)"
-        },
+        // {
+            // "name": "Entity name",
+            // "scope": "entity.name - (entity.name.section | entity.name.tag | entity.name.label)",
+            // "foreground": "var(yellow)"
+        // },
         {
             "name": "Inherited class",
             "scope": "entity.other.inherited-class",
             "foreground": "var(blue5)",
             "font_style": "italic"
         },
-        {
-            "name": "Function argument",
-            "scope": "variable.parameter",
-            "foreground": "var(orange)"
-        },
+        // {
+            // "name": "Function argument",
+            // "scope": "variable.parameter",
+            // "foreground": "var(yellow)"
+        // },
         {
             "name": "Language variable",
             "scope": "variable.language",
@@ -307,7 +319,7 @@
         {
             "name": "markup hr",
             "scope": "punctuation.definition.thematic-break",
-            "foreground": "var(orange)"
+            "foreground": "var(yellow)"
         },
         {
             "name": "markup numbered list bullet",
@@ -317,7 +329,7 @@
         {
             "name": "markup blockquote",
             "scope": "markup.quote punctuation.definition.blockquote, markup.list punctuation.definition.list_item",
-            "foreground": "var(orange)"
+            "foreground": "var(yellow)"
         },
         {
             "name": "markup code",
@@ -352,7 +364,7 @@
         {
             "name": "diff.changed",
             "scope": "markup.changed",
-            "foreground": "var(orange)"
+            "foreground": "var(yellow)"
         },
         {
             "name": "CSS Properties",

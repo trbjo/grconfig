@@ -271,7 +271,7 @@ for_window [app_id="^firefox$" title="^Library$"] floating enable, move position
 
 for_window [title="^Firefox — Sharing Indicator$"] floating enable, border pixel 0, sticky enable, resize set 57 30, move position 0 0
 
-for_window [title="^(Save File|python3|Open File|Select Folder|Choose Files|Choose an image|Preferences - Sublime Merge)$"] floating enable, resize set 1000 800
+for_window [title="^(Changelog - Sublime Text|Save File|python3|Open File|Select Folder|Choose Files|Choose an image|Preferences - Sublime Merge)$"] floating enable, resize set 1000 800
 for_window [app_id="^python3$"] floating enable, resize set 1000 800
 for_window [app_id="^signal-desktop$" title=""] floating enable, resize set 1000 800
 

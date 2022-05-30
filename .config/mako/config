@@ -34,6 +34,10 @@ group-by=app-icon
 default-timeout=1010
 group-by=app-icon
 
+[app-icon=battery-low]
+format=<span size='10000' weight='bold'>%s</span>\n%b
+group-by=app-icon
+
 [summary="Transmission"]
 format=<span size='10000' weight='bold'>%s</span>\n%b
 default-timeout=5000

@@ -56,16 +56,16 @@ set_values() {
     export THEME_$DARK="Gruvbox_dark"
 
     # sway
-    export BGTITLEBARA_$DARK="#141414"
-    export BGTITLEBARI_$DARK="#141414"
+    export BGTITLEBARA_$DARK="#101010"
+    export BGTITLEBARI_$DARK="#101010"
     export BGTITLEBARU_$DARK="#000000"
 
     # this is equal to 0.85
     export DARK_OPACITY="D9"
 
-    export TITLEBARBORDERA_$DARK="#141414"
-    export TITLEBARBORDERI_$DARK="#141414"
-    export TITLEBARBORDERU_$DARK="#141414"
+    export TITLEBARBORDERA_$DARK="#101010"
+    export TITLEBARBORDERI_$DARK="#101010"
+    export TITLEBARBORDERU_$DARK="#101010"
 
     # sway, zathura, mako
     # FGA_$DARK="#EBDBB2"

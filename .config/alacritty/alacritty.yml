@@ -264,8 +264,8 @@ draw_bold_text_with_bright_colors: true
 schemes:
   Light: &Light # Default colors
     primary:
-      background: "#FAFAFA"
-      foreground: "#24292E"
+      background: "#FCFCFC"
+      foreground: "#000000"
     cursor:
       text: "0xFFFFFF"
       cursor: "#1F76D9"
@@ -543,41 +543,40 @@ schemes:
  # Cursor colors
  Dark: &Gruvbox_dark # Default colors
    primary:
-     background: "#141414"
-     # background: "#25292B"
-     foreground: "#EBDBB2"
+     background: "#101010"
+     foreground: "#faf6eb"
    cursor:
      text: "0xFFFFFF"
-     cursor: "#F49800"
+     cursor: "#35DBFF"
    vi_mode_cursor:
     text: "0x000000"
     cursor: "#FE8019"
    selection:
-     text: "#EBDBB2"
+     text: "#faf6eb"
      background: "#504945"
    # Normal colors
    normal:
      black: "#000000"
-     red: "#FB4934"
+     red: "#CB3C48"
      # this is light blue instead. for strings
      green: "#39BC86"
-     yellow: "#FABD2F"
-     blue: "#83A598"
+     yellow: "#FBCC00"
+     blue: "#2C96DD"
      cyan: "#02B4DC"
-     magenta: "#D3869B"
+     magenta: "#E581E7"
      # same as base color in sublime
-     white: "#EBDBB2"
+     white: "#faf6eb"
    # Bright colors
    bright:
      #same as comment in sublime
-     black: "#EBDBB2"
+     black: "#faf6eb"
      red: "#FF343D"
      green: "#00D955"
-     blue: "#458588"
-     yellow: "#D79921"
-     magenta: "#B16286"
+     blue: "#2FCAF1"
+     yellow: "#FABD2F"
+     magenta: "#FF88FF"
      cyan: "#2CF9FB"
-     white: "#EBDBB2"
+     white: "#faf6eb"
 
    # Search colors
    #
@@ -586,7 +585,7 @@ schemes:
      # Allowed values are CellForeground/CellBackground, which reference the
      # affected cell, or hexadecimal colors like #ff00ff.
      matches:
-      foreground: '#EBDBB2'
+      foreground: '#faf6eb'
       background: '#504945'
      focused_match:
       foreground: '#000000'
@@ -594,7 +593,7 @@ schemes:
 
      bar:
       background: '#25292B'
-      foreground: '#EBDBB2'
+      foreground: '#faf6eb'
 
 
    indexed_colors:
@@ -1075,11 +1074,11 @@ key_bindings:
   - { key: S, mods: Control, chars: "\x0F" , mode: ~Vi|~Search }
 
   # Simple copy paste
-  - { key: J, mods: Super, action: Copy }
-  - { key: J, mods: Control, action: Copy }
+  # - { key: J, mods: Super, action: Copy }
+  # - { key: J, mods: Control, action: Copy }
 
   # currently unbound. Can be used to enhance alacritty
-  # - { key: K, mods: Control, chars: "\x1be" , mode: ~Vi|~Search }
+  - { key: K, mods: Control, chars: "\x1be" , mode: ~Vi|~Search }
   - { key: K, mods: Control, action: Paste }
 
   # sends ctrl+y
@@ -1152,7 +1151,7 @@ key_bindings:
   - { key: P, mods: Control, chars: "\x1bd" , mode: ~Vi|~Search }
 
   # unused keybind control w: we bind it to c-s
-  - { key: W, mods: Control, chars: "\x13" , mode: ~Vi|~Search }
+  - { key: W, mods: Control, chars: "\x19" , mode: ~Vi|~Search }
 
   # sends ctrl-p -- why?
   # - { key: H,      mods: Control,              chars: "\x10",         }

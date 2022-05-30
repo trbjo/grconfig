@@ -3,7 +3,7 @@
     "author": "Sublime HQ Pty Ltd, Dmitri Voronianski",
     "variables": {
         "accent": "#3584E4",
-        "blue": "#005CC5",
+        "blue": "hsl(212,100%,34%)",
         "strings": "#6b95c6",
         "cyan": "#0Ca1cF",
         "line_highlight": "hsla(210,28.6%,93.3%, 0.5)",
@@ -11,8 +11,8 @@
         "white3": "#E3E6E8",
         "comment": "#6A737D",
         "grey": "#404040",
-        "foreground": "#24292E",
-        "red": "#D73A49",
+        "foreground": "#000000",
+        "red": "hsl(354,72%,46%)",
         "green": "#19923c",
         "pink": "#FA9AEA",
         "orange": "#EDA200",
@@ -416,97 +416,7 @@
             "background": "hsl(114, 60%, 85%)",
             "foreground_adjust": "l(- 30%)"
         },
-        {
-            "name": "dotnet.blue",
-            "font_style": "bold",
-            "scope": "dotnet.blue",
-            "foreground": "var(blue)"
-        },
-        {
-            "name": "dotnet.green",
-            "font_style": "bold",
-            "scope": "dotnet.green",
-            "foreground": "var(green)"
-        },
-        {
-            "name": "dotnet.red",
-            "font_style": "bold",
-            "scope": "dotnet.red",
-            "foreground": "var(red)"
-        },
-        {
-            "name": "dotnet.yellow0",
-            "font_style": "bold",
-            "scope": "dotnet.yellow0",
-            "foreground": "var(orange)"
-        },
-        {
-            "name": "dotnet.filename",
-            "scope": "dotnet.filename",
-            "foreground": "var(green)"
-        },
-        {
-            "name": "dotnet.line_number",
-            "scope": "dotnet.line_number",
-            "foreground": "var(purple)"
-        },
-        {
-            "name": "dotnet.purple",
-            "font_style": "bold",
-            "scope": "dotnet.purple",
-            "foreground": "var(purple)"
-        },
-        {
-            "name": "dotnet.link_blue",
-            "scope": "dotnet.link_blue",
-            "foreground": "var(blue)"
-        },
 
-        {
-            "name": "dotnet.blue",
-            "font_style": "bold",
-            "scope": "dotnet.blue",
-            "foreground": "var(blue)"
-        },
-        {
-            "name": "dotnet.green",
-            "font_style": "bold",
-            "scope": "dotnet.green",
-            "foreground": "var(green)"
-        },
-        {
-            "name": "dotnet.red",
-            "font_style": "bold",
-            "scope": "dotnet.red",
-            "foreground": "var(red)"
-        },
-        {
-            "name": "dotnet.orange",
-            "font_style": "bold",
-            "scope": "dotnet.orange",
-            "foreground": "var(orange)"
-        },
-        {
-            "name": "dotnet.filename",
-            "scope": "dotnet.filename",
-            "foreground": "var(green)"
-        },
-        {
-            "name": "dotnet.line_number",
-            "scope": "dotnet.line_number",
-            "foreground": "var(purple)"
-        },
-        {
-            "name": "dotnet.purple",
-            "font_style": "bold",
-            "scope": "dotnet.purple",
-            "foreground": "var(purple)"
-        },
-        {
-            "name": "dotnet.link_blue",
-            "scope": "dotnet.link_blue",
-            "foreground": "var(blue)"
-        },
         {
             "name": "Accent",
             "scope": "accent",
@@ -536,11 +446,6 @@
             "name": "pinkish",
             "scope": "pinkish",
             "foreground": "var(pink)"
-        },
-        {
-            "name": "dotnet.purple_test",
-            "scope": "dotnet.purple_test",
-            "foreground": "var(purple_test)"
         },
     ]
 }
