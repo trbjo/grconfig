@@ -5,16 +5,17 @@
 IFS=$'\n'
 typeset -a list
 
-type firefox > /dev/null 2>&1 && list+=(" Firefox" " Firefox (Private Window)")
+type firefox > /dev/null 2>&1 && list+=(" Firefox")
 type subl > /dev/null 2>&1 && list+=(" Sublime Text")
 type emacs > /dev/null 2>&1 && list+=(" Emacs")
-type inkscape > /dev/null 2>&1 && list+=(" Inkscape")
 type smerge > /dev/null 2>&1 && list+=(" Sublime Merge")
 type baobab > /dev/null 2>&1 && list+=(" Disk Usage")
 type gnome-disks > /dev/null 2>&1 && list+=(" Disk Utility")
 type kotatogram-desktop > /dev/null 2>&1 && list+=(" Telegram")
+type inkscape > /dev/null 2>&1 && list+=(" Inkscape")
 type pavucontrol > /dev/null 2>&1 && list+=(" SoundControl")
 type libreoffice > /dev/null 2>&1 && list+=(" LibreOffice Writer" " LibreOffice Calc" " LibreOffice Draw" " LibreOffice Impress" )
+type firefox > /dev/null 2>&1 && list+=(" Firefox (Private Window)")
 
 type darkmode > /dev/null 2>&1 && list+=(" Toggle Dark Mode")
 
