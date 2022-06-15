@@ -8,9 +8,9 @@
         "blue1": "hsl(210, 60%, 50%)",
         "blue2": "hsla(210, 13%, 40%, 0.7)",
         "blue3": "hsl(210, 15%, 22%)",
-        "blue4": "hsl(21, 81%, 70%)",
         "blue5": "#35DBFF",
-        "red": "hsl(280,75%,77%)",
+        "blue4": "hsl(280,84%,86%)",
+        "red": "hsl(280,100%,78%)",
         "grey": "hsl(0, 0%, 20%)",
         "orange2": "hsl(32, 85%, 55%)",
         "orange3": "hsl(40, 94%, 68%)",
@@ -62,8 +62,8 @@
         "find_highlight": "var(blue)",
         "brackets_options": "bold",
         "brackets_foreground": "var(blue5)",
-        "bracket_contents_options": "bold",
-        "bracket_contents_foreground": "var(blue5)",
+        "bracket_contents_options": "bold glow",
+        "bracket_contents_foreground": "var(magenta)",
         "gutter": "var(background)",
         "gutter_foreground": "color(var(foreground) alpha(0.4))",
         "guide": "color(var(foreground) alpha(0.25))",
@@ -71,7 +71,6 @@
         "stack_guide": "color(var(foreground) alpha(0.22))",
         "tags_foreground": "var(red)",
         "tags_options": "glow"
-
     },
     "rules":
     [
@@ -200,12 +199,14 @@
             // "scope": "variable.parameter",
             // "foreground": "var(yellow)"
         // },
-        {
-            "name": "Language variable",
-            "scope": "variable.language",
-            "foreground": "var(red)",
-            "font_style": "italic"
-        },
+
+        // python 'self'
+        // {
+            // "name": "Language variable",
+            // "scope": "variable.language",
+            // "foreground": "var(red)",
+            // "font_style": "italic"
+        // },
         {
             "name": "Tag name",
             "scope": "entity.name.tag",

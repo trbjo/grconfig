@@ -15,17 +15,17 @@ set_values() {
     export OPACITY="D0"
 
     # sway
-    export BGTITLEBARA_$LIGHT="#FAFAFA"
-    export BGTITLEBARI_$LIGHT="#FAFAFA"
+    export BGTITLEBARA_$LIGHT="#FCFCFC"
+    export BGTITLEBARI_$LIGHT="#FCFCFC"
     export BGTITLEBARU_$LIGHT="#D8D8D8"
 
-    export TITLEBARBORDERA_$LIGHT="#FAFAFA"
-    export TITLEBARBORDERI_$LIGHT="#FAFAFA"
+    export TITLEBARBORDERA_$LIGHT="#FCFCFC"
+    export TITLEBARBORDERI_$LIGHT="#FCFCFC"
     export TITLEBARBORDERU_$LIGHT="#c8c8c8"
 
     # sway, zathura, mako
-    export FGA_$LIGHT="#404040"
-    export FGU_$LIGHT="#506070"
+    export FGA_$LIGHT="#303030"
+    export FGU_$LIGHT="#556575"
 
     # sway
     export BORDERA_$LIGHT="#E6E6E6"
@@ -58,14 +58,14 @@ set_values() {
     # sway
     export BGTITLEBARA_$DARK="#101010"
     export BGTITLEBARI_$DARK="#101010"
-    export BGTITLEBARU_$DARK="#000000"
+    export BGTITLEBARU_$DARK="#1C1C1C"
 
     # this is equal to 0.85
     export DARK_OPACITY="D9"
 
     export TITLEBARBORDERA_$DARK="#101010"
     export TITLEBARBORDERI_$DARK="#101010"
-    export TITLEBARBORDERU_$DARK="#101010"
+    export TITLEBARBORDERU_$DARK="#242424"
 
     # sway, zathura, mako
     # FGA_$DARK="#EBDBB2"
@@ -114,7 +114,7 @@ execute() {
     # sway
     swaymsg -q -- \
      client.focused          "${TITLEBARBORDERA_NEW}" "${BGTITLEBARA_NEW}" "${FGA_NEW}" "${BORDERA_NEW}" "${BORDERA_NEW}",\
-     client.focused_inactive "${TITLEBARBORDERI_NEW}" "${BGTITLEBARI_NEW}" "${FGA_NEW}" "${BORDERI_NEW}" "${BORDERI_NEW}",\
+     client.focused_inactive "${TITLEBARBORDERI_NEW}" "${BGTITLEBARI_NEW}" "${FGU_NEW}" "${BORDERI_NEW}" "${BORDERI_NEW}",\
      client.unfocused        "${TITLEBARBORDERU_NEW}" "${BGTITLEBARU_NEW}" "${FGU_NEW}" "${BORDERU_NEW}" "${BORDERU_NEW}"
 
     # mako
