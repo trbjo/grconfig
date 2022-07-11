@@ -1078,7 +1078,7 @@ key_bindings:
   # - { key: J, mods: Control, action: Copy }
 
   # currently unbound. Can be used to enhance alacritty
-  - { key: K, mods: Control, chars: "\x1be" , mode: ~Vi|~Search }
+  # - { key: K, mods: Control, chars: "\x1be" , mode: ~Vi|~Search }
   - { key: K, mods: Control, action: Paste }
 
   # sends ctrl+y
