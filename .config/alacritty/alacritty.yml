@@ -1074,8 +1074,8 @@ key_bindings:
   - { key: S, mods: Control, chars: "\x0F" , mode: ~Vi|~Search }
 
   # Simple copy paste
-  # - { key: J, mods: Super, action: Copy }
-  # - { key: J, mods: Control, action: Copy }
+  - { key: J, mods: Super, action: Copy }
+  - { key: J, mods: Control, action: Copy }
 
   # currently unbound. Can be used to enhance alacritty
   # - { key: K, mods: Control, chars: "\x1be" , mode: ~Vi|~Search }

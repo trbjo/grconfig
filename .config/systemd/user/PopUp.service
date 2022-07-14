@@ -9,6 +9,7 @@ Environment=SHLVL=0
 #Environment=https_proxy=http://proxy.telia.dk:8080/
 #Environment=http_proxy=http://proxy.telia.dk:8080/
 Environment=PopUp=true
+Environment=XDG_DOWNLOAD_DIR=/home/tb/dl
 EnvironmentFile=-%h/.config/sway/env
 ExecStart=/usr/bin/alacritty --title=PopUp
 

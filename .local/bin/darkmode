@@ -24,7 +24,7 @@ set_values() {
     export TITLEBARBORDERU_$LIGHT="#c8c8c8"
 
     # sway, zathura, mako
-    export FGA_$LIGHT="#303030"
+    export FGA_$LIGHT="#404040"
     export FGU_$LIGHT="#556575"
 
     # sway

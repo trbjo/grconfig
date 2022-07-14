@@ -2,10 +2,12 @@
 ### Output
 #
 
-output 'Unknown 0x422A 0x00000000' resolution 3000x2000 pos 0 0 scale 2 subpixel rgb bg ~/pic/Baggrunde/badebro.jpg stretch
+output eDP-1 resolution 3000x2000 pos 0 0 scale 2 subpixel rgb bg ~/pic/Baggrunde/badebro.jpg stretch
 
-output 'Goldstar Company Ltd LG UltraFine 909NTWG7R817' resolution 3840x2160 pos 1501 0 scale 2 subpixel rgb bg ~/pic/Baggrunde/badebro.jpg stretch
-output 'Goldstar Company Ltd LG UltraFine 907NTUWBA398' resolution 3840x2160 pos 1501 0 scale 2 subpixel rgb bg ~/pic/Baggrunde/badebro.jpg stretch
+output 'LG Electronics LG UltraFine 909NTWG7R817' resolution 3840x2160 pos 1501 0 scale 2 subpixel rgb bg ~/pic/Baggrunde/badebro.jpg stretch
+output 'LG Electronics LG UltraFine 907NTUWBA398' resolution 3840x2160 pos 1501 0 scale 2 subpixel rgb bg ~/pic/Baggrunde/badebro.jpg stretch
+
+output 'Samsung Electric Company S27F358 H4ZN900645' resolution 1920x1080 pos -1920 -400 scale 1 subpixel rgb bg ~/pic/Baggrunde/badebro.jpg stretch
 
 bindgesture swipe:3:down [title="^PopUp$"] scratchpad show, fullscreen disable, move position center, resize set width 100ppt height 100ppt, resize shrink up 1100px, resize grow up 337px, move left 1px, move down 1px, resize grow right 2px
 bindgesture swipe:3:up [title="^PopUp$"] move scratchpad; [app_id=^sublime_text$] focus, exec /opt/sublime_text/sublime_text $HOME/.notes.md:999, exec /opt/sublime_text/sublime_text --command cycle_all
